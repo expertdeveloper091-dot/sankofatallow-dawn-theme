@@ -1,6 +1,6 @@
 {% comment %}
   Renders a luxury product card for collection, search, related products, recommendations.
-  Supports OS 2.0 dynamic settings, variant switching & native AJAX Add-to-Cart.
+  Supports OS 2.0 dynamic settings, separate Fragrance & Size option groups, variant switching & AJAX Add-to-Cart with Cart Drawer.
 {% endcomment %}
 {%- unless skip_styles -%}
   {{ 'component-card.css' | asset_url | stylesheet_tag }}
@@ -21,11 +21,11 @@
     assign rating_count = card_product.metafields.reviews.rating_count | default: card_product.metafields.loox.num_reviews
   -%}
 
-  <product-component view-event-payload="{{ card_product | standard_event_data: 'view', context: product_view_context | escape }}">
+  <product-component class="ml-product-component-wrap" view-event-payload="{{ card_product | standard_event_data: 'view', context: product_view_context | escape }}">
     <article class="ml-product-card" itemscope itemtype="http://schema.org/Product">
       
       <div class="ml-product-card__main">
-        <!-- IMAGE CONTAINER (45% DESKTOP / 100% MOBILE) -->
+        <!-- IMAGE CONTAINER -->
         <div class="ml-product-card__media-wrap">
           {%- if card_product.featured_media -%}
             <a href="{{ card_product.url }}" class="ml-product-card__media-link" aria-label="{{ card_product.title | escape }}">
@@ -35,7 +35,7 @@
                 loading="lazy"
                 width="600"
                 height="600"
-                class="ml-product-card__img"
+                class="ml-product-card__img ml-product-card__img--primary"
               >
             </a>
           {%- else -%}
@@ -61,7 +61,7 @@
           </div>
         </div>
 
-        <!-- CONTENT CONTAINER (55% DESKTOP / 100% MOBILE) -->
+        <!-- CONTENT CONTAINER -->
         <div class="ml-product-card__content">
           <!-- TITLE -->
           <h3 class="ml-product-card__title" itemprop="name">
@@ -92,40 +92,71 @@
             </div>
           {%- endif -%}
 
-          <!-- VARIANT PILLS (If multiple variants exist) -->
+          <!-- SEPARATE OPTION GROUPS (FRAGRANCE, SIZE, ETC.) -->
           {%- if card_product.has_only_default_variant == false -%}
-            <div class="ml-product-card__variants">
-              {%- assign first_opt = card_product.options_with_values.first -%}
-              <span class="ml-variant-title">SELECT {{ first_opt.name | uppercase }}</span>
-              <div class="ml-variant-pills-list">
-                {%- for variant in card_product.variants -%}
-                  {%- assign is_selected = false -%}
-                  {%- if variant.id == selected_variant.id -%}
-                    {%- assign is_selected = true -%}
-                  {%- endif -%}
-                  <button
-                    type="button"
-                    class="ml-variant-pill-btn{% if is_selected %} is-selected{% endif %}{% unless variant.available %} is-disabled{% endunless %}"
-                    data-variant-id="{{ variant.id }}"
-                    data-price="{{ variant.price | money }}"
-                    data-compare="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money }}{% endif %}"
-                    data-available="{{ variant.available }}"
-                  >
-                    {{ variant.title }}
-                  </button>
-                {%- endfor -%}
-              </div>
+            <div class="ml-product-card__options-group">
+              {%- for option in card_product.options_with_values -%}
+                <div class="ml-option-row" data-option-position="option{{ option.position }}">
+                  <span class="ml-variant-title">SELECT {{ option.name | uppercase }}</span>
+                  <div class="ml-variant-pills-list">
+                    {%- for value in option.values -%}
+                      {%- assign is_opt_selected = false -%}
+                      {%- assign pos_idx = option.position | minus: 1 -%}
+                      {%- if selected_variant and selected_variant.options[pos_idx] == value -%}
+                        {%- assign is_opt_selected = true -%}
+                      {%- elsif selected_variant == blank and forloop.first -%}
+                        {%- assign is_opt_selected = true -%}
+                      {%- endif -%}
+
+                      <button
+                        type="button"
+                        class="ml-variant-pill-btn{% if is_opt_selected %} is-selected{% endif %}"
+                        data-option-position="option{{ option.position }}"
+                        data-value="{{ value | escape }}"
+                      >
+                        {{ value }}
+                      </button>
+                    {%- endfor -%}
+                  </div>
+                </div>
+              {%- endfor -%}
             </div>
+
+            <!-- JSON MAP OF VARIANTS -->
+            <script type="application/json" class="ml-variants-json">
+              [
+                {%- for variant in card_product.variants -%}
+                  {
+                    "id": {{ variant.id }},
+                    "title": {{ variant.title | json }},
+                    "option1": {{ variant.option1 | json }},
+                    "option2": {{ variant.option2 | json }},
+                    "option3": {{ variant.option3 | json }},
+                    "price": {{ variant.price }},
+                    "price_formatted": {{ variant.price | money | json }},
+                    "compare_at_price": {{ variant.compare_at_price | default: 0 }},
+                    "compare_at_price_formatted": {% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money | json }}{% else %}null{% endif %},
+                    "available": {{ variant.available | json }},
+                    "featured_image": {% if variant.featured_image %}{{ variant.featured_image.src | image_url: width: 600 | json }}{% else %}null{% endif %}
+                  }{% unless forloop.last %},{% endunless %}
+                {%- endfor -%}
+              ]
+            </script>
           {%- endif -%}
 
           <!-- PRICE CONTAINER -->
           <div class="ml-product-card__price-wrap">
             <span class="ml-card-price ml-card-price--current">{{ selected_variant.price | money }}</span>
+            <span class="ml-card-price ml-card-price--old"{% unless selected_variant.compare_at_price > selected_variant.price %} style="display:none;"{% endunless %}>
+              {%- if selected_variant.compare_at_price > selected_variant.price -%}
+                {{ selected_variant.compare_at_price | money }}
+              {%- endif -%}
+            </span>
+            {%- assign pct = 0 -%}
             {%- if selected_variant.compare_at_price > selected_variant.price -%}
-              <span class="ml-card-price ml-card-price--old">{{ selected_variant.compare_at_price | money }}</span>
               {%- assign pct = selected_variant.compare_at_price | minus: selected_variant.price | times: 100.0 | divided_by: selected_variant.compare_at_price | round -%}
-              <span class="ml-card-price-badge">-{{ pct }}%</span>
             {%- endif -%}
+            <span class="ml-card-price-badge"{% if pct == 0 %} style="display:none;"{% endif %}>-{{ pct }}%</span>
           </div>
         </div>
       </div>
@@ -141,12 +172,12 @@
           </svg>
         </a>
 
-        <!-- NATIVE PRODUCT FORM FOR AJAX ATC -->
+        <!-- NATIVE PRODUCT FORM FOR AJAX ATC WITH SPINNER & CART DRAWER -->
         <product-form data-section-id="{{ section_id }}" class="ml-card-form-wrap">
           {%- form 'product',
             card_product,
             id: product_form_id,
-            class: 'form',
+            class: 'form ml-card-atc-form',
             novalidate: 'novalidate',
             data-type: 'add-to-cart-form'
           -%}
@@ -182,7 +213,12 @@
                 <circle cx="20" cy="21" r="1"></circle>
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
               </svg>
-              {%- render 'loading-spinner' -%}
+              <div class="ml-btn-spinner" style="display:none;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="animation: spin 0.8s linear infinite;">
+                  <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+                  <path d="M12 2 a10 10 0 0 1 10 10" stroke-linecap="round"></path>
+                </svg>
+              </div>
             </button>
           {%- endform -%}
         </product-form>
@@ -204,3 +240,178 @@
     </div>
   </div>
 {%- endif -%}
+
+<style>
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
+
+<script>
+  if (typeof mlCardProductInit === 'undefined') {
+    window.mlCardProductInit = true;
+
+    // OPTION PILL SELECTION HANDLER
+    document.addEventListener('click', function(e) {
+      const pill = e.target.closest('.ml-variant-pill-btn');
+      if (!pill) return;
+
+      const card = pill.closest('.ml-product-card');
+      if (!card) return;
+
+      const optionRow = pill.closest('.ml-option-row');
+      if (!optionRow) return;
+
+      // Toggle active pill in this row
+      optionRow.querySelectorAll('.ml-variant-pill-btn').forEach(btn => btn.classList.remove('is-selected'));
+      pill.classList.add('is-selected');
+
+      // Get selected values for option1, option2, option3
+      const opt1 = card.querySelector('[data-option-position="option1"] .is-selected')?.getAttribute('data-value') || null;
+      const opt2 = card.querySelector('[data-option-position="option2"] .is-selected')?.getAttribute('data-value') || null;
+      const opt3 = card.querySelector('[data-option-position="option3"] .is-selected')?.getAttribute('data-value') || null;
+
+      // Parse JSON variants
+      const jsonScript = card.querySelector('.ml-variants-json');
+      if (!jsonScript) return;
+
+      try {
+        const variants = JSON.parse(jsonScript.textContent);
+        const match = variants.find(v => {
+          let isMatch = true;
+          if (opt1 && v.option1 !== opt1) isMatch = false;
+          if (opt2 && v.option2 !== opt2) isMatch = false;
+          if (opt3 && v.option3 !== opt3) isMatch = false;
+          return isMatch;
+        });
+
+        if (match) {
+          // Update variant ID input
+          const inputId = card.querySelector('.product-variant-id');
+          if (inputId) inputId.value = match.id;
+
+          // Update current price
+          const priceCurr = card.querySelector('.ml-card-price--current');
+          if (priceCurr) priceCurr.textContent = match.price_formatted;
+
+          // Update old price & badge
+          const priceOld = card.querySelector('.ml-card-price--old');
+          const badge = card.querySelector('.ml-card-price-badge');
+          if (match.compare_at_price > match.price) {
+            if (priceOld) {
+              priceOld.textContent = match.compare_at_price_formatted;
+              priceOld.style.display = 'inline-block';
+            }
+            if (badge) {
+              const savings = Math.round(((match.compare_at_price - match.price) / match.compare_at_price) * 100);
+              badge.textContent = '-' + savings + '%';
+              badge.style.display = 'inline-block';
+            }
+          } else {
+            if (priceOld) priceOld.style.display = 'none';
+            if (badge) badge.style.display = 'none';
+          }
+
+          // Update button state
+          const atcBtn = card.querySelector('.ml-card-btn--atc');
+          const atcText = card.querySelector('.ml-atc-text');
+          if (atcBtn) {
+            if (match.available) {
+              atcBtn.removeAttribute('disabled');
+              if (atcText) atcText.textContent = 'Add To Cart';
+            } else {
+              atcBtn.setAttribute('disabled', 'disabled');
+              if (atcText) atcText.textContent = 'Out Of Stock';
+            }
+          }
+
+          // Update product image if variant featured image exists
+          const img = card.querySelector('.ml-product-card__img--primary');
+          if (img && match.featured_image) {
+            img.src = match.featured_image;
+          }
+        }
+      } catch (err) {
+        console.error('Error parsing variants:', err);
+      }
+    });
+
+    // AJAX ADD TO CART + SPINNER + OPEN CART DRAWER
+    document.addEventListener('submit', function(e) {
+      const form = e.target.closest('.ml-card-atc-form');
+      if (!form) return;
+
+      e.preventDefault();
+
+      const btn = form.querySelector('.ml-card-btn--atc');
+      const text = form.querySelector('.ml-atc-text');
+      const icon = form.querySelector('.ml-cart-icon');
+      const spinner = form.querySelector('.ml-btn-spinner');
+
+      // Set loading state
+      if (btn) btn.disabled = true;
+      if (text) text.style.display = 'none';
+      if (icon) icon.style.display = 'none';
+      if (spinner) spinner.style.display = 'inline-block';
+
+      const formData = new FormData(form);
+
+      fetch((window.Shopify ? window.Shopify.routes.root : '/') + 'cart/add.js', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        // Fetch updated cart sections
+        const sectionsUrl = window.location.pathname + '?sections=cart-drawer,cart-icon-bubble';
+        return fetch(sectionsUrl);
+      })
+      .then(res => res.json())
+      .then(sections => {
+        // Update Cart Drawer HTML
+        const drawer = document.querySelector('cart-drawer');
+        if (drawer && sections['cart-drawer']) {
+          const doc = new DOMParser().parseFromString(sections['cart-drawer'], 'text/html');
+          const newDrawer = doc.querySelector('cart-drawer');
+          if (newDrawer) {
+            drawer.innerHTML = newDrawer.innerHTML;
+          }
+        }
+
+        // Update Cart Icon Bubble Count
+        const bubble = document.getElementById('cart-icon-bubble');
+        if (bubble && sections['cart-icon-bubble']) {
+          const doc = new DOMParser().parseFromString(sections['cart-icon-bubble'], 'text/html');
+          const newBubble = doc.querySelector('#cart-icon-bubble');
+          if (newBubble) {
+            bubble.innerHTML = newBubble.innerHTML;
+          }
+        }
+
+        // Open Cart Drawer
+        if (drawer) {
+          if (typeof drawer.open === 'function') {
+            drawer.open();
+          } else {
+            drawer.classList.add('animate', 'active');
+            document.body.classList.add('overflow-hidden');
+          }
+        }
+      })
+      .catch(err => {
+        console.error('Error adding to cart:', err);
+      })
+      .finally(() => {
+        // Reset loading state
+        if (btn) btn.disabled = false;
+        if (text) text.style.display = 'inline-block';
+        if (icon) icon.style.display = 'inline-block';
+        if (spinner) spinner.style.display = 'none';
+      });
+    });
+  }
+</script>

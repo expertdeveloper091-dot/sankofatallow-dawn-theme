@@ -779,53 +779,63 @@
 }
 
 /* VARIANT PILLS */
-.ml-product-card__variants {
-  margin-top: 0.2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.ml-product-card__options-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  margin: 10px 0 !important;
+}
+
+.ml-option-row {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
 }
 
 .ml-variant-title {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.8px;
-  color: rgba(var(--color-foreground), 0.6);
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.8px !important;
+  color: #777777 !important;
+  text-transform: uppercase !important;
+  margin-bottom: 2px !important;
 }
 
 .ml-variant-pills-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
 }
 
 .ml-variant-pill-btn {
-  font-family: 'Poppins', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 5px 12px;
-  border-radius: 20px;
-  border: 1px solid rgba(var(--color-foreground), 0.2);
-  background: #ffffff;
-  color: rgb(var(--color-foreground));
-  cursor: pointer;
-  transition: all 0.2s ease;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 6px 16px !important;
+  border-radius: 30px !important;
+  border: 1.5px solid #d5d5d5 !important;
+  background: #ffffff !important;
+  color: #111111 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  outline: none !important;
 }
 
 .ml-variant-pill-btn:hover {
-  border-color: #e79f29;
+  border-color: #111111 !important;
 }
 
 .ml-variant-pill-btn.is-selected {
-  background: #111111;
-  color: #ffffff;
-  border-color: #111111;
+  background: #111111 !important;
+  color: #ffffff !important;
+  border-color: #111111 !important;
 }
 
 .ml-variant-pill-btn.is-disabled {
-  opacity: 0.4;
-  text-decoration: line-through;
-  cursor: not-allowed;
+  opacity: 0.4 !important;
+  text-decoration: line-through !important;
+  cursor: not-allowed !important;
 }
 
 /* PRICE */
