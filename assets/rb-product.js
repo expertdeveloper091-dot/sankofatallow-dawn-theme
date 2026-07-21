@@ -66,12 +66,13 @@
     }, 4000);
   }
 
-  /* ---- Live counter (sticky) ---- */
+  /* ---- Sticky Bar: separate option dropdowns ---- */
   function initStickyBar() {
     var bar = document.getElementById('RBStickyBar');
     var atcSection = document.querySelector('.rb-atc-row');
     if (!bar || !atcSection) return;
 
+    /* Show/hide bar on scroll using IntersectionObserver */
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) {
@@ -81,17 +82,67 @@
         }
       });
     }, { threshold: 0.1 });
-
     observer.observe(atcSection);
 
-    /* Sticky ATC click — submit main form */
+    /* When sticky option selects change, update variant & price */
+    var stickySelects = bar.querySelectorAll('.rb-sticky-variant-select');
+    if (stickySelects.length > 0 && window.__rbVariants) {
+      stickySelects.forEach(function (sel) {
+        sel.addEventListener('change', function () {
+          syncStickyVariant();
+          /* Mirror selection to main page pills */
+          var pos = parseInt(sel.getAttribute('data-option-position'), 10);
+          var val = sel.value;
+          var mainPills = document.querySelectorAll('.rb-pill[data-option="' + pos + '"]');
+          mainPills.forEach(function (p) {
+            if (p.getAttribute('data-value') === val) {
+              p.click();
+            }
+          });
+        });
+      });
+    }
+
+    /* Sticky ATC click — update hidden variant input then submit main form */
     var stickyAtcBtn = document.getElementById('RBStickyAtcBtn');
     if (stickyAtcBtn) {
       stickyAtcBtn.addEventListener('click', function () {
+        syncStickyVariant();
         var mainAtcBtn = document.getElementById('RBAtcBtn');
         if (mainAtcBtn) mainAtcBtn.click();
       });
     }
+  }
+
+  /* Find matching variant from sticky option selects and update price */
+  function syncStickyVariant() {
+    if (!window.__rbVariants) return;
+    var stickySelects = document.querySelectorAll('#RBStickyBar .rb-sticky-variant-select');
+    var selectedOptions = [];
+    stickySelects.forEach(function (sel) {
+      selectedOptions.push(sel.value);
+    });
+
+    var matched = window.__rbVariants.find(function (v) {
+      return v.options.every(function (opt, i) {
+        return opt === selectedOptions[i];
+      });
+    });
+
+    if (matched) {
+      /* Update hidden input on main form */
+      var hiddenId = document.getElementById('RBVariantId');
+      if (hiddenId) hiddenId.value = matched.id;
+      /* Update sticky price */
+      var stickyPrice = document.getElementById('RBStickyPrice');
+      if (stickyPrice && matched.price) {
+        stickyPrice.textContent = formatMoney(matched.price);
+      }
+    }
+  }
+
+  function formatMoney(cents) {
+    return 'Rs.' + (cents / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 
   /* ---- Gallery Thumbnails ---- */

@@ -1,7 +1,7 @@
 {% comment %}
   rb-sticky-atc.liquid
   Sticky Add to Cart bar — Clay theme style
-  Appears when main ATC button scrolls out of view
+  Each product option shown as a SEPARATE dropdown
 {% endcomment %}
 
 <div class="rb-sticky-bar" id="RBStickyBar" aria-label="Quick Add to Cart">
@@ -17,17 +17,28 @@
       <span class="rb-sticky-title">{{ product.title }}</span>
     </div>
 
-    {% comment %} Variant Dropdown {% endcomment %}
+    {% comment %} Separate dropdown for EACH option {% endcomment %}
     {% unless product.has_only_default_variant %}
-      <select class="rb-sticky-variant-select" id="RBStickyVariant" aria-label="Select variant">
-        {% for variant in product.variants %}
-          <option value="{{ variant.id }}" {% if variant == product.selected_or_first_available_variant %}selected{% endif %}>
-            {{ variant.title }} — {{ variant.price | money }}
-          </option>
-        {% endfor %}
-      </select>
+      {% for option in product.options_with_values %}
+        <select
+          class="rb-sticky-variant-select"
+          id="RBStickyOption{{ option.position }}"
+          data-option-position="{{ option.position }}"
+          aria-label="{{ option.name }}">
+          {% for value in option.values %}
+            <option value="{{ value }}" {% if option.selected_value == value %}selected{% endif %}>
+              {{ option.name }}: {{ value }}
+            </option>
+          {% endfor %}
+        </select>
+      {% endfor %}
     {% else %}
       <span class="rb-sticky-price">{{ product.selected_or_first_available_variant.price | money }}</span>
+    {% endunless %}
+
+    {% comment %} Hidden price shown after options {% endcomment %}
+    {% unless product.has_only_default_variant %}
+      <span class="rb-sticky-price" id="RBStickyPrice">{{ product.selected_or_first_available_variant.price | money }}</span>
     {% endunless %}
 
     {% comment %} Qty Stepper {% endcomment %}
