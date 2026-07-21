@@ -1250,201 +1250,127 @@ input.mobile-facets__checkbox {
 }
 
 /* ==========================================================================
-   LUXURY COLLECTION TOOLBAR & FILTER DRAWER (EXACT SPEC MATCH)
+   EXACT MATCH DESIGN SYSTEM (IMAGE 1 TOOLBAR & IMAGE 2 FILTER DRAWER)
+   Accent Color: rgb(231 166 33) / #E7A621
    ========================================================================== */
 
-/* TOOLBAR CONTAINER - STRICT SINGLE HORIZONTAL LINE */
-.ml-collection-toolbar {
-  font-family: 'Poppins', sans-serif !important;
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  min-height: 85px !important;
-  height: 85px !important;
-  padding: 0 40px !important;
-  margin-top: 1rem !important;
-  margin-bottom: 2.5rem !important;
-  border-top: 1px solid #e5e5e5 !important;
-  border-bottom: 1px solid #e5e5e5 !important;
-  background: #ffffff !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-}
-
-.ml-toolbar__left {
-  display: flex !important;
-  align-items: center !important;
-  flex: 0 0 auto !important;
-}
-
-.ml-filter-open-btn {
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 15px !important;
-  font-weight: 700 !important;
-  letter-spacing: 1px !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 12px !important;
-  background: #ffffff !important;
-  border: 2px solid #222222 !important;
-  border-radius: 10px !important;
-  height: 52px !important;
-  padding: 0 28px !important;
-  cursor: pointer !important;
-  color: #111111 !important;
-  transition: all 0.2s ease !important;
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-.ml-filter-open-btn:hover {
-  border-color: #111111 !important;
-  background: #f8f8f8 !important;
-}
-
-.ml-toolbar__center {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  flex: 1 1 auto !important;
-}
-
-.ml-grid-switcher {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 18px !important;
-}
-
-.ml-grid-btn {
-  background: transparent !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  padding: 4px !important;
-  cursor: pointer !important;
-  color: #c5c5c5 !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  transition: color 0.2s ease, transform 0.2s ease !important;
-}
-
-.ml-grid-btn:hover {
-  color: #666666 !important;
-}
-
-.ml-grid-btn.active {
-  color: #111111 !important;
-}
-
-.ml-grid-btn svg {
-  fill: currentColor !important;
-}
-
-.ml-grid-switcher--mobile {
-  display: none !important;
-}
-
-.ml-toolbar__right {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-  align-items: center !important;
-  justify-content: flex-end !important;
-  gap: 24px !important;
-  flex: 0 0 auto !important;
-}
-
-.ml-results-count {
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 15px !important;
-  font-weight: 500 !important;
-  color: #555555 !important;
-  white-space: nowrap !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-.ml-desktop-sort-form {
-  display: inline-flex !important;
-  align-items: center !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-.ml-desktop-sort-form form {
-  display: inline-flex !important;
-  align-items: center !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-.ml-sort-select-wrapper {
+/* ACCORDION PLUS / MINUS TOGGLE ICON */
+.ml-toggle-icon {
   position: relative !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 8px !important;
+  width: 14px !important;
+  height: 14px !important;
+  display: inline-block !important;
+  flex-shrink: 0 !important;
 }
 
-.ml-sort-label {
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 15px !important;
-  font-weight: 500 !important;
-  color: #111111 !important;
-  white-space: nowrap !important;
-}
-
-.ml-desktop-sort-select {
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 15px !important;
-  font-weight: 500 !important;
-  padding: 2px 20px 2px 0 !important;
-  border: none !important;
-  border-bottom: 1.5px solid #111111 !important;
-  background: transparent !important;
-  color: #111111 !important;
-  appearance: none !important;
-  -webkit-appearance: none !important;
-  cursor: pointer !important;
-  outline: none !important;
-  box-shadow: none !important;
-  text-decoration: underline !important;
-  border-radius: 0 !important;
-}
-
-.ml-sort-caret {
+.ml-toggle-icon::before {
+  content: '' !important;
   position: absolute !important;
-  right: 0 !important;
-  pointer-events: none !important;
+  top: 6px !important;
+  left: 0 !important;
+  width: 14px !important;
+  height: 2px !important;
+  background-color: #111111 !important;
+  transition: transform 0.2s ease !important;
+}
+
+details.ml-drawer-accordion:not([open]) .ml-toggle-icon::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 6px !important;
+  width: 2px !important;
+  height: 14px !important;
+  background-color: #111111 !important;
+  transition: transform 0.2s ease !important;
+}
+
+/* PRICE RANGE FACET STYLING (MATCHING IMAGE 2) */
+.ml-currency-label {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: #111111 !important;
+  margin-bottom: 12px !important;
+}
+
+.ml-price-inputs-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin-bottom: 16px !important;
+}
+
+.ml-price-box {
+  display: flex !important;
+  align-items: center !important;
+  background: #ffffff !important;
+  border: 1.5px solid #e0e0e0 !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+  flex: 1 !important;
+}
+
+.ml-price-symbol {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #444444 !important;
+  margin-right: 6px !important;
+}
+
+.ml-price-input {
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  width: 100% !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
   color: #111111 !important;
 }
 
-/* RESPONSIVE TOOLBAR BREAKPOINTS */
-@media screen and (max-width: 749px) {
-  .ml-collection-toolbar {
-    padding: 0 16px !important;
-    min-height: 70px !important;
-    height: 70px !important;
-  }
-  .ml-grid-switcher--desktop {
-    display: none !important;
-  }
-  .ml-grid-switcher--mobile {
-    display: flex !important;
-  }
-  .ml-desktop-sort-form {
-    display: none !important;
-  }
+.ml-price-dash {
+  font-size: 16px !important;
+  color: #888888 !important;
 }
 
-/* ==========================================================================
-   FILTER DRAWER (LUXURY CLEAN WHITE STYLING)
-   ========================================================================== */
+.ml-price-slider-wrap {
+  position: relative !important;
+  height: 4px !important;
+  background: #111111 !important;
+  border-radius: 2px !important;
+  margin: 24px 10px 16px !important;
+}
 
+.ml-price-slider-handle {
+  position: absolute !important;
+  top: 50% !important;
+  width: 22px !important;
+  height: 22px !important;
+  background: #ffffff !important;
+  border: 4px solid #111111 !important;
+  border-radius: 50% !important;
+  transform: translateY(-50%) !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+}
+
+.ml-handle-left {
+  left: 0 !important;
+}
+
+.ml-handle-right {
+  right: 0 !important;
+}
+
+.ml-price-summary-text {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 14px !important;
+  color: #333333 !important;
+  margin-top: 12px !important;
+}
+
+/* FILTER DRAWER CONTAINER & HEADER */
 .ml-filter-drawer {
   position: fixed !important;
   top: 0 !important;
@@ -1563,7 +1489,7 @@ details.ml-drawer-accordion {
 details.ml-drawer-accordion summary {
   font-family: 'Poppins', sans-serif !important;
   font-size: 16px !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   color: #111111 !important;
   cursor: pointer !important;
   display: flex !important;
@@ -1589,15 +1515,6 @@ details.ml-drawer-accordion summary:focus-visible {
   outline: none !important;
   border: none !important;
   box-shadow: none !important;
-}
-
-.ml-accordion-icon {
-  transition: transform 0.25s ease !important;
-  color: #111111 !important;
-}
-
-.ml-drawer-accordion[open] .ml-accordion-icon {
-  transform: rotate(180deg) !important;
 }
 
 .ml-drawer-accordion__content {
@@ -1641,8 +1558,8 @@ details.ml-drawer-accordion summary:focus-visible {
 }
 
 .ml-checkbox-input:checked + .ml-custom-checkbox {
-  background-color: #111111 !important;
-  border-color: #111111 !important;
+  background-color: rgb(231 166 33) !important;
+  border-color: rgb(231 166 33) !important;
 }
 
 .ml-checkbox-text {
@@ -1682,7 +1599,7 @@ details.ml-drawer-accordion summary:focus-visible {
   color: #111111 !important;
 }
 
-/* STICKY FOOTER */
+/* STICKY FOOTER & ACCENT BUTTON (rgb(231 166 33)) */
 .ml-filter-drawer__footer {
   position: sticky !important;
   bottom: 0 !important;
@@ -1700,18 +1617,18 @@ details.ml-drawer-accordion summary:focus-visible {
   font-size: 15px !important;
   font-weight: 700 !important;
   letter-spacing: 0.5px !important;
-  background-color: #111111 !important;
+  background-color: rgb(231 166 33) !important;
   color: #ffffff !important;
   border: none !important;
   padding: 14px !important;
-  border-radius: 8px !important;
+  border-radius: 10px !important;
   cursor: pointer !important;
   width: 100% !important;
   transition: background 0.2s ease !important;
 }
 
 .ml-drawer-apply-btn:hover {
-  background-color: #333333 !important;
+  background-color: #d49419 !important;
 }
 
 .ml-drawer-clear-btn {

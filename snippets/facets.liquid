@@ -51,9 +51,7 @@
             <details class="ml-drawer-accordion" open>
               <summary class="ml-drawer-accordion__summary">
                 <span>{{ 'products.facets.sort_by_label' | t }}</span>
-                <svg class="ml-accordion-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+                <span class="ml-toggle-icon"></span>
               </summary>
               <div class="ml-drawer-accordion__content">
                 <div class="ml-drawer-select-wrapper">
@@ -83,9 +81,7 @@
                   {%- if filter.active_values.size > 0 -%}
                     <span class="ml-active-badge">{{ filter.active_values.size }}</span>
                   {%- endif -%}
-                  <svg class="ml-accordion-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
+                  <span class="ml-toggle-icon"></span>
                 </summary>
 
                 <div class="ml-drawer-accordion__content">
@@ -124,7 +120,57 @@
 
                     {% when 'price_range' %}
                       <div class="ml-drawer-price-range">
-                        {% render 'price-facet', filter: filter, id_prefix: 'Drawer-Filter-' %}
+                        <div class="ml-currency-label">{{ cart.currency.iso_code }}</div>
+                        <div class="ml-price-inputs-row">
+                          <div class="ml-price-box">
+                            <span class="ml-price-symbol">{{ cart.currency.symbol }}</span>
+                            <input
+                              class="ml-price-input"
+                              name="{{ filter.min_value.param_name }}"
+                              id="Drawer-Filter-Price-Min"
+                              {%- if filter.min_value.value -%}
+                                value="{{ filter.min_value.value | money_without_currency }}"
+                              {%- else -%}
+                                value="0.00"
+                              {%- endif -%}
+                              type="number"
+                              step="0.01"
+                              placeholder="0.00"
+                              min="0"
+                              max="{{ filter.range_max | money_without_currency }}"
+                            >
+                          </div>
+                          <span class="ml-price-dash">—</span>
+                          <div class="ml-price-box">
+                            <span class="ml-price-symbol">{{ cart.currency.symbol }}</span>
+                            <input
+                              class="ml-price-input"
+                              name="{{ filter.max_value.param_name }}"
+                              id="Drawer-Filter-Price-Max"
+                              {%- if filter.max_value.value -%}
+                                value="{{ filter.max_value.value | money_without_currency }}"
+                              {%- else -%}
+                                value="{{ filter.range_max | money_without_currency }}"
+                              {%- endif -%}
+                              type="number"
+                              step="0.01"
+                              placeholder="{{ filter.range_max | money_without_currency }}"
+                              min="0"
+                              max="{{ filter.range_max | money_without_currency }}"
+                            >
+                          </div>
+                        </div>
+
+                        <!-- PRICE RANGE SLIDER BAR -->
+                        <div class="ml-price-slider-wrap">
+                          <div class="ml-price-slider-track"></div>
+                          <div class="ml-price-slider-handle ml-handle-left"></div>
+                          <div class="ml-price-slider-handle ml-handle-right"></div>
+                        </div>
+
+                        <div class="ml-price-summary-text">
+                          Price: <strong>{{ cart.currency.symbol }}{{ filter.min_value.value | default: 0 | money_without_currency }} - {{ cart.currency.symbol }}{{ filter.max_value.value | default: filter.range_max | money_without_currency }}</strong>
+                        </div>
                       </div>
                   {% endcase %}
                 </div>
@@ -133,7 +179,7 @@
           {%- endif -%}
         </div>
 
-        <!-- STICKY BOTTOM BUTTONS -->
+        <!-- STICKY BOTTOM BUTTONS (RGB 231 166 33 BRAND ACCENT) -->
         <div class="ml-filter-drawer__footer">
           <button type="submit" class="ml-drawer-apply-btn" data-close-drawer>Apply Filters</button>
           <facet-remove class="ml-drawer-clear-wrap">

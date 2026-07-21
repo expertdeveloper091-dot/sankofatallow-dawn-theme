@@ -19,45 +19,49 @@
 <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
 
 <style>
-  /* STRICT SINGLE-LINE TOOLBAR GRID LAYOUT */
+  /* ==========================================================================
+     LUXURY TOOLBAR CARD CONTAINER (EXACT IMAGE 1 MATCH)
+     ========================================================================== */
   .ml-collection-toolbar {
     font-family: 'Poppins', sans-serif !important;
-    display: grid !important;
-    grid-template-columns: auto 1fr auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
     align-items: center !important;
-    gap: 16px !important;
-    min-height: 80px !important;
-    height: 80px !important;
-    padding: 0 32px !important;
+    justify-content: space-between !important;
+    min-height: 76px !important;
+    height: 76px !important;
+    padding: 0 24px !important;
     margin-top: 1rem !important;
-    margin-bottom: 2rem !important;
-    border-top: 1px solid #e0e0e0 !important;
-    border-bottom: 1px solid #e0e0e0 !important;
+    margin-bottom: 2.5rem !important;
+    border: 1.5px solid #e0e0e0 !important;
+    border-radius: 16px !important;
     background: #ffffff !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02) !important;
   }
 
   .ml-toolbar__left {
     display: flex !important;
     align-items: center !important;
-    justify-content: flex-start !important;
+    gap: 20px !important;
   }
 
   .ml-filter-open-btn {
     font-family: 'Poppins', sans-serif !important;
     font-size: 14px !important;
     font-weight: 700 !important;
-    letter-spacing: 1px !important;
+    letter-spacing: 0.5px !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 10px !important;
     background: #ffffff !important;
-    border: 1.5px solid #d0d0d0 !important;
-    border-radius: 8px !important;
-    height: 44px !important;
-    padding: 0 22px !important;
+    border: 1.5px solid #d5d5d5 !important;
+    border-radius: 12px !important;
+    height: 46px !important;
+    padding: 0 20px !important;
     cursor: pointer !important;
     color: #111111 !important;
     transition: all 0.2s ease !important;
@@ -67,7 +71,16 @@
 
   .ml-filter-open-btn:hover {
     border-color: #111111 !important;
-    background: #f8f8f8 !important;
+    background: #fafafa !important;
+  }
+
+  .ml-results-count {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: #111111 !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
   }
 
   .ml-toolbar__center {
@@ -80,7 +93,14 @@
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 16px !important;
+    gap: 12px !important;
+  }
+
+  .ml-grid-divider {
+    display: inline-block !important;
+    width: 1px !important;
+    height: 20px !important;
+    background-color: #e0e0e0 !important;
   }
 
   .ml-grid-btn,
@@ -93,23 +113,23 @@
     box-shadow: none !important;
     padding: 4px !important;
     cursor: pointer !important;
-    color: #b0b0b0 !important;
+    color: #111111 !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    transition: color 0.2s ease !important;
-  }
-
-  .ml-grid-btn:hover {
-    color: #555555 !important;
+    transition: all 0.2s ease !important;
   }
 
   .ml-grid-btn.active {
-    color: #111111 !important;
+    color: rgb(231 166 33) !important;
   }
 
   .ml-grid-btn svg {
     fill: currentColor !important;
+  }
+
+  .ml-grid-switcher--mobile {
+    display: none !important;
   }
 
   .ml-toolbar__right {
@@ -117,39 +137,8 @@
     flex-direction: row !important;
     align-items: center !important;
     justify-content: flex-end !important;
-    gap: 20px !important;
+    gap: 12px !important;
     white-space: nowrap !important;
-  }
-
-  .ml-results-count {
-    font-family: 'Poppins', sans-serif !important;
-    font-size: 14px !important;
-    font-weight: 500 !important;
-    color: #666666 !important;
-    white-space: nowrap !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  .ml-desktop-sort-form {
-    display: inline-flex !important;
-    align-items: center !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  .ml-desktop-sort-form form {
-    display: inline-flex !important;
-    align-items: center !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  .ml-sort-select-wrapper {
-    position: relative !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 6px !important;
   }
 
   .ml-sort-label {
@@ -160,13 +149,34 @@
     white-space: nowrap !important;
   }
 
+  .ml-desktop-sort-form {
+    display: inline-flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+  }
+
+  .ml-desktop-sort-form form {
+    display: inline-flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+  }
+
+  .ml-sort-select-box {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    background: #ffffff !important;
+    border: 1.5px solid #d5d5d5 !important;
+    border-radius: 12px !important;
+    height: 46px !important;
+    padding: 0 34px 0 16px !important;
+  }
+
   .ml-desktop-sort-select {
     font-family: 'Poppins', sans-serif !important;
     font-size: 14px !important;
     font-weight: 500 !important;
-    padding: 2px 18px 2px 0 !important;
     border: none !important;
-    border-bottom: 1.5px solid #111111 !important;
     background: transparent !important;
     color: #111111 !important;
     appearance: none !important;
@@ -174,20 +184,17 @@
     cursor: pointer !important;
     outline: none !important;
     box-shadow: none !important;
-    text-decoration: underline !important;
-    border-radius: 0 !important;
   }
 
-  .ml-sort-caret {
+  .ml-sort-box-caret {
     position: absolute !important;
-    right: 0 !important;
+    right: 14px !important;
     pointer-events: none !important;
     color: #111111 !important;
   }
 
   @media screen and (max-width: 749px) {
     .ml-collection-toolbar {
-      grid-template-columns: auto 1fr !important;
       padding: 0 16px !important;
       min-height: 64px !important;
       height: 64px !important;
@@ -197,12 +204,8 @@
     }
     .ml-grid-switcher--mobile {
       display: flex !important;
-      justify-content: flex-end !important;
     }
     .ml-desktop-sort-form {
-      display: none !important;
-    }
-    .ml-toolbar__right {
       display: none !important;
     }
   }
@@ -261,9 +264,9 @@
           <div class="collection">
             <div class="loading-overlay gradient"></div>
 
-            <!-- LUXURY COLLECTION TOOLBAR (EXACT MATCH TO REFERENCE) -->
+            <!-- LUXURY COLLECTION TOOLBAR (EXACT MATCH TO REFERENCE IMAGE 1) -->
             <div class="ml-collection-toolbar">
-              <!-- LEFT: FILTER BUTTON -->
+              <!-- LEFT: FILTER BUTTON + PRODUCT COUNT -->
               <div class="ml-toolbar__left">
                 <button
                   type="button"
@@ -272,7 +275,6 @@
                   aria-expanded="false"
                   aria-controls="mlFilterDrawer"
                 >
-                  <span>FILTERS</span>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="4" y1="21" x2="4" y2="14"></line>
                     <line x1="4" y1="10" x2="4" y2="3"></line>
@@ -284,75 +286,93 @@
                     <line x1="9" y1="8" x2="15" y2="8"></line>
                     <line x1="17" y1="16" x2="23" y2="16"></line>
                   </svg>
+                  <span>FILTERS</span>
                 </button>
+
+                <div class="ml-results-count">
+                  {%- if collection.results_count -%}
+                    {{ collection.results_count }} Products
+                  {%- elsif collection.products_count == collection.all_products_count -%}
+                    {{ collection.products_count }} Products
+                  {%- else -%}
+                    {{ collection.products_count }} Products
+                  {%- endif -%}
+                </div>
               </div>
 
-              <!-- CENTER: GRID VIEW SWITCHER (1, 2, 3 COLS - DEFAULT 2) -->
+              <!-- CENTER: GRID VIEW SWITCHER WITH VERTICAL DIVIDERS -->
               <div class="ml-toolbar__center">
                 <!-- DESKTOP SWITCHER -->
                 <div class="ml-grid-switcher ml-grid-switcher--desktop">
                   <button type="button" class="ml-grid-btn" data-cols-desktop="1" aria-label="1 Column">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <circle cx="6" cy="12" r="2.5" />
-                      <circle cx="18" cy="12" r="2.5" />
+                    <svg width="20" height="20" viewBox="0 0 24 24">
+                      <rect x="3" y="3" width="8" height="8" rx="1.5" />
+                      <rect x="13" y="3" width="8" height="8" rx="1.5" />
+                      <rect x="3" y="13" width="8" height="8" rx="1.5" />
+                      <rect x="13" y="13" width="8" height="8" rx="1.5" />
                     </svg>
                   </button>
+
+                  <span class="ml-grid-divider"></span>
+
                   <button type="button" class="ml-grid-btn active" data-cols-desktop="2" aria-label="2 Columns">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <circle cx="6" cy="6" r="2.5" />
-                      <circle cx="18" cy="6" r="2.5" />
-                      <circle cx="6" cy="18" r="2.5" />
-                      <circle cx="18" cy="18" r="2.5" />
+                    <svg width="20" height="20" viewBox="0 0 24 24">
+                      <circle cx="5" cy="5" r="2" />
+                      <circle cx="12" cy="5" r="2" />
+                      <circle cx="19" cy="5" r="2" />
+                      <circle cx="5" cy="12" r="2" />
+                      <circle cx="12" cy="12" r="2" />
+                      <circle cx="19" cy="12" r="2" />
+                      <circle cx="5" cy="19" r="2" />
+                      <circle cx="12" cy="19" r="2" />
+                      <circle cx="19" cy="19" r="2" />
                     </svg>
                   </button>
+
+                  <span class="ml-grid-divider"></span>
+
                   <button type="button" class="ml-grid-btn" data-cols-desktop="3" aria-label="3 Columns">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <circle cx="4" cy="6" r="2" />
-                      <circle cx="12" cy="6" r="2" />
-                      <circle cx="20" cy="6" r="2" />
-                      <circle cx="4" cy="18" r="2" />
-                      <circle cx="12" cy="18" r="2" />
-                      <circle cx="20" cy="18" r="2" />
+                    <svg width="20" height="20" viewBox="0 0 24 24">
+                      <rect x="2" y="3" width="3.5" height="3.5" rx="0.5" />
+                      <rect x="8" y="3" width="3.5" height="3.5" rx="0.5" />
+                      <rect x="14" y="3" width="3.5" height="3.5" rx="0.5" />
+                      <rect x="20" y="3" width="3.5" height="3.5" rx="0.5" />
+                      <rect x="2" y="10" width="3.5" height="3.5" rx="0.5" />
+                      <rect x="8" y="10" width="3.5" height="3.5" rx="0.5" />
+                      <rect x="14" y="10" width="3.5" height="3.5" rx="0.5" />
+                      <rect x="20" y="10" width="3.5" height="3.5" rx="0.5" />
+                      <rect x="2" y="17" width="3.5" height="3.5" rx="0.5" />
+                      <rect x="8" y="17" width="3.5" height="3.5" rx="0.5" />
+                      <rect x="14" y="17" width="3.5" height="3.5" rx="0.5" />
+                      <rect x="20" y="17" width="3.5" height="3.5" rx="0.5" />
                     </svg>
                   </button>
                 </div>
 
-                <!-- MOBILE SWITCHER (1, 2 COLS) -->
+                <!-- MOBILE SWITCHER -->
                 <div class="ml-grid-switcher ml-grid-switcher--mobile">
                   <button type="button" class="ml-grid-btn" data-cols-mobile="1" aria-label="1 Product per row">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <circle cx="6" cy="12" r="2.5" />
-                      <circle cx="18" cy="12" r="2.5" />
+                    <svg width="20" height="20" viewBox="0 0 24 24">
+                      <rect x="3" y="3" width="18" height="18" rx="2" />
                     </svg>
                   </button>
+                  <span class="ml-grid-divider"></span>
                   <button type="button" class="ml-grid-btn active" data-cols-mobile="2" aria-label="2 Products per row">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <circle cx="6" cy="6" r="2.5" />
-                      <circle cx="18" cy="6" r="2.5" />
-                      <circle cx="6" cy="18" r="2.5" />
-                      <circle cx="18" cy="18" r="2.5" />
+                    <svg width="20" height="20" viewBox="0 0 24 24">
+                      <rect x="3" y="3" width="7" height="18" rx="1" />
+                      <rect x="14" y="3" width="7" height="18" rx="1" />
                     </svg>
                   </button>
                 </div>
               </div>
 
-              <!-- RIGHT: PRODUCT COUNT + SORT DROPDOWN -->
+              <!-- RIGHT: SORT BY LABEL + SELECT BUTTON BOX -->
               <div class="ml-toolbar__right">
-                <div class="ml-results-count">
-                  {%- if collection.results_count -%}
-                    {{ collection.results_count }} products
-                  {%- elsif collection.products_count == collection.all_products_count -%}
-                    {{ collection.products_count }} products
-                  {%- else -%}
-                    {{ collection.products_count }} products
-                  {%- endif -%}
-                </div>
-
+                <span class="ml-sort-label">Sort by:</span>
                 {%- if section.settings.enable_sorting -%}
                   <facet-filters-form class="ml-desktop-sort-form">
                     <form id="mlDesktopSortForm">
-                      <div class="ml-sort-select-wrapper">
-                        <span class="ml-sort-label">Sort by:</span>
+                      <div class="ml-sort-select-box">
                         {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
                         <select name="sort_by" class="ml-desktop-sort-select" id="mlDesktopSortBy">
                           {%- for option in collection.sort_options -%}
@@ -361,7 +381,7 @@
                             </option>
                           {%- endfor -%}
                         </select>
-                        <svg class="ml-sort-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg class="ml-sort-box-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                           <polyline points="6 9 12 15 18 9"></polyline>
                         </svg>
                       </div>
