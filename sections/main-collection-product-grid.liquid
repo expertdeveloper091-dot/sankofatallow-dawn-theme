@@ -73,7 +73,7 @@
           <div class="collection">
             <div class="loading-overlay gradient"></div>
 
-            <!-- LUXURY COLLECTION TOOLBAR -->
+            <!-- LUXURY COLLECTION TOOLBAR (EXACT MATCH TO REFERENCE) -->
             <div class="ml-collection-toolbar">
               <!-- LEFT: FILTER BUTTON -->
               <div class="ml-toolbar__left">
@@ -84,6 +84,7 @@
                   aria-expanded="false"
                   aria-controls="mlFilterDrawer"
                 >
+                  <span>FILTERS</span>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="4" y1="21" x2="4" y2="14"></line>
                     <line x1="4" y1="10" x2="4" y2="3"></line>
@@ -95,67 +96,67 @@
                     <line x1="9" y1="8" x2="15" y2="8"></line>
                     <line x1="17" y1="16" x2="23" y2="16"></line>
                   </svg>
-                  <span>Filter</span>
                 </button>
               </div>
 
-              <!-- CENTER / MOBILE RIGHT: GRID VIEW SWITCHER -->
+              <!-- CENTER: GRID VIEW SWITCHER (1, 2, 3 COLS - DEFAULT 2) -->
               <div class="ml-toolbar__center">
-                <!-- DESKTOP SWITCHER (1, 2, 3, 4 cols) -->
+                <!-- DESKTOP SWITCHER -->
                 <div class="ml-grid-switcher ml-grid-switcher--desktop">
                   <button type="button" class="ml-grid-btn" data-cols-desktop="1" aria-label="1 Column">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                      <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <circle cx="6" cy="12" r="2.5" />
+                      <circle cx="18" cy="12" r="2.5" />
                     </svg>
                   </button>
-                  <button type="button" class="ml-grid-btn" data-cols-desktop="2" aria-label="2 Columns">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                      <rect x="3" y="3" width="7" height="18" rx="1" />
-                      <rect x="14" y="3" width="7" height="18" rx="1" />
+                  <button type="button" class="ml-grid-btn active" data-cols-desktop="2" aria-label="2 Columns">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <circle cx="6" cy="6" r="2.5" />
+                      <circle cx="18" cy="6" r="2.5" />
+                      <circle cx="6" cy="18" r="2.5" />
+                      <circle cx="18" cy="18" r="2.5" />
                     </svg>
                   </button>
                   <button type="button" class="ml-grid-btn" data-cols-desktop="3" aria-label="3 Columns">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                      <rect x="2" y="3" width="5" height="18" rx="1" />
-                      <rect x="9.5" y="3" width="5" height="18" rx="1" />
-                      <rect x="17" y="3" width="5" height="18" rx="1" />
-                    </svg>
-                  </button>
-                  <button type="button" class="ml-grid-btn active" data-cols-desktop="4" aria-label="4 Columns">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                      <rect x="2" y="3" width="4" height="18" rx="0.5" />
-                      <rect x="8" y="3" width="4" height="18" rx="0.5" />
-                      <rect x="14" y="3" width="4" height="18" rx="0.5" />
-                      <rect x="20" y="3" width="4" height="18" rx="0.5" />
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <circle cx="4" cy="6" r="2" />
+                      <circle cx="12" cy="6" r="2" />
+                      <circle cx="20" cy="6" r="2" />
+                      <circle cx="4" cy="18" r="2" />
+                      <circle cx="12" cy="18" r="2" />
+                      <circle cx="20" cy="18" r="2" />
                     </svg>
                   </button>
                 </div>
 
-                <!-- MOBILE SWITCHER (1, 2 cols) -->
+                <!-- MOBILE SWITCHER (1, 2 COLS) -->
                 <div class="ml-grid-switcher ml-grid-switcher--mobile">
                   <button type="button" class="ml-grid-btn" data-cols-mobile="1" aria-label="1 Product per row">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                      <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <circle cx="6" cy="12" r="2.5" />
+                      <circle cx="18" cy="12" r="2.5" />
                     </svg>
                   </button>
                   <button type="button" class="ml-grid-btn active" data-cols-mobile="2" aria-label="2 Products per row">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                      <rect x="3" y="3" width="7" height="18" rx="1" />
-                      <rect x="14" y="3" width="7" height="18" rx="1" />
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <circle cx="6" cy="6" r="2.5" />
+                      <circle cx="18" cy="6" r="2.5" />
+                      <circle cx="6" cy="18" r="2.5" />
+                      <circle cx="18" cy="18" r="2.5" />
                     </svg>
                   </button>
                 </div>
               </div>
 
-              <!-- RIGHT: RESULTS COUNT + DESKTOP SORT DROPDOWN -->
+              <!-- RIGHT: PRODUCT COUNT + SORT DROPDOWN -->
               <div class="ml-toolbar__right">
                 <div class="ml-results-count">
                   {%- if collection.results_count -%}
-                    {{ 'templates.search.results_with_count' | t: terms: collection.terms, count: collection.results_count }}
+                    {{ collection.results_count }} products
                   {%- elsif collection.products_count == collection.all_products_count -%}
-                    {{ 'products.facets.product_count_simple' | t: count: collection.products_count }}
+                    {{ collection.products_count }} products
                   {%- else -%}
-                    {{ 'products.facets.product_count' | t: product_count: collection.products_count, count: collection.all_products_count }}
+                    {{ collection.products_count }} products
                   {%- endif -%}
                 </div>
 
@@ -163,7 +164,7 @@
                   <facet-filters-form class="ml-desktop-sort-form">
                     <form id="mlDesktopSortForm">
                       <div class="ml-sort-select-wrapper">
-                        <label for="mlDesktopSortBy" class="visually-hidden">Sort By</label>
+                        <span class="ml-sort-label">Sort by:</span>
                         {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
                         <select name="sort_by" class="ml-desktop-sort-select" id="mlDesktopSortBy">
                           {%- for option in collection.sort_options -%}
@@ -189,7 +190,7 @@
               class="
                 grid product-grid ml-product-grid
                 grid--2-col-tablet-down
-                grid--4-col-desktop
+                grid--2-col-desktop
                 {% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %}
               "
             >
@@ -275,7 +276,7 @@
     });
 
     const initGrid = () => {
-      const savedDesktop = localStorage.getItem('ml-grid-desktop') || '4';
+      const savedDesktop = localStorage.getItem('ml-grid-desktop') || '2';
       const savedMobile = localStorage.getItem('ml-grid-mobile') || '2';
       window.mlApplyGridCols(savedDesktop, savedMobile);
     };
@@ -284,7 +285,7 @@
 
     // Re-apply layout on AJAX grid update
     const observer = new MutationObserver(() => {
-      const savedDesktop = localStorage.getItem('ml-grid-desktop') || '4';
+      const savedDesktop = localStorage.getItem('ml-grid-desktop') || '2';
       const savedMobile = localStorage.getItem('ml-grid-mobile') || '2';
       const grid = document.getElementById('product-grid');
       if (grid && (!grid.classList.contains('grid--' + savedDesktop + '-col-desktop') || !grid.classList.contains('grid--' + savedMobile + '-col-tablet-down'))) {
