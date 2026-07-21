@@ -1,18 +1,42 @@
 {% comment %}
-  Renders Clay Design System Product Metadata
-  Namespace: .rb-product-meta
+  rb-product-meta.liquid
+  Clay Theme Design — SKU, Available, Collections, Type
 {% endcomment %}
+
 <div class="rb-product-meta">
+  {% if product.selected_or_first_available_variant.sku != blank %}
+    <div class="rb-meta-item">
+      <span class="rb-meta-label">Sku:</span>
+      <span class="rb-meta-val">{{ product.selected_or_first_available_variant.sku }}</span>
+    </div>
+  {% endif %}
+
   <div class="rb-meta-item">
-    <span class="rb-meta-label">SKU:</span>
-    <span class="rb-meta-val">{{ product.selected_or_first_available_variant.sku | default: 'SKU-102' }}</span>
+    <span class="rb-meta-label">Available:</span>
+    <span class="rb-meta-val">
+      {% if product.available %}
+        <span class="rb-in-stock">Instock</span>
+      {% else %}
+        <span style="color:#dc2626; font-weight:600;">Out of Stock</span>
+      {% endif %}
+    </span>
   </div>
-  <div class="rb-meta-item">
-    <span class="rb-meta-label">Availability:</span>
-    <span class="rb-meta-val rb-in-stock">{% if product.selected_or_first_available_variant.available %}In Stock{% else %}Out of Stock{% endif %}</span>
-  </div>
-  <div class="rb-meta-item">
-    <span class="rb-meta-label">Collections:</span>
-    <span class="rb-meta-val">{{ product.collections | map: 'title' | join: ', ' | default: 'Skincare, Tallow' }}</span>
-  </div>
+
+  {% if product.collections.size > 0 %}
+    <div class="rb-meta-item">
+      <span class="rb-meta-label">Collections:</span>
+      <span class="rb-meta-val">
+        {% for collection in product.collections %}
+          {{ collection.title }}{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+      </span>
+    </div>
+  {% endif %}
+
+  {% if product.type != blank %}
+    <div class="rb-meta-item">
+      <span class="rb-meta-label">Type:</span>
+      <span class="rb-meta-val">{{ product.type }}</span>
+    </div>
+  {% endif %}
 </div>
