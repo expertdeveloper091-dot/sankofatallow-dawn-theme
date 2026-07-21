@@ -1492,3 +1492,195 @@ a.product__text {
     border: none;
   }
 }
+
+/* ============================================================
+   Pro Design Styling for Product Detail Page
+   ============================================================ */
+.product__info-container {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.product__title h1, .product__title h2 {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 2.8rem !important;
+  font-weight: 800 !important;
+  color: #1d211e !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.02em !important;
+  margin-bottom: 1rem !important;
+}
+
+.price .price-item--regular, .price .price-item--sale {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 2.4rem !important;
+  font-weight: 800 !important;
+  color: #1d211e !important;
+}
+
+.price .price-item--last {
+  color: #98a2b3 !important;
+  font-size: 1.6rem !important;
+  text-decoration: line-through !important;
+  font-weight: 500 !important;
+}
+
+.product-form__input .form__label {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1.3rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  color: #344054 !important;
+  letter-spacing: 0.05em !important;
+  margin-bottom: 0.8rem !important;
+}
+
+.product-form__input--pill input[type='radio'] + label {
+  border: 1.5px solid #d0d5dd !important;
+  border-radius: 30px !important;
+  padding: 0.8rem 1.8rem !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  color: #344054 !important;
+  transition: all 0.2s ease !important;
+  background-color: #ffffff !important;
+}
+
+.product-form__input--pill input[type='radio']:checked + label {
+  border-color: #2C2609 !important;
+  background-color: rgb(255 159 7) !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12) !important;
+}
+
+.select__select {
+  border: 1.5px solid #2C2609 !important;
+  border-radius: 10px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1.4rem !important;
+  font-weight: 600 !important;
+  padding: 1.2rem 1.6rem !important;
+  height: 4.8rem !important;
+}
+
+/* Quantity input */
+.quantity {
+  border: 1.5px solid #2C2609 !important;
+  border-radius: 40px !important;
+  background-color: #ffffff !important;
+  height: 4.8rem !important;
+  width: 14rem !important;
+  overflow: hidden !important;
+}
+
+.quantity__button {
+  width: 4rem !important;
+  color: #2C2609 !important;
+}
+
+.quantity__input {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: #1d211e !important;
+}
+
+/* Primary Add to Cart Button */
+.product-form__submit.button--primary,
+.product-form__submit.button--secondary,
+.product-form__submit {
+  width: 100% !important;
+  height: 5.2rem !important;
+  min-height: 5.2rem !important;
+  border-radius: 10px !important;
+  background: rgb(255 159 7) !important;
+  color: #ffffff !important;
+  border: 1.5px solid #2C2609 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1.6rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em !important;
+  cursor: pointer !important;
+  box-shadow: 0px 4px 0px 0px #2C2609 !important;
+  transition: transform 0.1s ease, background-color 0.2s ease, box-shadow 0.1s ease !important;
+  position: relative !important;
+  top: 0 !important;
+}
+
+.product-form__submit:hover {
+  background: #e08b00 !important;
+  top: 2px !important;
+  box-shadow: 0px 2px 0px 0px #2C2609 !important;
+}
+
+/* Shopify Dynamic Payment Button */
+.shopify-payment-button__button--unbranded {
+  border-radius: 10px !important;
+  background: #2C2609 !important;
+  color: #ffffff !important;
+  border: 1.5px solid #2C2609 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1.6rem !important;
+  font-weight: 800 !important;
+  height: 5.2rem !important;
+}
+
+/* Media Gallery Layout */
+@media screen and (min-width: 990px) {
+  .product--large:not(.product--no-media) .product__media-wrapper,
+  .product__media-wrapper {
+    max-width: 50% !important;
+    width: 50% !important;
+  }
+  .product--large:not(.product--no-media) .product__info-wrapper,
+  .product__info-wrapper {
+    max-width: 50% !important;
+    width: 50% !important;
+    padding-left: 4rem !important;
+  }
+}
+
+.product__media-item {
+  border-radius: 16px !important;
+  border: 1.5px solid #2C2609 !important;
+  overflow: hidden !important;
+  background: #fafafa !important;
+  margin-bottom: 1.6rem !important;
+}
+
+.thumbnail-list__item .thumbnail {
+  border-radius: 10px !important;
+  border: 1.5px solid #d0d5dd !important;
+  overflow: hidden !important;
+}
+
+.thumbnail[aria-current='true'] {
+  border-color: rgb(255 159 7) !important;
+  box-shadow: 0 0 0 2px rgb(255 159 7) !important;
+}
+
+/* Collapsible Accordions */
+.product__accordion {
+  border: 1px solid #eaecf0 !important;
+  border-radius: 12px !important;
+  margin-top: 1.4rem !important;
+  overflow: hidden !important;
+  background: #ffffff !important;
+}
+
+.product__accordion summary {
+  padding: 1.6rem 2rem !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: #1d211e !important;
+  background: #f9fafb !important;
+}
+
+.product__accordion .accordion__content {
+  padding: 2rem !important;
+  font-size: 1.4rem !important;
+  line-height: 1.6 !important;
+  color: #475467 !important;
+}
