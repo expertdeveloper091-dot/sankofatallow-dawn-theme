@@ -1,0 +1,943 @@
+{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+
+<div class="clay-product-section page-width section-{{ section.id }}-padding" id="ClayProduct-{{ section.id }}">
+  <div class="clay-product-grid">
+    
+    <!-- LEFT: PRODUCT GALLERY -->
+    <div class="clay-gallery-wrapper">
+      <div class="clay-gallery-container">
+        <!-- Thumbnail Strip -->
+        <div class="clay-thumbnails-strip">
+          {% for image in product.images %}
+            <div class="clay-thumb-item {% if forloop.first %}active{% endif %}" onclick="changeClayMainImage(this, '{{ image | image_url: width: 1000 }}')">
+              <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}" loading="lazy" width="70" height="70">
+            </div>
+          {% endfor %}
+        </div>
+
+        <!-- Main Featured Image -->
+        <div class="clay-main-image-box">
+          {% assign featured_img = product.featured_image | default: product.images.first %}
+          <img id="ClayMainFeaturedImage" src="{{ featured_img | image_url: width: 1000 }}" alt="{{ featured_img.alt | escape }}" width="600" height="600">
+          <button class="clay-zoom-btn" onclick="openClayImageModal()" aria-label="Zoom image">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: PRODUCT DETAILS & PURCHASE SECTION -->
+    <div class="clay-info-wrapper">
+      
+      <!-- Vendor -->
+      {% if section.settings.show_vendor and product.vendor != blank %}
+        <div class="clay-vendor-tag">{{ product.vendor }}</div>
+      {% endif %}
+
+      <!-- Product Title -->
+      <h1 class="clay-product-title">{{ product.title }}</h1>
+
+      <!-- Ratings & Sold Counter Row -->
+      <div class="clay-rating-sold-row">
+        <div class="clay-stars-box">
+          <span class="clay-stars">★★★★★</span>
+          <span class="clay-rating-text">5.0 (4 reviews)</span>
+        </div>
+        <div class="clay-sold-badge">
+          🔥 12 Sold in last 24 hours
+        </div>
+      </div>
+
+      <!-- Price Row -->
+      <div class="clay-price-row">
+        <span class="clay-price-current" id="ClayProductPrice">{{ product.selected_or_first_available_variant.price | money }}</span>
+        {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+          <span class="clay-price-compare">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
+          <span class="clay-save-badge">SAVE {{ product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price | times: 100 | divided_by: product.selected_or_first_available_variant.compare_at_price }}%</span>
+        {% endif %}
+      </div>
+
+      <!-- Feature Highlights List Box (Clay Theme Style) -->
+      <div class="clay-feature-highlights-box">
+        <div class="clay-feature-item">
+          <div class="clay-feature-icon">🚚</div>
+          <div class="clay-feature-text">
+            <strong>Fast Home Delivery:</strong> Delivery within 3 to 5 Working Days nationwide.
+          </div>
+        </div>
+        <div class="clay-feature-item">
+          <div class="clay-feature-icon">💵</div>
+          <div class="clay-feature-text">
+            <strong>Cash on Delivery (COD):</strong> Available with 100% inspection before payment.
+          </div>
+        </div>
+        <div class="clay-feature-item">
+          <div class="clay-feature-icon">📦</div>
+          <div class="clay-feature-text">
+            <strong>Flat Shipping Rate:</strong> Standard shipping charge flat Rs. 199 on all orders.
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Visitors Urgency Bar -->
+      <div class="clay-live-visitors-bar">
+        <span class="clay-live-dot"></span>
+        <span><strong id="ClayLiveCounter">16</strong> people looking right now</span>
+      </div>
+
+      <!-- Ask Question & Share Row -->
+      <div class="clay-addons-row">
+        <button type="button" class="clay-addon-link" id="ClayAskBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Ask a question
+        </button>
+        <button type="button" class="clay-addon-link" onclick="navigator.clipboard.writeText(window.location.href); alert('Product link copied!');">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+          Share
+        </button>
+      </div>
+
+      <!-- Variant Picker (If Applicable) -->
+      {% unless product.has_only_default_variant %}
+        <div class="clay-variant-picker">
+          {% for option in product.options_with_values %}
+            <div class="clay-option-group">
+              <label class="clay-option-label">{{ option.name }}: <span class="clay-option-val" id="ClayOptVal-{{ forloop.index0 }}">{{ option.selected_value }}</span></label>
+              <div class="clay-option-pills">
+                {% for value in option.values %}
+                  <button type="button" class="clay-pill-btn {% if option.selected_value == value %}active{% endif %}" onclick="selectClayVariant(this, '{{ option.name }}', '{{ value }}', {{ forloop.parentloop.index0 }})">
+                    {{ value }}
+                  </button>
+                {% endfor %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endunless %}
+
+      <!-- Quantity Selector & ADD TO CART Form -->
+      {% form 'product', product, id: 'ClayProductForm', class: 'clay-product-form' %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" id="ClayVariantIdInput">
+        
+        <div class="clay-atc-row">
+          <!-- Quantity Input Pill -->
+          <div class="clay-qty-pill">
+            <button type="button" class="clay-qty-btn" onclick="updateClayQty(-1)">-</button>
+            <input type="number" name="quantity" id="ClayQtyInput" value="1" min="1" readonly>
+            <button type="button" class="clay-qty-btn" onclick="updateClayQty(1)">+</button>
+          </div>
+
+          <!-- ADD TO CART Button -->
+          <button type="submit" name="add" class="clay-atc-btn" id="ClayAddToCartBtn">
+            <span>ADD TO CART</span>
+          </button>
+
+          <!-- Wishlist & Compare Icons -->
+          <button type="button" class="clay-icon-btn" title="Add to Wishlist" onclick="alert('Added to Wishlist!')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          </button>
+          <button type="button" class="clay-icon-btn" title="Compare" onclick="alert('Added to Compare!')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="8 21 3 21 3 16"></polyline><line x1="15" y1="9" x2="3" y2="21"></line></svg>
+          </button>
+        </div>
+
+        <!-- BUY IT NOW Button -->
+        <button type="submit" name="checkout" class="clay-buy-now-btn">
+          BUY IT NOW
+        </button>
+      {% endform %}
+
+      <!-- Product Meta Info -->
+      <div class="clay-product-meta-list">
+        <div class="clay-meta-item">
+          <span class="clay-meta-label">SKU:</span>
+          <span class="clay-meta-val">{{ product.selected_or_first_available_variant.sku | default: 'SKU-102' }}</span>
+        </div>
+        <div class="clay-meta-item">
+          <span class="clay-meta-label">Availability:</span>
+          <span class="clay-meta-val clay-in-stock">{% if product.selected_or_first_available_variant.available %}In Stock{% else %}Out of Stock{% endif %}</span>
+        </div>
+        <div class="clay-meta-item">
+          <span class="clay-meta-label">Collections:</span>
+          <span class="clay-meta-val">{{ product.collections | map: 'title' | join: ', ' | default: 'Skincare, Tallow' }}</span>
+        </div>
+      </div>
+
+      <!-- Customer Photo Showcase ("What our Customers Say") -->
+      <div class="clay-customer-photos-section">
+        <h4 class="clay-section-subheading">What our Customers Say</h4>
+        <div class="clay-customer-photos-grid">
+          {% for image in product.images limit: 3 %}
+            <div class="clay-customer-photo-card">
+              <img src="{{ image | image_url: width: 300 }}" alt="Customer Photo {{ forloop.index }}" loading="lazy" width="150" height="200">
+            </div>
+          {% else %}
+            <div class="clay-customer-photo-card">
+              <img src="{{ product.featured_image | image_url: width: 300 }}" alt="Customer Photo 1" width="150" height="200">
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Guarantee Safe Checkout Banner -->
+      <div class="clay-trust-banner-box">
+        <div class="clay-trust-heading">Guarantee Safe Checkout</div>
+        <div class="clay-trust-svg-icons">
+          <!-- Visa SVG -->
+          <svg width="45" height="28" viewBox="0 0 38 24" fill="none"><rect width="38" height="24" rx="4" fill="#1A1F71"/><path d="M15.4 16.5L17.2 6.8H19.7L17.9 16.5H15.4ZM24.7 7C24.2 6.8 23.4 6.6 22.4 6.6C19.8 6.6 18 8 18 9.9C18 11.3 19.3 12.1 20.3 12.6C21.3 13.1 21.6 13.4 21.6 13.9C21.6 14.6 20.7 14.9 19.9 14.9C18.7 14.9 18 14.6 17.3 14.3L16.9 16.2C17.6 16.5 18.7 16.8 20 16.8C22.8 16.8 24.6 15.4 24.6 13.4C24.6 10.9 21.2 10.7 21.2 9.7C21.2 9.3 21.6 8.9 22.4 8.9C23.2 8.9 24.1 9.1 24.6 9.4L24.7 7ZM30.7 16.5H32.9L31 6.8H29C28.4 6.8 27.9 7.1 27.7 7.7L23.7 16.5H26.3L26.8 15.1H30.1L30.7 16.5ZM27.5 13.2L28.9 9.3L29.7 13.2H27.5ZM13.8 6.8L11.4 13.4L11.1 12.1C10.6 10.4 9.1 8.5 7.3 7.5L9.5 16.5H12.1L16.1 6.8H13.8Z" fill="white"/></svg>
+          <!-- Mastercard SVG -->
+          <svg width="45" height="28" viewBox="0 0 38 24" fill="none"><rect width="38" height="24" rx="4" fill="#0A0E27"/><circle cx="14" cy="12" r="7" fill="#EB001B"/><circle cx="24" cy="12" r="7" fill="#F79E1B"/><path d="M19 6.8A6.9 6.9 0 0 0 16.5 12A6.9 6.9 0 0 0 19 17.2A6.9 6.9 0 0 0 21.5 12A6.9 6.9 0 0 0 19 6.8Z" fill="#FF5F00"/></svg>
+          <!-- Amex SVG -->
+          <svg width="45" height="28" viewBox="0 0 38 24" fill="none"><rect width="38" height="24" rx="4" fill="#006FCF"/><path d="M7 16L10 8H13L16 16H13.5L12.9 14.3H10.1L9.5 16H7ZM10.7 12.5H12.3L11.5 10.2L10.7 12.5Z" fill="white"/><path d="M17 16V8H22C23.5 8 24.5 9 24.5 10.3C24.5 11.3 23.8 12 22.8 12.2L24.8 16H22.3L20.6 12.6H19.2V16H17ZM19.2 11H21.5C22.1 11 22.6 10.7 22.6 10.1C22.6 9.5 22.1 9.2 21.5 9.2H19.2V11Z" fill="white"/><path d="M26 16V8H31.5V9.6H28.2V11.2H31V12.7H28.2V14.4H31.5V16H26Z" fill="white"/></svg>
+        </div>
+      </div>
+
+      <!-- Accordions Collapsible Tabs -->
+      <div class="clay-accordions-group">
+        <details class="clay-accordion-item" open>
+          <summary class="clay-accordion-summary">
+            <span>How to Use & Care</span>
+            <span class="clay-accordion-icon">+</span>
+          </summary>
+          <div class="clay-accordion-content">
+            Apply a small amount to clean, dry skin. Gently massage in circular motions until fully absorbed. Store in a cool, dry place away from direct sunlight.
+          </div>
+        </details>
+        
+        <details class="clay-accordion-item">
+          <summary class="clay-accordion-summary">
+            <span>Description</span>
+            <span class="clay-accordion-icon">+</span>
+          </summary>
+          <div class="clay-accordion-content">
+            {{ product.description | default: 'Experience the nourishing power of nature with House of Sankofa Tallow Body Butter. Handcrafted using premium grass-fed tallow, organic oils, and pure botanicals to deeply hydrate and restore your skin.' }}
+          </div>
+        </details>
+
+        <details class="clay-accordion-item">
+          <summary class="clay-accordion-summary">
+            <span>Shipping and Returns</span>
+            <span class="clay-accordion-icon">+</span>
+          </summary>
+          <div class="clay-accordion-content">
+            We offer 15-day hassle-free money-back returns. Shipping takes 3-5 business days across the country. All orders include tracked delivery.
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BELOW PRODUCT SECTION: PEOPLE ALSO BOUGHT -->
+  <div class="clay-related-section">
+    <h2 class="clay-related-heading">People Also Bought</h2>
+    <p class="clay-related-subheading">Hand-picked selections that complement your daily routine.</p>
+    
+    <div class="clay-related-grid">
+      {% for rel_product in collections.all.products limit: 4 %}
+        <div class="clay-product-card">
+          <div class="clay-card-img-box">
+            <span class="clay-card-badge">-20%</span>
+            <a href="{{ rel_product.url }}">
+              <img src="{{ rel_product.featured_image | image_url: width: 400 }}" alt="{{ rel_product.title | escape }}" loading="lazy" width="200" height="200">
+            </a>
+          </div>
+          <div class="clay-card-info">
+            <h3 class="clay-card-title"><a href="{{ rel_product.url }}">{{ rel_product.title }}</a></h3>
+            <div class="clay-card-stars">★★★★★</div>
+            <div class="clay-card-price">
+              <span class="clay-card-sale-price">{{ rel_product.price | money }}</span>
+              {% if rel_product.compare_at_price > rel_product.price %}
+                <span class="clay-card-compare-price">{{ rel_product.compare_at_price | money }}</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+
+<!-- Clay Modal for Ask Question -->
+<div id="ClayAskModal" class="clay-modal-overlay">
+  <div class="clay-modal-card">
+    <button type="button" class="clay-modal-close" onclick="closeClayAskModal()">&times;</button>
+    <h3>Ask a Question</h3>
+    {% form 'contact' %}
+      <input type="hidden" name="contact[product]" value="{{ product.title }}">
+      <div class="clay-form-group">
+        <label>Your Name</label>
+        <input type="text" name="contact[name]" required placeholder="Enter your name">
+      </div>
+      <div class="clay-form-group">
+        <label>Your Email</label>
+        <input type="email" name="contact[email]" required placeholder="Enter your email">
+      </div>
+      <div class="clay-form-group">
+        <label>Question</label>
+        <textarea name="contact[body]" rows="4" required placeholder="What would you like to ask about {{ product.title }}?"></textarea>
+      </div>
+      <button type="submit" class="clay-atc-btn" style="width:100%;">SEND QUESTION</button>
+    {% endform %}
+  </div>
+</div>
+
+<style>
+/* ============================================================
+   CLAY THEME SINGLE PRODUCT PAGE EXACT STYLING
+   ============================================================ */
+.clay-product-section {
+  font-family: 'Poppins', sans-serif !important;
+  color: #1d211e;
+  padding-top: 30px;
+  padding-bottom: 60px;
+}
+
+.clay-product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.clay-gallery-wrapper {
+  flex: 1 1 500px;
+  max-width: 50%;
+  position: sticky;
+  top: 90px;
+}
+
+.clay-gallery-container {
+  display: flex;
+  gap: 15px;
+}
+
+.clay-thumbnails-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+.clay-thumb-item {
+  width: 72px;
+  height: 72px;
+  border-radius: 10px;
+  border: 1.5px solid #e5e7eb;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.clay-thumb-item.active, .clay-thumb-item:hover {
+  border-color: #d15b47;
+  box-shadow: 0 0 0 2px #d15b47;
+}
+
+.clay-thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.clay-main-image-box {
+  flex: 1;
+  border-radius: 16px;
+  border: 1px solid #eaecf0;
+  overflow: hidden;
+  background: #f9fafb;
+  position: relative;
+  max-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clay-main-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.clay-zoom-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #eaecf0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.clay-info-wrapper {
+  flex: 1 1 450px;
+  max-width: 45%;
+}
+
+.clay-vendor-tag {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #667085;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.clay-product-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1d211e;
+  line-height: 1.25;
+  margin: 0 0 12px 0;
+}
+
+.clay-rating-sold-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.clay-stars {
+  color: #f59e0b;
+  font-size: 16px;
+}
+
+.clay-rating-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: #475467;
+}
+
+.clay-sold-badge {
+  background: #fef2f2;
+  color: #dc2626;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid #fecaca;
+}
+
+.clay-price-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.clay-price-current {
+  font-size: 26px;
+  font-weight: 800;
+  color: #d15b47;
+}
+
+.clay-price-compare {
+  font-size: 18px;
+  color: #98a2b3;
+  text-decoration: line-through;
+}
+
+.clay-save-badge {
+  background: #d15b47;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+/* Feature Highlights Box */
+.clay-feature-highlights-box {
+  background: #f9fafb;
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.clay-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.clay-feature-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.clay-feature-text {
+  font-size: 13px;
+  color: #344054;
+  line-height: 1.4;
+}
+
+.clay-live-visitors-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #344054;
+  margin-bottom: 15px;
+}
+
+.clay-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+}
+
+.clay-addons-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px dashed #eaecf0;
+  padding-bottom: 15px;
+}
+
+.clay-addon-link {
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475467;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.clay-addon-link:hover {
+  color: #d15b47;
+}
+
+/* Quantity & ATC Row */
+.clay-atc-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.clay-qty-pill {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #1d211e;
+  border-radius: 30px;
+  height: 48px;
+  width: 120px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.clay-qty-btn {
+  width: 36px;
+  height: 100%;
+  border: none;
+  background: none;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.clay-qty-pill input {
+  width: 48px;
+  border: none;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.clay-atc-btn {
+  flex: 1;
+  height: 48px;
+  border-radius: 30px;
+  background: #1d211e;
+  color: #ffffff;
+  border: none;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.clay-atc-btn:hover {
+  background: #344054;
+}
+
+.clay-icon-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid #eaecf0;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.clay-buy-now-btn {
+  width: 100%;
+  height: 48px;
+  border-radius: 30px;
+  background: #d15b47;
+  color: #ffffff;
+  border: none;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(209, 91, 71, 0.25);
+}
+
+.clay-product-meta-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  border-bottom: 1px dashed #eaecf0;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.clay-meta-label {
+  font-weight: 700;
+  color: #344054;
+  display: inline-block;
+  width: 100px;
+}
+
+.clay-meta-val {
+  color: #667085;
+}
+
+.clay-in-stock {
+  color: #12b76a;
+  font-weight: 700;
+}
+
+/* Customer Photos Grid */
+.clay-customer-photos-section {
+  margin-bottom: 25px;
+}
+
+.clay-section-subheading {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1d211e;
+  margin-bottom: 12px;
+}
+
+.clay-customer-photos-grid {
+  display: flex;
+  gap: 12px;
+}
+
+.clay-customer-photo-card {
+  flex: 1;
+  height: 140px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #eaecf0;
+}
+
+.clay-customer-photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Trust Banner Box */
+.clay-trust-banner-box {
+  background: #f9fafb;
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.clay-trust-heading {
+  font-size: 13px;
+  font-weight: 700;
+  color: #344054;
+  margin-bottom: 10px;
+}
+
+.clay-trust-svg-icons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Accordions */
+.clay-accordions-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.clay-accordion-item {
+  border: 1px solid #eaecf0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.clay-accordion-summary {
+  padding: 14px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  background: #f9fafb;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clay-accordion-content {
+  padding: 16px 18px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #475467;
+  border-top: 1px solid #eaecf0;
+}
+
+/* Related Products Grid */
+.clay-related-section {
+  margin-top: 60px;
+  border-top: 1px solid #eaecf0;
+  padding-top: 40px;
+  text-align: center;
+}
+
+.clay-related-heading {
+  font-size: 26px;
+  font-weight: 800;
+  color: #1d211e;
+  margin-bottom: 6px;
+}
+
+.clay-related-subheading {
+  font-size: 14px;
+  color: #667085;
+  margin-bottom: 30px;
+}
+
+.clay-related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.clay-product-card {
+  background: #f9fafb;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #eaecf0;
+  text-align: left;
+  transition: transform 0.2s ease;
+}
+
+.clay-product-card:hover {
+  transform: translateY(-4px);
+}
+
+.clay-card-img-box {
+  position: relative;
+  height: 220px;
+  background: #ffffff;
+}
+
+.clay-card-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.clay-card-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #d15b47;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.clay-card-info {
+  padding: 16px;
+}
+
+.clay-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+}
+
+.clay-card-title a {
+  color: #1d211e;
+  text-decoration: none;
+}
+
+.clay-card-stars {
+  color: #f59e0b;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.clay-card-price {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.clay-card-sale-price {
+  font-size: 16px;
+  font-weight: 800;
+  color: #d15b47;
+}
+
+.clay-card-compare-price {
+  font-size: 13px;
+  color: #98a2b3;
+  text-decoration: line-through;
+}
+
+/* Modal Overlay */
+.clay-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 99999;
+  align-items: center;
+  justify-content: center;
+}
+
+.clay-modal-card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 480px;
+  position: relative;
+}
+
+.clay-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.clay-form-group {
+  margin-bottom: 15px;
+}
+
+.clay-form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.clay-form-group input, .clay-form-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 768px) {
+  .clay-gallery-wrapper, .clay-info-wrapper {
+    max-width: 100%;
+  }
+  .clay-gallery-container {
+    flex-direction: column-reverse;
+  }
+  .clay-thumbnails-strip {
+    flex-direction: row;
+  }
+}
+</style>
+
+<script>
+function changeClayMainImage(element, newSrc) {
+  document.getElementById('ClayMainFeaturedImage').src = newSrc;
+  document.querySelectorAll('.clay-thumb-item').forEach(el => el.classList.remove('active'));
+  element.classList.add('active');
+}
+
+function updateClayQty(delta) {
+  var input = document.getElementById('ClayQtyInput');
+  var val = parseInt(input.value, 10) || 1;
+  val = Math.max(1, val + delta);
+  input.value = val;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var askBtn = document.getElementById('ClayAskBtn');
+  var askModal = document.getElementById('ClayAskModal');
+  if (askBtn && askModal) {
+    askBtn.addEventListener('click', function() { askModal.style.display = 'flex'; });
+  }
+
+  // Live counter simulation
+  var liveEl = document.getElementById('ClayLiveCounter');
+  if (liveEl) {
+    setInterval(function() {
+      var curr = parseInt(liveEl.textContent, 10) || 16;
+      var diff = Math.floor(Math.random() * 3) - 1;
+      liveEl.textContent = Math.max(8, Math.min(35, curr + diff));
+    }, 5000);
+  }
+});
+
+function closeClayAskModal() {
+  document.getElementById('ClayAskModal').style.display = 'none';
+}
+</script>
+
+{% schema %}
+{
+  "name": "Clay Single Product",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show Vendor",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Clay Single Product"
+    }
+  ]
+}
+{% endschema %}

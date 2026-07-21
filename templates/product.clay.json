@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "clay_product_main": {
+      "type": "clay-main-product",
+      "settings": {
+        "show_vendor": true
+      }
+    }
+  },
+  "order": [
+    "clay_product_main"
+  ]
+}
