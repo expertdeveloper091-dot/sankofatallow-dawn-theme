@@ -299,7 +299,7 @@
                 </div>
               </div>
 
-              <!-- CENTER: GRID VIEW SWITCHER (DESKTOP: 1 COL & 2 COLS - DEFAULT 2 COLS) -->
+              <!-- CENTER: GRID VIEW SWITCHER (DEFAULT 2 CARDS PER ROW) -->
               <div class="ml-toolbar__center">
                 <!-- DESKTOP SWITCHER (1 CARD PER ROW / 2 CARDS PER ROW) -->
                 <div class="ml-grid-switcher ml-grid-switcher--desktop">
@@ -361,7 +361,7 @@
               </div>
             </div>
 
-            <!-- PRODUCT GRID -->
+            <!-- PRODUCT GRID (DEFAULT 2 CARDS PER ROW ON DESKTOP) -->
             <ul
               id="product-grid"
               data-id="{{ section.id }}"
@@ -454,7 +454,11 @@
     });
 
     const initGrid = () => {
-      const savedDesktop = localStorage.getItem('ml-grid-desktop') || '2';
+      let savedDesktop = localStorage.getItem('ml-grid-desktop');
+      if (!savedDesktop || (savedDesktop !== '1' && savedDesktop !== '2')) {
+        savedDesktop = '2';
+        localStorage.setItem('ml-grid-desktop', '2');
+      }
       const savedMobile = localStorage.getItem('ml-grid-mobile') || '2';
       window.mlApplyGridCols(savedDesktop, savedMobile);
     };
@@ -463,7 +467,10 @@
 
     // Re-apply layout on AJAX grid update
     const observer = new MutationObserver(() => {
-      const savedDesktop = localStorage.getItem('ml-grid-desktop') || '2';
+      let savedDesktop = localStorage.getItem('ml-grid-desktop');
+      if (!savedDesktop || (savedDesktop !== '1' && savedDesktop !== '2')) {
+        savedDesktop = '2';
+      }
       const savedMobile = localStorage.getItem('ml-grid-mobile') || '2';
       const grid = document.getElementById('product-grid');
       if (grid && (!grid.classList.contains('grid--' + savedDesktop + '-col-desktop') || !grid.classList.contains('grid--' + savedMobile + '-col-tablet-down'))) {
@@ -498,7 +505,7 @@
       "min": 1,
       "max": 6,
       "step": 1,
-      "default": 4,
+      "default": 2,
       "label": "t:sections.main-collection-product-grid.settings.columns_desktop.label"
     },
     {
