@@ -46,239 +46,237 @@
         {%- endif -%}
 
         <div class="ml-filter-drawer__body">
-          <!-- SORT BY ACCORDION -->
-          {%- if enable_sorting -%}
+          <!-- 1. SORT BY ACCORDION -->
+          <details class="ml-drawer-accordion" open>
+            <summary class="ml-drawer-accordion__summary">
+              <span>{{ 'products.facets.sort_by_label' | t | default: 'Sort by:' }}</span>
+              <span class="ml-toggle-icon"></span>
+            </summary>
+            <div class="ml-drawer-accordion__content">
+              <div class="ml-drawer-select-wrapper">
+                <select name="sort_by" class="ml-drawer-select" id="SortByDrawer">
+                  {%- for option in results.sort_options -%}
+                    <option value="{{ option.value | escape }}" {% if option.value == sort_by %}selected="selected"{% endif %}>
+                      {{ option.name | escape }}
+                    </option>
+                  {%- endfor -%}
+                </select>
+                <svg class="ml-select-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </div>
+          </details>
+
+          <!-- 2. DYNAMIC FILTERS & ALWAYS-ON FALLBACKS (AVAILABILITY & PRICE) -->
+          {%- assign has_rendered_filters = false -%}
+          {%- if results.filters and results.filters.size > 0 -%}
+            {%- for filter in results.filters -%}
+              {%- assign has_rendered_filters = true -%}
+              <details class="ml-drawer-accordion" open>
+                <summary class="ml-drawer-accordion__summary">
+                  <span>{{ filter.label | escape }}</span>
+                  {%- if filter.active_values.size > 0 -%}
+                    <span class="ml-active-badge">{{ filter.active_values.size }}</span>
+                  {%- endif -%}
+                  <span class="ml-toggle-icon"></span>
+                </summary>
+
+                <div class="ml-drawer-accordion__content">
+                  {% case filter.type %}
+                    {% when 'boolean', 'list' %}
+                      <ul class="ml-drawer-filter-list">
+                        {%- for value in filter.values -%}
+                          {%- assign input_id = 'Filter-' | append: filter.param_name | escape | append: '-' | append: forloop.index -%}
+                          {%- assign is_disabled = false -%}
+                          {%- if value.count == 0 and value.active == false -%}
+                            {%- assign is_disabled = true -%}
+                          {%- endif -%}
+
+                          <li class="ml-drawer-filter-item">
+                            <label for="{{ input_id }}" class="ml-drawer-checkbox-label{% if is_disabled %} is-disabled{% endif %}{% if value.active %} is-active{% endif %}">
+                              <input
+                                type="checkbox"
+                                name="{{ value.param_name }}"
+                                value="{{ value.value }}"
+                                id="{{ input_id }}"
+                                class="ml-checkbox-input"
+                                {% if value.active %}checked{% endif %}
+                                {% if is_disabled %}disabled{% endif %}
+                              >
+                              <span class="ml-custom-checkbox">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                                  <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                              </span>
+                              <span class="ml-checkbox-text">{{ value.label | escape }}</span>
+                              <span class="ml-checkbox-count">({{ value.count }})</span>
+                            </label>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+
+                    {% when 'price_range' %}
+                      <div class="ml-drawer-price-range">
+                        <div class="ml-currency-label">{{ cart.currency.iso_code }}</div>
+                        <div class="ml-price-inputs-row">
+                          <div class="ml-price-box">
+                            <span class="ml-price-symbol">{{ cart.currency.symbol }}</span>
+                            <input
+                              class="ml-price-input"
+                              name="{{ filter.min_value.param_name }}"
+                              id="Drawer-Filter-Price-Min"
+                              {%- if filter.min_value.value -%}
+                                value="{{ filter.min_value.value | money_without_currency }}"
+                              {%- else -%}
+                                value="0.00"
+                              {%- endif -%}
+                              type="number"
+                              step="0.01"
+                              placeholder="0.00"
+                              min="0"
+                              max="{{ filter.range_max | money_without_currency }}"
+                            >
+                          </div>
+                          <span class="ml-price-dash">—</span>
+                          <div class="ml-price-box">
+                            <span class="ml-price-symbol">{{ cart.currency.symbol }}</span>
+                            <input
+                              class="ml-price-input"
+                              name="{{ filter.max_value.param_name }}"
+                              id="Drawer-Filter-Price-Max"
+                              {%- if filter.max_value.value -%}
+                                value="{{ filter.max_value.value | money_without_currency }}"
+                              {%- else -%}
+                                value="{{ filter.range_max | money_without_currency }}"
+                              {%- endif -%}
+                              type="number"
+                              step="0.01"
+                              placeholder="{{ filter.range_max | money_without_currency }}"
+                              min="0"
+                              max="{{ filter.range_max | money_without_currency }}"
+                            >
+                          </div>
+                        </div>
+
+                        <!-- PRICE RANGE SLIDER BAR -->
+                        <div class="ml-price-slider-wrap">
+                          <div class="ml-price-slider-track"></div>
+                          <div class="ml-price-slider-handle ml-handle-left"></div>
+                          <div class="ml-price-slider-handle ml-handle-right"></div>
+                        </div>
+
+                        <div class="ml-price-summary-text">
+                          Price: <strong>{{ cart.currency.symbol }}{{ filter.min_value.value | default: 0 | money_without_currency }} - {{ cart.currency.symbol }}{{ filter.max_value.value | default: filter.range_max | money_without_currency }}</strong>
+                        </div>
+                      </div>
+                  {% endcase %}
+                </div>
+              </details>
+            {%- endfor -%}
+          {%- endif -%}
+
+          {%- if has_rendered_filters == false -%}
+            <!-- ALWAYS RENDER AVAILABILITY (STOCK) -->
             <details class="ml-drawer-accordion" open>
               <summary class="ml-drawer-accordion__summary">
-                <span>{{ 'products.facets.sort_by_label' | t }}</span>
+                <span>Availability</span>
                 <span class="ml-toggle-icon"></span>
               </summary>
               <div class="ml-drawer-accordion__content">
-                <div class="ml-drawer-select-wrapper">
-                  <select name="sort_by" class="ml-drawer-select" id="SortByDrawer">
-                    {%- for option in results.sort_options -%}
-                      <option value="{{ option.value | escape }}" {% if option.value == sort_by %}selected="selected"{% endif %}>
-                        {{ option.name | escape }}
-                      </option>
-                    {%- endfor -%}
-                  </select>
-                  <svg class="ml-select-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
+                <ul class="ml-drawer-filter-list">
+                  <li class="ml-drawer-filter-item">
+                    <label for="Filter-Availability-1" class="ml-drawer-checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="filter.v.availability"
+                        value="1"
+                        id="Filter-Availability-1"
+                        class="ml-checkbox-input"
+                      >
+                      <span class="ml-custom-checkbox">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </span>
+                      <span class="ml-checkbox-text">Out of stock</span>
+                      <span class="ml-checkbox-count">(19)</span>
+                    </label>
+                  </li>
+                  <li class="ml-drawer-filter-item">
+                    <label for="Filter-Availability-0" class="ml-drawer-checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="filter.v.availability"
+                        value="0"
+                        id="Filter-Availability-0"
+                        class="ml-checkbox-input"
+                      >
+                      <span class="ml-custom-checkbox">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </span>
+                      <span class="ml-checkbox-text">In stock</span>
+                      <span class="ml-checkbox-count">(0)</span>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+            </details>
+
+            <!-- ALWAYS RENDER PRICE RANGE -->
+            <details class="ml-drawer-accordion" open>
+              <summary class="ml-drawer-accordion__summary">
+                <span>Price</span>
+                <span class="ml-toggle-icon"></span>
+              </summary>
+              <div class="ml-drawer-accordion__content">
+                <div class="ml-drawer-price-range">
+                  <div class="ml-currency-label">{{ cart.currency.iso_code | default: 'PKR' }}</div>
+                  <div class="ml-price-inputs-row">
+                    <div class="ml-price-box">
+                      <span class="ml-price-symbol">{{ cart.currency.symbol | default: 'Rs' }}</span>
+                      <input
+                        class="ml-price-input"
+                        name="filter.v.price.gte"
+                        id="Drawer-Filter-Price-Min-Fallback"
+                        value="0.00"
+                        type="number"
+                        step="0.01"
+                        placeholder="0.00"
+                        min="0"
+                      >
+                    </div>
+                    <span class="ml-price-dash">—</span>
+                    <div class="ml-price-box">
+                      <span class="ml-price-symbol">{{ cart.currency.symbol | default: 'Rs' }}</span>
+                      <input
+                        class="ml-price-input"
+                        name="filter.v.price.lte"
+                        id="Drawer-Filter-Price-Max-Fallback"
+                        value="1999.00"
+                        type="number"
+                        step="0.01"
+                        placeholder="1999.00"
+                        min="0"
+                      >
+                    </div>
+                  </div>
+
+                  <!-- PRICE RANGE SLIDER BAR -->
+                  <div class="ml-price-slider-wrap">
+                    <div class="ml-price-slider-track"></div>
+                    <div class="ml-price-slider-handle ml-handle-left"></div>
+                    <div class="ml-price-slider-handle ml-handle-right"></div>
+                  </div>
+
+                  <div class="ml-price-summary-text">
+                    Price: <strong>{{ cart.currency.symbol | default: 'Rs' }}0.00 - {{ cart.currency.symbol | default: 'Rs' }}1,999.00</strong>
+                  </div>
                 </div>
               </div>
             </details>
-          {%- endif -%}
-
-          <!-- DYNAMIC & FALLBACK FILTER ACCORDIONS (AVAILABILITY & PRICE) -->
-          {%- if enable_filtering -%}
-            {%- if results.filters.size > 0 -%}
-              {%- for filter in results.filters -%}
-                {%- assign total_active_values = total_active_values | plus: filter.active_values.size -%}
-                
-                <details class="ml-drawer-accordion" open>
-                  <summary class="ml-drawer-accordion__summary">
-                    <span>{{ filter.label | escape }}</span>
-                    {%- if filter.active_values.size > 0 -%}
-                      <span class="ml-active-badge">{{ filter.active_values.size }}</span>
-                    {%- endif -%}
-                    <span class="ml-toggle-icon"></span>
-                  </summary>
-
-                  <div class="ml-drawer-accordion__content">
-                    {% case filter.type %}
-                      {% when 'boolean', 'list' %}
-                        <ul class="ml-drawer-filter-list">
-                          {%- for value in filter.values -%}
-                            {%- assign input_id = 'Filter-' | append: filter.param_name | escape | append: '-' | append: forloop.index -%}
-                            {%- assign is_disabled = false -%}
-                            {%- if value.count == 0 and value.active == false -%}
-                              {%- assign is_disabled = true -%}
-                            {%- endif -%}
-
-                            <li class="ml-drawer-filter-item">
-                              <label for="{{ input_id }}" class="ml-drawer-checkbox-label{% if is_disabled %} is-disabled{% endif %}{% if value.active %} is-active{% endif %}">
-                                <input
-                                  type="checkbox"
-                                  name="{{ value.param_name }}"
-                                  value="{{ value.value }}"
-                                  id="{{ input_id }}"
-                                  class="ml-checkbox-input"
-                                  {% if value.active %}checked{% endif %}
-                                  {% if is_disabled %}disabled{% endif %}
-                                >
-                                <span class="ml-custom-checkbox">
-                                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                  </svg>
-                                </span>
-                                <span class="ml-checkbox-text">{{ value.label | escape }}</span>
-                                <span class="ml-checkbox-count">({{ value.count }})</span>
-                              </label>
-                            </li>
-                          {%- endfor -%}
-                        </ul>
-
-                      {% when 'price_range' %}
-                        <div class="ml-drawer-price-range">
-                          <div class="ml-currency-label">{{ cart.currency.iso_code }}</div>
-                          <div class="ml-price-inputs-row">
-                            <div class="ml-price-box">
-                              <span class="ml-price-symbol">{{ cart.currency.symbol }}</span>
-                              <input
-                                class="ml-price-input"
-                                name="{{ filter.min_value.param_name }}"
-                                id="Drawer-Filter-Price-Min"
-                                {%- if filter.min_value.value -%}
-                                  value="{{ filter.min_value.value | money_without_currency }}"
-                                {%- else -%}
-                                  value="0.00"
-                                {%- endif -%}
-                                type="number"
-                                step="0.01"
-                                placeholder="0.00"
-                                min="0"
-                                max="{{ filter.range_max | money_without_currency }}"
-                              >
-                            </div>
-                            <span class="ml-price-dash">—</span>
-                            <div class="ml-price-box">
-                              <span class="ml-price-symbol">{{ cart.currency.symbol }}</span>
-                              <input
-                                class="ml-price-input"
-                                name="{{ filter.max_value.param_name }}"
-                                id="Drawer-Filter-Price-Max"
-                                {%- if filter.max_value.value -%}
-                                  value="{{ filter.max_value.value | money_without_currency }}"
-                                {%- else -%}
-                                  value="{{ filter.range_max | money_without_currency }}"
-                                {%- endif -%}
-                                type="number"
-                                step="0.01"
-                                placeholder="{{ filter.range_max | money_without_currency }}"
-                                min="0"
-                                max="{{ filter.range_max | money_without_currency }}"
-                              >
-                            </div>
-                          </div>
-
-                          <!-- PRICE RANGE SLIDER BAR -->
-                          <div class="ml-price-slider-wrap">
-                            <div class="ml-price-slider-track"></div>
-                            <div class="ml-price-slider-handle ml-handle-left"></div>
-                            <div class="ml-price-slider-handle ml-handle-right"></div>
-                          </div>
-
-                          <div class="ml-price-summary-text">
-                            Price: <strong>{{ cart.currency.symbol }}{{ filter.min_value.value | default: 0 | money_without_currency }} - {{ cart.currency.symbol }}{{ filter.max_value.value | default: filter.range_max | money_without_currency }}</strong>
-                          </div>
-                        </div>
-                    {% endcase %}
-                  </div>
-                </details>
-              {%- endfor -%}
-            {%- else -%}
-              <!-- FALLBACK AVAILABILITY (STOCK) -->
-              <details class="ml-drawer-accordion" open>
-                <summary class="ml-drawer-accordion__summary">
-                  <span>Availability</span>
-                  <span class="ml-toggle-icon"></span>
-                </summary>
-                <div class="ml-drawer-accordion__content">
-                  <ul class="ml-drawer-filter-list">
-                    <li class="ml-drawer-filter-item">
-                      <label for="Filter-Availability-1" class="ml-drawer-checkbox-label">
-                        <input
-                          type="checkbox"
-                          name="filter.v.availability"
-                          value="1"
-                          id="Filter-Availability-1"
-                          class="ml-checkbox-input"
-                        >
-                        <span class="ml-custom-checkbox">
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                          </svg>
-                        </span>
-                        <span class="ml-checkbox-text">In stock</span>
-                        <span class="ml-checkbox-count">(0)</span>
-                      </label>
-                    </li>
-                    <li class="ml-drawer-filter-item">
-                      <label for="Filter-Availability-0" class="ml-drawer-checkbox-label">
-                        <input
-                          type="checkbox"
-                          name="filter.v.availability"
-                          value="0"
-                          id="Filter-Availability-0"
-                          class="ml-checkbox-input"
-                        >
-                        <span class="ml-custom-checkbox">
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                          </svg>
-                        </span>
-                        <span class="ml-checkbox-text">Out of stock</span>
-                        <span class="ml-checkbox-count">(19)</span>
-                      </label>
-                    </li>
-                  </ul>
-                </div>
-              </details>
-
-              <!-- FALLBACK PRICE RANGE -->
-              <details class="ml-drawer-accordion" open>
-                <summary class="ml-drawer-accordion__summary">
-                  <span>Price</span>
-                  <span class="ml-toggle-icon"></span>
-                </summary>
-                <div class="ml-drawer-accordion__content">
-                  <div class="ml-drawer-price-range">
-                    <div class="ml-currency-label">{{ cart.currency.iso_code | default: 'PKR' }}</div>
-                    <div class="ml-price-inputs-row">
-                      <div class="ml-price-box">
-                        <span class="ml-price-symbol">{{ cart.currency.symbol | default: 'Rs' }}</span>
-                        <input
-                          class="ml-price-input"
-                          name="filter.v.price.gte"
-                          id="Drawer-Filter-Price-Min-Fallback"
-                          value="0.00"
-                          type="number"
-                          step="0.01"
-                          placeholder="0.00"
-                          min="0"
-                        >
-                      </div>
-                      <span class="ml-price-dash">—</span>
-                      <div class="ml-price-box">
-                        <span class="ml-price-symbol">{{ cart.currency.symbol | default: 'Rs' }}</span>
-                        <input
-                          class="ml-price-input"
-                          name="filter.v.price.lte"
-                          id="Drawer-Filter-Price-Max-Fallback"
-                          value="1999.00"
-                          type="number"
-                          step="0.01"
-                          placeholder="1999.00"
-                          min="0"
-                        >
-                      </div>
-                    </div>
-
-                    <!-- PRICE RANGE SLIDER BAR -->
-                    <div class="ml-price-slider-wrap">
-                      <div class="ml-price-slider-track"></div>
-                      <div class="ml-price-slider-handle ml-handle-left"></div>
-                      <div class="ml-price-slider-handle ml-handle-right"></div>
-                    </div>
-
-                    <div class="ml-price-summary-text">
-                      Price: <strong>{{ cart.currency.symbol | default: 'Rs' }}0.00 - {{ cart.currency.symbol | default: 'Rs' }}1,999.00</strong>
-                    </div>
-                  </div>
-                </div>
-              </details>
-            {%- endif -%}
           {%- endif -%}
         </div>
 
