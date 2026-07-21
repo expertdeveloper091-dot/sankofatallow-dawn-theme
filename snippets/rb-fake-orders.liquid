@@ -1,0 +1,26 @@
+{% comment %}
+  rb-fake-orders.liquid
+  Fake social proof toast notification — Clay theme style
+  Auto-cycles through fake buyer names, cities and products
+{% endcomment %}
+
+<div class="rb-order-toast rb-hidden" id="RBOrderToast" role="alert" aria-live="polite">
+  <img class="rb-toast-img"
+    src="{{ product.featured_image | img_url: '80x80', crop: 'center' }}"
+    alt="{{ product.title | escape }}"
+    id="RBToastImg"
+    width="52"
+    height="52">
+
+  <div class="rb-toast-body">
+    <div class="rb-toast-top"><strong id="RBToastName">Hina</strong> <span id="RBToastAction">purchased</span></div>
+    <div class="rb-toast-buyer" id="RBToastBuyer">Hina (Multan)</div>
+    <div class="rb-toast-product" id="RBToastProduct">BAKRA EID DINNER SET</div>
+    <div class="rb-toast-time">
+      <span class="rb-toast-time-text" id="RBToastTime">44 minutes ago</span>
+      <span class="rb-toast-verify">✓ Verify</span>
+    </div>
+  </div>
+
+  <button type="button" class="rb-toast-close" id="RBToastClose" aria-label="Close">×</button>
+</div>
