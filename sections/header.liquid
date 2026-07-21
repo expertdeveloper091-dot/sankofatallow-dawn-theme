@@ -1134,41 +1134,35 @@
   </div>
 
   <!-- Trust bar -->
-  <div class="cart-trust-bar">
-    {% comment %} <span><i class="fa-solid fa-globe"></i> Worldwide Shipping</span> {% endcomment %}
-    <span><i class="fa-solid fa-award"></i> Top Quality</span>
-    <span><i class="fa-solid fa-shield-halved"></i> 100% Secure</span>
-  </div>
-
-  <!-- Urgency timer -->
-  <div class="cart-urgency">
-    <i class="fa-solid fa-clock"></i>
-    Hurry! Your cart expires in <strong id="cart-timer-countdown">05:00</strong>
-  </div>
-
-  {% comment %}
-  <!-- Shipping progress -->
-  <div class="cart-progress-wrap" id="cart-progress-wrap">
-    <div class="cart-progress-text" id="cart-progress-text">Add $100.00 more for Free Shipping</div>
-    <div class="cart-progress-track">
-      <div class="cart-progress-fill" id="cart-progress-fill"></div>
+  {%- if section.settings.show_trust_bar != false -%}
+    <div class="cart-trust-bar">
+      <span><i class="fa-solid fa-award"></i> {{ section.settings.trust_text_1 | default: "Top Quality" }}</span>
+      <span><i class="fa-solid fa-shield-halved"></i> {{ section.settings.trust_text_2 | default: "100% Secure" }}</span>
     </div>
-    <div class="cart-milestones">
-      <div class="milestone" id="ms-gift"><i class="fa-solid fa-gift"></i><span>Free Gift</span></div>
-      <div class="milestone" id="ms-discount"><i class="fa-solid fa-percent"></i><span>10% Off</span></div>
-      <div class="milestone" id="ms-shipping"><i class="fa-solid fa-truck"></i><span>Free Ship</span></div>
+  {%- endif -%}
+
+  <!-- Urgency timer (Red Banner) -->
+  {%- if section.settings.show_urgency_timer != false -%}
+    <div class="cart-urgency">
+      <i class="fa-solid fa-clock"></i>
+      <span class="urgency-timer-text">{{ section.settings.urgency_timer_text | default: "Hurry! Your cart expires in" }}</span>
+      <strong id="cart-timer-countdown">04:26</strong>
     </div>
-  </div>
-  {% endcomment %}
+  {%- endif -%}
 
   <!-- Scrollable body -->
   <div class="cart-body" id="cart-body">
 
-    <!-- Empty state -->
+    <!-- Empty state (Matching Image 1) -->
     <div class="cart-empty" id="cart-empty" {% if cart.item_count > 0 %}style="display:none"{% endif %}>
-      <i class="fa-solid fa-bag-shopping"></i>
-      <p>Your cart is empty</p>
-      <button class="btn-continue-shop" id="btn-continue-shop">Continue Shopping</button>
+      <h2 class="cart-empty-title">{{ section.settings.empty_cart_title | default: "YOUR CART IS EMPTY" }}</h2>
+      <button class="btn-continue-shop" id="btn-continue-shop">{{ section.settings.empty_cart_btn_text | default: "Continue shopping" }}</button>
+      {%- if section.settings.show_login_link != false -%}
+        <div class="cart-empty-login">
+          <strong>HAVE AN ACCOUNT?</strong><br>
+          <a href="{{ routes.account_login_url }}" class="cart-login-link">Log in</a> to check out faster.
+        </div>
+      {%- endif -%}
     </div>
 
     <!-- Items (SSR bootstrap – JS will re-render on open) -->
@@ -1198,33 +1192,18 @@
               <button class="qty-btn" data-action="increase" data-key="{{ item.key }}" data-qty="{{ item.quantity }}" aria-label="Increase quantity">
                 <i class="fa-solid fa-plus"></i>
               </button>
-              <button class="cart-item-remove" data-key="{{ item.key }}" data-qty="0">Remove</button>
+              <button class="cart-item-remove" data-key="{{ item.key }}" data-qty="0" aria-label="Remove item"></button>
             </div>
           </div>
         </div>
       {%- endfor -%}
     </div>
 
-    {% comment %}
-    <!-- Buyer Protection add-on -->
-    <div class="cart-protection" id="cart-protection" {% if cart.item_count == 0 %}style="display:none"{% endif %}>
-      <label class="protection-label">
-        <input type="checkbox" id="protection-toggle">
-        <span class="prot-icon"><i class="fa-solid fa-shield-halved"></i></span>
-        <span class="prot-info">
-          <strong>Buyer Protection</strong>
-          <small>Secure your purchase – comprehensive coverage</small>
-        </span>
-        <span class="prot-price">+$12.00</span>
-      </label>
-    </div>
-    {% endcomment %}
-
     <!-- Cross-sell -->
     {%- assign cross_product = all_products[section.settings.cross_sell_product] -%}
     <div class="cart-cross-sell" id="cart-cross-sell"
       {% if cart.item_count == 0 or cross_product == blank %}style="display:none"{% endif %}>
-      <div class="cross-sell-label">73% of people also got...</div>
+      <div class="cross-sell-label">{{ section.settings.cross_sell_heading | default: "73% of people also got..." }}</div>
       {%- if cross_product != blank -%}
         {%- assign cs_variant = cross_product.first_available_variant -%}
         <div class="cross-sell-card">
@@ -1251,19 +1230,23 @@
   <!-- Footer -->
   <div class="cart-footer" id="cart-footer" {% if cart.item_count > 0 %}style="display:block"{% endif %}>
     <div class="cart-subtotal-row">
-      <span class="subtotal-label">Subtotal</span>
+      <span class="subtotal-label">Estimated total</span>
       <span class="subtotal-value" id="cart-subtotal">{{ cart.total_price | money }}</span>
     </div>
 
     <div class="cart-cta-row">
-      {% comment %} <a href="{{ routes.cart_url }}" class="btn-view-cart">View Cart</a> {% endcomment %}
       <div class="btn-checkout-wrap" style="width: 100%;">
         <form action="{{ routes.cart_url }}" method="post">
           <button type="submit" name="checkout" class="btn-checkout">
-            Continue to Checkout • <span class="cart-btn-subtotal">{{ cart.total_price | money }}</span> <i class="fa-solid fa-lock" style="font-size:11px; margin-left:4px;"></i>
+            {{ section.settings.checkout_btn_text | default: "Continue to Secure Checkout" }} • <span class="cart-btn-subtotal">{{ cart.total_price | money }}</span> <i class="fa-solid fa-lock" style="font-size:11px; margin-left:4px;"></i>
           </button>
         </form>
       </div>
+    </div>
+
+    <div class="cart-guarantee-row">
+      <span><i class="fa-solid fa-shield-halved"></i> 30-day money-back guarantee</span>
+      <span><i class="fa-solid fa-lock"></i> Secure Checkout</span>
     </div>
 
     <div class="cart-payment-icons">
@@ -1627,9 +1610,73 @@
   "max_blocks": 3,
   "settings": [
     {
+      "type": "header",
+      "content": "Cart Drawer Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_urgency_timer",
+      "label": "Show Red Urgency Banner",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "urgency_timer_text",
+      "label": "Urgency Banner Text",
+      "default": "Hurry! Your cart expires in"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_bar",
+      "label": "Show Trust Bar under Header",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_text_1",
+      "label": "Trust Item 1",
+      "default": "Top Quality"
+    },
+    {
+      "type": "text",
+      "id": "trust_text_2",
+      "label": "Trust Item 2",
+      "default": "100% Secure"
+    },
+    {
+      "type": "text",
+      "id": "empty_cart_title",
+      "label": "Empty Cart Title",
+      "default": "YOUR CART IS EMPTY"
+    },
+    {
+      "type": "text",
+      "id": "empty_cart_btn_text",
+      "label": "Empty Cart Button Text",
+      "default": "Continue shopping"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_login_link",
+      "label": "Show Account Login Prompt on Empty Cart",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cross_sell_heading",
+      "label": "Cross-Sell Heading",
+      "default": "73% of people also got..."
+    },
+    {
       "type": "product",
       "id": "cross_sell_product",
       "label": "Cart Drawer - Cross-Sell Product"
+    },
+    {
+      "type": "text",
+      "id": "checkout_btn_text",
+      "label": "Checkout Button Text",
+      "default": "Continue to Secure Checkout"
     },
     {
       "type": "select",
