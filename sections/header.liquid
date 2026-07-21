@@ -1433,8 +1433,14 @@
   }
 
   /* ── Cart open/close ── */
-  if (cartBtnD) cartBtnD.addEventListener('click', function() { openDrawer(cartDrawer); fetchCart(); });
-  if (cartBtnM) cartBtnM.addEventListener('click', function() { openDrawer(cartDrawer); fetchCart(); });
+  window.openCustomCartDrawer = function() {
+    if (cartDrawer) {
+      openDrawer(cartDrawer);
+      fetchCart();
+    }
+  };
+  if (cartBtnD) cartBtnD.addEventListener('click', function() { openCustomCartDrawer(); });
+  if (cartBtnM) cartBtnM.addEventListener('click', function() { openCustomCartDrawer(); });
   if (cartCloseBtn) cartCloseBtn.addEventListener('click', closeAll);
   if (btnContinue)  btnContinue.addEventListener('click', closeAll);
 
