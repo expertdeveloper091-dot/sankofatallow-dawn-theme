@@ -601,32 +601,57 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
+/* STRICT EQUAL HEIGHT GRID CARDS SYSTEM */
+.ml-product-grid {
+  display: grid !important;
+  align-items: stretch !important;
+}
+
+.ml-product-grid > .grid__item {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+}
+
+.ml-product-component-wrap {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  align-items: stretch !important;
+}
+
 .ml-product-card {
-  font-family: 'Poppins', sans-serif;
-  background-color: rgb(var(--color-background));
-  color: rgb(var(--color-foreground));
-  border: 1.5px solid rgba(var(--color-foreground), 0.12);
-  border-radius: 16px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  font-family: 'Poppins', sans-serif !important;
+  background-color: rgb(var(--color-background)) !important;
+  color: rgb(var(--color-foreground)) !important;
+  border: 1.5px solid rgba(var(--color-foreground), 0.12) !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  height: 100% !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  transition: box-shadow 0.3s ease, transform 0.3s ease !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
 }
 
 .ml-product-card:hover {
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08) !important;
+  transform: translateY(-2px) !important;
 }
 
 .ml-product-card__main {
-  display: flex;
-  flex-direction: row;
-  gap: 1.5rem;
-  padding: 1.5rem;
-  flex-grow: 1;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 1.5rem !important;
+  padding: 1.5rem !important;
+  flex: 1 0 auto !important;
 }
 
 /* 45% IMAGE CONTAINER */
@@ -909,11 +934,12 @@
   border-radius: 4px;
 }
 
-/* FOOTER BUTTONS */
+/* FOOTER BUTTONS - PINNED AT BOTTOM OF EQUAL-HEIGHT CARDS */
 .ml-product-card__footer {
-  display: flex;
-  width: 100%;
-  border-top: 1.5px solid rgba(var(--color-foreground), 0.12);
+  display: flex !important;
+  width: 100% !important;
+  margin-top: auto !important;
+  border-top: 1.5px solid rgba(var(--color-foreground), 0.12) !important;
 }
 
 .ml-card-btn {
