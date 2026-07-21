@@ -1,0 +1,373 @@
+<!--
+  Custom Premium Orange Announcement Bar for Shopify Dawn Theme
+  Fully dynamic, 4 columns on desktop, smooth automatic slider on mobile with swipe support.
+-->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+
+{%- style -%}
+  :root {
+    --color-announcement-bg: {{ section.settings.announcement_bg | default: '#e7a621' }};
+    --color-announcement-text: {{ section.settings.announcement_text_color | default: '#ffffff' }};
+    --announcement-speed: {{ section.settings.change_slides_speed | default: 3 | times: 1000 }}ms;
+  }
+
+  .announcement-bar-wrapper {
+    background-color: #e7a621;
+    color: var(--color-announcement-text);
+    position: relative;
+    z-index: 1010;
+    width: 100%;
+    height: 48px;
+    overflow: hidden;
+  }
+
+  /* Desktop Grid layout */
+  .announcement-bar-desktop {
+    display: grid;
+    grid-template-columns: repeat({{ section.blocks.size | default: 1 }}, 1fr);
+    height: 100%;
+    align-items: center;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  .announcement-item-desktop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    position: relative;
+    height: 100%;
+    letter-spacing: 0.2px;
+  }
+
+  /* Thin white vertical separators */
+  .announcement-item-desktop:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 25%;
+    height: 50%;
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.35);
+  }
+
+  .announcement-item-desktop i,
+  .announcement-item-mobile i {
+    margin-right: 8px;
+    font-size: 14px;
+  }
+
+  .icon-thin-circle {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  /* Mobile Slider layout */
+  .announcement-bar-mobile {
+    display: none;
+    position: relative;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+
+  .announcement-slider {
+    flex: 1;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .announcement-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
+  }
+
+  .announcement-slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .announcement-arrow {
+    color: var(--color-announcement-text);
+    font-size: 16px;
+    padding: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+  }
+
+  .announcement-arrow:hover {
+    opacity: 1;
+  }
+
+  @media (max-width: 990px) {
+    .announcement-bar-desktop {
+      display: none;
+    }
+    .announcement-bar-mobile {
+      display: flex;
+    }
+  }
+{%- endstyle -%}
+
+<div class="announcement-bar-wrapper">
+  <!-- Desktop grid layout (Equally divided based on block count) -->
+  <div class="announcement-bar-desktop">
+    {%- for block in section.blocks -%}
+      <div class="announcement-item-desktop" {{ block.shopify_attributes }}>
+        {%- case block.settings.icon -%}
+          {%- when 'check' -%}
+            <i class="fa-solid fa-circle-check"></i>
+          {%- when 'circle' -%}
+            <span class="icon-thin-circle"></span>
+          {%- when 'guarantee' -%}
+            <i class="fa-solid fa-rotate"></i>
+          {%- when 'truck' -%}
+            <i class="fa-solid fa-truck-fast"></i>
+          {%- else -%}
+            {%- if block.settings.custom_icon_class != blank -%}
+              <i class="{{ block.settings.custom_icon_class }}"></i>
+            {%- endif -%}
+        {%- endcase -%}
+        {{ block.settings.text }}
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <!-- Mobile Announcement Slider -->
+  <div class="announcement-bar-mobile">
+    <button class="announcement-arrow" id="ann-prev" aria-label="Previous Announcement">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <div class="announcement-slider">
+      {%- for block in section.blocks -%}
+        <div class="announcement-slide{% if forloop.first %} active{% endif %}" {{ block.shopify_attributes }}>
+          {%- case block.settings.icon -%}
+            {%- when 'check' -%}
+              <i class="fa-solid fa-circle-check"></i>
+            {%- when 'circle' -%}
+              <span class="icon-thin-circle"></span>
+            {%- when 'guarantee' -%}
+              <i class="fa-solid fa-rotate"></i>
+            {%- when 'truck' -%}
+              <i class="fa-solid fa-truck-fast"></i>
+            {%- else -%}
+              {%- if block.settings.custom_icon_class != blank -%}
+                <i class="{{ block.settings.custom_icon_class }}"></i>
+              {%- endif -%}
+          {%- endcase -%}
+          {{ block.settings.text }}
+        </div>
+      {%- endfor -%}
+    </div>
+    <button class="announcement-arrow" id="ann-next" aria-label="Next Announcement">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const annSlides = document.querySelectorAll(".announcement-slide");
+    const annPrev = document.getElementById("ann-prev");
+    const annNext = document.getElementById("ann-next");
+    const speed = {{ section.settings.change_slides_speed | default: 3 | times: 1000 }};
+    
+    if (annSlides.length <= 1) return;
+
+    let currentSlideIdx = 0;
+    let slideInterval;
+
+    function showSlide(idx) {
+      annSlides.forEach((slide, index) => {
+        slide.classList.remove("active");
+        if (index === idx) slide.classList.add("active");
+      });
+    }
+
+    function nextSlide() {
+      currentSlideIdx = (currentSlideIdx + 1) % annSlides.length;
+      showSlide(currentSlideIdx);
+    }
+
+    function prevSlide() {
+      currentSlideIdx = (currentSlideIdx - 1 + annSlides.length) % annSlides.length;
+      showSlide(currentSlideIdx);
+    }
+
+    function startAutoplay() {
+      stopAutoplay();
+      {%- if section.settings.auto_rotate -%}
+        slideInterval = setInterval(nextSlide, speed);
+      {%- endif -%}
+    }
+
+    function stopAutoplay() {
+      if (slideInterval) clearInterval(slideInterval);
+    }
+
+    if (annNext && annPrev) {
+      annNext.addEventListener("click", () => { nextSlide(); startAutoplay(); });
+      annPrev.addEventListener("click", () => { prevSlide(); startAutoplay(); });
+    }
+
+    // Touch Swipe Slider Support
+    const sliderContainer = document.querySelector(".announcement-slider");
+    if (sliderContainer) {
+      let touchStartX = 0;
+      let touchEndX = 0;
+      sliderContainer.addEventListener("touchstart", (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        stopAutoplay();
+      }, { passive: true });
+
+      sliderContainer.addEventListener("touchend", (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        if (touchEndX < touchStartX - 50) nextSlide();
+        if (touchEndX > touchStartX + 50) prevSlide();
+        startAutoplay();
+      }, { passive: true });
+    }
+
+    startAutoplay();
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "max_blocks": 12,
+  "class": "announcement-bar-section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "auto_rotate",
+      "label": "Auto-rotate slides",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "change_slides_speed",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Change slides every",
+      "default": 3
+    },    
+    {
+      "type": "color",
+      "id": "announcement_bg",
+      "default": "#F15A24",
+      "label": "Background Color"
+    },
+    {
+      "type": "color",
+      "id": "announcement_text_color",
+      "default": "#ffffff",
+      "label": "Text Color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Welcome to our store",
+          "label": "Announcement Text"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Select Icon",
+          "default": "check",
+          "options": [
+            { "value": "none", "label": "No Icon" },
+            { "value": "check", "label": "Check badge" },
+            { "value": "circle", "label": "Circle outline" },
+            { "value": "guarantee", "label": "Guarantee arrows" },
+            { "value": "truck", "label": "Fast Delivery Truck" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "custom_icon_class",
+          "label": "Or Font Awesome Icon class",
+          "placeholder": "fa-solid fa-gift"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar",
+      "blocks": [
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "Made in USA",
+            "icon": "check"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "50% discount for new subscribers",
+            "icon": "circle"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "30-Day Money-Back Guarantee",
+            "icon": "guarantee"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "Free + Fast Shipping within the US only",
+            "icon": "truck"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

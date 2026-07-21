@@ -1,0 +1,308 @@
+/* Namespace-scoped CSS for Shopify Dawn Custom CTA section */
+
+.ag-cta {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--ag-cta-bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: var(--ag-cta-padding-top);
+  padding-bottom: var(--ag-cta-padding-bottom);
+  padding-left: 20px;
+  padding-right: 20px;
+  box-sizing: border-box;
+}
+
+.ag-cta * {
+  box-sizing: border-box;
+}
+
+.ag-cta__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--ag-cta-overlay-color);
+  opacity: var(--ag-cta-overlay-opacity);
+  z-index: 1;
+}
+
+.ag-cta__content {
+  max-width: var(--ag-cta-max-width);
+  width: 100%;
+  text-align: center;
+  z-index: 5;
+  position: relative;
+}
+
+.ag-cta__customers {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  background: #ffffff;
+  border: 2px solid #000000;
+  padding: 8px 18px;
+  border-radius: 60px;
+  margin-bottom: 35px;
+}
+
+.ag-cta__avatars {
+  display: flex;
+}
+
+.ag-cta__avatar-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  margin-left: -12px;
+  object-fit: cover;
+}
+
+.ag-cta__avatar-img:first-child {
+  margin-left: 0;
+}
+
+.ag-cta__customers-text {
+  font-size: 18px;
+  color: #000000;
+  margin: 0;
+  line-height: normal;
+}
+
+.ag-cta__customers-text strong {
+  font-weight: 700;
+}
+
+.ag-cta__title {
+  font-size: 60px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-top: 0;
+  margin-bottom: 25px;
+  color: #000000;
+  font-family: 'Poppins';
+}
+
+.ag-cta__title-highlight {
+  color: var(--ag-cta-accent-color);
+}
+
+.ag-cta__description {
+  font-family: 'Poppins', sans-serif;
+  font-size: 22px;
+  color: var(--ag-cta-text-color);
+  line-height: 1.8;
+  margin-top: 0;
+  margin-bottom: 35px;
+}
+
+.ag-cta__description p {
+  font-size: 22px;
+  color: var(--ag-cta-text-color);
+  line-height: 1.8;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.ag-cta__button {
+  display: inline-block;
+  padding: 18px 45px;
+  background-color: var(--ag-cta-btn-bg);
+  border-radius: var(--ag-cta-btn-border-radius);
+  color: var(--ag-cta-btn-text-color);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 22px;
+  border: 2.5px solid #2c2609;
+  box-shadow: 0px 4px 0px 0px #2c2609;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+
+.ag-cta__button:hover {
+  transform: translateY(2px);
+  background-color: var(--ag-cta-btn-hover-bg);
+  color: var(--ag-cta-btn-text-color);
+  box-shadow: 0px 2px 0px 0px #2c2609;
+}
+
+.ag-cta__button:active {
+  transform: translateY(4px);
+  box-shadow: 0px 0px 0px 0px #2c2609;
+}
+
+.ag-cta__features {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 35px;
+  margin-top: 35px;
+  color: var(--ag-cta-text-color);
+  font-size: 18px;
+  flex-wrap: wrap;
+}
+
+.ag-cta__feature-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ag-cta__feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 21px;
+  height: 20px;
+}
+
+.ag-cta__feature-icon .cta-feature-checkmark {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.ag-cta__feature-icon .cta-feature-checkmark__bg {
+  fill: #ffffff !important;
+}
+
+.ag-cta__feature-icon .cta-feature-checkmark__border {
+  stroke: #ffffff !important;
+}
+
+.ag-cta__feature-icon .cta-feature-checkmark__line {
+  stroke: #e7a621 !important;
+}
+
+.ag-cta__feature-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ag-cta__feature-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.ag-cta__floating-images {
+  position: absolute;
+  top: 0;
+  width: 330px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ag-cta__floating-images--left {
+  left: 0;
+}
+
+.ag-cta__floating-images--right {
+  right: 0;
+}
+
+.ag-cta__img-wrapper {
+  position: absolute;
+  border: 7px solid #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  background: #ffffff;
+}
+
+.ag-cta__img-wrapper img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ag-cta__img-wrapper--one {
+  width: 270px;
+  height: 270px;
+  top: 10px;
+  left: -20px;
+  transform: rotate(-10deg);
+}
+
+.ag-cta__img-wrapper--two {
+  width: 180px;
+  height: 220px;
+  top: 250px;
+  left: -30px;
+  transform: rotate(18deg);
+}
+
+.ag-cta__img-wrapper--three {
+  width: 240px;
+  height: 250px;
+  bottom: 20px;
+  left: 120px;
+  transform: rotate(12deg);
+}
+
+.ag-cta__img-wrapper--four {
+  width: 220px;
+  height: 220px;
+  top: 20px;
+  right: 80px;
+  transform: rotate(-14deg);
+}
+
+.ag-cta__img-wrapper--five {
+  width: 260px;
+  height: 320px;
+  bottom: 30px;
+  right: -30px;
+  transform: rotate(10deg);
+}
+
+@media (max-width: 1200px) {
+  .ag-cta__floating-images {
+    display: none;
+  }
+  .ag-cta__title {
+    font-size: 50px;
+  }
+  .ag-cta__description,
+  .ag-cta__description p {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ag-cta {
+    padding-top: max(60px, calc(var(--ag-cta-padding-top) * 0.75));
+    padding-bottom: max(60px, calc(var(--ag-cta-padding-bottom) * 0.75));
+  }
+  .ag-cta__title {
+    font-size: 36px;
+  }
+  .ag-cta__description,
+  .ag-cta__description p {
+    font-size: 16px;
+  }
+  .ag-cta__customers {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .ag-cta__features {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .ag-cta__button {
+    font-size: 18px;
+    padding: 16px 30px;
+  }
+}

@@ -1,0 +1,614 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+{%- assign row_count = 0 -%}
+{%- for block in section.blocks -%}{%- if block.type == 'row' -%}{%- assign row_count = row_count | plus: 1 -%}{%- endif -%}{%- endfor -%}
+
+{%- style -%}
+  {%- assign comp_border = section.settings.competitor_circle_border | default: '#171717' -%}
+  {%- assign comp_bg = section.settings.competitor_circle_bg | default: '#ffffff' -%}
+  {%- assign comp_color = section.settings.competitor_mark_color | default: '#171717' -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* ==========================================
+     GLOBAL STYLE PARITY
+     ========================================== */
+  .eg-comp-{{ section.id }},
+  .eg-comp-{{ section.id }} * {
+    box-sizing: border-box;
+  }
+
+  .eg-comp-{{ section.id }} {
+    width: 100%;
+    font-family: "Poppins", sans-serif;
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  /* Centered Header Title */
+  .eg-comp-{{ section.id }} .eg-compare-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 0 2rem;
+  }
+
+  .eg-comp-{{ section.id }} .eg-compare-heading {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2.6rem, 3.8vw, 4.4rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: {{ section.settings.heading_color }};
+    margin: 0;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+  }
+
+  /* Compare Table */
+  .eg-comp-{{ section.id }} .eg-compare-table {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    margin: 64px auto 0; /* large top margin offset to accommodate center header absolute overflow */
+    border: 1.5px solid {{ section.settings.table_border }};
+    border-radius: 8px;
+    background-color: {{ section.settings.table_bg }};
+  }
+
+  /* Row spacing and grid columns */
+  .eg-comp-{{ section.id }} .eg-row {
+    display: grid;
+    grid-template-columns: 1fr 160px 160px;
+    min-height: 52px;
+    align-items: center;
+    border-bottom: 1px dashed rgba(44, 38, 9, 0.22);
+  }
+
+  .eg-comp-{{ section.id }} .eg-row:last-child {
+    border-bottom: none;
+  }
+
+  /* Feature text style */
+  .eg-comp-{{ section.id }} .eg-feature {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 18px;
+    color: {{ section.settings.feature_text_color }};
+    font-size: 13.5px;
+    line-height: 1.35;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-align: center;
+  }
+
+  .eg-comp-{{ section.id }} .eg-center-space {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Competitor Column style */
+  .eg-comp-{{ section.id }} .eg-other {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .eg-comp-{{ section.id }} .eg-center-icons span,
+  .eg-comp-{{ section.id }} .eg-other span {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .eg-comp-{{ section.id }} .eg-center-icons span {
+    color: {{ section.settings.brand_check_bg }} !important;
+  }
+
+  .eg-comp-{{ section.id }} .eg-other span {
+    color: {{ comp_color }} !important;
+  }
+
+  .eg-comp-{{ section.id }} .eg-center-icons span svg,
+  .eg-comp-{{ section.id }} .eg-other span svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ==========================================
+     ABSOLUTE POSITIONED ACCENT BRAND COLUMN
+     ========================================== */
+  .eg-comp-{{ section.id }} .eg-compare-center {
+    position: absolute;
+    top: -58px;
+    left: calc(100% - 320px);
+    width: 160px;
+    height: calc(100% + 78px);
+    background-color: {{ section.settings.brand_column_bg }};
+    border: 1.5px solid {{ section.settings.table_border }};
+    border-radius: 8px;
+    z-index: 5;
+    overflow: hidden;
+  }
+
+  /* Yellow brand title - RED text inside */
+  .eg-comp-{{ section.id }} .eg-brand-title {
+    height: 66px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ section.settings.brand_title_color }};
+    font-size: 17.5px;
+    line-height: 1.1;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0 8px;
+  }
+
+  .eg-comp-{{ section.id }} .eg-center-icons {
+    height: calc(100% - 66px);
+    display: grid;
+    grid-template-rows: repeat({{ row_count }}, 52px);
+    align-items: center;
+    justify-items: center;
+  }
+
+  /* Competitor label header */
+  .eg-comp-{{ section.id }} .eg-compare-others-title {
+    position: absolute;
+    top: -38px;
+    right: 0;
+    width: 160px;
+    text-align: center;
+    color: {{ section.settings.feature_text_color }};
+    font-size: 13.5px;
+    font-weight: 900;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+  }
+
+  /* ==========================================
+     RESPONSIVE STYLING PARITY
+     ========================================== */
+  /* Tablet */
+  @media (max-width: 760px) {
+    .eg-comp-{{ section.id }} .eg-compare-table {
+      max-width: 100%;
+      margin-top: 60px;
+    }
+    eg-comp-{{ section.id }}{
+      padding:auto 10px ;
+    }
+    .eg-comp-{{ section.id }} .eg-row {
+      grid-template-columns: 1fr 130px 120px;
+    }
+    .eg-comp-{{ section.id }} .eg-compare-center {
+      left: calc(100% - 250px);
+      width: 130px;
+    }
+    .eg-comp-{{ section.id }} .eg-compare-others-title {
+      width: 120px;
+    }
+    .eg-comp-{{ section.id }} .eg-feature {
+      font-size: 12px;
+      padding: 0 10px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 560px) {
+    .eg-comp-{{ section.id }} .eg-compare-table {
+      margin-top: 52px;
+    }
+    .eg-comp-{{ section.id }} .eg-row {
+      grid-template-columns: 1fr 82px 82px;
+      min-height: 48px;
+    }
+    .eg-comp-{{ section.id }} .eg-feature {
+      justify-content: flex-start;
+      text-align: left;
+      font-size: 10.3px;
+      letter-spacing: 0.2px;
+      padding: 0 8px;
+    }
+    .eg-comp-{{ section.id }} .eg-compare-center {
+      top: -50px;
+      left: calc(100% - 164px);
+      width: 82px;
+      height: calc(100% + 68px);
+    }
+    .eg-comp-{{ section.id }} .eg-brand-title {
+      height: 58px;
+      font-size: 10.5px;
+      padding: 0 4px;
+    }
+    .eg-comp-{{ section.id }} .eg-center-icons {
+      height: calc(100% - 58px);
+      grid-template-rows: repeat({{ row_count }}, 48px);
+    }
+    .eg-comp-{{ section.id }} .eg-center-icons span,
+    .eg-comp-{{ section.id }} .eg-other span {
+      width: 25px !important;
+      height: 25px !important;
+    }
+    .eg-comp-{{ section.id }} .eg-compare-others-title {
+      top: -33px;
+      right: 0;
+      width: 82px;
+      font-size: 11px;
+    }
+  }
+
+  /* Extra Small Mobile */
+  @media (max-width: 380px) {
+    .eg-comp-{{ section.id }} .eg-row {
+      grid-template-columns: 1fr 72px 72px;
+    }
+    .eg-comp-{{ section.id }} .eg-compare-center {
+      left: calc(100% - 144px);
+      width: 72px;
+    }
+    .eg-comp-{{ section.id }} .eg-compare-others-title {
+      width: 72px;
+      font-size: 10px;
+    }
+    .eg-comp-{{ section.id }} .eg-feature {
+      font-size: 9.5px;
+    }
+    .eg-comp-{{ section.id }} .eg-brand-title {
+      font-size: 9.5px;
+    }
+  }
+{%- endstyle -%}
+
+{%- capture mark_check -%}
+  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M24 4.5C20.1433 4.5 16.3731 5.64366 13.1664 7.78634C9.95963 9.92903 7.46027 12.9745 5.98436 16.5377C4.50845 20.1008 4.12228 24.0216 4.8747 27.8043C5.62711 31.5869 7.4843 35.0615 10.2114 37.7886C12.9386 40.5157 16.4131 42.3729 20.1957 43.1253C23.9784 43.8777 27.8992 43.4916 31.4623 42.0156C35.0255 40.5397 38.071 38.0404 40.2137 34.8336C42.3564 31.6269 43.5 27.8567 43.5 24C43.4901 18.8313 41.4325 13.8772 37.7776 10.2224C34.1228 6.56755 29.1687 4.50991 24 4.5ZM33.2813 20.5875L22.2938 31.0875C22.0097 31.3547 21.6337 31.5024 21.2438 31.5C21.0531 31.5027 20.8639 31.4677 20.6869 31.3969C20.5099 31.3261 20.3487 31.2209 20.2125 31.0875L14.7188 25.8375C14.5664 25.7046 14.4425 25.5422 14.3544 25.3601C14.2664 25.1781 14.2161 24.9801 14.2066 24.7781C14.197 24.5761 14.2284 24.3743 14.2988 24.1847C14.3693 23.9952 14.4773 23.8218 14.6164 23.6751C14.7556 23.5283 14.923 23.4113 15.1085 23.3309C15.2941 23.2505 15.494 23.2084 15.6962 23.2072C15.8984 23.2061 16.0988 23.2458 16.2852 23.324C16.4717 23.4023 16.6404 23.5174 16.7813 23.6625L21.2438 27.9187L31.2188 18.4125C31.5104 18.158 31.8891 18.0262 32.2758 18.0445C32.6624 18.0628 33.027 18.2298 33.2933 18.5107C33.5597 18.7915 33.7071 19.1644 33.7049 19.5515C33.7026 19.9386 33.5508 20.3098 33.2813 20.5875Z" fill="currentColor"></path>
+  </svg>
+{%- endcapture -%}
+
+{%- capture mark_cross -%}
+  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M24 42C33.9411 42 42 33.9411 42 24C42 14.0589 33.9411 6 24 6C14.0589 6 6 14.0589 6 24C6 33.9411 14.0589 42 24 42Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M17 17L31 31M31 17L17 31" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+  </svg>
+{%- endcapture -%}
+
+{%- capture mark_minus -%}
+  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M24 42C33.9411 42 42 33.9411 42 24C42 14.0589 33.9411 6 24 6C14.0589 6 6 14.0589 6 24C6 33.9411 14.0589 42 24 42Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M16.5 24H31.5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+{%- endcapture -%}
+
+<div class="eg-comp-{{ section.id }} section-{{ section.id }}-padding">
+  
+  <!-- HEADER -->
+  {%- if section.settings.heading != blank -%}
+    <div class="eg-compare-header">
+      <h2 class="eg-compare-heading">{{ section.settings.heading }}</h2>
+    </div>
+  {%- endif -%}
+
+  <!-- TABLE -->
+  <div class="eg-compare-table">
+
+    <!-- Brand Column overlay -->
+    <div class="eg-compare-center">
+      <div class="eg-brand-title">{{ section.settings.brand_name }}</div>
+      <div class="eg-center-icons">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'row' -%}
+            {%- assign brand_icon_type = block.settings.brand_icon -%}
+            {%- if brand_icon_type == blank -%}{%- assign brand_icon_type = 'check' -%}{%- endif -%}
+
+            {%- if brand_icon_type != 'blank' -%}
+              <span>
+                {%- if brand_icon_type == 'check' -%}
+                  {{ mark_check }}
+                {%- elsif brand_icon_type == 'cross' -%}
+                  {{ mark_cross }}
+                {%- elsif brand_icon_type == 'minus' -%}
+                  {{ mark_minus }}
+                {%- endif -%}
+              </span>
+            {%- else -%}
+              <span style="visibility: hidden; border: none; background: transparent;"></span>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <!-- Others Title overlay -->
+    <div class="eg-compare-others-title">
+      {{ section.settings.others_name }}
+    </div>
+
+    <!-- Feature Rows -->
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'row' -%}
+        <div class="eg-row" {{ block.shopify_attributes }}>
+          <div class="eg-feature">{{ block.settings.feature }}</div>
+          <div class="eg-center-space"></div>
+          <div class="eg-other">
+            {%- assign competitor_icon_type = block.settings.competitor_icon -%}
+            {%- if competitor_icon_type == blank -%}{%- assign competitor_icon_type = 'minus' -%}{%- endif -%}
+
+            {%- assign competitor_has_mark = true -%}
+            
+            {%- capture comp_rendered_val -%}
+              {%- if block.settings.other_val != blank -%}
+                {%- if block.settings.other_val == '−' or block.settings.other_val == '-' -%}
+                  {{ mark_minus }}
+                {%- else -%}
+                  {{ block.settings.other_val }}
+                {%- endif -%}
+              {%- else -%}
+                {%- if competitor_icon_type == 'check' -%}
+                  {{ mark_check }}
+                {%- elsif competitor_icon_type == 'cross' -%}
+                  {{ mark_cross }}
+                {%- elsif competitor_icon_type == 'minus' -%}
+                  {{ mark_minus }}
+                {%- else -%}
+                  {%- assign competitor_has_mark = false -%}
+                {%- endif -%}
+              {%- endif -%}
+            {%- endcapture -%}
+
+            {%- if competitor_has_mark -%}
+              <span>{{ comp_rendered_val }}</span>
+            {%- else -%}
+              <span style="visibility: hidden; border: none; background: transparent;"></span>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Brand Comparison Table",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#FAF9F5"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading text color",
+      "default": "#2C2609"
+    },
+    {
+      "type": "color",
+      "id": "table_bg",
+      "label": "Table background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "table_border",
+      "label": "Table border & lines",
+      "default": "#2C2609"
+    },
+    {
+      "type": "color",
+      "id": "feature_text_color",
+      "label": "Feature text color",
+      "default": "#2C2609"
+    },
+    {
+      "type": "header",
+      "content": "Brand Column Colors"
+    },
+    {
+      "type": "color",
+      "id": "brand_column_bg",
+      "label": "Brand column highlight background",
+      "default": "#fedb36"
+    },
+    {
+      "type": "color",
+      "id": "brand_title_color",
+      "label": "Brand column title color",
+      "default": "#dc2626"
+    },
+    {
+      "type": "color",
+      "id": "brand_check_bg",
+      "label": "Checkmark bubble background",
+      "default": "#2C2609"
+    },
+    {
+      "type": "color",
+      "id": "brand_check_color",
+      "label": "Checkmark bubble icon",
+      "default": "#fedb36"
+    },
+    {
+      "type": "header",
+      "content": "Competitor Column Colors"
+    },
+    {
+      "type": "color",
+      "id": "competitor_circle_bg",
+      "label": "Competitor column circle background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "competitor_mark_color",
+      "label": "Competitor column mark color",
+      "default": "#171717"
+    },
+    {
+      "type": "color",
+      "id": "competitor_circle_border",
+      "label": "Competitor column circle border color",
+      "default": "#171717"
+    },
+    {
+      "type": "header",
+      "content": "Comparison Labels"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "SUPERIOR IN EVERY WAY"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Your Brand Name",
+      "default": "EVIL GOODS!"
+    },
+    {
+      "type": "text",
+      "id": "others_name",
+      "label": "Competitor Label",
+      "default": "OTHERS"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Comparison Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature",
+          "label": "Feature text",
+          "default": "100% NATURAL INGREDIENTS"
+        },
+        {
+          "type": "select",
+          "id": "brand_icon",
+          "label": "Brand Icon (Sankofa Tallow)",
+          "options": [
+            { "value": "check", "label": "Checkmark" },
+            { "value": "cross", "label": "Cross (X)" },
+            { "value": "minus", "label": "Minus (-)" },
+            { "value": "blank", "label": "Blank" }
+          ],
+          "default": "check"
+        },
+        {
+          "type": "select",
+          "id": "competitor_icon",
+          "label": "Competitor Icon (Others)",
+          "options": [
+            { "value": "check", "label": "Checkmark" },
+            { "value": "cross", "label": "Cross (X)" },
+            { "value": "minus", "label": "Minus (-)" },
+            { "value": "blank", "label": "Blank" }
+          ],
+          "default": "minus"
+        },
+        {
+          "type": "text",
+          "id": "other_val",
+          "label": "Custom Competitor Mark (overrides selection above)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Comparison Table",
+      "blocks": [
+        {
+          "type": "row",
+          "settings": {
+            "feature": "100% NATURAL INGREDIENTS"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "feature": "GRASS FED, GRASS FINISHED"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "feature": "NO PRESERVATIVES"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "feature": "NO ADDITIVES"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "feature": "NATURAL SCENTS ONLY"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "feature": "MADE IN USA"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

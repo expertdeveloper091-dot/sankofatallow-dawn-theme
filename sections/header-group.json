@@ -1,0 +1,89 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "custom_announcement_bar_EpkYGG": {
+      "type": "custom-announcement-bar",
+      "blocks": {
+        "announcement_rgJFLY": {
+          "type": "announcement",
+          "settings": {
+            "text": "Made in USA",
+            "icon": "check",
+            "custom_icon_class": ""
+          }
+        },
+        "announcement_GjjMLw": {
+          "type": "announcement",
+          "settings": {
+            "text": "50% discount for new subscribers",
+            "icon": "circle",
+            "custom_icon_class": ""
+          }
+        },
+        "announcement_7EmFmN": {
+          "type": "announcement",
+          "settings": {
+            "text": "30-Day Money-Back Guarantee",
+            "icon": "guarantee",
+            "custom_icon_class": ""
+          }
+        },
+        "announcement_mQPRYW": {
+          "type": "announcement",
+          "settings": {
+            "text": "Free + Fast Shipping within the US only",
+            "icon": "truck",
+            "custom_icon_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_rgJFLY",
+        "announcement_GjjMLw",
+        "announcement_7EmFmN",
+        "announcement_mQPRYW"
+      ],
+      "name": "Announcement Bar",
+      "settings": {
+        "auto_rotate": true,
+        "change_slides_speed": 3,
+        "announcement_bg": "#f15a24",
+        "announcement_text_color": "#ffffff"
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "cross_sell_product": "ancient-wisdom-for-modern-skin",
+        "logo_position": "top-center",
+        "mobile_logo_position": "center",
+        "menu": "main-menu",
+        "menu_type_desktop": "dropdown",
+        "sticky_header_type": "on-scroll-up",
+        "show_line_separator": true,
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1",
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "enable_customer_avatar": true,
+        "margin_bottom": 0,
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    }
+  },
+  "order": [
+    "custom_announcement_bar_EpkYGG",
+    "header"
+  ]
+}

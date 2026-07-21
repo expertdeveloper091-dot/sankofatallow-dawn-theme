@@ -1,0 +1,531 @@
+/*==================================================
+GOOGLE FONTS
+==================================================*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap');
+
+/*==================================================
+SCOPED RESET & GLOBAL STYLES FOR ISOLATION
+==================================================*/
+
+.custom-footer * {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.custom-footer {
+    font-family:'Inter',sans-serif;
+    background:#f8f5ea;
+    color:#111;
+    border-top:1px solid #222;
+}
+
+.custom-footer a {
+    text-decoration:none;
+    color:#111;
+}
+
+.custom-footer ul {
+    list-style:none;
+}
+
+.custom-footer img {
+    max-width:100%;
+    display:block;
+}
+
+/*==================================================
+LOGO
+==================================================*/
+
+.custom-footer-logo {
+    text-align:center;
+    padding:24px 0;
+    border-bottom:1px solid #222;
+}
+
+.custom-footer-logo img {
+    width:220px;
+    margin:auto;
+}
+
+.custom-footer-logo-fallback {
+    font-family:'Poppins',sans-serif;
+    font-size:24px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+/*==================================================
+CONTAINER
+==================================================*/
+
+.custom-footer-container {
+    width:90%;
+    max-width:1300px;
+    margin:auto;
+    display:grid;
+    grid-template-columns: 1.2fr 1fr 1.2fr 1fr;
+    gap:70px;
+    padding:55px 0;
+}
+
+/*==================================================
+HEADINGS & TYPOGRAPHY
+==================================================*/
+
+.custom-footer-column h3,
+.custom-footer .mission h3 {
+    font-family:'Poppins',sans-serif;
+    font-size:20px;
+    line-height:29px;
+    font-weight:700;
+    margin-bottom:20px;
+}
+
+.custom-footer-column p,
+.custom-footer-column li {
+    font-family:'Poppins', sans-serif;
+    font-size:16px;
+    line-height:28px;
+    font-weight:400;
+}
+
+/*==================================================
+NEWSLETTER
+==================================================*/
+
+.custom-footer .newsletter p {
+    margin-bottom:28px;
+}
+
+.custom-footer .newsletter-form {
+    display:flex;
+    align-items:center;
+    border:1px solid #222;
+    border-radius:8px;
+    overflow:hidden;
+    background:#fff;
+    margin-bottom:28px;
+}
+
+.custom-footer .newsletter-form input {
+    flex:1;
+    border:none;
+    outline:none;
+    padding:16px 18px;
+    font-size:16px;
+    font-family:'Inter',sans-serif;
+    background:transparent;
+}
+
+.custom-footer .newsletter-form button {
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    margin-right:8px;
+    border:none;
+    cursor:pointer;
+    background:#e7a621;
+    color:#111;
+    transition:.3s;
+}
+
+.custom-footer .newsletter-form button:hover {
+    background:#111;
+    color:#fff;
+}
+
+.custom-footer .social-icons {
+    display:flex;
+    gap:18px;
+}
+
+.custom-footer .social-icons a {
+    width:34px;
+    height:34px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    transition:.3s;
+}
+
+.custom-footer .social-icons a:hover {
+    color:#e7a621;
+    transform:translateY(-3px);
+}
+
+/*==================================================
+LINKS
+==================================================*/
+
+.custom-footer-column ul li {
+    font-family: 'Poppins';
+    margin-bottom: 10px !important;
+}
+
+.custom-footer-column ul li:last-child {
+    margin-bottom:0;
+}
+
+.custom-footer-column a {
+    transition:.25s;
+}
+
+.custom-footer-column a:hover {
+    color:#e7a621;
+}
+
+/*==================================================
+MISSION
+==================================================*/
+
+.custom-footer .mission {
+    width:90%;
+    max-width:1300px;
+    margin:auto;
+    border-top:1px solid transparent;
+    padding:0 0 45px;
+}
+
+.custom-footer .mission p {
+    max-width:1200px;
+}
+
+/*==================================================
+DISCLAIMER
+==================================================*/
+
+.custom-footer .disclaimer {
+    background:#e7a621;
+    border-top:1px solid #222;
+    text-align:center;
+    padding:30px 25px;
+}
+
+.custom-footer .disclaimer h4 {
+    font-family: Poppins, sans-serif;
+    font-size: 24px;
+    margin-bottom: 18px;
+    text-transform: capitalize;
+    font-weight: 700;
+}
+
+.custom-footer .disclaimer p {
+    max-width: 1100px;
+    margin: auto;
+    font-size: 16px;
+    font-family: 'Poppins';
+    line-height: 26px;
+}
+
+/*==================================================
+ACCORDION ICON
+==================================================*/
+
+.custom-footer .plus {
+    display:none;
+    font-size:20px;
+    font-weight:700;
+}
+
+.custom-footer .accordion-title {
+    display:block;
+}
+
+.custom-footer .accordion-content {
+    display:block;
+}
+
+/*==================================================
+TABLET
+==================================================*/
+
+@media(max-width:991px){
+    .custom-footer-container {
+        grid-template-columns:repeat(2,1fr);
+        gap:40px;
+    }
+    .custom-footer .mission {
+        width:90%;
+    }
+}
+
+/*==================================================
+DESKTOP SPACING
+==================================================*/
+
+@media(min-width:992px){
+    .custom-footer-column {
+        display:block;
+    }
+    .custom-footer .newsletter {
+        padding-right:20px;
+    }
+    .custom-footer-column ul {
+        padding-top:4px;
+    }
+}
+
+/*==================================================
+PART 3 - MOBILE & TABLET RESPONSIVE
+==================================================*/
+
+@media (max-width:768px){
+    .custom-footer {
+        background:#f8f5ea;
+    }
+
+    /*-----------------------
+    Logo
+    -----------------------*/
+    .custom-footer-logo {
+        padding:18px 0;
+    }
+    .custom-footer-logo img {
+        width:170px;
+    }
+
+    /*-----------------------
+    Container
+    -----------------------*/
+    .custom-footer-container {
+        width:100%;
+        display:block;
+        padding:0;
+    }
+
+    /*-----------------------
+    Columns
+    -----------------------*/
+    .custom-footer-column {
+        padding:0 15px;
+        border-bottom:1px solid #e0d9c8;
+    }
+    .custom-footer-column:last-child {
+        margin-bottom:0;
+    }
+
+    /*-----------------------
+    Accordion Heading
+    -----------------------*/
+    .custom-footer .accordion-title {
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        cursor:pointer;
+        padding:28px 0;
+    }
+    .custom-footer-column h3,
+    .custom-footer .mission h3 {
+        font-size:16px;
+        line-height:24px;
+        margin:0;
+        font-family:'Poppins',sans-serif;
+        font-weight:700;
+        text-transform:uppercase;
+    }
+    .custom-footer .plus {
+        display:block;
+        font-size:20px;
+        font-weight:700;
+        transition:.35s;
+    }
+
+    /*-----------------------
+    Accordion Body
+    -----------------------*/
+    .custom-footer .accordion-content {
+        display:none;
+        padding-bottom:25px;
+        animation:customFooterFade .35s ease;
+    }
+    .custom-footer-column.active .accordion-content,
+    .custom-footer .mission.active .accordion-content {
+        display:block;
+    }
+    .custom-footer-column.active .plus,
+    .custom-footer .mission.active .plus {
+        transform:rotate(45deg);
+    }
+
+    /*-----------------------
+    Newsletter
+    -----------------------*/
+    .custom-footer .newsletter p {
+        font-size:16px;
+        line-height:24px;
+        margin-bottom:24px;
+    }
+    .custom-footer .newsletter-form {
+        height:44px;
+        margin-bottom:0px !important;
+    }
+    .custom-footer .newsletter-form input {
+        font-size:16px;
+        padding:0 15px;
+    }
+    .custom-footer .newsletter-form button {
+        width:34px;
+        height:34px;
+        margin-right:5px;
+    }
+
+    /*-----------------------
+    Social
+    -----------------------*/
+    .custom-footer .social-icons {
+        gap:22px;
+        margin-bottom:30px;
+    }
+    .custom-footer .social-icons a {
+        font-size:22px;
+        width:30px;
+        height:30px;
+    }
+
+    /*-----------------------
+    Divider
+    -----------------------*/
+    .custom-footer .newsletter {
+        border-bottom:2px dashed #222;
+        margin-bottom:0;
+        padding-bottom:0;
+    }
+
+    /*-----------------------
+    Links
+    -----------------------*/
+    .custom-footer-column ul {
+        padding-top:0;
+    }
+    .custom-footer-column ul li {
+        margin-bottom:14px;
+    }
+    .custom-footer-column ul li a {
+        font-size:16px;
+    }
+
+    /*-----------------------
+    Mission
+    -----------------------*/
+    .custom-footer .mission {
+        width:100%;
+        padding:0 30px;
+    }
+    .custom-footer .mission p {
+        font-size:16px;
+        line-height:26px;
+    }
+
+    /*-----------------------
+    Disclaimer
+    -----------------------*/
+    .custom-footer .disclaimer {
+        padding:25px 18px;
+    }
+    .custom-footer .disclaimer h4 {
+        font-size:20px;
+        margin-bottom:15px;
+    }
+    .custom-footer .disclaimer p {
+        font-size:14px;
+        line-height:24px;
+    }
+
+    /*-----------------------
+    Animation
+    -----------------------*/
+    @keyframes customFooterFade {
+        from {
+            opacity:0;
+            transform:translateY(-8px);
+        }
+        to {
+            opacity:1;
+            transform:translateY(0);
+        }
+    }
+}
+
+/*==================================================
+TABLET
+==================================================*/
+
+@media(min-width:769px) and (max-width:991px){
+    .custom-footer-container {
+        grid-template-columns:1fr 1fr;
+        gap:40px;
+        padding:45px 35px;
+    }
+    .custom-footer-column h3,
+    .custom-footer .mission h3 {
+        font-size:20px;
+    }
+    .custom-footer .newsletter-form {
+        max-width:100%;
+    }
+    .custom-footer .mission {
+        width:92%;
+    }
+    .custom-footer .disclaimer {
+        padding:30px;
+    }
+}
+
+/*==================================================
+LARGE DESKTOP
+==================================================*/
+
+@media(min-width:1400px){
+    .custom-footer-container {
+        max-width:1320px;
+    }
+    .custom-footer .mission {
+        max-width:1320px;
+    }
+}
+
+/* First section always open on mobile */
+.custom-footer-column.newsletter .accordion-content {
+    display:block !important;
+}
+
+.custom-footer-column.newsletter .plus {
+    display:none !important;
+}
+
+.custom-footer-column.newsletter .accordion-title {
+    cursor:default;
+}
+
+/*==================================================
+COPYRIGHT STYLING
+==================================================*/
+
+.custom-footer-copyright {
+    text-align:center;
+    padding:20px 25px;
+    border-top:1px solid #222;
+    background:#f8f5ea;
+}
+
+.custom-footer-copyright p {
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    line-height:20px;
+    color:#111;
+    margin:0;
+}
+
+@media(max-width:768px){
+    .custom-footer-copyright {
+        padding:15px;
+    }
+    .custom-footer-copyright p {
+        font-size:13px;
+    }
+}

@@ -1,0 +1,148 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "custom_bread_hero_mWHEfb": {
+      "type": "custom-bread-hero",
+      "name": "Custom Breadcrumbs Hero",
+      "settings": {
+        "bg_image": "shopify://shop_images/width-1920px-and-hrihgt-450px-ok.png",
+        "overlay_color": "#000000",
+        "overlay_opacity": 70,
+        "max_width": 1200,
+        "min_height": 350,
+        "show_breadcrumbs": true,
+        "breadcrumbs_color": "#ffa004",
+        "breadcrumbs_active_color": "#ffffff",
+        "title": "Contact Us",
+        "title_color": "#ffffff",
+        "description": "<p>We challenge the synthetic status quo to create something genuinely revolutionary—skincare that's as honest as nature itself.</p>",
+        "description_color": "#ffffff",
+        "button_text": "",
+        "button_link": "/",
+        "button_bg_color": "#000000",
+        "button_text_color": "#ffffff",
+        "button_border_color": "#ffffff",
+        "button_shadow_color": "#2c2609",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "custom_contact_form_qjpWJd": {
+      "type": "custom-contact-form",
+      "blocks": {
+        "support_option_dTXR7H": {
+          "type": "support_option",
+          "settings": {
+            "heading": "EMAIL US",
+            "heading_color": "#1d211e",
+            "text": "Have a question about your order or our products? Send us an email and our support team will respond as quickly as possible.",
+            "text_color": "#000000",
+            "icon_class": "ri-mail-send-line",
+            "icon_svg": "",
+            "icon_color": "#ffa004",
+            "icon_fill_color": "#ffa004",
+            "response_time": "",
+            "response_bg": "#FFFFFF",
+            "response_text_color": "#2c2609",
+            "button_label": "support@sankofatallow.com",
+            "button_action_type": "link",
+            "button_action_value": "support@sankofatallow.com",
+            "button_icon_svg": ""
+          }
+        },
+        "support_option_CrHQYU": {
+          "type": "support_option",
+          "settings": {
+            "heading": "CALL US",
+            "heading_color": "#000000",
+            "text": "Need immediate assistance? Our customer care team is available during business hours to answer your questions.",
+            "text_color": "#000000",
+            "icon_class": "ri-customer-service-2-line",
+            "icon_svg": "",
+            "icon_color": "#ffa004",
+            "icon_fill_color": "#ffa004",
+            "response_time": "",
+            "response_bg": "#ffa004",
+            "response_text_color": "#000000",
+            "button_label": "00000000000000",
+            "button_action_type": "link",
+            "button_action_value": "00000000000000",
+            "button_icon_svg": ""
+          }
+        },
+        "support_option_PRkTcX": {
+          "type": "support_option",
+          "settings": {
+            "heading": "VISIT US",
+            "heading_color": "#000000",
+            "text": "Visit our headquarters or send your correspondence to the address below. We'd love to hear from you.",
+            "text_color": "#000000",
+            "icon_class": "ri-map-pin-line",
+            "icon_svg": "",
+            "icon_color": "#ffa004",
+            "icon_fill_color": "#feeb94",
+            "response_time": "",
+            "response_bg": "#ffa004",
+            "response_text_color": "#2c2609",
+            "button_label": "Visit Now",
+            "button_action_type": "link",
+            "button_action_value": "123 Natural Glow WaySuite 200Atlanta",
+            "button_icon_svg": ""
+          }
+        }
+      },
+      "block_order": [
+        "support_option_dTXR7H",
+        "support_option_CrHQYU",
+        "support_option_PRkTcX"
+      ],
+      "name": "Custom Contact Form",
+      "settings": {
+        "max_width": 1200,
+        "bg_color": "#ffffff",
+        "tag_color": "#ffa004",
+        "heading_color": "#111111",
+        "form_label": "LET'S TALK",
+        "form_heading": "Send Us a Message",
+        "btn_text": "SEND MESSAGE",
+        "btn_bg_color": "#000000",
+        "btn_text_color": "#ffffff",
+        "btn_border_color": "#000000",
+        "btn_shadow_color": "#ffc439",
+        "info_label": "CONTACT INFORMATION",
+        "info_heading": "Get in Touch",
+        "info_bg_color": "#f9f9f9",
+        "icon_bg_color": "#ffa004",
+        "icon_color": "#000000",
+        "icon_border_color": "#000000",
+        "form_image": "shopify://shop_images/3qr.webp",
+        "form_image_link": "",
+        "form_image_position": "right",
+        "border_color": "#4d4c4a",
+        "padding_top": 90,
+        "padding_bottom": 100
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_bread_hero_mWHEfb",
+    "custom_contact_form_qjpWJd"
+  ]
+}

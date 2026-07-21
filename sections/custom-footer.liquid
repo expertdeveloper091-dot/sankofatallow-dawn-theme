@@ -1,0 +1,335 @@
+{{ 'custom-footer.css' | asset_url | stylesheet_tag }}
+{{ 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css' | stylesheet_tag }}
+<script src="{{ 'custom-footer.js' | asset_url }}" defer="defer"></script>
+
+<footer class="custom-footer">
+
+    <!-- Logo -->
+    <div class="custom-footer-logo">
+        {%- if section.settings.logo != blank -%}
+            <img src="{{ section.settings.logo | image_url: width: section.settings.logo_width }}"
+                 alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+                 width="{{ section.settings.logo_width }}"
+                 height="{{ section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio | round }}"
+                 loading="lazy">
+        {%- else -%}
+            <h2 class="custom-footer-logo-fallback">{{ shop.name }}</h2>
+        {%- endif -%}
+    </div>
+
+    <div class="custom-footer-container">
+
+        <!-- Newsletter -->
+        <div class="custom-footer-column newsletter">
+
+            <div class="accordion-title">
+                <h3>{{ section.settings.newsletter_heading | escape }}</h3>
+                <span class="plus">+</span>
+            </div>
+
+            <div class="accordion-content">
+
+                <p>
+                    {{ section.settings.newsletter_text | escape }}
+                </p>
+
+                {%- form 'customer', class: 'newsletter-form' -%}
+                    <input type="hidden" name="contact[tags]" value="newsletter">
+
+                    <input
+                        id="NewsletterForm-{{ section.id }}"
+                        type="email"
+                        name="contact[email]"
+                        value="{{ form.email }}"
+                        aria-required="true"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        autocomplete="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                    <button type="submit" aria-label="Subscribe" name="commit" id="Subscribe-{{ section.id }}">
+                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+
+                    {%- if form.errors -%}
+                        <small class="newsletter-form__message form__message" style="display: block; width: 100%; margin-top: 10px; color: red;" id="Newsletter-error-{{ section.id }}">
+                            {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+                        </small>
+                    {%- endif -%}
+                    {%- if form.posted_successfully? -%}
+                        <small class="newsletter-form__message newsletter-form__message--success form__message" style="display: block; width: 100%; margin-top: 10px; color: green;" id="Newsletter-success-{{ section.id }}">
+                            {{ 'general.newsletter.success' | t | default: 'Thanks for subscribing!' }}
+                        </small>
+                    {%- endif -%}
+                {%- endform -%}
+
+                {%- if section.settings.show_social -%}
+                    <div class="social-icons">
+                        {%- if settings.social_facebook_link != blank -%}
+                            <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" aria-label="Facebook">
+                                <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                            </a>
+                        {%- endif -%}
+
+                        {%- if settings.social_x_link != blank or settings.social_twitter_link != blank -%}
+                            <a href="{{ settings.social_x_link | default: settings.social_twitter_link }}" target="_blank" rel="noopener" aria-label="X (Twitter)">
+                                <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+                            </a>
+                        {%- endif -%}
+
+                        {%- if settings.social_youtube_link != blank -%}
+                            <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" aria-label="YouTube">
+                                <i class="fab fa-youtube" aria-hidden="true"></i>
+                            </a>
+                        {%- endif -%}
+
+                        {%- if settings.social_instagram_link != blank -%}
+                            <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" aria-label="Instagram">
+                                <i class="fab fa-instagram" aria-hidden="true"></i>
+                            </a>
+                        {%- endif -%}
+                    </div>
+                {%- endif -%}
+
+            </div>
+
+        </div>
+
+        <!-- Discover Menu -->
+        <div class="custom-footer-column">
+
+            <div class="accordion-title">
+                <h3>{{ section.settings.menu_1_heading | escape }}</h3>
+                <span class="plus">+</span>
+            </div>
+
+            <div class="accordion-content">
+                {%- assign menu_1 = linklists[section.settings.menu_1] -%}
+                {%- if menu_1 != blank -%}
+                    <ul>
+                        {%- for link in menu_1.links -%}
+                            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                        {%- endfor -%}
+                    </ul>
+                {%- else -%}
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Shop</a></li>
+                        <li><a href="#">Pre-Order</a></li>
+                        <li><a href="#">Affiliate</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Shop All</a></li>
+                    </ul>
+                {%- endif -%}
+            </div>
+
+        </div>
+
+        <!-- Collections Menu -->
+        <div class="custom-footer-column">
+
+            <div class="accordion-title">
+                <h3>{{ section.settings.menu_2_heading | escape }}</h3>
+                <span class="plus">+</span>
+            </div>
+
+            <div class="accordion-content">
+                {%- assign menu_2 = linklists[section.settings.menu_2] -%}
+                {%- if menu_2 != blank -%}
+                    <ul>
+                        {%- for link in menu_2.links -%}
+                            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                        {%- endfor -%}
+                    </ul>
+                {%- else -%}
+                    <ul>
+                        <li><a href="#">Natural Body Lotion</a></li>
+                        <li><a href="#">Natural Face Moisturizers</a></li>
+                        <li><a href="#">Beef Tallow for Skin</a></li>
+                        <li><a href="#">Organic Lip Balm</a></li>
+                        <li><a href="#">Deep Sleep Magnesium Cream</a></li>
+                    </ul>
+                {%- endif -%}
+            </div>
+
+        </div>
+
+        <!-- Customer Service Menu -->
+        <div class="custom-footer-column">
+
+            <div class="accordion-title">
+                <h3>{{ section.settings.menu_3_heading | escape }}</h3>
+                <span class="plus">+</span>
+            </div>
+
+            <div class="accordion-content">
+                {%- assign menu_3 = linklists[section.settings.menu_3] -%}
+                {%- if menu_3 != blank -%}
+                    <ul>
+                        {%- for link in menu_3.links -%}
+                            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                        {%- endfor -%}
+                    </ul>
+                {%- else -%}
+                    <ul>
+                        <li><a href="#">Terms and Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">Subscriptions</a></li>
+                    </ul>
+                {%- endif -%}
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Disclaimer -->
+    <div class="disclaimer">
+
+        <h4>{{ section.settings.disclaimer_heading | escape }}</h4>
+
+        <p>
+            {{ section.settings.disclaimer_text | escape }}
+        </p>
+
+    </div>
+
+    <!-- Copyright -->
+    {%- if section.settings.show_copyright -%}
+        <div class="custom-footer-copyright">
+            <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ section.settings.copyright_additional_text | escape }}</p>
+        </div>
+    {%- endif -%}
+
+</footer>
+
+{% schema %}
+{
+  "name": "Custom Footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "default": 220,
+      "unit": "px",
+      "label": "Logo Width"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter Settings"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter Heading",
+      "default": "Join the Movement & Get 10% Off"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_text",
+      "label": "Newsletter Text",
+      "default": "Sign up for updates and exclusive offers"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "label": "Show Social Media Icons",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Menu Settings"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_heading",
+      "label": "Menu 1 Heading",
+      "default": "Discover More"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Menu 1",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_heading",
+      "label": "Menu 2 Heading",
+      "default": "Our Collections"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Menu 2"
+    },
+    {
+      "type": "text",
+      "id": "menu_3_heading",
+      "label": "Menu 3 Heading",
+      "default": "Customer Service"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_3",
+      "label": "Menu 3"
+    },
+
+    {
+      "type": "header",
+      "content": "Disclaimer Settings"
+    },
+    {
+      "type": "text",
+      "id": "disclaimer_heading",
+      "label": "Disclaimer Heading",
+      "default": "FDA Disclaimer"
+    },
+    {
+      "type": "textarea",
+      "id": "disclaimer_text",
+      "label": "Disclaimer Text",
+      "default": "All products sold through this website have not been evaluated by the U.S. Food and Drug Administration (FDA). These products are not intended to diagnose, treat, cure, or prevent any disease. Customers are advised to consult with a qualified healthcare provider before using any of the products offered for sale on this website."
+    },
+    {
+      "type": "header",
+      "content": "Copyright Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_copyright",
+      "label": "Show Copyright Bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "copyright_additional_text",
+      "label": "Additional Copyright Text",
+      "default": "All rights reserved."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Footer"
+    }
+  ]
+}
+{% endschema %}

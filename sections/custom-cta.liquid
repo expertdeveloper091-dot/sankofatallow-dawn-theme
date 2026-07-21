@@ -1,0 +1,512 @@
+
+{{ 'custom-cta.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #ag-cta-{{ section.id }} {
+    background-color: #e7a621 !important;
+    --ag-cta-bg: {{ section.settings.bg_color }};
+    --ag-cta-text-color: {{ section.settings.text_color }};
+    --ag-cta-accent-color: {{ section.settings.accent_color }};
+    --ag-cta-btn-bg: {{ section.settings.button_color }};
+    --ag-cta-btn-hover-bg: {{ section.settings.button_hover_color }};
+    --ag-cta-btn-text-color: {{ section.settings.button_text_color }};
+    --ag-cta-btn-border-radius: {{ section.settings.border_radius }}px;
+    --ag-cta-max-width: {{ section.settings.max_width }}px;
+    --ag-cta-padding-top: {{ section.settings.padding_top }}px;
+    --ag-cta-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --ag-cta-overlay-color: {{ section.settings.overlay_color }};
+    --ag-cta-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+  }
+  {%- if section.settings.bg_image != blank -%}
+    #ag-cta-{{ section.id }} {
+      background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');
+    }
+  {%- endif -%}
+{%- endstyle -%}
+
+<section id="ag-cta-{{ section.id }}" class="ag-cta" aria-labelledby="ag-cta-title-{{ section.id }}">
+  {%- if section.settings.show_overlay and section.settings.overlay_opacity > 0 -%}
+    <div class="ag-cta__overlay"></div>
+  {%- endif -%}
+
+  {%- comment -%} Left Floating Images {%- endcomment -%}
+  <div class="ag-cta__floating-images ag-cta__floating-images--left" aria-hidden="true">
+    <div class="ag-cta__img-wrapper ag-cta__img-wrapper--one">
+      {%- if section.settings.left_image_1 != blank -%}
+        <img
+          src="{{ section.settings.left_image_1 | image_url: width: 600 }}"
+          alt="{{ section.settings.left_image_1.alt | default: 'Floating decorative image 1' | escape }}"
+          loading="lazy"
+          width="270"
+          height="270"
+        >
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </div>
+
+    <div class="ag-cta__img-wrapper ag-cta__img-wrapper--two">
+      {%- if section.settings.left_image_2 != blank -%}
+        <img
+          src="{{ section.settings.left_image_2 | image_url: width: 400 }}"
+          alt="{{ section.settings.left_image_2.alt | default: 'Floating decorative image 2' | escape }}"
+          loading="lazy"
+          width="180"
+          height="220"
+        >
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </div>
+
+    <div class="ag-cta__img-wrapper ag-cta__img-wrapper--three">
+      {%- if section.settings.left_image_3 != blank -%}
+        <img
+          src="{{ section.settings.left_image_3 | image_url: width: 500 }}"
+          alt="{{ section.settings.left_image_3.alt | default: 'Floating decorative image 3' | escape }}"
+          loading="lazy"
+          width="240"
+          height="250"
+        >
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} Main CTA Content {%- endcomment -%}
+  <div class="ag-cta__content">
+    {%- if section.settings.avatar_1 != blank or section.settings.avatar_2 != blank or section.settings.avatar_3 != blank or section.settings.customer_count != blank or section.settings.customer_label != blank -%}
+      <div class="ag-cta__customers">
+        <div class="ag-cta__avatars" aria-hidden="true">
+          {%- if section.settings.avatar_1 != blank -%}
+            <img
+              class="ag-cta__avatar-img"
+              src="{{ section.settings.avatar_1 | image_url: width: 100 }}"
+              alt="{{ section.settings.avatar_1.alt | default: 'Customer avatar 1' | escape }}"
+              loading="lazy"
+              width="40"
+              height="40"
+            >
+          {%- else -%}
+            <div class="ag-cta__avatar-placeholder ag-cta__avatar-placeholder--1">A1</div>
+          {%- endif -%}
+          
+          {%- if section.settings.avatar_2 != blank -%}
+            <img
+              class="ag-cta__avatar-img"
+              src="{{ section.settings.avatar_2 | image_url: width: 100 }}"
+              alt="{{ section.settings.avatar_2.alt | default: 'Customer avatar 2' | escape }}"
+              loading="lazy"
+              width="40"
+              height="40"
+            >
+          {%- else -%}
+            <div class="ag-cta__avatar-placeholder ag-cta__avatar-placeholder--2">A2</div>
+          {%- endif -%}
+          
+          {%- if section.settings.avatar_3 != blank -%}
+            <img
+              class="ag-cta__avatar-img"
+              src="{{ section.settings.avatar_3 | image_url: width: 100 }}"
+              alt="{{ section.settings.avatar_3.alt | default: 'Customer avatar 3' | escape }}"
+              loading="lazy"
+              width="40"
+              height="40"
+            >
+          {%- else -%}
+            <div class="ag-cta__avatar-placeholder ag-cta__avatar-placeholder--3">A3</div>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.customer_count != blank or section.settings.customer_label != blank -%}
+          <p class="ag-cta__customers-text">
+            {%- if section.settings.customer_count != blank -%}
+              <strong>{{ section.settings.customer_count }}</strong>
+            {%- endif -%}
+            {{ section.settings.customer_label }}
+          </p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <h2 id="ag-cta-title-{{ section.id }}" class="ag-cta__title">
+      {%- if section.settings.title_highlight != blank -%}
+        <span class="ag-cta__title-highlight">{{ section.settings.title_highlight }}</span>
+      {%- endif -%}
+      {%- if section.settings.title_main != blank -%}
+        {%- if section.settings.title_highlight != blank -%}<br>{%- endif -%}
+        {{ section.settings.title_main }}
+      {%- endif -%}
+    </h2>
+
+    {%- if section.settings.description != blank -%}
+      <div class="ag-cta__description">
+        {{ section.settings.description }}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.btn_text != blank and section.settings.btn_url != blank -%}
+      <a
+        href="{{ section.settings.btn_url }}"
+        class="ag-cta__button"
+        {% if section.settings.btn_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+      >
+        {{ section.settings.btn_text }}
+      </a>
+    {%- endif -%}
+
+    {%- comment -%} Features List {%- endcomment -%}
+    {%- if section.blocks.size > 0 -%}
+      <div class="ag-cta__features">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.enabled -%}
+            <div class="ag-cta__feature-item" {{ block.shopify_attributes }}>
+              <span class="ag-cta__feature-icon" aria-hidden="true">
+                {%- if block.settings.icon != blank -%}
+                  <img
+                    src="{{ block.settings.icon | image_url: width: 60 }}"
+                    alt="{{ block.settings.icon.alt | default: 'Feature icon' | escape }}"
+                    loading="lazy"
+                    width="20"
+                    height="20"
+                  >
+                {%- else -%}
+                  <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="cta-feature-checkmark">
+                    <g>
+                      <path class="cta-feature-checkmark__bg" d="M10.5006 19.2857C15.629 19.2857 19.7863 15.1284 19.7863 10C19.7863 4.87165 15.629 0.714294 10.5006 0.714294C5.3722 0.714294 1.21484 4.87165 1.21484 10C1.21484 15.1284 5.3722 19.2857 10.5006 19.2857Z" fill="currentColor"></path>
+                      <path class="cta-feature-checkmark__border" d="M10.5006 19.2857C15.629 19.2857 19.7863 15.1284 19.7863 10C19.7863 4.87165 15.629 0.714294 10.5006 0.714294C5.3722 0.714294 1.21484 4.87165 1.21484 10C1.21484 15.1284 5.3722 19.2857 10.5006 19.2857Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path class="cta-feature-checkmark__line" d="M14.6671 6.78574L8.95285 13.9286L6.0957 11.7857" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
+                  </svg>
+                {%- endif -%}
+              </span>
+              <span>{{ block.settings.text | remove: '✔' | remove: '✓' | strip }}</span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Right Floating Images {%- endcomment -%}
+  <div class="ag-cta__floating-images ag-cta__floating-images--right" aria-hidden="true">
+    <div class="ag-cta__img-wrapper ag-cta__img-wrapper--four">
+      {%- if section.settings.right_image_1 != blank -%}
+        <img
+          src="{{ section.settings.right_image_1 | image_url: width: 500 }}"
+          alt="{{ section.settings.right_image_1.alt | default: 'Floating decorative image 4' | escape }}"
+          loading="lazy"
+          width="220"
+          height="220"
+        >
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </div>
+
+    <div class="ag-cta__img-wrapper ag-cta__img-wrapper--five">
+      {%- if section.settings.right_image_2 != blank -%}
+        <img
+          src="{{ section.settings.right_image_2 | image_url: width: 600 }}"
+          alt="{{ section.settings.right_image_2.alt | default: 'Floating decorative image 5' | escape }}"
+          loading="lazy"
+          width="260"
+          height="320"
+        >
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom CTA",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background Settings"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f79446"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image",
+      "info": "Optional. Overrides Background Color."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_overlay",
+      "label": "Enable Color Overlay",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay Opacity",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Floating Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image_1",
+      "label": "Left Image 1",
+      "info": "Positioned at top-left, rotated -10deg."
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image_2",
+      "label": "Left Image 2",
+      "info": "Positioned middle-left, rotated 18deg."
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image_3",
+      "label": "Left Image 3",
+      "info": "Positioned bottom-left, rotated 12deg."
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image_1",
+      "label": "Right Image 1",
+      "info": "Positioned top-right, rotated -14deg."
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image_2",
+      "label": "Right Image 2",
+      "info": "Positioned bottom-right, rotated 10deg."
+    },
+    {
+      "type": "header",
+      "content": "Customer Avatars"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_1",
+      "label": "Customer Avatar 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_2",
+      "label": "Customer Avatar 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_3",
+      "label": "Customer Avatar 3"
+    },
+    {
+      "type": "header",
+      "content": "Customer Counter"
+    },
+    {
+      "type": "text",
+      "id": "customer_count",
+      "label": "Customer Count Number",
+      "default": "350,000+"
+    },
+    {
+      "type": "text",
+      "id": "customer_label",
+      "label": "Customer Label",
+      "default": "Happy Customers"
+    },
+    {
+      "type": "header",
+      "content": "Main Heading & Description"
+    },
+    {
+      "type": "text",
+      "id": "title_highlight",
+      "label": "Highlighted Text",
+      "default": "RISK-FREE"
+    },
+    {
+      "type": "text",
+      "id": "title_main",
+      "label": "Main Heading",
+      "default": "BEAUTY REVOLUTION"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>We believe in our balm because it actually works. If your skin isn't looking better in 30 days, we'll give you your money back — no drama, no hoops. Subscribe now and save 30% on your first order!</p>"
+    },
+    {
+      "type": "header",
+      "content": "CTA Button"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text",
+      "default": "Subscribe & Save 30% Today"
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "Button Link",
+      "default": "/"
+    },
+    {
+      "type": "checkbox",
+      "id": "btn_new_tab",
+      "label": "Open Button Link in New Tab",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section Layout & Styles"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum Content Width",
+      "min": 600,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "default": 850
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Description & Features Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Title Highlight Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button Color",
+      "default": "#f47c20"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button Hover Color",
+      "default": "#e06b12"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Button Border Radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "enabled",
+          "label": "Enable Feature",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Feature Text",
+          "default": "Feature"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Custom Icon (Optional)",
+          "info": "Upload a transparent PNG/SVG icon to override the default checkmark."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom CTA",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "text": "Made in USA",
+            "enabled": true
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "text": "100% Natural Ingredients",
+            "enabled": true
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "text": "30-Day Money-Back Guarantee",
+            "enabled": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

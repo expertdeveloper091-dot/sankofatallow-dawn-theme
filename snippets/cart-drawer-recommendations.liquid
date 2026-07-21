@@ -1,0 +1,30 @@
+{%- if settings.cart_drawer_collection != blank -%}
+  <div class="ml-cart-recommendations">
+    <h3 class="ml-cart-rec-heading">You Might Also Like</h3>
+    <div class="ml-cart-rec-slider">
+      {%- for product in settings.cart_drawer_collection.products limit: 4 -%}
+        <div class="ml-cart-rec-item">
+          <div class="ml-cart-rec-image-wrap">
+            {%- if product.featured_media -%}
+              <img src="{{ product.featured_media | image_url: width: 120 }}" alt="{{ product.title | escape }}" loading="lazy" width="50" height="50">
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+          <div class="ml-cart-rec-info">
+            <h4 class="ml-cart-rec-title"><a href="{{ product.url }}">{{ product.title }}</a></h4>
+            <span class="ml-cart-rec-price">{{ product.price | money }}</span>
+          </div>
+          <product-form class="ml-cart-rec-form">
+            {%- form 'product', product, id: 'rec-form-' | append: product.id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" class="product-variant-id">
+              <button type="submit" name="add" class="ml-cart-rec-add" aria-label="Add to Cart">
+                Add
+              </button>
+            {%- endform -%}
+          </product-form>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}

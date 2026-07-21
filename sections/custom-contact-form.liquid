@@ -1,0 +1,1162 @@
+<!-- Link Remix Icon Library for standard icons -->
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" media="print" onload="this.media='all'">
+
+{%- style -%}
+  {%- assign support_blocks = section.blocks | where: "type", "support_option" -%}
+  {%- for block in support_blocks -%}
+    #block-{{ block.id }} .support-option__icon-container i {
+      font-size: 64px;
+      line-height: 1;
+      color: {{ block.settings.icon_color | default: '#2c2609' }};
+    }
+    #block-{{ block.id }} .support-option__icon-container svg {
+      color: {{ block.settings.icon_color | default: '#2c2609' }};
+    }
+  {%- endfor -%}
+
+  #custom-contact-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    padding-top: 40px;
+    padding-bottom: 40px;
+    font-family: var(--font-body-family), "Poppins", sans-serif;
+    overflow-x: hidden;
+  }
+
+  @media screen and (min-width: 768px) {
+    #custom-contact-{{ section.id }} {
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+    #custom-contact-{{ section.id }} {
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+  }
+
+  #custom-contact-{{ section.id }} .contact__container {
+    max-width: {{ section.settings.max_width }}px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  #custom-contact-{{ section.id }} .contact__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  @media screen and (min-width: 768px) {
+    #custom-contact-{{ section.id }} .contact__grid {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 40px;
+      align-items: stretch;
+    }
+    #custom-contact-{{ section.id }} .contact__form-col {
+      order: {% if section.settings.form_image_position == 'left' %}2{% else %}1{% endif %};
+    }
+    #custom-contact-{{ section.id }} .contact__image-col {
+      order: {% if section.settings.form_image_position == 'left' %}1{% else %}2{% endif %};
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+    #custom-contact-{{ section.id }} .contact__grid {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 70px;
+    }
+  }
+
+  /* Tags & Titles */
+  #custom-contact-{{ section.id }} .contact__label {
+    display: inline-block;
+    color: {{ section.settings.tag_color }};
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+
+  #custom-contact-{{ section.id }} .contact__title {
+    color: {{ section.settings.heading_color }};
+    font-family: var(--font-heading-family), inherit;
+    font-size: clamp(26px, 4vw, 35px);
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0 0 24px 0;
+  }
+
+  /* Form Fields Styling */
+  #custom-contact-{{ section.id }} .contact-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #custom-contact-{{ section.id }} .contact-form__field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #444444;
+  }
+
+  #custom-contact-{{ section.id }} .contact-form__field label span {
+    color: {{ section.settings.tag_color }};
+  }
+
+  #custom-contact-{{ section.id }} .contact-form__field input {
+    width: 100%;
+    height: 56px;
+    padding: 0 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1.5px solid #e2e2e2;
+    background-color: #fafafa;
+    color: #222222;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    box-sizing: border-box;
+    font-family: inherit;
+  }
+
+  #custom-contact-{{ section.id }} .contact-form__field textarea {
+    width: 100%;
+    min-height: 160px;
+    padding: 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1.5px solid #e2e2e2;
+    background-color: #fafafa;
+    color: #222222;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    box-sizing: border-box;
+    font-family: inherit;
+    resize: vertical;
+  }
+
+  #custom-contact-{{ section.id }} .contact-form__field input:focus,
+  #custom-contact-{{ section.id }} .contact-form__field textarea:focus {
+    outline: none;
+    border-color: #000000;
+    background-color: #ffffff;
+  }
+
+  /* Black Tactile Button - Full width on Mobile, Auto on Desktop */
+  #custom-contact-{{ section.id }} .contact-form__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 56px;
+    padding: 0 24px;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: {{ section.settings.btn_text_color }};
+    border-radius: 8px;
+    border: 1.5px solid {{ section.settings.btn_border_color }};
+    background-color: {{ section.settings.btn_bg_color }};
+    box-shadow: 0px 4px 0px 0px {{ section.settings.btn_shadow_color }};
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    cursor: pointer;
+    margin-top: 10px;
+    position: relative;
+    top: 0;
+    box-sizing: border-box;
+  }
+
+  @media screen and (min-width: 768px) {
+    #custom-contact-{{ section.id }} .contact-form__btn {
+      width: auto;
+      padding: 0 32px;
+    }
+  }
+
+  #custom-contact-{{ section.id }} .contact-form__btn:hover {
+    transform: translateY(2px);
+    box-shadow: 0px 2px 0px 0px {{ section.settings.btn_shadow_color }};
+  }
+
+  #custom-contact-{{ section.id }} .contact-form__btn:active {
+    transform: translateY(4px);
+    box-shadow: 0px 0px 0px 0px {{ section.settings.btn_shadow_color }};
+  }
+
+  #custom-contact-{{ section.id }} .contact-form__btn svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+    display: inline-block;
+  }
+
+  /* Right Column Info Box */
+  #custom-contact-{{ section.id }} .contact-info__box {
+    background-color: {{ section.settings.info_bg_color }};
+    border-radius: 12px;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  @media screen and (min-width: 768px) {
+    #custom-contact-{{ section.id }} .contact-info__box {
+      padding: 40px 30px;
+      gap: 30px;
+    }
+  }
+
+  /* Card Item Row */
+  #custom-contact-{{ section.id }} .contact-info__card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #custom-contact-{{ section.id }} .contact-info__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: {{ section.settings.icon_bg_color }};
+    color: {{ section.settings.icon_color }};
+    border: 1.5px solid {{ section.settings.icon_border_color }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+
+  #custom-contact-{{ section.id }} .contact-info__icon svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+
+  #custom-contact-{{ section.id }} .contact-info__content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  #custom-contact-{{ section.id }} .contact-info__title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #222222;
+    margin: 0;
+  }
+
+  #custom-contact-{{ section.id }} .contact-info__text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #555555;
+    margin: 0;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+
+  #custom-contact-{{ section.id }} .form-status {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    box-sizing: border-box;
+  }
+
+  #custom-contact-{{ section.id }} .form-status-success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+  }
+
+  #custom-contact-{{ section.id }} .form-status-error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+  }
+
+  #custom-contact-{{ section.id }} .form-status-title {
+    font-size: 15px;
+    margin: 0 0 8px 0;
+  }
+
+  #custom-contact-{{ section.id }} .form-status-list {
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  /* Image Banner & Map block styles */
+  #custom-contact-{{ section.id }} .contact-info__image {
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    display: block;
+    box-sizing: border-box;
+  }
+
+  #custom-contact-{{ section.id }} .contact-info__media {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  #custom-contact-{{ section.id }} .contact-info__map {
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    display: block;
+    box-sizing: border-box;
+  }
+
+  #custom-contact-{{ section.id }} .contact-info__map iframe {
+    width: 100% !important;
+    display: block;
+    border-radius: 12px;
+  }
+
+  /* Support Options Styles */
+  #custom-contact-{{ section.id }} .support-options__container {
+    margin-bottom: 50px;
+    border-bottom: 2px dashed #e2e2e2;
+    padding-bottom: 50px;
+  }
+  @media screen and (min-width: 768px) {
+    #custom-contact-{{ section.id }} .support-options__container {
+      margin-bottom: 70px;
+      padding-bottom: 70px;
+    }
+  }
+  #custom-contact-{{ section.id }} .support-options__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+  }
+  @media screen and (min-width: 768px) {
+    #custom-contact-{{ section.id }} .support-options__grid {
+      flex-direction: row;
+      gap: 20px;
+      align-items: stretch;
+    }
+  }
+  #custom-contact-{{ section.id }} .support-option {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 450px;
+    box-sizing: border-box;
+    padding: 10px;
+  }
+  #custom-contact-{{ section.id }} .support-option__icon-container {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  #custom-contact-{{ section.id }} .support-option__icon-container svg,
+  #custom-contact-{{ section.id }} .support-option__icon-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  #custom-contact-{{ section.id }} .support-option__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  #custom-contact-{{ section.id }} .support-option__heading {
+    font-size: 20px;
+    font-weight: 800;
+    margin: 0 0 12px 0;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-family: var(--font-heading-family), inherit;
+  }
+  #custom-contact-{{ section.id }} .support-option__text {
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+    max-width: 320px;
+  }
+  #custom-contact-{{ section.id }} .support-option__response-time {
+    display: inline-block;
+    border: 1.5px solid {{ section.settings.border_color | default: '#4d4c4a' }};
+    border-radius: 20px;
+    padding: 6px 16px;
+    margin-bottom: 20px;
+  }
+  #custom-contact-{{ section.id }} .support-option__response-time p {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  #custom-contact-{{ section.id }} .support-option__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #ffffff;
+    border: 1.5px solid {{ section.settings.border_color | default: '#4d4c4a' }};
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    outline: none;
+    position: relative;
+    top: 0;
+    user-select: none;
+    box-shadow: 0px 4px 0px 0px {{ section.settings.border_color | default: '#4d4c4a' }};
+    color: #1d211e;
+  }
+  #custom-contact-{{ section.id }} .support-option__button:hover {
+    transform: translateY(2px);
+    box-shadow: 0px 2px 0px 0px {{ section.settings.border_color | default: '#4d4c4a' }} !important;
+  }
+  #custom-contact-{{ section.id }} .support-option__button:active {
+    transform: translateY(4px);
+    box-shadow: 0px 0px 0px 0px {{ section.settings.border_color | default: '#4d4c4a' }} !important;
+  }
+  #custom-contact-{{ section.id }} .support-option__button svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    display: inline-block;
+  }
+  
+  /* Divider Styles */
+  #custom-contact-{{ section.id }} .support-options__divider {
+    width: 100%;
+    height: 0;
+    border-top: 2px dotted {{ section.settings.border_color | default: '#4d4c4a' }};
+    margin: 20px 0;
+  }
+  @media screen and (min-width: 768px) {
+    #custom-contact-{{ section.id }} .support-options__divider {
+      width: 0;
+      height: auto;
+      border-top: none;
+      border-left: 2px dotted {{ section.settings.border_color | default: '#4d4c4a' }};
+      align-self: stretch;
+      margin: 0 20px;
+    }
+  }
+
+  /* Form Side Image Styles */
+  #custom-contact-{{ section.id }} .contact__image-col {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+  }
+  #custom-contact-{{ section.id }} .contact-image__link {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  #custom-contact-{{ section.id }} .contact-image__picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  #custom-contact-{{ section.id }} .contact-image__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+    min-height: 350px;
+  }
+  @media screen and (min-width: 768px) {
+    #custom-contact-{{ section.id }} .contact-image__img {
+      min-height: 500px;
+    }
+  }
+{%- endstyle -%}
+
+<section id="custom-contact-{{ section.id }}" class="contact">
+  <div class="contact__container">
+
+    {%- assign support_blocks = section.blocks | where: "type", "support_option" -%}
+    {%- if support_blocks.size > 0 -%}
+      <div class="support-options__container">
+        <div class="support-options__grid">
+          {%- for block in support_blocks -%}
+            {%- unless forloop.first -%}
+              <div class="support-options__divider"></div>
+            {%- endunless -%}
+            
+            <div class="support-option" id="block-{{ block.id }}" {{ block.shopify_attributes }}>
+              <div class="support-option__icon-container">
+                {%- if block.settings.icon_svg != blank -%}
+                  {{ block.settings.icon_svg }}
+                {%- elsif block.settings.icon_class != blank -%}
+                  <i class="{{ block.settings.icon_class }}"></i>
+                {%- elsif block.settings.icon_image != blank -%}
+                  <img src="{{ block.settings.icon_image | image_url: width: 160 }}" alt="{{ block.settings.heading | escape }}" class="support-option__icon" loading="lazy">
+                {%- else -%}
+                  {%- if block.settings.heading contains 'CHAT' or block.settings.heading contains 'Chat' -%}
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M46.6667 43.3333H46.6833M55 43.3333H55.0167M63.3333 43.3333H63.35M73.3333 53.3333C73.3333 54.4379 72.8943 55.4973 72.1129 56.2787C71.3315 57.0601 70.2721 57.5 69.1667 57.5H44.1667L35.8333 65.8333V32.5C35.8333 31.3954 36.2723 30.336 37.0537 29.5546C37.8351 28.7732 38.8946 28.3333 40 28.3333H69.1667C70.2721 28.3333 71.3315 28.7732 72.1129 29.5546C72.8943 30.336 73.3333 31.3954 73.3333 32.5V53.3333Z" stroke="{{ block.settings.icon_color | default: '#2c2609' }}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="{{ block.settings.icon_fill_color | default: '#feeb94' }}"/>
+                      <path d="M35.8333 43.3333C35.8333 42.2287 35.3943 41.1693 34.6129 40.3879C33.8315 39.6065 32.7721 39.1667 31.6667 39.1667H19.1667L10.8333 47.5V14.1667C10.8333 13.0621 11.2723 12.0027 12.0537 11.2213C12.8351 10.4399 13.8946 10 15 10H43.3333C44.4387 10 45.4982 10.4399 46.2796 11.2213C47.061 12.0027 47.5 13.0621 47.5 14.1667V30" stroke="{{ block.settings.icon_color | default: '#2c2609' }}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="{{ block.settings.icon_fill_color | default: '#feeb94' }}"/>
+                    </svg>
+                  {%- else -%}
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="10" y="18" width="60" height="44" rx="6" stroke="{{ block.settings.icon_color | default: '#2c2609' }}" stroke-width="3" fill="{{ block.settings.icon_fill_color | default: '#feeb94' }}"/>
+                      <path d="M13 21L40 42L67 21" stroke="{{ block.settings.icon_color | default: '#2c2609' }}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  {%- endif -%}
+                {%- endif -%}
+              </div>
+              
+              <div class="support-option__info">
+                <h3 class="support-option__heading" style="color: {{ block.settings.heading_color }};">
+                  {{ block.settings.heading }}
+                </h3>
+                <p class="support-option__text" style="color: {{ block.settings.text_color }};">
+                  {{ block.settings.text }}
+                </p>
+                
+                {%- if block.settings.response_time != blank -%}
+                  <div class="support-option__response-time" style="background-color: {{ block.settings.response_bg | default: '#feeb94' }}; color: {{ block.settings.response_text_color | default: '#2c2609' }};">
+                    <p>{{ block.settings.response_time }}</p>
+                  </div>
+                {%- endif -%}
+                
+                {%- if block.settings.button_label != blank -%}
+                  <button class="support-option__button" 
+                    data-type="{{ block.settings.button_action_type }}" 
+                    data-action="{{ block.settings.button_action_value }}"
+                    {% if block.settings.button_action_type == 'link' %}onclick="window.location.href='{{ block.settings.button_action_value }}'"{% endif %}>
+                    {%- if block.settings.button_icon_svg != blank -%}
+                      {{ block.settings.button_icon_svg }}
+                    {%- else -%}
+                      {%- if block.settings.button_action_type == 'copy' -%}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+                          <path d="M3.33366 13.8333C2.41699 13.8333 1.66699 13.0833 1.66699 12.1666V3.83329C1.66699 2.91663 2.41699 2.16663 3.33366 2.16663H11.667C12.5837 2.16663 13.3337 2.91663 13.3337 3.83329M8.33366 7.16663H16.667C17.5875 7.16663 18.3337 7.91282 18.3337 8.83329V17.1666C18.3337 18.0871 17.5875 18.8333 16.667 18.8333H8.33366C7.41318 18.8333 6.66699 18.0871 6.66699 17.1666V8.83329C6.66699 7.91282 7.41318 7.16663 8.33366 7.16663Z" stroke="#2C2609" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                      {%- else -%}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+                          <path d="M7.16667 8.83333H7.175M10.5 8.83333H10.5083M13.8333 8.83333H13.8417M18 13C18 13.442 17.8244 13.866 17.5118 14.1785C17.1993 14.4911 16.7754 14.6667 16.3333 14.6667H6.33333L3 18V4.66667C3 4.22464 3.17559 3.80072 3.48816 3.48816C3.80072 3.17559 4.22464 3 4.66667 3H16.3333C16.7754 3 17.1993 3.17559 17.5118 3.48816C17.8244 3.80072 18 4.22464 18 4.66667V13Z" stroke="#2C2609" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                      {%- endif -%}
+                    {%- endif -%}
+                    {{ block.settings.button_label }}
+                  </button>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    <div class="contact__grid">
+      
+      <!-- Column (Message Form) -->
+      <div class="contact__form-col">
+        {%- if section.settings.form_label != blank -%}
+          <span class="contact__label">{{ section.settings.form_label }}</span>
+        {%- endif -%}
+        
+        {%- if section.settings.form_heading != blank -%}
+          <h2 class="contact__title">{{ section.settings.form_heading }}</h2>
+        {%- endif -%}
+
+        {%- form 'contact', id: 'ContactForm' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="form-status form-status-success" tabindex="-1" autofocus>
+              Thank you! Your message has been sent successfully. We will get back to you shortly.
+            </div>
+          {%- elsif form.errors -%}
+            <div class="form-status form-status-error" tabindex="-1" autofocus>
+              <h3 class="form-status-title" role="alert">Please correct the following errors:</h3>
+              <ul class="form-status-list" role="list">
+                {%- for field in form.errors -%}
+                  <li>
+                    {%- if field == 'form' -%}
+                      {{ form.errors.messages[field] }}
+                    {%- else -%}
+                      {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+
+          <div class="contact-form__field">
+            <label for="ContactForm-name-{{ section.id }}">Your Name <span>*</span></label>
+            <input 
+              type="text" 
+              id="ContactForm-name-{{ section.id }}" 
+              name="contact[name]" 
+              placeholder="Enter your name" 
+              required 
+              value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+            >
+          </div>
+
+          <div class="contact-form__field">
+            <label for="ContactForm-email-{{ section.id }}">Your Email <span>*</span></label>
+            <input 
+              type="email" 
+              id="ContactForm-email-{{ section.id }}" 
+              name="contact[email]" 
+              placeholder="Enter your email" 
+              required 
+              value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+            >
+          </div>
+
+          <div class="contact-form__field">
+            <label for="ContactForm-phone-{{ section.id }}">Phone Number</label>
+            <input 
+              type="tel" 
+              id="ContactForm-phone-{{ section.id }}" 
+              name="contact[phone]" 
+              placeholder="Enter your phone number" 
+              value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+            >
+          </div>
+
+          <div class="contact-form__field">
+            <label for="ContactForm-subject-{{ section.id }}">Subject <span>*</span></label>
+            <input 
+              type="text" 
+              id="ContactForm-subject-{{ section.id }}" 
+              name="contact[subject]" 
+              placeholder="Enter subject" 
+              required 
+              value="{{ form.subject }}"
+            >
+          </div>
+
+          <div class="contact-form__field">
+            <label for="ContactForm-message-{{ section.id }}">Your Message <span>*</span></label>
+            <textarea 
+              id="ContactForm-message-{{ section.id }}" 
+              name="contact[body]" 
+              placeholder="Write your message..." 
+              required 
+            >{% if form.body %}{{ form.body }}{% endif %}</textarea>
+          </div>
+
+          <button type="submit" class="contact-form__btn">
+            {{ section.settings.btn_text }}
+            <svg viewBox="0 0 24 24">
+              <path d="M1.94631 9.31543C1.42377 9.14125 1.41953 8.86022 1.95694 8.68108L21.0843 2.30528C21.5662 2.14465 21.8556 2.43348 21.6957 2.91632L15.3228 21.0837C15.1444 21.6216 14.8588 21.619 14.6853 21.0853L11.5 11.25L1.94631 9.31543ZM11.1963 9.9463L14.0537 12.8037L18.4237 5.57628L11.1963 9.9463Z"></path>
+            </svg>
+          </button>
+        {%- endform -%}
+      </div>
+
+      <!-- Column (Side Image) -->
+      <div class="contact__image-col">
+        {%- if section.settings.form_image != blank -%}
+          {%- if section.settings.form_image_link != blank -%}
+            <a href="{{ section.settings.form_image_link }}" class="contact-image__link">
+          {%- endif -%}
+          
+          <picture class="contact-image__picture">
+            {%- if section.settings.form_image_mobile != blank -%}
+              <source media="(max-width: 767px)" srcset="{{ section.settings.form_image_mobile | image_url: width: 750 }}">
+            {%- else -%}
+              <source media="(max-width: 767px)" srcset="{{ section.settings.form_image | image_url: width: 750 }}">
+            {%- endif -%}
+            <img src="{{ section.settings.form_image | image_url: width: 1200 }}" 
+                 alt="{{ section.settings.form_heading | escape }}" 
+                 class="contact-image__img"
+                 loading="lazy">
+          </picture>
+          
+          {%- if section.settings.form_image_link != blank -%}
+            </a>
+          {%- endif -%}
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const copyButtons = document.querySelectorAll('.support-option__button[data-type="copy"]');
+    copyButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const textToCopy = this.getAttribute('data-action');
+        if (textToCopy) {
+          navigator.clipboard.writeText(textToCopy).then(() => {
+            const originalText = this.innerHTML;
+            this.innerHTML = `
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+                <path d="M5 10L9 14L15 6" stroke="#2C2609" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg> Copied!
+            `;
+            this.classList.add('copied');
+            setTimeout(() => {
+              this.innerHTML = originalText;
+              this.classList.remove('copied');
+            }, 2000);
+          }).catch(err => {
+            console.error('Failed to copy text: ', err);
+          });
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Custom Contact Form",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 800,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "label": "Max Container Width",
+      "default": 1200
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tag_color",
+      "label": "Tags Label Color",
+      "default": "#ff5a1f"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Text Color",
+      "default": "#111111"
+    },
+    {
+      "type": "header",
+      "content": "Left Column - Contact Form"
+    },
+    {
+      "type": "text",
+      "id": "form_label",
+      "label": "Form Subheading / Label",
+      "default": "LET'S TALK"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form Main Heading",
+      "default": "Send Us a Message"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Label",
+      "default": "SEND MESSAGE"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_color",
+      "label": "Button Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_border_color",
+      "label": "Button Border Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_shadow_color",
+      "label": "Button Shadow Color",
+      "default": "#ffc439"
+    },
+    {
+      "type": "header",
+      "content": "Right Column - Contact Info"
+    },
+    {
+      "type": "text",
+      "id": "info_label",
+      "label": "Info Subheading / Label",
+      "default": "CONTACT INFORMATION"
+    },
+    {
+      "type": "text",
+      "id": "info_heading",
+      "label": "Info Main Heading",
+      "default": "Get in Touch"
+    },
+    {
+      "type": "color",
+      "id": "info_bg_color",
+      "label": "Info Box Background",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "color",
+      "id": "icon_bg_color",
+      "label": "Icon Badge Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon Symbol Color",
+      "default": "#FFC439"
+    },
+    {
+      "type": "color",
+      "id": "icon_border_color",
+      "label": "Icon Badge Border",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Form Side Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "form_image",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "form_image_mobile",
+      "label": "Mobile Image (Optional)"
+    },
+    {
+      "type": "url",
+      "id": "form_image_link",
+      "label": "Image Link"
+    },
+    {
+      "type": "select",
+      "id": "form_image_position",
+      "label": "Image Position (Desktop)",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "header",
+      "content": "Support Section General Styling"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Support Borders & Divider Color",
+      "default": "#4d4c4a"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 100
+    }
+  ],
+  "blocks": [
+    {
+      "type": "contact_info",
+      "name": "Contact Info Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon_class",
+          "label": "Icon Class Name (Remix Icon)",
+          "default": "ri-map-pin-fill",
+          "info": "Example: ri-map-pin-fill, ri-phone-fill, ri-mail-fill, ri-time-fill"
+        },
+        {
+          "type": "textarea",
+          "id": "icon_svg",
+          "label": "Custom SVG Icon Code",
+          "info": "Optional: Paste raw SVG code here to override the icon class name."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card Title",
+          "default": "Card Title"
+        },
+        {
+          "type": "text",
+          "id": "content_1",
+          "label": "Content Line 1",
+          "default": "Content details line 1"
+        },
+        {
+          "type": "text",
+          "id": "content_2",
+          "label": "Content Line 2",
+          "default": "Content details line 2"
+        }
+      ]
+    },
+    {
+      "type": "image_block",
+      "name": "Image Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "image_link",
+          "label": "Image Link"
+        }
+      ]
+    },
+    {
+      "type": "map_block",
+      "name": "Google Map Iframe",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "map_iframe",
+          "label": "Google Map Iframe Embed Code",
+          "info": "Paste the HTML <iframe> embed code from Google Maps share options."
+        },
+        {
+          "type": "range",
+          "id": "map_height",
+          "min": 150,
+          "max": 600,
+          "step": 10,
+          "unit": "px",
+          "label": "Map Height",
+          "default": 300
+        }
+      ]
+    },
+    {
+      "type": "support_option",
+      "name": "Support Option",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "CHAT WITH US"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Heading Color",
+          "default": "#1d211e"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Live support available Mon-Fri, 9am-5pm EST. Get in touch with our support team."
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Description Color",
+          "default": "#4d4c4a"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon Image"
+        },
+        {
+          "type": "text",
+          "id": "icon_class",
+          "label": "Icon Class Name (Remix Icon)",
+          "info": "Example: ri-mail-fill, ri-phone-fill, ri-map-pin-fill, ri-customer-service-2-fill. Overrides Icon Image."
+        },
+        {
+          "type": "textarea",
+          "id": "icon_svg",
+          "label": "Custom Icon SVG",
+          "info": "Paste raw SVG markup here. Overrides Icon Image and Remix Icon settings."
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "label": "Icon Color (or Stroke)",
+          "default": "#2c2609"
+        },
+        {
+          "type": "color",
+          "id": "icon_fill_color",
+          "label": "Icon Fill Color (SVG only)",
+          "default": "#feeb94"
+        },
+        {
+          "type": "text",
+          "id": "response_time",
+          "label": "Response Time Badge Text",
+          "default": "Average response time - 30 minutes"
+        },
+        {
+          "type": "color",
+          "id": "response_bg",
+          "label": "Badge Background Color",
+          "default": "#feeb94"
+        },
+        {
+          "type": "color",
+          "id": "response_text_color",
+          "label": "Badge Text Color",
+          "default": "#2c2609"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Start Chat Now"
+        },
+        {
+          "type": "select",
+          "id": "button_action_type",
+          "label": "Button Action Type",
+          "options": [
+            {
+              "value": "link",
+              "label": "Link / URL / Mailto"
+            },
+            {
+              "value": "copy",
+              "label": "Copy text to clipboard"
+            }
+          ],
+          "default": "link"
+        },
+        {
+          "type": "text",
+          "id": "button_action_value",
+          "label": "Button Action Link/Text",
+          "default": "help@evilgoods.org",
+          "info": "Enter URL (e.g. mailto:help@evilgoods.org or a chat page URL) or text to copy (e.g. help@evilgoods.org)"
+        },
+        {
+          "type": "textarea",
+          "id": "button_icon_svg",
+          "label": "Button SVG Icon",
+          "info": "Paste raw SVG markup here for button icon."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Contact Form",
+      "blocks": [
+        {
+          "type": "support_option",
+          "settings": {
+            "heading": "CHAT WITH US",
+            "text": "Live support available Mon-Fri, 9am-5pm EST. Get in touch with our support team.",
+            "response_time": "Average response time - 30 minutes",
+            "button_label": "Start Chat Now",
+            "button_action_type": "link",
+            "button_action_value": "#"
+          }
+        },
+        {
+          "type": "support_option",
+          "settings": {
+            "heading": "EMAIL SUPPORT",
+            "text": "24/7 ticket system for all your inquiries. Email us at help@evilgoods.org anytime.",
+            "response_time": "Average response time - 30 minutes",
+            "button_label": "Copy Email",
+            "button_action_type": "copy",
+            "button_action_value": "help@evilgoods.org"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

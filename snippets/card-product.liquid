@@ -1,0 +1,206 @@
+{% comment %}
+  Renders a luxury product card for collection, search, related products, recommendations.
+  Supports OS 2.0 dynamic settings, variant switching & native AJAX Add-to-Cart.
+{% endcomment %}
+{%- unless skip_styles -%}
+  {{ 'component-card.css' | asset_url | stylesheet_tag }}
+  {{ 'component-price.css' | asset_url | stylesheet_tag }}
+{%- endunless -%}
+
+{%- if card_product and card_product != empty -%}
+  {%- liquid
+    assign selected_variant = card_product.selected_or_first_available_variant
+    assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id
+    
+    assign short_desc = card_product.metafields.custom.short_description | default: card_product.metafields.descriptors.subtitle
+    if short_desc == blank
+      assign short_desc = card_product.description | strip_html | truncatewords: 22
+    endif
+
+    assign rating_val = card_product.metafields.reviews.rating.value.rating | default: card_product.metafields.reviews.rating.value | default: card_product.metafields.loox.avg_rating | default: card_product.metafields.judgeme.badge
+    assign rating_count = card_product.metafields.reviews.rating_count | default: card_product.metafields.loox.num_reviews
+  -%}
+
+  <product-component view-event-payload="{{ card_product | standard_event_data: 'view', context: product_view_context | escape }}">
+    <article class="ml-product-card" itemscope itemtype="http://schema.org/Product">
+      
+      <div class="ml-product-card__main">
+        <!-- IMAGE CONTAINER (45% DESKTOP / 100% MOBILE) -->
+        <div class="ml-product-card__media-wrap">
+          {%- if card_product.featured_media -%}
+            <a href="{{ card_product.url }}" class="ml-product-card__media-link" aria-label="{{ card_product.title | escape }}">
+              <img
+                src="{{ card_product.featured_media | image_url: width: 600 }}"
+                alt="{{ card_product.featured_media.alt | default: card_product.title | escape }}"
+                loading="lazy"
+                width="600"
+                height="600"
+                class="ml-product-card__img"
+              >
+            </a>
+          {%- else -%}
+            <div class="ml-product-card__placeholder">
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {%- endif -%}
+
+          <!-- DYNAMIC BADGES -->
+          <div class="ml-product-card__badges">
+            {%- if card_product.available == false -%}
+              <span class="ml-badge ml-badge--soldout">{{ 'products.product.sold_out' | t | default: 'Out of Stock' }}</span>
+            {%- elsif card_product.compare_at_price > card_product.price -%}
+              {%- assign savings = card_product.compare_at_price | minus: card_product.price | times: 100.0 | divided_by: card_product.compare_at_price | round -%}
+              <span class="ml-badge ml-badge--sale">-{{ savings }}% OFF</span>
+            {%- elsif card_product.tags contains 'bestseller' or card_product.tags contains 'Best Seller' -%}
+              <span class="ml-badge ml-badge--bestseller">Best Seller</span>
+            {%- elsif card_product.tags contains 'new' or card_product.tags contains 'New' -%}
+              <span class="ml-badge ml-badge--new">New</span>
+            {%- elsif card_product.tags contains 'hot' or card_product.tags contains 'Hot' -%}
+              <span class="ml-badge ml-badge--hot">Hot</span>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <!-- CONTENT CONTAINER (55% DESKTOP / 100% MOBILE) -->
+        <div class="ml-product-card__content">
+          <!-- TITLE -->
+          <h3 class="ml-product-card__title" itemprop="name">
+            <a href="{{ card_product.url }}">{{ card_product.title }}</a>
+          </h3>
+
+          <!-- DESCRIPTION -->
+          {%- if short_desc != blank -%}
+            <div class="ml-product-card__description">
+              <p>{{ short_desc }}</p>
+            </div>
+          {%- endif -%}
+
+          <!-- REVIEWS (Conditional - strictly hide if ratings do not exist) -->
+          {%- if rating_val != blank -%}
+            <div class="ml-product-card__rating">
+              <div class="ml-rating-stars">
+                {%- for i in (1..5) -%}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#E79F29">
+                    <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z"/>
+                  </svg>
+                {%- endfor -%}
+                <span class="ml-rating-val">{{ rating_val }}</span>
+                {%- if rating_count != blank -%}
+                  <span class="ml-rating-cnt">({{ rating_count }})</span>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+
+          <!-- VARIANT PILLS (If multiple variants exist) -->
+          {%- if card_product.has_only_default_variant == false -%}
+            <div class="ml-product-card__variants">
+              {%- assign first_opt = card_product.options_with_values.first -%}
+              <span class="ml-variant-title">SELECT {{ first_opt.name | uppercase }}</span>
+              <div class="ml-variant-pills-list">
+                {%- for variant in card_product.variants -%}
+                  {%- assign is_selected = false -%}
+                  {%- if variant.id == selected_variant.id -%}
+                    {%- assign is_selected = true -%}
+                  {%- endif -%}
+                  <button
+                    type="button"
+                    class="ml-variant-pill-btn{% if is_selected %} is-selected{% endif %}{% unless variant.available %} is-disabled{% endunless %}"
+                    data-variant-id="{{ variant.id }}"
+                    data-price="{{ variant.price | money }}"
+                    data-compare="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money }}{% endif %}"
+                    data-available="{{ variant.available }}"
+                  >
+                    {{ variant.title }}
+                  </button>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
+
+          <!-- PRICE CONTAINER -->
+          <div class="ml-product-card__price-wrap">
+            <span class="ml-card-price ml-card-price--current">{{ selected_variant.price | money }}</span>
+            {%- if selected_variant.compare_at_price > selected_variant.price -%}
+              <span class="ml-card-price ml-card-price--old">{{ selected_variant.compare_at_price | money }}</span>
+              {%- assign pct = selected_variant.compare_at_price | minus: selected_variant.price | times: 100.0 | divided_by: selected_variant.compare_at_price | round -%}
+              <span class="ml-card-price-badge">-{{ pct }}%</span>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+
+      <!-- SPLIT FOOTER BUTTONS (LEARN MORE + ADD TO CART) -->
+      <div class="ml-product-card__footer">
+        <!-- LEARN MORE BUTTON -->
+        <a href="{{ card_product.url }}" class="ml-card-btn ml-card-btn--learn">
+          <span>Learn More</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+
+        <!-- NATIVE PRODUCT FORM FOR AJAX ATC -->
+        <product-form data-section-id="{{ section_id }}" class="ml-card-form-wrap">
+          {%- form 'product',
+            card_product,
+            id: product_form_id,
+            class: 'form',
+            novalidate: 'novalidate',
+            data-type: 'add-to-cart-form'
+          -%}
+            <input
+              type="hidden"
+              name="id"
+              value="{{ selected_variant.id }}"
+              class="product-variant-id"
+              {% if selected_variant.available == false %}disabled{% endif %}
+            >
+            <input type="hidden" name="quantity" value="1">
+
+            <button
+              id="{{ product_form_id }}-submit"
+              type="submit"
+              name="add"
+              class="ml-card-btn ml-card-btn--atc"
+              aria-haspopup="dialog"
+              aria-labelledby="{{ product_form_id }}-submit"
+              aria-live="polite"
+              data-sold-out-message="true"
+              {% if selected_variant.available == false %}disabled{% endif %}
+            >
+              <span class="ml-atc-text">
+                {%- if selected_variant.available -%}
+                  Add To Cart
+                {%- else -%}
+                  Out Of Stock
+                {%- endif -%}
+              </span>
+              <svg class="ml-cart-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+              {%- render 'loading-spinner' -%}
+            </button>
+          {%- endform -%}
+        </product-form>
+      </div>
+    </article>
+  </product-component>
+{%- else -%}
+  <div class="ml-product-card ml-product-card--placeholder">
+    <div class="ml-product-card__main">
+      <div class="ml-product-card__media-wrap">
+        {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+      <div class="ml-product-card__content">
+        <h3 class="ml-product-card__title">Sample Product Title</h3>
+        <div class="ml-product-card__price-wrap">
+          <span class="ml-card-price ml-card-price--current">$19.99</span>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}

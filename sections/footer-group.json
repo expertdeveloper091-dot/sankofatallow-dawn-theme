@@ -1,0 +1,122 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "custom_cta_7TRWHC": {
+      "type": "custom-cta",
+      "blocks": {
+        "feature_hj97PD": {
+          "type": "feature",
+          "settings": {
+            "enabled": true,
+            "text": "Made in USA"
+          }
+        },
+        "feature_4CzVeL": {
+          "type": "feature",
+          "settings": {
+            "enabled": true,
+            "text": "100% Natural Ingredients"
+          }
+        },
+        "feature_kYeRpz": {
+          "type": "feature",
+          "settings": {
+            "enabled": true,
+            "text": "30-Day Money-Back Guarantee"
+          }
+        }
+      },
+      "block_order": [
+        "feature_hj97PD",
+        "feature_4CzVeL",
+        "feature_kYeRpz"
+      ],
+      "name": "Custom CTA",
+      "settings": {
+        "bg_color": "#000000",
+        "show_overlay": false,
+        "overlay_color": "#000000",
+        "overlay_opacity": 50,
+        "left_image_1": "shopify://shop_images/3qr.webp",
+        "left_image_2": "shopify://shop_images/b672b8d7-0973-4e1f-be60-bab89177a5e2.webp",
+        "left_image_3": "shopify://shop_images/bbbe.webp",
+        "right_image_1": "shopify://shop_images/cta_image.webp",
+        "right_image_2": "shopify://shop_images/3qr.webp",
+        "avatar_1": "shopify://shop_images/3qr.webp",
+        "avatar_2": "shopify://shop_images/b672b8d7-0973-4e1f-be60-bab89177a5e2.webp",
+        "avatar_3": "shopify://shop_images/cta_image.webp",
+        "customer_count": "5k+",
+        "customer_label": "Trusted Customer",
+        "title_highlight": "Experience Naturally",
+        "title_main": "Experience Naturally",
+        "description": "<p>We believe in our balm because it actually works. If your skin isn't looking better in 30 days, we'll give you your money back — no drama, no hoops. Subscribe now and save 30% on your first order!</p>",
+        "btn_text": "Subscribe & Save 30% Today",
+        "btn_url": "/",
+        "btn_new_tab": false,
+        "max_width": 850,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "text_color": "#ffffff",
+        "accent_color": "#ffffff",
+        "button_color": "#f47c20",
+        "button_hover_color": "#e06b12",
+        "button_text_color": "#ffffff",
+        "border_radius": 14
+      }
+    },
+    "custom_footer_aWBBQb": {
+      "type": "custom-footer",
+      "name": "Custom Footer",
+      "settings": {
+        "logo": "shopify://shop_images/Logo.avif",
+        "logo_width": 220,
+        "newsletter_heading": "Join the Movement & Get 10% Off",
+        "newsletter_text": "Sign up for updates and exclusive offers",
+        "show_social": true,
+        "menu_1_heading": "Discover More",
+        "menu_1": "main-menu",
+        "menu_2_heading": "Our Collections",
+        "menu_2": "",
+        "menu_3_heading": "Customer Service",
+        "menu_3": "",
+        "disclaimer_heading": "Our mission",
+        "disclaimer_text": "At Sankofa Tallow, we believe skincare should be simple, safe, and nourishing. Inspired by African traditions and created from a mother's search for healthier skincare, our handcrafted body butter is made with only five carefully selected ingredients to help protect, hydrate, and care for your family's skin—naturally",
+        "show_copyright": true,
+        "copyright_additional_text": "All rights reserved."
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-1",
+        "newsletter_enable": true,
+        "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "custom_cta_7TRWHC",
+    "custom_footer_aWBBQb",
+    "footer"
+  ]
+}

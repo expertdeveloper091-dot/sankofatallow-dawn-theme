@@ -1,0 +1,701 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .why-switch {
+    --text-color: {{ section.settings.text_color }};
+    --bg-color: {{ section.settings.bg_color }};
+    --accent-color: {{ section.settings.accent_color }};
+    --card-bg: {{ section.settings.card_bg }};
+    background-color: var(--bg-color);
+    border-bottom:2px solid;
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif !important;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .why-switch__container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    box-sizing: border-box;
+  }
+
+  .why-switch__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8rem;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 1280px) {
+    .why-switch__grid {
+      gap: 4rem;
+    }
+    .why-switch__title {
+      font-size: clamp(2.4rem, 3.5vw, 3.8rem);
+    }
+  }
+
+  @media screen and (max-width: 989px) {
+    .why-switch__container {
+      padding: 0 1.5rem;
+    }
+    .why-switch__grid {
+      grid-template-columns: 1fr;
+      gap: 5rem;
+    }
+    .why-switch__info-col {
+      order: 1;
+      align-items: center;
+      text-align: center;
+    }
+    .why-switch__media-col {
+      order: 2;
+    }
+    .why-switch__description {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  /* Info column styles */
+  .why-switch__info-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .why-switch__subtitle {
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+  }
+
+  .why-switch__title {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: clamp(3rem, 4.5vw, 4.8rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--text-color);
+    margin: 0 0 1.5rem 0;
+  }
+
+  .why-switch__description {
+    font-size: clamp(1.5rem, 2vw, 1.7rem);
+    line-height: 1.45;
+    color: var(--text-color);
+    opacity: 0.9;
+    margin-bottom: 3.5rem;
+    max-width: 540px;
+  }
+
+  .why-switch__features-card {
+    background-color: var(--card-bg);
+    border: 2px solid var(--text-color);
+    border-radius: 24px;
+    padding: 3.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0px 8px 16px rgba(44, 38, 9, 0.02);
+    text-align: left;
+  }
+
+  .why-switch__feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .why-switch__feature-icon-wrapper {
+    background-color: color-mix(in srgb, var(--accent-color) 20%, #FFFFFF);
+    min-width: 64px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0px 2px 0px 0px var(--text-color);
+  }
+
+  .why-switch__feature-icon {
+    display: block;
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+
+  .why-switch__feature-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .why-switch__feature-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--text-color);
+    margin: 0;
+  }
+
+  .why-switch__feature-desc {
+    font-size: 1.35rem;
+    line-height: 1.45;
+    color: var(--text-color);
+    margin: 0;
+    opacity: 0.85;
+  }
+
+  /* Media column / phone canvas styles */
+  .why-switch__media-col {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 6rem 0;
+    box-sizing: border-box;
+  }
+
+  .why-switch__phone-canvas {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    aspect-ratio: 4/5;
+    border: 2px solid var(--text-color);
+    border-radius: 36px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 12px 24px rgba(44, 38, 9, 0.04);
+    z-index: 1;
+  }
+
+  .why-switch__bg-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 34px;
+  }
+
+  /* Floating reviews styles */
+  .why-switch__review {
+    position: absolute;
+    background-color: #FFFFFF;
+    border: 2px solid var(--text-color);
+    border-radius: 16px;
+    padding: 1.8rem;
+    box-shadow: 0px 8px 16px rgba(44, 38, 9, 0.06);
+    max-width: 270px;
+    width: 80%;
+    z-index: 2;
+    box-sizing: border-box;
+    text-align: left;
+  }
+
+  .why-switch__review--first {
+    left: -35px;
+    top: 10%;
+  }
+
+  .why-switch__review--second {
+    right: -35px;
+    bottom: 10%;
+  }
+
+  .why-switch__review-rating-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .why-switch__review-stars {
+    display: flex;
+    gap: 0.2rem;
+  }
+
+  .why-switch__review-star svg {
+    display: block;
+    width: 15px;
+    height: 15px;
+  }
+
+  .why-switch__problem-tag {
+    background-color: var(--text-color);
+    color: #FFFFFF;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .why-switch__problem-tag span {
+    font-weight: 400;
+    opacity: 0.8;
+  }
+
+  .why-switch__review-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text-color);
+    margin: 1.2rem 0;
+  }
+
+  .why-switch__buyer-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background-color: color-mix(in srgb, var(--accent-color) 12%, #FFFFFF);
+    border: 1.5px solid var(--text-color);
+    border-radius: 100px;
+    padding: 0.4rem 1.2rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-color);
+    box-shadow: 0px 1.5px 0px 0px var(--text-color);
+  }
+
+  .why-switch__buyer-badge-text-bold {
+    font-weight: 800;
+  }
+
+  .why-switch__check-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .why-switch__check-icon svg {
+    display: block;
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Responsive offsets to prevent viewport clipping */
+  @media screen and (max-width: 580px) {
+    .why-switch__review--first {
+      left: -15px;
+      top: 8%;
+    }
+    .why-switch__review--second {
+      right: -15px;
+      bottom: 8%;
+    }
+  }
+
+  @media screen and (max-width: 440px) {
+    .why-switch__review--first {
+      left: -8px;
+      max-width: 245px;
+      padding: 1.3rem;
+    }
+    .why-switch__review--second {
+      right: -8px;
+      max-width: 250px;
+      padding: 1.3rem;
+    }
+    .why-switch__review-text {
+      font-size: 1.15rem;
+      margin: 1rem 0;
+    }
+    .why-switch__problem-tag {
+      font-size: 0.85rem;
+      padding: 0.2rem 0.6rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="why-switch section-{{ section.id }}-padding">
+  <div class="why-switch__container">
+    <div class="why-switch__grid">
+      
+      <!-- Info Column -->
+      <div class="why-switch__info-col">
+        {%- if section.settings.subtitle != blank -%}
+          <span class="why-switch__subtitle">{{ section.settings.subtitle }}</span>
+        {%- endif -%}
+        <h2 class="why-switch__title">{{ section.settings.heading }}</h2>
+        {%- if section.settings.subheading != blank -%}
+          <div class="why-switch__description rte">
+            {{ section.settings.subheading }}
+          </div>
+        {%- endif -%}
+
+        {%- assign has_features = false -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'feature' -%}
+            {%- assign has_features = true -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if has_features -%}
+          <div class="why-switch__features-card">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'feature' -%}
+                <div class="why-switch__feature-item" {{ block.shopify_attributes }}>
+                  <div class="why-switch__feature-icon-wrapper">
+                    {%- if block.settings.icon != blank -%}
+                      {{ block.settings.icon | image_url: width: 80 | image_tag: loading: 'lazy', class: 'why-switch__feature-icon' }}
+                    {%- else -%}
+                      <img src="https://evilgoods.com/cdn/shop/files/Leaf_7bab2c2b-3a2d-417f-b87e-3b3358597a50.png?v=1745559920&width=100" class="why-switch__feature-icon" alt="" loading="lazy">
+                    {%- endif -%}
+                  </div>
+                  <div class="why-switch__feature-content">
+                    <h3 class="why-switch__feature-title">{{ block.settings.title }}</h3>
+                    <p class="why-switch__feature-desc">{{ block.settings.description }}</p>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Media & Reviews Column -->
+      <div class="why-switch__media-col">
+        <div class="why-switch__phone-canvas">
+          {%- if section.settings.image != blank -%}
+            {{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', class: 'why-switch__bg-image' }}
+          {%- else -%}
+            <img src="https://evilgoods.com/cdn/shop/files/Rectangle_4784.png?v=1751628282&width=1600" class="why-switch__bg-image" alt="Evil Goods" loading="lazy">
+          {%- endif -%}
+        </div>
+
+        <!-- Floating Review 1 (Top Left) -->
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'review' and block.settings.position == 'top_left' -%}
+            <div class="why-switch__review why-switch__review--first" {{ block.shopify_attributes }}>
+              <div class="why-switch__review-rating-row">
+                <div class="why-switch__review-stars">
+                  {%- for i in (1..block.settings.stars_count) -%}
+                    <span class="why-switch__review-star">
+                      <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.60502 2.4125C9.64153 2.33872 9.69795 2.27661 9.76789 2.23319C9.83784 2.18977 9.91852 2.16676 10.0008 2.16676C10.0832 2.16676 10.1639 2.18977 10.2338 2.23319C10.3037 2.27661 10.3602 2.33872 10.3967 2.4125L12.3217 6.31167C12.4485 6.56831 12.6357 6.79034 12.8672 6.95871C13.0987 7.12708 13.3676 7.23676 13.6508 7.27833L17.9559 7.90833C18.0374 7.92015 18.1141 7.95456 18.1771 8.00767C18.2401 8.06077 18.287 8.13046 18.3125 8.20884C18.338 8.28722 18.3411 8.37117 18.3213 8.4512C18.3016 8.53122 18.2599 8.60413 18.2008 8.66167L15.0875 11.6933C14.8822 11.8934 14.7286 12.1404 14.6399 12.413C14.5512 12.6856 14.5301 12.9757 14.5783 13.2583L15.3133 17.5417C15.3277 17.6232 15.3189 17.7071 15.2879 17.7839C15.2569 17.8607 15.205 17.9272 15.138 17.9758C15.071 18.0245 14.9917 18.0533 14.9091 18.0591C14.8265 18.0648 14.7439 18.0472 14.6708 18.0083L10.8225 15.985C10.5689 15.8519 10.2868 15.7823 10.0004 15.7823C9.71403 15.7823 9.43192 15.8519 9.17835 15.985L5.33085 18.0083C5.25779 18.047 5.17535 18.0644 5.09289 18.0585C5.01044 18.0527 4.93128 18.0238 4.86443 17.9752C4.79758 17.9266 4.74571 17.8602 4.71473 17.7835C4.68375 17.7069 4.6749 17.6231 4.68918 17.5417L5.42335 13.2592C5.47185 12.9764 5.45084 12.6862 5.36213 12.4134C5.27343 12.1406 5.11969 11.8935 4.91418 11.6933L1.80085 8.6625C1.74134 8.60503 1.69918 8.532 1.67915 8.45173C1.65913 8.37146 1.66205 8.28718 1.68758 8.20849C1.71312 8.1298 1.76024 8.05987 1.82358 8.00665C1.88692 7.95344 1.96393 7.91908 2.04585 7.9075L6.35002 7.27833C6.63356 7.23708 6.90284 7.12755 7.13467 6.95916C7.3665 6.79076 7.55394 6.56856 7.68085 6.31167L9.60502 2.4125Z" fill="#FEDB36" stroke="var(--text-color)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                    </span>
+                  {%- endfor -%}
+                </div>
+                {%- if block.settings.problem != blank -%}
+                  <span class="why-switch__problem-tag"><span>PROBLEM:</span> {{ block.settings.problem }}</span>
+                {%- endif -%}
+              </div>
+              <p class="why-switch__review-text">{{ block.settings.text }}</p>
+              <div class="why-switch__buyer-badge">
+                <span class="why-switch__check-icon">
+                  <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_why_{{ block.id }})">
+                      <path d="M10 19.5C14.9706 19.5 19 15.4706 19 10.5C19 5.52944 14.9706 1.5 10 1.5C5.02944 1.5 1 5.52944 1 10.5C1 15.4706 5.02944 19.5 10 19.5Z" fill="var(--accent-color)"></path>
+                      <path d="M10 19.5C14.9706 19.5 19 15.4706 19 10.5C19 5.52944 14.9706 1.5 10 1.5C5.02944 1.5 1 5.52944 1 10.5C1 15.4706 5.02944 19.5 10 19.5Z" stroke="var(--text-color)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M14 7.5L8.5 14L5.5 12" stroke="var(--text-color)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_why_{{ block.id }}">
+                        <rect width="20" height="20" fill="white" transform="translate(0 0.5)"></rect>
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </span>
+                <span class="why-switch__buyer-badge-text-bold">{{ block.settings.author }}</span> {{ block.settings.badge_text }}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+
+        <!-- Floating Review 2 (Bottom Right) -->
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'review' and block.settings.position == 'bottom_right' -%}
+            <div class="why-switch__review why-switch__review--second" {{ block.shopify_attributes }}>
+              <div class="why-switch__review-rating-row">
+                <div class="why-switch__review-stars">
+                  {%- for i in (1..block.settings.stars_count) -%}
+                    <span class="why-switch__review-star">
+                      <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.60502 2.4125C9.64153 2.33872 9.69795 2.27661 9.76789 2.23319C9.83784 2.18977 9.91852 2.16676 10.0008 2.16676C10.0832 2.16676 10.1639 2.18977 10.2338 2.23319C10.3037 2.27661 10.3602 2.33872 10.3967 2.4125L12.3217 6.31167C12.4485 6.56831 12.6357 6.79034 12.8672 6.95871C13.0987 7.12708 13.3676 7.23676 13.6508 7.27833L17.9559 7.90833C18.0374 7.92015 18.1141 7.95456 18.1771 8.00767C18.2401 8.06077 18.287 8.13046 18.3125 8.20884C18.338 8.28722 18.3411 8.37117 18.3213 8.4512C18.3016 8.53122 18.2599 8.60413 18.2008 8.66167L15.0875 11.6933C14.8822 11.8934 14.7286 12.1404 14.6399 12.413C14.5512 12.6856 14.5301 12.9757 14.5783 13.2583L15.3133 17.5417C15.3277 17.6232 15.3189 17.7071 15.2879 17.7839C15.2569 17.8607 15.205 17.9272 15.138 17.9758C15.071 18.0245 14.9917 18.0533 14.9091 18.0591C14.8265 18.0648 14.7439 18.0472 14.6708 18.0083L10.8225 15.985C10.5689 15.8519 10.2868 15.7823 10.0004 15.7823C9.71403 15.7823 9.43192 15.8519 9.17835 15.985L5.33085 18.0083C5.25779 18.047 5.17535 18.0644 5.09289 18.0585C5.01044 18.0527 4.93128 18.0238 4.86443 17.9752C4.79758 17.9266 4.74571 17.8602 4.71473 17.7835C4.68375 17.7069 4.6749 17.6231 4.68918 17.5417L5.42335 13.2592C5.47185 12.9764 5.45084 12.6862 5.36213 12.4134C5.27343 12.1406 5.11969 11.8935 4.91418 11.6933L1.80085 8.6625C1.74134 8.60503 1.69918 8.532 1.67915 8.45173C1.65913 8.37146 1.66205 8.28718 1.68758 8.20849C1.71312 8.1298 1.76024 8.05987 1.82358 8.00665C1.88692 7.95344 1.96393 7.91908 2.04585 7.9075L6.35002 7.27833C6.63356 7.23708 6.90284 7.12755 7.13467 6.95916C7.3665 6.79076 7.55394 6.56856 7.68085 6.31167L9.60502 2.4125Z" fill="#FEDB36" stroke="var(--text-color)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                    </span>
+                  {%- endfor -%}
+                </div>
+                {%- if block.settings.problem != blank -%}
+                  <span class="why-switch__problem-tag"><span>PROBLEM:</span> {{ block.settings.problem }}</span>
+                {%- endif -%}
+              </div>
+              <p class="why-switch__review-text">{{ block.settings.text }}</p>
+              <div class="why-switch__buyer-badge">
+                <span class="why-switch__check-icon">
+                  <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_why_{{ block.id }})">
+                      <path d="M10 19.5C14.9706 19.5 19 15.4706 19 10.5C19 5.52944 14.9706 1.5 10 1.5C5.02944 1.5 1 5.52944 1 10.5C1 15.4706 5.02944 19.5 10 19.5Z" fill="var(--accent-color)"></path>
+                      <path d="M10 19.5C14.9706 19.5 19 15.4706 19 10.5C19 5.52944 14.9706 1.5 10 1.5C5.02944 1.5 1 5.52944 1 10.5C1 15.4706 5.02944 19.5 10 19.5Z" stroke="var(--text-color)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M14 7.5L8.5 14L5.5 12" stroke="var(--text-color)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_why_{{ block.id }}">
+                        <rect width="20" height="20" fill="white" transform="translate(0 0.5)"></rect>
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </span>
+                <span class="why-switch__buyer-badge-text-bold">{{ block.settings.author }}</span> {{ block.settings.badge_text }}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Why Switch",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#FAF9F5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#2C2609"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color (star, checkmarks, badges)",
+      "default": "#e7a621"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Main Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Center Canvas Image"
+    },
+    {
+      "type": "header",
+      "content": "Section Header Texts"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle (Optional)"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "WHY SWITCH TO EVIL GOODS?"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Description",
+      "default": "<p>Whipped smooth and fast-absorbing — because you shouldn't have to choose between clean and satisfying.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Cell",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Feature Icon (Optional)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Feature Description",
+          "default": "Grass-fed grass-finished tallow, manuka honey, cold-pressed olive oil, organic vitamin E. That's it. No junk. No gimmicks."
+        }
+      ]
+    },
+    {
+      "type": "review",
+      "name": "Floating Review",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Card Position",
+          "options": [
+            {
+              "value": "top_left",
+              "label": "Top Left"
+            },
+            {
+              "value": "bottom_right",
+              "label": "Bottom Right"
+            }
+          ],
+          "default": "top_left"
+        },
+        {
+          "type": "range",
+          "id": "stars_count",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Stars Rating",
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "problem",
+          "label": "Problem Treated",
+          "default": "ACNE"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Review Text",
+          "default": "This balm saved my skin. Zero breakouts in weeks."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author Name",
+          "default": "Sarah, 36"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Verification Badge Text",
+          "default": "Verified Buyer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why Switch",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Real Ingredients, Real Results",
+            "description": "Grass-fed grass-finished tallow, manuka honey, cold-pressed olive oil, organic vitamin E. That's it. No junk. No gimmicks."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Zero Toxins, Zero Bullsh*t",
+            "description": "No parabens. No phthalates. No seed oils. No synthetic fragrance. Just skin-loving, body-safe nutrition."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Feels Like Luxury. Works Like Medicine.",
+            "description": "Whipped smooth and fast-absorbing — because you shouldn’t have to choose between clean and effective."
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "position": "top_left",
+            "problem": "ACNE",
+            "text": "This balm saved my skin. Zero breakouts in weeks.",
+            "author": "Sarah, 36"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "position": "bottom_right",
+            "problem": "ACNE",
+            "text": "Better than any $100 serum I've tried. I'm glowing.",
+            "author": "Max, 42"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

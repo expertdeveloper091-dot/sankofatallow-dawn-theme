@@ -1,0 +1,880 @@
+<!-- Link Remix Icon Library for fallback icons in case user wants to use classes instead of SVG -->
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" media="print" onload="this.media='all'">
+
+{%- style -%}
+  #maison-faq-{{ section.id }} {
+    background-color: {{ section.settings.bg_color | default: '#ffffff' }};
+    padding-top: {{ section.settings.padding_top | default: 60 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 60 }}px;
+    font-family: var(--font-body-family), "Poppins", sans-serif;
+    color: {{ section.settings.text_color | default: '#2c2609' }};
+  }
+  
+  #maison-faq-{{ section.id }} .faq__container {
+    max-width: {{ section.settings.max_width | default: 1200 }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  #maison-faq-{{ section.id }} .faq__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  @media screen and (min-width: 992px) {
+    #maison-faq-{{ section.id }} .faq__grid {
+      grid-template-columns: 0.45fr 0.55fr;
+      gap: 60px;
+    }
+  }
+
+  #maison-faq-{{ section.id }} .faq__left-col {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 20px;
+  }
+
+  #maison-faq-{{ section.id }} .faq__red-text {
+    color: {{ section.settings.accent_color | default: '#ffa004' }};
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+    display: inline-block;
+  }
+
+  #maison-faq-{{ section.id }} .faq__heading {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 900;
+    line-height: 1.1;
+    color: {{ section.settings.heading_color | default: '#2c2609' }};
+    margin: 0 0 16px 0;
+    text-transform: uppercase;
+    font-family: var(--font-heading-family), inherit;
+  }
+
+  #maison-faq-{{ section.id }} .faq__description {
+    font-size: 15px;
+    line-height: 1.6;
+    color: {{ section.settings.text_color | default: '#555555' }};
+    margin: 0 0 30px 0;
+  }
+
+  /* Tabs List */
+  #maison-faq-{{ section.id }} .faq__tabs-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    width: 100%;
+  }
+
+  @media screen and (min-width: 480px) {
+    #maison-faq-{{ section.id }} .faq__tabs-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  #maison-faq-{{ section.id }} .faq__tab-btn {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 1.5px solid {{ section.settings.border_color | default: '#2C2609' }};
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+    box-shadow: 0px 4px 0px 0px {{ section.settings.border_color | default: '#2C2609' }};
+    position: relative;
+    top: 0;
+  }
+
+  #maison-faq-{{ section.id }} .faq__tab-btn:hover {
+    transform: translateY(2px);
+    box-shadow: 0px 2px 0px 0px {{ section.settings.border_color | default: '#2C2609' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__tab-btn.active {
+    background-color: {{ section.settings.active_tab_bg | default: '#FEDB36' }};
+    transform: translateY(4px);
+    box-shadow: 0px 0px 0px 0px {{ section.settings.border_color | default: '#2C2609' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__tab-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+  }
+
+  #maison-faq-{{ section.id }} .faq__tab-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  #maison-faq-{{ section.id }} .faq__tab-icon svg,
+  #maison-faq-{{ section.id }} .faq__tab-icon img,
+  #maison-faq-{{ section.id }} .faq__tab-icon i {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    font-size: 24px;
+    color: {{ section.settings.heading_color | default: '#2C2609' }};
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #maison-faq-{{ section.id }} .faq__tab-text-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  #maison-faq-{{ section.id }} .faq__tab-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: {{ section.settings.heading_color | default: '#2C2609' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__tab-count {
+    font-size: 12px;
+    font-weight: 500;
+    color: #666666;
+  }
+
+  /* Right Column (Accordion List) */
+  #maison-faq-{{ section.id }} .faq__right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #maison-faq-{{ section.id }} .faq__category-panel {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  #maison-faq-{{ section.id }} .faq__category-panel.active {
+    display: flex;
+  }
+
+  #maison-faq-{{ section.id }} .faq__item-card {
+    border: 1.5px solid {{ section.settings.border_color | default: '#2C2609' }};
+    border-radius: 12px;
+    background-color: #ffffff;
+    overflow: hidden;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0px 4px 0px 0px {{ section.settings.border_color | default: '#2C2609' }};
+    position: relative;
+    top: 0;
+    margin-bottom: 4px;
+  }
+
+  #maison-faq-{{ section.id }} .faq__item-card.active {
+    background-color: {{ section.settings.active_faq_bg | default: '#FEF6CF' }};
+    box-shadow: 0px 4px 0px 0px {{ section.settings.border_color | default: '#2C2609' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__question-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    cursor: pointer;
+    gap: 20px;
+    user-select: none;
+  }
+
+  #maison-faq-{{ section.id }} .faq__question-text {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: {{ section.settings.heading_color | default: '#2c2609' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__toggle-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid {{ section.settings.border_color | default: '#2C2609' }};
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    color: {{ section.settings.border_color | default: '#2C2609' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__item-card.active .faq__toggle-btn {
+    background-color: {{ section.settings.active_tab_bg | default: '#FEDB36' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__toggle-btn svg {
+    width: 14px;
+    height: 14px;
+    display: block;
+  }
+
+  #maison-faq-{{ section.id }} .faq__toggle-btn svg path {
+    stroke: {{ section.settings.border_color | default: '#2C2609' }};
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  #maison-faq-{{ section.id }} .faq__toggle-btn .minus-icon {
+    display: none;
+  }
+
+  #maison-faq-{{ section.id }} .faq__toggle-btn .plus-icon {
+    display: block;
+  }
+
+  #maison-faq-{{ section.id }} .faq__item-card.active .faq__toggle-btn .plus-icon {
+    display: none;
+  }
+
+  #maison-faq-{{ section.id }} .faq__item-card.active .faq__toggle-btn .minus-icon {
+    display: block;
+  }
+
+  #maison-faq-{{ section.id }} .faq__answer-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+  }
+
+  #maison-faq-{{ section.id }} .faq__item-card.active .faq__answer-panel {
+    max-height: 1000px;
+    transition: max-height 0.5s cubic-bezier(1, 0, 1, 0);
+  }
+
+  #maison-faq-{{ section.id }} .faq__answer-content {
+    padding: 0 24px 24px 24px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: {{ section.settings.text_color | default: '#555555' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__answer-content p {
+    margin: 0 0 1em 0;
+  }
+  #maison-faq-{{ section.id }} .faq__answer-content p:last-child {
+    margin: 0;
+  }
+{%- endstyle -%}
+
+<div id="maison-faq-{{ section.id }}" class="faq-section">
+  <div class="faq__container">
+    <div class="faq__grid">
+      
+      <!-- Left Column (Headers + Category Tabs) -->
+      <div class="faq__left-col">
+        {%- if section.settings.red_text != blank -%}
+          <span class="faq__red-text">{{ section.settings.red_text }}</span>
+        {%- endif -%}
+        
+        {%- if section.settings.heading != blank -%}
+          <h2 class="faq__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        
+        {%- if section.settings.description != blank -%}
+          <p class="faq__description">{{ section.settings.description }}</p>
+        {%- endif -%}
+        
+        {%- assign category_blocks = section.blocks | where: "type", "category" -%}
+        {%- assign faq_items = section.blocks | where: "type", "faq_item" -%}
+        
+        {%- if category_blocks.size > 0 -%}
+          <div class="faq__tabs-list">
+            {%- for block in category_blocks -%}
+              {%- assign cat_id = block.settings.category_id | downcase | strip -%}
+              
+              <!-- Calculate dynamic count of questions in this category -->
+              {%- assign q_count = 0 -%}
+              {%- for item in faq_items -%}
+                {%- assign item_cat = item.settings.category_id | downcase | strip -%}
+                {%- if item_cat == cat_id -%}
+                  {%- assign q_count = q_count | plus: 1 -%}
+                {%- endif -%}
+              {%- endfor -%}
+              
+              <button class="faq__tab-btn{% if forloop.first %} active{% endif %}" data-category="{{ cat_id }}" id="block-{{ block.id }}" {{ block.shopify_attributes }}>
+                <div class="faq__tab-content">
+                  
+                  {%- if block.settings.icon_svg != blank or block.settings.icon_class != blank or block.settings.icon_image != blank -%}
+                    <div class="faq__tab-icon">
+                      {%- if block.settings.icon_svg != blank -%}
+                        {{ block.settings.icon_svg }}
+                      {%- elsif block.settings.icon_class != blank -%}
+                        <i class="{{ block.settings.icon_class }}"></i>
+                      {%- elsif block.settings.icon_image != blank -%}
+                        <img src="{{ block.settings.icon_image | image_url: width: 64 }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                  
+                  <div class="faq__tab-text-group">
+                    <span class="faq__tab-title">{{ block.settings.title }}</span>
+                    <span class="faq__tab-count">{{ q_count }} {{ q_count | pluralize: 'question', 'questions' }}</span>
+                  </div>
+                </div>
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+      
+      <!-- Right Column (FAQ Category Accordions) -->
+      <div class="faq__right-col">
+        {%- if category_blocks.size > 0 -%}
+          {%- for category in category_blocks -%}
+            {%- assign cat_id = category.settings.category_id | downcase | strip -%}
+            
+            <div class="faq__category-panel{% if forloop.first %} active{% endif %}" id="{{ cat_id }}">
+              {%- assign item_index = 0 -%}
+              {%- for item in faq_items -%}
+                {%- assign item_cat = item.settings.category_id | downcase | strip -%}
+                
+                {%- if item_cat == cat_id -%}
+                  {%- assign item_index = item_index | plus: 1 -%}
+                  
+                  <div class="faq__item-card{% if item_index == 1 and category.settings.open_first_faq %} active{% endif %}" id="block-{{ item.id }}" {{ item.shopify_attributes }}>
+                    <div class="faq__question-bar">
+                      <span class="faq__question-text">{{ item.settings.question }}</span>
+                      <button class="faq__toggle-btn" aria-label="Toggle Answer">
+                        <svg class="plus-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                        </svg>
+                        <svg class="minus-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="faq__answer-panel">
+                      <div class="faq__answer-content">
+                        {{ item.settings.answer }}
+                      </div>
+                    </div>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+              
+              {%- if item_index == 0 -%}
+                <p style="text-align: center; color: #777; padding: 20px;">No questions added under this category yet.</p>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          <p style="text-align: center; color: #777; padding: 20px;">Please add FAQ Categories and FAQ items in the Theme Customizer.</p>
+        {%- endif -%}
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const section = document.querySelector('#maison-faq-{{ section.id }}');
+    if (!section) return;
+
+    const tabButtons = section.querySelectorAll('.faq__tab-btn');
+    const panels = section.querySelectorAll('.faq__category-panel');
+    const faqCards = section.querySelectorAll('.faq__item-card');
+
+    // Tab switching handler
+    tabButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const categoryId = this.getAttribute('data-category');
+
+        // Toggle active buttons
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+
+        // Toggle active panels
+        panels.forEach(panel => {
+          if (panel.id === categoryId) {
+            panel.classList.add('active');
+          } else {
+            panel.classList.remove('active');
+          }
+        });
+      });
+    });
+
+    // Accordion toggle handler
+    faqCards.forEach(card => {
+      const questionBar = card.querySelector('.faq__question-bar');
+      questionBar.addEventListener('click', function() {
+        const isActive = card.classList.contains('active');
+        
+        // Collapse other cards in the same active panel
+        const parentPanel = card.closest('.faq__category-panel');
+        if (parentPanel) {
+          const siblingCards = parentPanel.querySelectorAll('.faq__item-card');
+          siblingCards.forEach(sibling => {
+            if (sibling !== card) {
+              sibling.classList.remove('active');
+            }
+          });
+        }
+
+        // Toggle state of current clicked card
+        if (!isActive) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      });
+    });
+
+    // Live Shopify Customizer interactive event listeners
+    document.addEventListener('shopify:block:select', function(event) {
+      const blockId = event.detail.blockId;
+      const blockElement = section.querySelector('#block-' + blockId);
+      
+      if (blockElement) {
+        // If merchant selects a category tab block
+        if (blockElement.classList.contains('faq__tab-btn')) {
+          blockElement.click();
+        } 
+        // If merchant selects an individual FAQ card block
+        else if (blockElement.classList.contains('faq__item-card')) {
+          const parentPanel = blockElement.closest('.faq__category-panel');
+          if (parentPanel) {
+            // Find tab button that matches this category panel and trigger it
+            const categoryId = parentPanel.id;
+            const tabButton = section.querySelector(`.faq__tab-btn[data-category="${categoryId}"]`);
+            if (tabButton && !tabButton.classList.contains('active')) {
+              tabButton.click();
+            }
+            
+            // Open this selected FAQ card
+            parentPanel.querySelectorAll('.faq__item-card').forEach(c => {
+              if (c !== blockElement) {
+                c.classList.remove('active');
+              }
+            });
+            blockElement.classList.add('active');
+          }
+        }
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Custom FAQ with Tabs",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 800,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "label": "Max Container Width",
+      "default": 1200
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Text Color",
+      "default": "#2c2609"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body Text Color",
+      "default": "#2c2609"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Red/Orange Label Color",
+      "default": "#ffa004"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border & Shadow Color",
+      "default": "#2c2609"
+    },
+    {
+      "type": "color",
+      "id": "active_tab_bg",
+      "label": "Active Tab Background Color",
+      "default": "#FEDB36"
+    },
+    {
+      "type": "color",
+      "id": "active_faq_bg",
+      "label": "Active FAQ Card Background Color",
+      "default": "#FEF6CF"
+    },
+    {
+      "type": "header",
+      "content": "Headers Content"
+    },
+    {
+      "type": "text",
+      "id": "red_text",
+      "label": "Accent Sub-label Text",
+      "default": "GOT QUESTIONS? WE'VE GOT ANSWERS"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main Heading Text",
+      "default": "FREQUENTLY ASKED QUESTIONS"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description Paragraph",
+      "default": "Everything you need to know about our natural products, straight from nature to your skin."
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "FAQ Category / Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "category_id",
+          "label": "Unique Category ID",
+          "default": "product-ingredients",
+          "info": "Use simple alphanumeric text with hyphens. E.g. 'product-ingredients'. Links items to this tab."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category Title / Tab Label",
+          "default": "Product Ingredients"
+        },
+        {
+          "type": "textarea",
+          "id": "icon_svg",
+          "label": "Custom SVG Icon Markup",
+          "info": "Paste raw SVG code here to display inside the tab button."
+        },
+        {
+          "type": "text",
+          "id": "icon_class",
+          "label": "Remix Icon Class (Fallback)",
+          "info": "Or use a Remix Icon class name like 'ri-leaf-line', 'ri-truck-line'. Overridden by SVG."
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon Image (Alternative)"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_first_faq",
+          "label": "Open first FAQ under this tab by default",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "faq_item",
+      "name": "FAQ Accordion Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "category_id",
+          "label": "Belongs to Category ID",
+          "default": "product-ingredients",
+          "info": "Type in the exact Unique Category ID of the tab this question belongs to."
+        },
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question Text",
+          "default": "What ingredients are in your Tallow Balm?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer Text",
+          "default": "<p>Our Tallow Balm contains only 4 natural ingredients...</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom FAQ with Tabs",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "category_id": "product-ingredients",
+            "title": "Product Ingredients",
+            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"21\" viewBox=\"0 0 20 21\" fill=\"none\"><g clip-path=\"url(#clip0_4243_17191)\"><path d=\"M3.55574 8.2022C0.698605 12.2257 2.88432 16.8342 3.94146 18.6319C4.09649 18.8834 4.30467 19.0979 4.55143 19.2606C4.7982 19.4232 5.07759 19.5301 5.37003 19.5735C7.44146 19.9302 12.5986 20.3298 15.37 16.3062C18.0986 12.5111 17.9843 5.83377 17.7415 2.65207C17.7319 2.41503 17.666 2.18364 17.5495 1.97696C17.4329 1.77028 17.2687 1.59422 17.0706 1.46326C16.8726 1.33231 16.6462 1.25021 16.4102 1.22372C16.174 1.19724 15.9352 1.22712 15.7129 1.31091C12.6415 2.19551 6.24146 4.407 3.55574 8.2022Z\" fill=\"#FEDB36\"></path><path d=\"M3.55575 8.2022C0.698603 12.2257 2.88432 16.8342 3.94146 18.6319C4.09647 18.8834 4.30466 19.0979 4.55143 19.2606C4.7982 19.4232 5.07759 19.5301 5.37003 19.5735C7.44146 19.9302 12.5986 20.3298 15.37 16.3062C18.0986 12.5111 17.9843 5.83377 17.7414 2.65207C17.7319 2.41503 17.666 2.18364 17.5494 1.97696C17.4329 1.77028 17.2687 1.59422 17.0707 1.46326C16.8726 1.33231 16.6462 1.25021 16.4102 1.22372C16.1742 1.19724 15.9352 1.22712 15.7129 1.31091C12.6415 2.19551 6.24146 4.407 3.55575 8.2022Z\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M13.1839 6.87524C9.91174 10.7265 6.984 14.826 4.55664 19.2572\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></g><defs><clipPath id=\"clip0_4243_17191\"><rect width=\"20\" height=\"20\" fill=\"white\" transform=\"translate(0 0.5)\"></rect></clipPath></defs></svg>"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_id": "product-usage",
+            "title": "Product Usage",
+            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"21\" viewBox=\"0 0 20 21\" fill=\"none\"><g clip-path=\"url(#clip0_4243_17201)\"><path d=\"M4.20491 19.1233L0.713867 16.2141V11.2141H4.5304C5.28817 11.2141 6.01488 11.5151 6.55071 12.0509L8.21387 13.7141C8.8056 14.3058 8.8056 15.2653 8.21387 15.857C8.04861 16.0223 7.8546 16.1411 7.648 16.2141H14.0472C15.3622 16.2141 16.4282 17.2801 16.4282 18.595C16.4282 19.2526 15.8952 19.7856 15.2377 19.7856H6.03401C5.36562 19.7856 4.71838 19.5511 4.20491 19.1233Z\" fill=\"#FEDB36\"></path><path d=\"M0.713867 16.2141L4.20491 19.1233C4.71838 19.5511 5.36562 19.7855 6.03401 19.7855H15.2377C15.8952 19.7855 16.4282 19.2525 16.4282 18.595C16.4282 17.2801 15.3622 16.2141 14.0472 16.2141H7.64857\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M4.99958 14.7855L6.07101 15.857C6.66274 16.4487 7.62214 16.4487 8.21387 15.857C8.8056 15.2653 8.8056 14.3058 8.21387 13.7141L6.55071 12.0509C6.01488 11.5151 5.28817 11.2141 4.5304 11.2141H0.713867\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M13.9215 10.2717L9.38836 6.07858C6.91782 3.59671 10.5216 -1.20837 13.9215 2.67877C17.3213 -1.19703 20.9591 3.60806 18.4546 6.07858L13.9215 10.2717Z\" fill=\"#FEF6CF\"></path><path d=\"M13.9215 10.2717L9.38836 6.07858C6.91782 3.59671 10.5216 -1.20837 13.9215 2.67877C17.3213 -1.19703 20.9591 3.60806 18.4546 6.07858L13.9215 10.2717Z\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></g><defs><clipPath id=\"clip0_4243_17201\"><rect width=\"20\" height=\"20\" fill=\"white\" transform=\"translate(0 0.5)\"></rect></clipPath></defs></svg>"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_id": "shipping-delivery",
+            "title": "Shipping & Delivery",
+            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"17\" viewBox=\"0 0 16 17\" fill=\"none\"><path d=\"M0.571289 3.35721V11.9286C0.571289 12.5598 1.08296 13.0715 1.71415 13.0715H14.2856C14.9168 13.0715 15.4284 12.5598 15.4284 11.9286V8.50007H10.857V3.35721C10.857 2.72604 10.3453 2.21436 9.71415 2.21436H1.71415C1.08296 2.21436 0.571289 2.72604 0.571289 3.35721Z\" fill=\"#FEDB36\"></path><path d=\"M15.4289 8.5001L14.0305 5.70329C13.8369 5.3161 13.4411 5.07153 13.0083 5.07153H10.8574V8.5001H15.4289Z\" fill=\"#FEF6CF\"></path><path d=\"M11.4274 14.7858C10.48 14.7858 9.71191 14.0176 9.71191 13.0702C9.71191 12.1228 10.48 11.3547 11.4274 11.3547C12.3749 11.3547 13.1429 12.1228 13.1429 13.0702C13.1429 14.0176 12.3749 14.7858 11.4274 14.7858Z\" fill=\"#FEF6CF\"></path><path d=\"M3.9987 14.7858C3.05126 14.7858 2.2832 14.0176 2.2832 13.0702C2.2832 12.1228 3.05126 11.3547 3.9987 11.3547C4.94614 11.3547 5.7142 12.1228 5.7142 13.0702C5.7142 14.0176 4.94614 14.7858 3.9987 14.7858Z\" fill=\"#FEF6CF\"></path><path d=\"M2.28557 13.0715H1.71415C1.08296 13.0715 0.571289 12.5598 0.571289 11.9286V3.35721C0.571289 2.72604 1.08296 2.21436 1.71415 2.21436H9.71415C10.3453 2.21436 10.857 2.72604 10.857 3.35721V8.50007H15.4284V11.9286C15.4284 12.5598 14.9168 13.0715 14.2856 13.0715H13.1427\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M15.4289 8.5001L14.0305 5.70329C13.8369 5.3161 13.4411 5.07153 13.0083 5.07153H10.8574\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M11.4274 14.7858C10.48 14.7858 9.71191 14.0176 9.71191 13.0702C9.71191 12.1228 10.48 11.3547 11.4274 11.3547C12.3749 11.3547 13.1429 12.1228 13.1429 13.0702C13.1429 14.0176 12.3749 14.7858 11.4274 14.7858Z\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M3.9987 14.7858C3.05126 14.7858 2.2832 14.0176 2.2832 13.0702C2.2832 12.1228 3.05126 11.3547 3.9987 11.3547C4.94614 11.3547 5.7142 12.1228 5.7142 13.0702C5.7142 14.0176 4.94614 14.7858 3.9987 14.7858Z\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M5.71387 13.0715H9.71387\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M10.8574 8.5V11.4517\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_id": "returns-guarantees",
+            "title": "Returns & Guarantees",
+            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"17\" viewBox=\"0 0 16 17\" fill=\"none\"><path d=\"M1.14258 5.86255H14.8569V14.3021C14.8569 14.582 14.7457 14.8502 14.5478 15.0481C14.35 15.246 14.0817 15.357 13.8019 15.357H2.19753C1.91773 15.357 1.6494 15.246 1.45156 15.0481C1.25372 14.8502 1.14258 14.582 1.14258 14.3021V5.86255Z\" fill=\"#FEDB36\"></path><path d=\"M2.8329 2.29621C3.02202 1.89719 3.42408 1.64282 3.86563 1.64282H12.1338C12.5754 1.64282 12.9774 1.89719 13.1666 2.29621L14.8569 5.86261H1.14258L2.8329 2.29621Z\" fill=\"#FEF6CF\"></path><path d=\"M8 1.64282V5.86261\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M1.14258 5.86255H14.8569V14.3021C14.8569 14.582 14.7457 14.8502 14.5478 15.0481C14.35 15.246 14.0817 15.357 13.8019 15.357H2.19753C1.91773 15.357 1.6494 15.246 1.45156 15.0481C1.25372 14.8502 1.14258 14.582 1.14258 14.3021V5.86255Z\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M2.8329 2.29621C3.02202 1.89719 3.42408 1.64282 3.86563 1.64282H12.1338C12.5754 1.64282 12.9774 1.89719 13.1666 2.29621L14.8569 5.86261H1.14258L2.8329 2.29621Z\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M4.7998 9.30005H9.23057C10.3182 9.30005 11.1998 10.1954 11.1998 11.3C11.1998 12.4046 10.3182 13.3 9.23057 13.3H7.26134\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M6.3998 10.9L4.7998 9.2998L6.3998 7.69995\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_id": "subscription-billing",
+            "title": "Subscriptions & Billing",
+            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"17\" viewBox=\"0 0 16 17\" fill=\"none\"><path d=\"M14.2856 2.78564H1.71415C1.08296 2.78564 0.571289 3.35417 0.571289 4.05548V12.9444C0.571289 13.6456 1.08296 14.2142 1.71415 14.2142H14.2856C14.9168 14.2142 15.4284 13.6456 15.4284 12.9444V4.05548C15.4284 3.35417 14.9168 2.78564 14.2856 2.78564Z\" fill=\"#FEDB36\"></path><path d=\"M14.2856 2.78564H1.71415C1.08296 2.78564 0.571289 3.35417 0.571289 4.05548V12.9444C0.571289 13.6456 1.08296 14.2142 1.71415 14.2142H14.2856C14.9168 14.2142 15.4284 13.6456 15.4284 12.9444V4.05548C15.4284 3.35417 14.9168 2.78564 14.2856 2.78564Z\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M3.17146 8.78554C3.01366 8.78554 2.88574 8.65762 2.88574 8.49983C2.88574 8.34203 3.01366 8.21411 3.17146 8.21411\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M3.17188 8.78554C3.32967 8.78554 3.45759 8.65762 3.45759 8.49983C3.45759 8.34203 3.32967 8.21411 3.17188 8.21411\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M12.8287 8.78554C12.6709 8.78554 12.543 8.65762 12.543 8.49983C12.543 8.34203 12.6709 8.21411 12.8287 8.21411\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M12.8291 8.78554C12.9868 8.78554 13.1148 8.65762 13.1148 8.49983C13.1148 8.34203 12.9868 8.21411 12.8291 8.21411\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M9.4582 6.97628C9.40803 6.83432 9.33061 6.70524 9.23223 6.59532C9.02296 6.3615 8.71884 6.21436 8.38036 6.21436H7.49575C6.93233 6.21436 6.47559 6.6711 6.47559 7.23452C6.47559 7.71393 6.8094 8.12868 7.27773 8.23112L8.62459 8.52574C9.14927 8.64052 9.52324 9.10548 9.52324 9.64255C9.52324 10.2737 9.01155 10.7858 8.38036 10.7858H7.61845C7.12084 10.7858 6.69751 10.4678 6.54061 10.0239\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M8 6.21416V5.07129\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M8 11.9285V10.7856\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+          }
+        },
+        
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-ingredients",
+            "question": "What ingredients are in your Tallow Balm?",
+            "answer": "<p>Our Tallow Balm contains only 4 natural ingredients: grass-fed, grass-finished beef tallow, cold-pressed organic olive oil, pot marigold extract, and organic vitamin E. We use manuka honey in some variations for its additional healing properties. No fillers, no chemicals, just raw, unadulterated skin nutrition that lets your skin thrive naturally.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-ingredients",
+            "question": "Is your tallow from grass-fed, grass-finished cows?",
+            "answer": "<p>Yes, we only source tallow from 100% grass-fed and grass-finished cows. These animals are raised on pasture their entire lives, resulting in tallow that's rich in nutrients like vitamins A, D, E, K, and minerals that are beneficial for skin health.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-ingredients",
+            "question": "Do your products contain any artificial fragrances?",
+            "answer": "<p>No, our products are completely free from artificial fragrances. Any scent you experience comes naturally from the ingredients themselves. This makes our products ideal for those with sensitivities to synthetic fragrances or those seeking truly natural skincare.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-ingredients",
+            "question": "Are your products suitable for sensitive skin?",
+            "answer": "<p>Yes, our tallow-based products are particularly well-suited for sensitive skin. The natural fat profile in grass-fed tallow closely resembles human skin cells, making it highly compatible and gentle. Many customers with eczema, rosacea, and other skin sensitivities report significant improvements when using our products.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-ingredients",
+            "question": "What is Manuka honey and why do you use it?",
+            "answer": "<p>Manuka honey is a special type of honey produced in New Zealand from bees that pollinate the Manuka bush. It's prized for its powerful antibacterial, anti-inflammatory, and healing properties. We include it in select formulations to enhance the skin-healing benefits of our tallow balms, particularly for conditions like acne, eczema, and minor wounds.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-ingredients",
+            "question": "Are your products non-comedogenic?",
+            "answer": "<p>Yes, despite being oil-based, our tallow balms are surprisingly non-comedogenic for most skin types. The molecular structure of tallow is similar to our skin's natural sebum, allowing it to absorb without clogging pores. Many customers with acne-prone skin report improvements rather than breakouts when using our products.</p>"
+          }
+        },
+        
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-usage",
+            "question": "Is your tallow from grass-fed, grass-finished cows?",
+            "answer": "<p>Yes, we only source tallow from 100% grass-fed and grass-finished cows. These animals are raised on pasture their entire lives, resulting in tallow that's rich in nutrients like vitamins A, D, E, K, and minerals that are beneficial for skin health.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-usage",
+            "question": "How do I apply the tallow balm?",
+            "answer": "<p>For best results, take a small amount (about the size of a pea for facial application) and warm it between your fingertips. The balm will melt slightly with your body heat, making it easier to apply. Gently massage into clean skin using upward, circular motions until fully absorbed. A little goes a long way!</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-usage",
+            "question": "Can I use your tallow balm on my face?",
+            "answer": "<p>Absolutely! Our tallow balm is excellent for facial use. Its natural composition is similar to human skin cells, making it ideal for facial application. It's deeply moisturizing without clogging pores and can help balance oil production, reduce fine lines, and soothe irritation.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-usage",
+            "question": "How often should I use the product?",
+            "answer": "<p>For optimal results, we recommend using our tallow balm 1-2 times daily on clean skin. Many customers incorporate it into both morning and evening skincare routines. Those with very dry skin may benefit from more frequent application, while those with oilier skin might prefer using it just once daily, typically in the evening.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-usage",
+            "question": "Will the tallow balm make my skin greasy?",
+            "answer": "<p>No, when applied correctly, our tallow balm absorbs beautifully and leaves no greasy residue. Remember that a little goes a long way—start with a small amount and add more if needed. The balm penetrates deeply rather than sitting on top of the skin, providing lasting hydration without a heavy or oily feel.</p>"
+          }
+        },
+        
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "shipping-delivery",
+            "question": "How long does shipping take?",
+            "answer": "<p>We typically process orders within 1-2 business days. Standard shipping within the continental US takes 3-5 business days after processing. Expedited shipping options are available at checkout. International shipping times vary by location but generally take 7-14 business days once shipped.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "shipping-delivery",
+            "question": "Do you offer free shipping?",
+            "answer": "<p>Free standard shipping on all US orders over $50 only. International orders and US orders under $50 will have a flat-rate shipping fee calculated at checkout. Subscribers to our recurring delivery program receive free shipping on all orders regardless of order value.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "shipping-delivery",
+            "question": "Do you ship internationally?",
+            "answer": "<p>Yes, we ship to most countries worldwide. International shipping rates are calculated at checkout based on destination and package weight. Please note that customers are responsible for any import duties or taxes imposed by their country. Delivery times for international orders typically range from 7-14 business days after shipping.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "shipping-delivery",
+            "question": "How can I track my order?",
+            "answer": "<p>Once your order ships, you'll receive a confirmation email with tracking information. You can also log into your account on our website to view real-time tracking updates. If you created your order as a guest, you can use the order tracking tool on our website by entering your order number and email address. For any tracking issues, please contact our customer support team.</p>"
+          }
+        },
+        
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "returns-guarantees",
+            "question": "What is your return policy?",
+            "answer": "<p>We stand behind the quality of our products with a 30-day satisfaction guarantee. If you're not completely satisfied with your purchase, you can return it within 30 days of delivery for a full refund of the product price. Products must be returned in their original packaging, and we recommend saving your receipt and tracking information until your return is processed.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "returns-guarantees",
+            "question": "How do I return a product?",
+            "answer": "<p>To initiate a return, please email help@evilgoods.org with your order number and reason for return. We'll provide a return shipping label and instructions. Once we receive your return, we'll process your refund within 5-7 business days. The refund will be issued to your original payment method. Please note that shipping costs are non-refundable unless the return is due to our error.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "returns-guarantees",
+            "question": "Do you offer a satisfaction guarantee?",
+            "answer": "<p>Yes! We offer a 100% satisfaction guarantee on all our products. If you're not completely satisfied with your purchase for any reason, you can return it within 30 days for a full refund. We're confident in the quality and effectiveness of our products and want you to experience the benefits risk-free.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "returns-guarantees",
+            "question": "What if my product arrives damaged?",
+            "answer": "<p>In the rare event that your product arrives damaged, please contact our customer service team at help@evilgoods.org within 48 hours of delivery. Include your order number and photos of the damaged product and packaging. We'll promptly send a replacement at no additional cost to you. We take quality control seriously and appreciate your feedback to help us improve our packaging and shipping processes.</p>"
+          }
+        },
+        
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "subscription-billing",
+            "question": "How does the subscription service work?",
+            "answer": "<p>Our subscription service allows you to receive your favorite products automatically at regular intervals. You choose the frequency (every 1, 2, or 3 months), and we'll ship your products automatically. Subscribers enjoy a 15% discount on every order, free shipping, and early access to new products. You can easily manage, pause, or cancel your subscription anytime through your account.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "subscription-billing",
+            "question": "Can I change or cancel my subscription?",
+            "answer": "<p>Absolutely! You have complete control over your subscription. Through your account dashboard, you can easily modify your delivery frequency, change products in your subscription, update shipping or billing information, skip a delivery, or cancel altogether with no penalties. Changes must be made at least 48 hours before your next scheduled shipment.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
