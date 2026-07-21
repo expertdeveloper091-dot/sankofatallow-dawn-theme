@@ -643,8 +643,17 @@
   .cart-item-details {
     flex: 1;
     display: flex;
-    flex-direction: column;
+    flex-direction: row !important;
+    align-items: center;
     justify-content: space-between;
+    min-width: 0;
+    gap: 8px;
+  }
+  .cart-item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     min-width: 0;
   }
   .cart-item-name {
@@ -652,13 +661,23 @@
     font-weight: 800;
     color: #2c2609;
     line-height: 1.3;
-    padding-right: 20px; /* space for trash can */
+    padding-right: 0;
   }
   .cart-item-variant {
     font-size: 11px;
     color: #666666;
     margin-top: 2px;
+    margin-bottom: 6px;
     font-weight: 600;
+  }
+  .cart-item-right-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 64px;
+    flex-shrink: 0;
   }
   .cart-item-price {
     font-size: 14px;
@@ -671,17 +690,17 @@
     display: flex;
     align-items: center;
     gap: 0px !important;
-    margin-top: 8px;
-    border: 1.5px solid #2C2609;
-    border-radius: 8px;
+    margin-top: 4px;
+    border: 1px solid #d0d5dd !important;
+    border-radius: 20px !important;
     background-color: #ffffff;
     width: fit-content;
     overflow: hidden;
-    height: 30px;
+    height: 28px;
     box-sizing: border-box;
   }
   .qty-btn {
-    width: 30px; height: 100%;
+    width: 26px; height: 100%;
     border: none !important;
     border-radius: 0 !important;
     background: none;
@@ -696,13 +715,13 @@
   }
   .qty-btn:hover { background-color: #fafafa; }
   .qty-val {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     color: #2c2609;
-    min-width: 26px;
+    min-width: 22px;
     text-align: center;
-    border-left: 1.5px solid #2C2609;
-    border-right: 1.5px solid #2C2609;
+    border-left: 1px solid #d0d5dd;
+    border-right: 1px solid #d0d5dd;
     height: 100%;
     display: flex;
     align-items: center;
@@ -711,9 +730,9 @@
 
   /* Remove link */
   .cart-item-remove {
-    position: absolute !important;
-    top: 16px !important;
-    right: 16px !important;
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
     background: none !important;
     border: none !important;
     cursor: pointer;
@@ -727,17 +746,15 @@
     align-items: center !important;
     justify-content: center !important;
   }
-  .cart-item-remove::before {
-    content: "\f2ed";
-    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", sans-serif;
-    font-weight: 900;
-    font-size: 16px;
-  }
   .cart-item-remove:hover { color: #d63030 !important; }
 
-  /* Buyer Protection (hidden style) */
-  .cart-protection {
-    display: none;
+  /* Hide elements as requested */
+  .maison__cart-benefit-text {
+    display: none !important;
+  }
+
+  .maison__cart-shipping-text {
+    display: none !important;
   }
 
   /* --- Cross-sell --- */
@@ -787,10 +804,10 @@
   .cross-sell-price { font-size: 12px; font-weight: 700; color: #666666; margin-top: 2px; }
   .btn-cross-add {
     padding: 8px 16px;
-    background: rgb(231 159 41) !important;
-    color: #2c2609;
-    border: 1.5px solid #2C2609 !important;
-    border-radius: 20px !important;
+    background: rgb(255 159 7) !important;
+    color: #ffffff !important;
+    border: 1px solid #2C2609 !important;
+    border-radius: 7px !important;
     font-size: 11px;
     font-weight: 800;
     font-family: inherit;
@@ -798,11 +815,10 @@
     transition: transform 0.1s ease, box-shadow 0.1s ease;
     white-space: nowrap;
     flex-shrink: 0;
-    box-shadow: 0px 2px 0px 0px #2C2609;
     position: relative;
     top: 0;
   }
-  .btn-cross-add:hover { background: #d68f20 !important; }
+  .btn-cross-add:hover { background: #e08b00 !important; }
   .btn-cross-add:active {
     top: 2px;
     box-shadow: none;
@@ -836,17 +852,6 @@
     color: #2c2609;
   }
 
-  .maison__cart-shipping-text {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 13px;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px dashed #e5e7eb;
-    color: #1d211e;
-  }
-
   .maison__cart-price-wrapper {
     display: flex;
     align-items: center;
@@ -859,78 +864,48 @@
     font-size: 13px;
   }
 
-  .maison__cart-benefit-text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    background-color: #f2f4f7;
-    padding: 10px 14px;
-    border-radius: 8px;
-    margin-top: 12px;
-  }
-
-  .maison__cart-benefit-text-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #383633;
-  }
-
   /* View Cart + Checkout buttons */
   .cart-cta-row {
     display: flex;
     gap: 10px;
     margin-bottom: 14px;
   }
-  .btn-view-cart {
-    flex: 1;
-    padding: 14px 10px;
-    border-radius: 50px;
-    background: #f2f2f2;
-    border: 1.5px solid #ddd;
-    color: #111;
-    font-family: var(--font-primary);
-    font-size: 13px;
-    font-weight: 600;
-    text-align: center;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s;
-    cursor: pointer;
-  }
-  .btn-view-cart:hover { background: #e5e5e5; }
   .btn-checkout-wrap { flex: 1; }
   .btn-checkout-wrap form { margin: 0; }
   .btn-checkout {
-    width: 100%;
-    padding: 16px 14px;
-    border-radius: 40px;
-    background: rgb(231 159 41) !important; /* brand gold */
-    border: 1.5px solid #2C2609 !important;
-    color: #1d211e !important;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 800;
+    width: 100% !important;
+    padding: 16px 14px !important;
+    border-radius: 7px !important;
+    color: #ffffff !important;
+    background: rgb(255 159 7) !important;
+    border: 1px solid #2C2609 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
     cursor: pointer;
-    transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.2s ease;
+    transition: transform 0.1s ease, background-color 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
     letter-spacing: 0.3px;
-    box-shadow: 0px 4px 0px 0px #2C2609 !important;
+    box-shadow: none !important;
     position: relative;
     top: 0;
   }
   .btn-checkout:hover {
-    background-color: #d68f20 !important;
-    top: 2px;
-    box-shadow: 0px 2px 0px 0px #2C2609 !important;
+    background-color: #e08b00 !important;
+  }
+
+  .cart-payment-icons {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex-wrap: wrap !important;
+    margin-top: 15px !important;
+    border-top: 1px dashed #e5e7eb !important;
+    padding-top: 12px !important;
   }
   .btn-checkout:active {
     top: 4px;
@@ -1220,17 +1195,11 @@
             {%- endif -%}
           </div>
           <div class="cart-item-details">
-            <div class="cart-item-header-row">
+            <div class="cart-item-info">
               <div class="cart-item-name">{{ item.product.title }}</div>
-              <button class="cart-item-remove" data-key="{{ item.key }}" data-qty="0" aria-label="Remove item">
-                <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M14 3h-3.53a3.07 3.07 0 00-.6-1.65C9.44.82 8.8.5 8 .5s-1.44.32-1.87.85A3.06 3.06 0 005.53 3H2a.5.5 0 000 1h1.25v10c0 .28.22.5.5.5h8.5a.5.5 0 00.5-.5V4H14a.5.5 0 000-1zM6.91 1.98c.23-.29.58-.48 1.09-.48s.85.19 1.09.48c.2.24.3.6.36 1.02h-2.9c.05-.42.17-.78.36-1.02zm4.84 11.52h-7.5V4h7.5v9.5z" fill="#ff4d4d"/><path d="M6.55 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5zM9.45 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5z" fill="#ff4d4d"/></svg>
-              </button>
-            </div>
-            {%- unless item.product.has_only_default_variant -%}
-              <div class="cart-item-variant">Scent: {{ item.variant.title }}</div>
-            {%- endunless -%}
-            <div class="cart-item-bottom-row">
-              <div class="cart-item-price">{{ item.final_line_price | money }}</div>
+              {%- unless item.product.has_only_default_variant -%}
+                <div class="cart-item-variant">Scent: {{ item.variant.title }}</div>
+              {%- endunless -%}
               <div class="cart-qty-row">
                 <button class="qty-btn" data-action="decrease" data-key="{{ item.key }}" data-qty="{{ item.quantity }}" aria-label="Decrease quantity">
                   <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M12 5V7H0L1.19209e-07 5L12 5Z" fill="currentColor"/></svg>
@@ -1240,6 +1209,12 @@
                   <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M5 0H7V12H5V0Z" fill="currentColor"/><path d="M12 5V7H0L1.19209e-07 5L12 5Z" fill="currentColor"/></svg>
                 </button>
               </div>
+            </div>
+            <div class="cart-item-right-col">
+              <button class="cart-item-remove" data-key="{{ item.key }}" data-qty="0" aria-label="Remove item">
+                <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M14 3h-3.53a3.07 3.07 0 00-.6-1.65C9.44.82 8.8.5 8 .5s-1.44.32-1.87.85A3.06 3.06 0 005.53 3H2a.5.5 0 000 1h1.25v10c0 .28.22.5.5.5h8.5a.5.5 0 00.5-.5V4H14a.5.5 0 000-1zM6.91 1.98c.23-.29.58-.48 1.09-.48s.85.19 1.09.48c.2.24.3.6.36 1.02h-2.9c.05-.42.17-.78.36-1.02zm4.84 11.52h-7.5V4h7.5v9.5z" fill="#ff4d4d"/><path d="M6.55 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5zM9.45 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5z" fill="#ff4d4d"/></svg>
+              </button>
+              <div class="cart-item-price">{{ item.final_line_price | money }}</div>
             </div>
           </div>
         </div>
@@ -1610,15 +1585,9 @@
       div.innerHTML =
         '<div class="cart-item-img">' + imgHtml + '</div>' +
         '<div class="cart-item-details">' +
-          '<div class="cart-item-header-row">' +
+          '<div class="cart-item-info">' +
             '<div class="cart-item-name">' + item.product_title + '</div>' +
-            '<button class="cart-item-remove" data-key="' + item.key + '" data-qty="0" aria-label="Remove item">' +
-              '<svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M14 3h-3.53a3.07 3.07 0 00-.6-1.65C9.44.82 8.8.5 8 .5s-1.44.32-1.87.85A3.06 3.06 0 005.53 3H2a.5.5 0 000 1h1.25v10c0 .28.22.5.5.5h8.5a.5.5 0 00.5-.5V4H14a.5.5 0 000-1zM6.91 1.98c.23-.29.58-.48 1.09-.48s.85.19 1.09.48c.2.24.3.6.36 1.02h-2.9c.05-.42.17-.78.36-1.02zm4.84 11.52h-7.5V4h7.5v9.5z" fill="#ff4d4d"/><path d="M6.55 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5zM9.45 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5z" fill="#ff4d4d"/></svg>' +
-            '</button>' +
-          '</div>' +
-          variantHtml +
-          '<div class="cart-item-bottom-row">' +
-            '<div class="cart-item-price">' + formatMoney(item.final_line_price) + '</div>' +
+            variantHtml +
             '<div class="cart-qty-row">' +
               '<button class="qty-btn" data-action="decrease" data-key="' + item.key + '" data-qty="' + item.quantity + '" aria-label="Decrease">' +
                 '<svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M12 5V7H0L1.19209e-07 5L12 5Z" fill="currentColor"/></svg>' +
@@ -1628,6 +1597,12 @@
                 '<svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M5 0H7V12H5V0Z" fill="currentColor"/><path d="M12 5V7H0L1.19209e-07 5L12 5Z" fill="currentColor"/></svg>' +
               '</button>' +
             '</div>' +
+          '</div>' +
+          '<div class="cart-item-right-col">' +
+            '<button class="cart-item-remove" data-key="' + item.key + '" data-qty="0" aria-label="Remove item">' +
+              '<svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M14 3h-3.53a3.07 3.07 0 00-.6-1.65C9.44.82 8.8.5 8 .5s-1.44.32-1.87.85A3.06 3.06 0 005.53 3H2a.5.5 0 000 1h1.25v10c0 .28.22.5.5.5h8.5a.5.5 0 00.5-.5V4H14a.5.5 0 000-1zM6.91 1.98c.23-.29.58-.48 1.09-.48s.85.19 1.09.48c.2.24.3.6.36 1.02h-2.9c.05-.42.17-.78.36-1.02zm4.84 11.52h-7.5V4h7.5v9.5z" fill="#ff4d4d"/><path d="M6.55 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5zM9.45 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5z" fill="#ff4d4d"/></svg>' +
+            '</button>' +
+            '<div class="cart-item-price">' + formatMoney(item.final_line_price) + '</div>' +
           '</div>' +
         '</div>';
       cartItemsList.appendChild(div);
