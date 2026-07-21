@@ -1,6 +1,6 @@
 {% comment %}
   Renders a luxury product card for collection, search, related products, recommendations.
-  Supports OS 2.0 dynamic settings, beautiful custom dropdown option selects, variant switching & AJAX Add-to-Cart with Cart Drawer.
+  Supports OS 2.0 dynamic settings, Fragrance as a custom dropdown, Size as pill buttons, variant switching & AJAX Add-to-Cart with Cart Drawer.
 {% endcomment %}
 {%- unless skip_styles -%}
   {{ 'component-card.css' | asset_url | stylesheet_tag }}
@@ -92,20 +92,48 @@
             </div>
           {%- endif -%}
 
-          <!-- BEAUTIFUL CUSTOM OPTION DROPDOWNS (FRAGRANCE, SIZE, ETC.) -->
+          <!-- DYNAMIC OPTION RENDERING: DROPDOWN FOR FRAGRANCE, PILLS FOR SIZE -->
           {%- if card_product.has_only_default_variant == false -%}
             <div class="ml-product-card__options-group">
               {%- for option in card_product.options_with_values -%}
+                {%- assign opt_name_lower = option.name | downcase -%}
+                {%- assign is_dropdown = false -%}
+                {%- if opt_name_lower contains 'fragrance' or opt_name_lower contains 'scent' or opt_name_lower contains 'flavor' or option.values.size > 3 -%}
+                  {%- assign is_dropdown = true -%}
+                {%- endif -%}
+
                 <div class="ml-option-row" data-option-position="option{{ option.position }}">
-                  <label for="Option-{{ section_id }}-{{ card_product.id }}-{{ option.position }}" class="ml-variant-title">
-                    SELECT {{ option.name | uppercase }}
-                  </label>
-                  <div class="ml-option-select-box">
-                    <select
-                      id="Option-{{ section_id }}-{{ card_product.id }}-{{ option.position }}"
-                      class="ml-card-option-select"
-                      data-option-position="option{{ option.position }}"
-                    >
+                  <span class="ml-variant-title">SELECT {{ option.name | uppercase }}</span>
+
+                  {%- if is_dropdown -%}
+                    <!-- FRAGRANCE / MULTI-OPTION DROPDOWN SELECT -->
+                    <div class="ml-option-select-box">
+                      <select
+                        id="Option-{{ section_id }}-{{ card_product.id }}-{{ option.position }}"
+                        class="ml-card-option-select"
+                        data-option-position="option{{ option.position }}"
+                      >
+                        {%- for value in option.values -%}
+                          {%- assign is_opt_selected = false -%}
+                          {%- assign pos_idx = option.position | minus: 1 -%}
+                          {%- if selected_variant and selected_variant.options[pos_idx] == value -%}
+                            {%- assign is_opt_selected = true -%}
+                          {%- elsif selected_variant == blank and forloop.first -%}
+                            {%- assign is_opt_selected = true -%}
+                          {%- endif -%}
+
+                          <option value="{{ value | escape }}" {% if is_opt_selected %}selected="selected"{% endif %}>
+                            {{ value }}
+                          </option>
+                        {%- endfor -%}
+                      </select>
+                      <svg class="ml-option-select-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </div>
+                  {%- else -%}
+                    <!-- SIZE / PILL BUTTONS -->
+                    <div class="ml-variant-pills-list">
                       {%- for value in option.values -%}
                         {%- assign is_opt_selected = false -%}
                         {%- assign pos_idx = option.position | minus: 1 -%}
@@ -115,15 +143,17 @@
                           {%- assign is_opt_selected = true -%}
                         {%- endif -%}
 
-                        <option value="{{ value | escape }}" {% if is_opt_selected %}selected="selected"{% endif %}>
+                        <button
+                          type="button"
+                          class="ml-variant-pill-btn{% if is_opt_selected %} is-selected{% endif %}"
+                          data-option-position="option{{ option.position }}"
+                          data-value="{{ value | escape }}"
+                        >
                           {{ value }}
-                        </option>
+                        </button>
                       {%- endfor -%}
-                    </select>
-                    <svg class="ml-option-select-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                  </div>
+                    </div>
+                  {%- endif -%}
                 </div>
               {%- endfor -%}
             </div>
@@ -258,26 +288,30 @@
   if (typeof mlCardProductInit === 'undefined') {
     window.mlCardProductInit = true;
 
-    // OPTION DROPDOWN CHANGE HANDLER
-    document.addEventListener('change', function(e) {
-      const select = e.target.closest('.ml-card-option-select');
-      if (!select) return;
-
-      const card = select.closest('.ml-product-card');
+    window.mlUpdateCardVariant = function(card) {
       if (!card) return;
 
-      // Get selected values for option1, option2, option3
-      const opt1Select = card.querySelector('.ml-card-option-select[data-option-position="option1"]');
-      const opt2Select = card.querySelector('.ml-card-option-select[data-option-position="option2"]');
-      const opt3Select = card.querySelector('.ml-card-option-select[data-option-position="option3"]');
-
-      const opt1 = opt1Select ? opt1Select.value : null;
-      const opt2 = opt2Select ? opt2Select.value : null;
-      const opt3 = opt3Select ? opt3Select.value : null;
-
-      // Parse JSON variants
       const jsonScript = card.querySelector('.ml-variants-json');
       if (!jsonScript) return;
+
+      // Get selected values for option1, option2, option3 (supporting dropdown OR pill)
+      let opt1 = null;
+      const opt1Select = card.querySelector('.ml-card-option-select[data-option-position="option1"]');
+      const opt1Pill = card.querySelector('[data-option-position="option1"] .is-selected');
+      if (opt1Select) opt1 = opt1Select.value;
+      else if (opt1Pill) opt1 = opt1Pill.getAttribute('data-value');
+
+      let opt2 = null;
+      const opt2Select = card.querySelector('.ml-card-option-select[data-option-position="option2"]');
+      const opt2Pill = card.querySelector('[data-option-position="option2"] .is-selected');
+      if (opt2Select) opt2 = opt2Select.value;
+      else if (opt2Pill) opt2 = opt2Pill.getAttribute('data-value');
+
+      let opt3 = null;
+      const opt3Select = card.querySelector('.ml-card-option-select[data-option-position="option3"]');
+      const opt3Pill = card.querySelector('[data-option-position="option3"] .is-selected');
+      if (opt3Select) opt3 = opt3Select.value;
+      else if (opt3Pill) opt3 = opt3Pill.getAttribute('data-value');
 
       try {
         const variants = JSON.parse(jsonScript.textContent);
@@ -290,7 +324,7 @@
         });
 
         if (match) {
-          // Update variant ID hidden input
+          // Update variant ID input
           const inputId = card.querySelector('.product-variant-id');
           if (inputId) inputId.value = match.id;
 
@@ -336,8 +370,36 @@
           }
         }
       } catch (err) {
-        console.error('Error matching variant dropdown:', err);
+        console.error('Error updating card variant:', err);
       }
+    };
+
+    // PILL CLICK HANDLER
+    document.addEventListener('click', function(e) {
+      const pill = e.target.closest('.ml-variant-pill-btn');
+      if (!pill) return;
+
+      const card = pill.closest('.ml-product-card');
+      if (!card) return;
+
+      const optionRow = pill.closest('.ml-option-row');
+      if (!optionRow) return;
+
+      optionRow.querySelectorAll('.ml-variant-pill-btn').forEach(btn => btn.classList.remove('is-selected'));
+      pill.classList.add('is-selected');
+
+      window.mlUpdateCardVariant(card);
+    });
+
+    // DROPDOWN CHANGE HANDLER
+    document.addEventListener('change', function(e) {
+      const select = e.target.closest('.ml-card-option-select');
+      if (!select) return;
+
+      const card = select.closest('.ml-product-card');
+      if (!card) return;
+
+      window.mlUpdateCardVariant(card);
     });
 
     // AJAX ADD TO CART + SPINNER + OPEN CART DRAWER

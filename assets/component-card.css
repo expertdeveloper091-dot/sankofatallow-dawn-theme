@@ -778,7 +778,7 @@
   color: rgba(var(--color-foreground), 0.6);
 }
 
-/* BEAUTIFUL CUSTOM OPTION DROPDOWNS */
+/* BEAUTIFUL CUSTOM OPTION DROPDOWNS & PILLS */
 .ml-product-card__options-group {
   display: flex !important;
   flex-direction: column !important;
@@ -840,6 +840,42 @@
   right: 14px !important;
   pointer-events: none !important;
   color: #111111 !important;
+}
+
+.ml-variant-pills-list {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+
+.ml-variant-pill-btn {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 6px 16px !important;
+  border-radius: 30px !important;
+  border: 1.5px solid #d5d5d5 !important;
+  background: #ffffff !important;
+  color: #111111 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  outline: none !important;
+}
+
+.ml-variant-pill-btn:hover {
+  border-color: #111111 !important;
+}
+
+.ml-variant-pill-btn.is-selected {
+  background: #111111 !important;
+  color: #ffffff !important;
+  border-color: #111111 !important;
+}
+
+.ml-variant-pill-btn.is-disabled {
+  opacity: 0.4 !important;
+  text-decoration: line-through !important;
+  cursor: not-allowed !important;
 }
 
 /* PRICE */
