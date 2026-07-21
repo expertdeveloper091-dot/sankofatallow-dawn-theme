@@ -455,22 +455,18 @@
 
         const drawer = document.querySelector('cart-drawer');
         if (drawer) {
-          if (typeof drawer.renderContents === 'function') {
-            drawer.renderContents(data);
-          } else {
-            if (data.sections && data.sections['cart-drawer']) {
-              const doc = new DOMParser().parseFromString(data.sections['cart-drawer'], 'text/html');
-              const newDrawer = doc.querySelector('cart-drawer');
-              if (newDrawer) {
-                drawer.innerHTML = newDrawer.innerHTML;
-              }
+          if (data.sections && data.sections['cart-drawer']) {
+            const doc = new DOMParser().parseFromString(data.sections['cart-drawer'], 'text/html');
+            const newDrawer = doc.querySelector('cart-drawer');
+            if (newDrawer) {
+              drawer.innerHTML = newDrawer.innerHTML;
             }
-            if (typeof drawer.open === 'function') {
-              drawer.open(btn);
-            } else {
-              drawer.classList.add('animate', 'active');
-              document.body.classList.add('overflow-hidden');
-            }
+          }
+          drawer.classList.remove('is-empty');
+          drawer.classList.add('animate', 'active');
+          document.body.classList.add('overflow-hidden');
+          if (typeof drawer.open === 'function') {
+            drawer.open(btn);
           }
         } else {
           window.location.href = (window.Shopify ? window.Shopify.routes.root : '/') + 'cart';
