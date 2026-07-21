@@ -1254,6 +1254,25 @@ input.mobile-facets__checkbox {
    Accent Color: rgb(231 166 33) / #E7A621
    ========================================================================== */
 
+.ml-collection-toolbar {
+  font-family: 'Poppins', sans-serif !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: 76px !important;
+  padding: 0px !important;
+  margin-top: 1rem !important;
+  margin-bottom: 2.5rem !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+  border-radius: 0px !important;
+  background: none !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02) !important;
+}
+
 /* ACCORDION PLUS / MINUS TOGGLE ICON */
 .ml-toggle-icon {
   position: relative !important;
@@ -1599,31 +1618,32 @@ details.ml-drawer-accordion summary:focus-visible {
   color: #111111 !important;
 }
 
-/* STICKY FOOTER & ACCENT BUTTON (rgb(231 166 33)) */
+/* STICKY FOOTER WITH SIDE-BY-SIDE APPLY & REMOVE BUTTONS */
 .ml-filter-drawer__footer {
   position: sticky !important;
   bottom: 0 !important;
   background: #ffffff !important;
-  padding: 1.2rem 2rem !important;
+  padding: 1.2rem 1.5rem !important;
   border-top: 1px solid #eeeeee !important;
   display: flex !important;
-  flex-direction: column !important;
-  gap: 10px !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 12px !important;
   box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04) !important;
 }
 
 .ml-drawer-apply-btn {
   font-family: 'Poppins', sans-serif !important;
-  font-size: 15px !important;
+  font-size: 14px !important;
   font-weight: 700 !important;
   letter-spacing: 0.5px !important;
   background-color: rgb(231 166 33) !important;
   color: #ffffff !important;
   border: none !important;
-  padding: 14px !important;
+  height: 48px !important;
   border-radius: 10px !important;
   cursor: pointer !important;
-  width: 100% !important;
+  flex: 1 !important;
   transition: background 0.2s ease !important;
 }
 
@@ -1631,14 +1651,32 @@ details.ml-drawer-accordion summary:focus-visible {
   background-color: #d49419 !important;
 }
 
+.ml-drawer-clear-wrap {
+  flex: 1 !important;
+  display: block !important;
+}
+
 .ml-drawer-clear-btn {
   font-family: 'Poppins', sans-serif !important;
   font-size: 14px !important;
   font-weight: 600 !important;
-  color: #666666 !important;
-  text-align: center !important;
-  text-decoration: underline !important;
-  display: block !important;
+  color: #111111 !important;
+  background: #ffffff !important;
+  border: 1.5px solid #d0d0d0 !important;
+  height: 48px !important;
+  border-radius: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
   width: 100% !important;
+  box-sizing: border-box !important;
+  transition: all 0.2s ease !important;
+}
+
+.ml-drawer-clear-btn:hover {
+  border-color: #111111 !important;
+  background: #f8f8f8 !important;
+} !important;
 }
 

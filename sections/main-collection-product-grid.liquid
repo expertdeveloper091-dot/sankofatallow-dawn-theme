@@ -20,7 +20,7 @@
 
 <style>
   /* ==========================================================================
-     LUXURY TOOLBAR CARD CONTAINER (EXACT IMAGE 1 MATCH)
+     EXACT TOOLBAR STYLING SPECIFIED BY USER
      ========================================================================== */
   .ml-collection-toolbar {
     font-family: 'Poppins', sans-serif !important;
@@ -29,14 +29,13 @@
     flex-wrap: nowrap !important;
     align-items: center !important;
     justify-content: space-between !important;
-    min-height: 76px !important;
     height: 76px !important;
-    padding: 0 24px !important;
+    padding: 0px !important;
     margin-top: 1rem !important;
     margin-bottom: 2.5rem !important;
-    border: 1.5px solid #e0e0e0 !important;
-    border-radius: 16px !important;
-    background: #ffffff !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+    border-radius: 0px !important;
+    background: none !important;
     width: 100% !important;
     box-sizing: border-box !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02) !important;
@@ -264,7 +263,7 @@
           <div class="collection">
             <div class="loading-overlay gradient"></div>
 
-            <!-- LUXURY COLLECTION TOOLBAR (EXACT MATCH TO REFERENCE IMAGE 1) -->
+            <!-- LUXURY COLLECTION TOOLBAR (EXACT CODE MATCH) -->
             <div class="ml-collection-toolbar">
               <!-- LEFT: FILTER BUTTON + PRODUCT COUNT -->
               <div class="ml-toolbar__left">
@@ -300,56 +299,27 @@
                 </div>
               </div>
 
-              <!-- CENTER: GRID VIEW SWITCHER WITH VERTICAL DIVIDERS -->
+              <!-- CENTER: GRID VIEW SWITCHER (DESKTOP: 1 COL & 2 COLS - DEFAULT 2 COLS) -->
               <div class="ml-toolbar__center">
-                <!-- DESKTOP SWITCHER -->
+                <!-- DESKTOP SWITCHER (1 CARD PER ROW / 2 CARDS PER ROW) -->
                 <div class="ml-grid-switcher ml-grid-switcher--desktop">
-                  <button type="button" class="ml-grid-btn" data-cols-desktop="1" aria-label="1 Column">
+                  <button type="button" class="ml-grid-btn" data-cols-desktop="1" aria-label="1 Card per Row">
                     <svg width="20" height="20" viewBox="0 0 24 24">
-                      <rect x="3" y="3" width="8" height="8" rx="1.5" />
-                      <rect x="13" y="3" width="8" height="8" rx="1.5" />
-                      <rect x="3" y="13" width="8" height="8" rx="1.5" />
-                      <rect x="13" y="13" width="8" height="8" rx="1.5" />
+                      <rect x="3" y="3" width="18" height="18" rx="2" />
                     </svg>
                   </button>
 
                   <span class="ml-grid-divider"></span>
 
-                  <button type="button" class="ml-grid-btn active" data-cols-desktop="2" aria-label="2 Columns">
+                  <button type="button" class="ml-grid-btn active" data-cols-desktop="2" aria-label="2 Cards per Row">
                     <svg width="20" height="20" viewBox="0 0 24 24">
-                      <circle cx="5" cy="5" r="2" />
-                      <circle cx="12" cy="5" r="2" />
-                      <circle cx="19" cy="5" r="2" />
-                      <circle cx="5" cy="12" r="2" />
-                      <circle cx="12" cy="12" r="2" />
-                      <circle cx="19" cy="12" r="2" />
-                      <circle cx="5" cy="19" r="2" />
-                      <circle cx="12" cy="19" r="2" />
-                      <circle cx="19" cy="19" r="2" />
-                    </svg>
-                  </button>
-
-                  <span class="ml-grid-divider"></span>
-
-                  <button type="button" class="ml-grid-btn" data-cols-desktop="3" aria-label="3 Columns">
-                    <svg width="20" height="20" viewBox="0 0 24 24">
-                      <rect x="2" y="3" width="3.5" height="3.5" rx="0.5" />
-                      <rect x="8" y="3" width="3.5" height="3.5" rx="0.5" />
-                      <rect x="14" y="3" width="3.5" height="3.5" rx="0.5" />
-                      <rect x="20" y="3" width="3.5" height="3.5" rx="0.5" />
-                      <rect x="2" y="10" width="3.5" height="3.5" rx="0.5" />
-                      <rect x="8" y="10" width="3.5" height="3.5" rx="0.5" />
-                      <rect x="14" y="10" width="3.5" height="3.5" rx="0.5" />
-                      <rect x="20" y="10" width="3.5" height="3.5" rx="0.5" />
-                      <rect x="2" y="17" width="3.5" height="3.5" rx="0.5" />
-                      <rect x="8" y="17" width="3.5" height="3.5" rx="0.5" />
-                      <rect x="14" y="17" width="3.5" height="3.5" rx="0.5" />
-                      <rect x="20" y="17" width="3.5" height="3.5" rx="0.5" />
+                      <rect x="3" y="3" width="7" height="18" rx="1" />
+                      <rect x="14" y="3" width="7" height="18" rx="1" />
                     </svg>
                   </button>
                 </div>
 
-                <!-- MOBILE SWITCHER -->
+                <!-- MOBILE SWITCHER (1 CARD PER ROW / 2 CARDS PER ROW) -->
                 <div class="ml-grid-switcher ml-grid-switcher--mobile">
                   <button type="button" class="ml-grid-btn" data-cols-mobile="1" aria-label="1 Product per row">
                     <svg width="20" height="20" viewBox="0 0 24 24">
