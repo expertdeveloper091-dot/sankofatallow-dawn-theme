@@ -209,7 +209,7 @@
         </a>
 
         <!-- NATIVE PRODUCT FORM FOR AJAX ATC WITH SPINNER & CART DRAWER -->
-        <product-form data-section-id="{{ section_id }}" class="ml-card-form-wrap">
+        <div class="ml-card-form-wrap">
           {%- form 'product',
             card_product,
             id: product_form_id,
@@ -256,7 +256,7 @@
               </div>
             </button>
           {%- endform -%}
-        </product-form>
+        </div>
       </div>
     </article>
   </product-component>
@@ -415,6 +415,7 @@
       if (!form) return;
 
       e.preventDefault();
+      e.stopPropagation();
 
       const btn = form.querySelector('.ml-card-btn--atc');
       const text = form.querySelector('.ml-atc-text');
@@ -466,7 +467,7 @@
           drawer.classList.add('animate', 'active');
           document.body.classList.add('overflow-hidden');
           if (typeof drawer.open === 'function') {
-            drawer.open(btn);
+            try { drawer.open(btn); } catch(err) {}
           }
         } else {
           window.location.href = (window.Shopify ? window.Shopify.routes.root : '/') + 'cart';
@@ -494,6 +495,6 @@
         if (icon) icon.style.display = 'inline-block';
         if (spinner) spinner.style.display = 'none';
       });
-    });
+    }, true);
   }
 </script>
