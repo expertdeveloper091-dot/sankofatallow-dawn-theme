@@ -1,0 +1,35 @@
+{% comment %}
+  Renders Clay Design System Product Accordions
+  Namespace: .rb-product-accordions
+{% endcomment %}
+<div class="rb-product-accordions">
+  <details class="rb-accordion-item" open>
+    <summary class="rb-accordion-summary">
+      <span>How to Use & Care</span>
+      <span class="rb-accordion-icon">+</span>
+    </summary>
+    <div class="rb-accordion-content">
+      Apply a small amount to clean, dry skin. Gently massage in circular motions until fully absorbed. Store in a cool, dry place away from direct sunlight.
+    </div>
+  </details>
+  
+  <details class="rb-accordion-item">
+    <summary class="rb-accordion-summary">
+      <span>Description</span>
+      <span class="rb-accordion-icon">+</span>
+    </summary>
+    <div class="rb-accordion-content">
+      {{ product.description | default: 'Experience the nourishing power of nature with House of Sankofa Tallow Body Butter. Handcrafted using premium grass-fed tallow, organic oils, and pure botanicals to deeply hydrate and restore your skin.' }}
+    </div>
+  </details>
+
+  <details class="rb-accordion-item">
+    <summary class="rb-accordion-summary">
+      <span>Shipping and Returns</span>
+      <span class="rb-accordion-icon">+</span>
+    </summary>
+    <div class="rb-accordion-content">
+      We offer 15-day hassle-free money-back returns. Shipping takes 3-5 business days across the country. All orders include tracked delivery.
+    </div>
+  </details>
+</div>

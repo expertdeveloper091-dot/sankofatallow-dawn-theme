@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "rb_product_main": {
+      "type": "rb-main-product",
+      "settings": {
+        "show_vendor": true
+      }
+    }
+  },
+  "order": [
+    "rb_product_main"
+  ]
+}

@@ -1,0 +1,119 @@
+{% comment %}
+  Renders Clay Design System Product Info Column
+  Namespace: .rb-product-info
+{% endcomment %}
+<div class="rb-product-info">
+  
+  <!-- Vendor Tag -->
+  {% if product.vendor != blank %}
+    <div class="rb-product-vendor">{{ product.vendor }}</div>
+  {% endif %}
+
+  <!-- Product Title -->
+  <h1 class="rb-product-title">{{ product.title }}</h1>
+
+  <!-- Ratings & Sold Counter Row -->
+  <div class="rb-rating-row">
+    <div class="rb-stars-box">
+      <span class="rb-stars">★★★★★</span>
+      <span class="rb-rating-text">5.0 (4 reviews)</span>
+    </div>
+    {% render 'rb-product-badges', badge_type: 'sold', sold_count: 12, sold_hours: 24 %}
+  </div>
+
+  <!-- Price Row -->
+  <div class="rb-product-price-box">
+    <span class="rb-price-current">{{ product.selected_or_first_available_variant.price | money }}</span>
+    {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+      <span class="rb-price-compare">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
+      {% render 'rb-product-badges', badge_type: 'save', price: product.selected_or_first_available_variant.price, compare_price: product.selected_or_first_available_variant.compare_at_price %}
+    {% endif %}
+  </div>
+
+  <!-- Delivery Feature Highlights Box -->
+  <div class="rb-delivery-box">
+    <div class="rb-delivery-item">
+      <div class="rb-delivery-icon">🚚</div>
+      <div class="rb-delivery-text">
+        <strong>Fast Home Delivery:</strong> Delivery within 3 to 5 Working Days nationwide.
+      </div>
+    </div>
+    <div class="rb-delivery-item">
+      <div class="rb-delivery-icon">💵</div>
+      <div class="rb-delivery-text">
+        <strong>Cash on Delivery (COD):</strong> Available with 100% inspection before payment.
+      </div>
+    </div>
+    <div class="rb-delivery-item">
+      <div class="rb-delivery-icon">📦</div>
+      <div class="rb-delivery-text">
+        <strong>Flat Shipping Rate:</strong> Standard shipping charge flat Rs. 199 on all orders.
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Visitors Urgency Ticker -->
+  <div class="rb-live-view">
+    <span class="rb-live-dot"></span>
+    <span><strong id="RBLiveCounter">16</strong> people looking right now</span>
+  </div>
+
+  <!-- Ask Question & Share Row -->
+  <div class="rb-addons-row">
+    <button type="button" class="rb-addon-link" id="RBAskBtn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      Ask a question
+    </button>
+    <button type="button" class="rb-addon-link" onclick="navigator.clipboard.writeText(window.location.href); alert('Product link copied!');">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+      Share
+    </button>
+  </div>
+
+  <!-- Variant Swatches / Option Pills -->
+  {% unless product.has_only_default_variant %}
+    <div class="rb-variant-picker">
+      {% for option in product.options_with_values %}
+        <div class="rb-option-group">
+          <label class="rb-option-label">{{ option.name }}: {{ option.selected_value }}</label>
+          <div class="rb-option-pills">
+            {% for value in option.values %}
+              <button type="button" class="rb-pill-btn {% if option.selected_value == value %}rb-active{% endif %}">
+                {{ value }}
+              </button>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endunless %}
+
+  <!-- Buy Buttons Snippet -->
+  {% render 'rb-buy-buttons', product: product %}
+
+  <!-- Product Metadata Snippet -->
+  {% render 'rb-product-meta', product: product %}
+
+  <!-- Customer Photo Showcase Grid -->
+  <div class="rb-customer-photos">
+    <h4 class="rb-section-subheading">What our Customers Say</h4>
+    <div class="rb-photos-grid">
+      {% for image in product.images limit: 3 %}
+        <div class="rb-photo-card">
+          <img src="{{ image | image_url: width: 300 }}" alt="Customer Photo {{ forloop.index }}" loading="lazy" width="150" height="200">
+        </div>
+      {% else %}
+        <div class="rb-photo-card">
+          <img src="{{ product.featured_image | image_url: width: 300 }}" alt="Customer Photo 1" width="150" height="200">
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Trust Badges Snippet -->
+  {% render 'rb-trust-badge' %}
+
+  <!-- Accordions Snippet -->
+  {% render 'rb-product-accordion', product: product %}
+
+</div>

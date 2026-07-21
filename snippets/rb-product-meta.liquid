@@ -1,0 +1,18 @@
+{% comment %}
+  Renders Clay Design System Product Metadata
+  Namespace: .rb-product-meta
+{% endcomment %}
+<div class="rb-product-meta">
+  <div class="rb-meta-item">
+    <span class="rb-meta-label">SKU:</span>
+    <span class="rb-meta-val">{{ product.selected_or_first_available_variant.sku | default: 'SKU-102' }}</span>
+  </div>
+  <div class="rb-meta-item">
+    <span class="rb-meta-label">Availability:</span>
+    <span class="rb-meta-val rb-in-stock">{% if product.selected_or_first_available_variant.available %}In Stock{% else %}Out of Stock{% endif %}</span>
+  </div>
+  <div class="rb-meta-item">
+    <span class="rb-meta-label">Collections:</span>
+    <span class="rb-meta-val">{{ product.collections | map: 'title' | join: ', ' | default: 'Skincare, Tallow' }}</span>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+{% comment %}
+  Renders Clay Design System Badges
+  Namespace: .rb-sold-badge, .rb-badge-save
+{% endcomment %}
+{% if badge_type == 'sold' %}
+  <div class="rb-sold-badge">
+    🔥 {{ sold_count | default: 12 }} Sold in last {{ sold_hours | default: 24 }} hours
+  </div>
+{% elsif badge_type == 'save' %}
+  {% if compare_price > price %}
+    <span class="rb-badge-save">
+      SAVE {{ compare_price | minus: price | times: 100 | divided_by: compare_price }}%
+    </span>
+  {% endif %}
+{% endif %}

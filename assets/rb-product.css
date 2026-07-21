@@ -1,0 +1,514 @@
+/* ============================================================
+   RB DESIGN SYSTEM FOR SINGLE PRODUCT PAGE (Clay Theme Isolation)
+   Namespace: .rb-*
+   ============================================================ */
+
+/* Main Layout Wrapper */
+.rb-product-wrapper {
+  font-family: 'Poppins', sans-serif !important;
+  color: #1d211e;
+  padding-top: 2rem;
+  padding-bottom: 5rem;
+}
+
+.rb-product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4rem;
+  align-items: flex-start;
+}
+
+/* Gallery Component */
+.rb-product-gallery {
+  flex: 1 1 500px;
+  max-width: 50%;
+  position: sticky;
+  top: 90px;
+}
+
+.rb-gallery-container {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.rb-thumbnail-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+.rb-thumb-item {
+  width: 72px;
+  height: 72px;
+  border-radius: 10px;
+  border: 1.5px solid #e5e7eb;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.rb-thumb-item.rb-active, .rb-thumb-item:hover {
+  border-color: #d15b47;
+  box-shadow: 0 0 0 2px #d15b47;
+}
+
+.rb-thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rb-main-image-box {
+  flex: 1;
+  border-radius: 16px;
+  border: 1px solid #eaecf0;
+  overflow: hidden;
+  background: #f9fafb;
+  position: relative;
+  max-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rb-main-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.rb-zoom-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #eaecf0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Info Column Component */
+.rb-product-info {
+  flex: 1 1 450px;
+  max-width: 45%;
+}
+
+.rb-product-vendor {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #667085;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.6rem;
+}
+
+.rb-product-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #1d211e;
+  line-height: 1.25;
+  margin: 0 0 1.2rem 0;
+  letter-spacing: -0.02em;
+}
+
+.rb-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.rb-stars {
+  color: #f59e0b;
+  font-size: 1.6rem;
+}
+
+.rb-rating-text {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #475467;
+}
+
+.rb-sold-badge {
+  background: #fef2f2;
+  color: #dc2626;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  border: 1px solid #fecaca;
+}
+
+/* Price Box */
+.rb-product-price-box {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.rb-price-current {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #d15b47;
+}
+
+.rb-price-compare {
+  font-size: 1.8rem;
+  color: #98a2b3;
+  text-decoration: line-through;
+  font-weight: 500;
+}
+
+.rb-badge-save {
+  background: #d15b47;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 800;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+}
+
+/* Delivery Box */
+.rb-delivery-box {
+  background: #f9fafb;
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+  padding: 1.6rem 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.rb-delivery-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+.rb-delivery-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.rb-delivery-text {
+  font-size: 1.3rem;
+  color: #344054;
+  line-height: 1.4;
+}
+
+/* Live Visitors Ticker */
+.rb-live-view {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.3rem;
+  color: #344054;
+  margin-bottom: 1.5rem;
+}
+
+.rb-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+}
+
+/* Addons Row */
+.rb-addons-row {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px dashed #eaecf0;
+  padding-bottom: 1.5rem;
+}
+
+.rb-addon-link {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #475467;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.rb-addon-link:hover {
+  color: #d15b47;
+}
+
+/* Variant Picker Component */
+.rb-variant-picker {
+  margin-bottom: 2rem;
+}
+
+.rb-option-group {
+  margin-bottom: 1.5rem;
+}
+
+.rb-option-label {
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #344054;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.rb-option-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.rb-pill-btn {
+  border: 1.5px solid #d0d5dd;
+  border-radius: 30px;
+  padding: 0.8rem 1.8rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #344054;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rb-pill-btn.rb-active, .rb-pill-btn:hover {
+  border-color: #2C2609;
+  background-color: rgb(255 159 7);
+  color: #ffffff;
+  font-weight: 800;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+/* Quantity & ATC Row Component */
+.rb-atc-row {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.rb-qty-pill {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #1d211e;
+  border-radius: 30px;
+  height: 48px;
+  width: 120px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.rb-qty-btn {
+  width: 36px;
+  height: 100%;
+  border: none;
+  background: none;
+  font-size: 1.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #1d211e;
+}
+
+.rb-qty-input {
+  width: 48px;
+  border: none;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1d211e;
+}
+
+.rb-atc-button {
+  flex: 1;
+  height: 48px;
+  border-radius: 30px;
+  background: #1d211e;
+  color: #ffffff;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.rb-atc-button:hover {
+  background: #344054;
+}
+
+.rb-icon-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid #eaecf0;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.rb-buy-now-button {
+  width: 100%;
+  height: 48px;
+  border-radius: 30px;
+  background: #d15b47;
+  color: #ffffff;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 12px rgba(209, 91, 71, 0.25);
+  transition: background 0.2s ease;
+}
+
+.rb-buy-now-button:hover {
+  background: #b94836;
+}
+
+/* Product Meta */
+.rb-product-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  font-size: 1.3rem;
+  border-bottom: 1px dashed #eaecf0;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+}
+
+.rb-meta-label {
+  font-weight: 700;
+  color: #344054;
+  display: inline-block;
+  width: 100px;
+}
+
+.rb-meta-val {
+  color: #667085;
+}
+
+.rb-in-stock {
+  color: #12b76a;
+  font-weight: 700;
+}
+
+/* Customer Photo Showcase Component */
+.rb-customer-photos {
+  margin-bottom: 2.5rem;
+}
+
+.rb-section-subheading {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1d211e;
+  margin-bottom: 1.2rem;
+}
+
+.rb-photos-grid {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.rb-photo-card {
+  flex: 1;
+  height: 140px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #eaecf0;
+}
+
+.rb-photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Trust Badge Component */
+.rb-trust-container {
+  background: #f9fafb;
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+  padding: 1.6rem;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.rb-trust-heading {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #344054;
+  margin-bottom: 1rem;
+}
+
+.rb-trust-svg-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Accordions Component */
+.rb-product-accordions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rb-accordion-item {
+  border: 1px solid #eaecf0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.rb-accordion-summary {
+  padding: 1.4rem 1.8rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: #f9fafb;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rb-accordion-content {
+  padding: 1.6rem 1.8rem;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: #475467;
+  border-top: 1px solid #eaecf0;
+}
+
+/* Responsive Rules */
+@media screen and (max-width: 768px) {
+  .rb-product-gallery, .rb-product-info {
+    max-width: 100%;
+  }
+  .rb-gallery-container {
+    flex-direction: column-reverse;
+  }
+  .rb-thumbnail-strip {
+    flex-direction: row;
+  }
+}

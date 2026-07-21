@@ -1,0 +1,35 @@
+{% comment %}
+  Renders Clay Design System Add to Cart & Buy Now Buttons
+  Reuses existing product-form AJAX submit to open Side Cart Drawer seamlessly
+  Namespace: .rb-atc-button, .rb-buy-now-button
+{% endcomment %}
+{% form 'product', product, id: 'RBProductForm', class: 'rb-product-form' %}
+  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" id="RBVariantIdInput">
+  
+  <div class="rb-atc-row">
+    <!-- Quantity Input Pill -->
+    <div class="rb-qty-pill">
+      <button type="button" class="rb-qty-btn" onclick="RBProduct.updateQuantity(-1)">-</button>
+      <input type="number" name="quantity" id="RBQtyInput" value="1" min="1" readonly class="rb-qty-input">
+      <button type="button" class="rb-qty-btn" onclick="RBProduct.updateQuantity(1)">+</button>
+    </div>
+
+    <!-- ADD TO CART Button -->
+    <button type="submit" name="add" class="rb-atc-button" id="RBAddToCartBtn">
+      <span>ADD TO CART</span>
+    </button>
+
+    <!-- Wishlist & Compare Icons -->
+    <button type="button" class="rb-icon-btn" title="Add to Wishlist" onclick="alert('Added to Wishlist!')">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button type="button" class="rb-icon-btn" title="Compare" onclick="alert('Added to Compare!')">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="8 21 3 21 3 16"></polyline><line x1="15" y1="9" x2="3" y2="21"></line></svg>
+    </button>
+  </div>
+
+  <!-- BUY IT NOW Button -->
+  <button type="submit" name="checkout" class="rb-buy-now-button">
+    BUY IT NOW
+  </button>
+{% endform %}

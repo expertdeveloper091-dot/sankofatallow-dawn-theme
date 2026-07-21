@@ -1,0 +1,55 @@
+{{ 'rb-product.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'rb-product.js' | asset_url }}" defer="defer"></script>
+
+<div class="rb-product-wrapper page-width" id="RBProduct-{{ section.id }}">
+  <div class="rb-product-grid">
+    <!-- Gallery Snippet -->
+    {% render 'rb-product-gallery', product: product %}
+
+    <!-- Product Info Snippet -->
+    {% render 'rb-product-info', product: product %}
+  </div>
+</div>
+
+<!-- Ask Question Modal Component -->
+<div id="RBAskModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:99999; align-items:center; justify-content:center;">
+  <div style="background:#ffffff; padding:30px; border-radius:16px; width:90%; max-width:480px; position:relative;">
+    <button type="button" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:24px; cursor:pointer;" onclick="RBProduct.closeAskModal()">&times;</button>
+    <h3 style="font-size:20px; font-weight:800; margin-top:0;">Ask a Question</h3>
+    {% form 'contact' %}
+      <input type="hidden" name="contact[product]" value="{{ product.title }}">
+      <div style="margin-bottom:15px;">
+        <label style="display:block; font-size:13px; font-weight:700; margin-bottom:6px;">Your Name</label>
+        <input type="text" name="contact[name]" required placeholder="Enter your name" style="width:100%; padding:10px 14px; border:1px solid #d0d5dd; border-radius:8px;">
+      </div>
+      <div style="margin-bottom:15px;">
+        <label style="display:block; font-size:13px; font-weight:700; margin-bottom:6px;">Your Email</label>
+        <input type="email" name="contact[email]" required placeholder="Enter your email" style="width:100%; padding:10px 14px; border:1px solid #d0d5dd; border-radius:8px;">
+      </div>
+      <div style="margin-bottom:15px;">
+        <label style="display:block; font-size:13px; font-weight:700; margin-bottom:6px;">Question</label>
+        <textarea name="contact[body]" rows="4" required placeholder="What would you like to ask about {{ product.title }}?" style="width:100%; padding:10px 14px; border:1px solid #d0d5dd; border-radius:8px;"></textarea>
+      </div>
+      <button type="submit" class="rb-atc-button" style="width:100%;">SEND QUESTION</button>
+    {% endform %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "RB Clay Product Section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show Vendor",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "RB Clay Product Section"
+    }
+  ]
+}
+{% endschema %}
