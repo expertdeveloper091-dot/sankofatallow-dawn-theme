@@ -402,7 +402,7 @@
       window.mlUpdateCardVariant(card);
     });
 
-    // AJAX ADD TO CART + SPINNER + OPEN CART DRAWER
+    // AJAX ADD TO CART + SPINNER + AUTOMATIC CART DRAWER RENDER & OPEN
     document.addEventListener('submit', function(e) {
       const form = e.target.closest('.ml-card-atc-form');
       if (!form) return;
@@ -421,6 +421,8 @@
       if (spinner) spinner.style.display = 'inline-block';
 
       const formData = new FormData(form);
+      formData.append('sections', 'cart-drawer,cart-icon-bubble');
+      formData.append('sections_url', window.location.pathname);
 
       fetch((window.Shopify ? window.Shopify.routes.root : '/') + 'cart/add.js', {
         method: 'POST',
@@ -431,44 +433,43 @@
       })
       .then(res => res.json())
       .then(data => {
-        // Fetch updated cart sections
-        const sectionsUrl = window.location.pathname + '?sections=cart-drawer,cart-icon-bubble';
-        return fetch(sectionsUrl).then(res => res.json()).then(sections => ({ data, sections }));
-      })
-      .then(({ data, sections }) => {
-        // Update Cart Drawer HTML
+        if (data.status) {
+          alert(data.description || data.message || 'Error adding item to cart.');
+          return;
+        }
+
         const drawer = document.querySelector('cart-drawer');
-        if (drawer && sections['cart-drawer']) {
-          const doc = new DOMParser().parseFromString(sections['cart-drawer'], 'text/html');
-          const newDrawer = doc.querySelector('cart-drawer');
-          if (newDrawer) {
-            drawer.innerHTML = newDrawer.innerHTML;
+        if (drawer) {
+          if (typeof drawer.renderContents === 'function') {
+            drawer.renderContents(data);
+          } else {
+            if (data.sections && data.sections['cart-drawer']) {
+              const doc = new DOMParser().parseFromString(data.sections['cart-drawer'], 'text/html');
+              const newDrawer = doc.querySelector('cart-drawer');
+              if (newDrawer) {
+                drawer.innerHTML = newDrawer.innerHTML;
+              }
+            }
+            if (typeof drawer.open === 'function') {
+              drawer.open(btn);
+            } else {
+              drawer.classList.add('animate', 'active');
+              document.body.classList.add('overflow-hidden');
+            }
           }
-          drawer.classList.remove('is-empty');
+        } else {
+          window.location.href = (window.Shopify ? window.Shopify.routes.root : '/') + 'cart';
         }
 
         // Update Cart Icon Bubble Count
-        const bubble = document.getElementById('cart-icon-bubble');
-        if (bubble && sections['cart-icon-bubble']) {
-          const doc = new DOMParser().parseFromString(sections['cart-icon-bubble'], 'text/html');
-          const newBubble = doc.querySelector('#cart-icon-bubble');
-          if (newBubble) {
-            bubble.innerHTML = newBubble.innerHTML;
-          }
-        }
-
-        // Publish PubSub event if available
-        if (window.PUB_SUB_EVENTS && window.publish) {
-          window.publish(window.PUB_SUB_EVENTS.cartUpdate, { source: 'card-product', cartData: data });
-        }
-
-        // Open Cart Drawer
-        if (drawer) {
-          if (typeof drawer.open === 'function') {
-            drawer.open(btn);
-          } else {
-            drawer.classList.add('animate', 'active');
-            document.body.classList.add('overflow-hidden');
+        if (data.sections && data.sections['cart-icon-bubble']) {
+          const bubble = document.getElementById('cart-icon-bubble');
+          if (bubble) {
+            const doc = new DOMParser().parseFromString(data.sections['cart-icon-bubble'], 'text/html');
+            const newBubble = doc.querySelector('#cart-icon-bubble');
+            if (newBubble) {
+              bubble.innerHTML = newBubble.innerHTML;
+            }
           }
         }
       })

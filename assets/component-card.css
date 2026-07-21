@@ -601,14 +601,37 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-/* STRICT EQUAL HEIGHT GRID CARDS SYSTEM */
+/* STRICT EQUAL HEIGHT GRID CARDS SYSTEM (SPACIOUS 2-COLUMNS DESKTOP) */
 .ml-product-grid {
   display: grid !important;
   align-items: stretch !important;
+  width: 100% !important;
+  gap: 24px !important;
+  box-sizing: border-box !important;
+}
+
+.ml-product-grid.grid--2-col-desktop {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+.ml-product-grid.grid--1-col-desktop {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+@media screen and (max-width: 749px) {
+  .ml-product-grid.grid--2-col-tablet-down {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+  }
+  .ml-product-grid.grid--1-col-tablet-down {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
 }
 
 .ml-product-grid > .grid__item {
   height: 100% !important;
+  width: 100% !important;
+  max-width: 100% !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: stretch !important;
