@@ -1,6 +1,6 @@
 {% comment %}
   Renders a luxury product card for collection, search, related products, recommendations.
-  Supports OS 2.0 dynamic settings, separate Fragrance & Size option groups, variant switching & AJAX Add-to-Cart with Cart Drawer.
+  Supports OS 2.0 dynamic settings, beautiful custom dropdown option selects, variant switching & AJAX Add-to-Cart with Cart Drawer.
 {% endcomment %}
 {%- unless skip_styles -%}
   {{ 'component-card.css' | asset_url | stylesheet_tag }}
@@ -92,31 +92,37 @@
             </div>
           {%- endif -%}
 
-          <!-- SEPARATE OPTION GROUPS (FRAGRANCE, SIZE, ETC.) -->
+          <!-- BEAUTIFUL CUSTOM OPTION DROPDOWNS (FRAGRANCE, SIZE, ETC.) -->
           {%- if card_product.has_only_default_variant == false -%}
             <div class="ml-product-card__options-group">
               {%- for option in card_product.options_with_values -%}
                 <div class="ml-option-row" data-option-position="option{{ option.position }}">
-                  <span class="ml-variant-title">SELECT {{ option.name | uppercase }}</span>
-                  <div class="ml-variant-pills-list">
-                    {%- for value in option.values -%}
-                      {%- assign is_opt_selected = false -%}
-                      {%- assign pos_idx = option.position | minus: 1 -%}
-                      {%- if selected_variant and selected_variant.options[pos_idx] == value -%}
-                        {%- assign is_opt_selected = true -%}
-                      {%- elsif selected_variant == blank and forloop.first -%}
-                        {%- assign is_opt_selected = true -%}
-                      {%- endif -%}
+                  <label for="Option-{{ section_id }}-{{ card_product.id }}-{{ option.position }}" class="ml-variant-title">
+                    SELECT {{ option.name | uppercase }}
+                  </label>
+                  <div class="ml-option-select-box">
+                    <select
+                      id="Option-{{ section_id }}-{{ card_product.id }}-{{ option.position }}"
+                      class="ml-card-option-select"
+                      data-option-position="option{{ option.position }}"
+                    >
+                      {%- for value in option.values -%}
+                        {%- assign is_opt_selected = false -%}
+                        {%- assign pos_idx = option.position | minus: 1 -%}
+                        {%- if selected_variant and selected_variant.options[pos_idx] == value -%}
+                          {%- assign is_opt_selected = true -%}
+                        {%- elsif selected_variant == blank and forloop.first -%}
+                          {%- assign is_opt_selected = true -%}
+                        {%- endif -%}
 
-                      <button
-                        type="button"
-                        class="ml-variant-pill-btn{% if is_opt_selected %} is-selected{% endif %}"
-                        data-option-position="option{{ option.position }}"
-                        data-value="{{ value | escape }}"
-                      >
-                        {{ value }}
-                      </button>
-                    {%- endfor -%}
+                        <option value="{{ value | escape }}" {% if is_opt_selected %}selected="selected"{% endif %}>
+                          {{ value }}
+                        </option>
+                      {%- endfor -%}
+                    </select>
+                    <svg class="ml-option-select-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
                   </div>
                 </div>
               {%- endfor -%}
@@ -252,25 +258,22 @@
   if (typeof mlCardProductInit === 'undefined') {
     window.mlCardProductInit = true;
 
-    // OPTION PILL SELECTION HANDLER
-    document.addEventListener('click', function(e) {
-      const pill = e.target.closest('.ml-variant-pill-btn');
-      if (!pill) return;
+    // OPTION DROPDOWN CHANGE HANDLER
+    document.addEventListener('change', function(e) {
+      const select = e.target.closest('.ml-card-option-select');
+      if (!select) return;
 
-      const card = pill.closest('.ml-product-card');
+      const card = select.closest('.ml-product-card');
       if (!card) return;
 
-      const optionRow = pill.closest('.ml-option-row');
-      if (!optionRow) return;
-
-      // Toggle active pill in this row
-      optionRow.querySelectorAll('.ml-variant-pill-btn').forEach(btn => btn.classList.remove('is-selected'));
-      pill.classList.add('is-selected');
-
       // Get selected values for option1, option2, option3
-      const opt1 = card.querySelector('[data-option-position="option1"] .is-selected')?.getAttribute('data-value') || null;
-      const opt2 = card.querySelector('[data-option-position="option2"] .is-selected')?.getAttribute('data-value') || null;
-      const opt3 = card.querySelector('[data-option-position="option3"] .is-selected')?.getAttribute('data-value') || null;
+      const opt1Select = card.querySelector('.ml-card-option-select[data-option-position="option1"]');
+      const opt2Select = card.querySelector('.ml-card-option-select[data-option-position="option2"]');
+      const opt3Select = card.querySelector('.ml-card-option-select[data-option-position="option3"]');
+
+      const opt1 = opt1Select ? opt1Select.value : null;
+      const opt2 = opt2Select ? opt2Select.value : null;
+      const opt3 = opt3Select ? opt3Select.value : null;
 
       // Parse JSON variants
       const jsonScript = card.querySelector('.ml-variants-json');
@@ -287,7 +290,7 @@
         });
 
         if (match) {
-          // Update variant ID input
+          // Update variant ID hidden input
           const inputId = card.querySelector('.product-variant-id');
           if (inputId) inputId.value = match.id;
 
@@ -313,7 +316,7 @@
             if (badge) badge.style.display = 'none';
           }
 
-          // Update button state
+          // Update ATC button state
           const atcBtn = card.querySelector('.ml-card-btn--atc');
           const atcText = card.querySelector('.ml-atc-text');
           if (atcBtn) {
@@ -333,7 +336,7 @@
           }
         }
       } catch (err) {
-        console.error('Error parsing variants:', err);
+        console.error('Error matching variant dropdown:', err);
       }
     });
 
