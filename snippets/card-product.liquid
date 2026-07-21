@@ -222,7 +222,6 @@
               name="id"
               value="{{ selected_variant.id }}"
               class="product-variant-id"
-              {% if selected_variant.available == false %}disabled{% endif %}
             >
             <input type="hidden" name="quantity" value="1">
 
@@ -368,6 +367,14 @@
           if (img && match.featured_image) {
             img.src = match.featured_image;
           }
+        } else {
+          // No direct match for selected combination
+          const atcBtn = card.querySelector('.ml-card-btn--atc');
+          const atcText = card.querySelector('.ml-atc-text');
+          if (atcBtn) {
+            atcBtn.setAttribute('disabled', 'disabled');
+            if (atcText) atcText.textContent = 'Out Of Stock';
+          }
         }
       } catch (err) {
         console.error('Error updating card variant:', err);
@@ -414,13 +421,21 @@
       const icon = form.querySelector('.ml-cart-icon');
       const spinner = form.querySelector('.ml-btn-spinner');
 
+      const formData = new FormData(form);
+      const variantId = formData.get('id');
+
+      if (!variantId) {
+        if (btn) btn.disabled = true;
+        if (text) text.textContent = 'Out Of Stock';
+        return;
+      }
+
       // Set loading state
       if (btn) btn.disabled = true;
       if (text) text.style.display = 'none';
       if (icon) icon.style.display = 'none';
       if (spinner) spinner.style.display = 'inline-block';
 
-      const formData = new FormData(form);
       formData.append('sections', 'cart-drawer,cart-icon-bubble');
       formData.append('sections_url', window.location.pathname);
 
@@ -434,7 +449,7 @@
       .then(res => res.json())
       .then(data => {
         if (data.status) {
-          alert(data.description || data.message || 'Error adding item to cart.');
+          if (text) text.textContent = 'Out Of Stock';
           return;
         }
 
