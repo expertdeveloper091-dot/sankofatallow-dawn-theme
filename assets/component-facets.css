@@ -1250,399 +1250,478 @@ input.mobile-facets__checkbox {
 }
 
 /* ==========================================================================
-   LUXURY COLLECTION TOOLBAR & FILTER DRAWER
+   LUXURY COLLECTION TOOLBAR & FILTER DRAWER (EXACT SPEC MATCH)
    ========================================================================== */
 
-/* TOOLBAR CONTAINER */
+/* TOOLBAR CONTAINER - STRICT SINGLE HORIZONTAL LINE */
 .ml-collection-toolbar {
-  font-family: 'Poppins', sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 85px;
-  padding: 0 36px;
-  margin-bottom: 2.5rem;
-  border-top: 1px solid rgba(var(--color-foreground), 0.08);
-  border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+  font-family: 'Poppins', sans-serif !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  min-height: 85px !important;
+  height: 85px !important;
+  padding: 0 40px !important;
+  margin-top: 1rem !important;
+  margin-bottom: 2.5rem !important;
+  border-top: 1px solid #e5e5e5 !important;
+  border-bottom: 1px solid #e5e5e5 !important;
+  background: #ffffff !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 .ml-toolbar__left {
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  align-items: center !important;
+  flex: 0 0 auto !important;
 }
 
 .ml-filter-open-btn {
-  font-family: 'Poppins', sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: #ffffff;
-  border: 2px solid rgba(var(--color-foreground), 0.25);
-  border-radius: 10px;
-  height: 52px;
-  padding: 0 28px;
-  cursor: pointer;
-  color: rgb(var(--color-foreground));
-  transition: all 0.2s ease;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  background: #ffffff !important;
+  border: 2px solid #222222 !important;
+  border-radius: 10px !important;
+  height: 52px !important;
+  padding: 0 28px !important;
+  cursor: pointer !important;
+  color: #111111 !important;
+  transition: all 0.2s ease !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .ml-filter-open-btn:hover {
-  border-color: #111111;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-color: #111111 !important;
+  background: #f8f8f8 !important;
 }
 
 .ml-toolbar__center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 1 1 auto !important;
 }
 
 .ml-grid-switcher {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 18px !important;
 }
 
 .ml-grid-btn {
-  background: transparent;
-  border: none;
-  padding: 4px;
-  cursor: pointer;
-  color: rgba(var(--color-foreground), 0.35);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 4px !important;
+  cursor: pointer !important;
+  color: #c5c5c5 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: color 0.2s ease, transform 0.2s ease !important;
 }
 
 .ml-grid-btn:hover {
-  color: rgba(var(--color-foreground), 0.7);
-  transform: scale(1.08);
+  color: #666666 !important;
 }
 
 .ml-grid-btn.active {
-  color: #111111;
+  color: #111111 !important;
+}
+
+.ml-grid-btn svg {
+  fill: currentColor !important;
 }
 
 .ml-grid-switcher--mobile {
-  display: none;
+  display: none !important;
 }
 
 .ml-toolbar__right {
-  display: flex;
-  align-items: center;
-  gap: 2.5rem;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 24px !important;
+  flex: 0 0 auto !important;
 }
 
 .ml-results-count {
-  font-size: 15px;
-  color: rgba(var(--color-foreground), 0.75);
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  color: #555555 !important;
+  white-space: nowrap !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.ml-desktop-sort-form {
+  display: inline-flex !important;
+  align-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.ml-desktop-sort-form form {
+  display: inline-flex !important;
+  align-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .ml-sort-select-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
 }
 
 .ml-sort-label {
-  font-size: 16px;
-  font-weight: 500;
-  color: rgb(var(--color-foreground));
-  white-space: nowrap;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  color: #111111 !important;
+  white-space: nowrap !important;
 }
 
 .ml-desktop-sort-select {
-  font-family: 'Poppins', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  padding: 4px 24px 4px 4px;
-  border: none;
-  border-bottom: 1.5px solid #111111;
-  background: transparent;
-  color: rgb(var(--color-foreground));
-  appearance: none;
-  cursor: pointer;
-  outline: none;
-  text-decoration: underline;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  padding: 2px 20px 2px 0 !important;
+  border: none !important;
+  border-bottom: 1.5px solid #111111 !important;
+  background: transparent !important;
+  color: #111111 !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  cursor: pointer !important;
+  outline: none !important;
+  box-shadow: none !important;
+  text-decoration: underline !important;
+  border-radius: 0 !important;
 }
 
 .ml-sort-caret {
-  position: absolute;
-  right: 0;
-  pointer-events: none;
+  position: absolute !important;
+  right: 0 !important;
+  pointer-events: none !important;
+  color: #111111 !important;
 }
 
 /* RESPONSIVE TOOLBAR BREAKPOINTS */
 @media screen and (max-width: 749px) {
   .ml-collection-toolbar {
-    padding: 0 16px;
-    min-height: 70px;
+    padding: 0 16px !important;
+    min-height: 70px !important;
+    height: 70px !important;
   }
   .ml-grid-switcher--desktop {
-    display: none;
+    display: none !important;
   }
   .ml-grid-switcher--mobile {
-    display: flex;
+    display: flex !important;
   }
   .ml-desktop-sort-form {
-    display: none;
+    display: none !important;
   }
 }
 
 /* ==========================================================================
-   FILTER DRAWER (380px - 420px WIDTH)
+   FILTER DRAWER (LUXURY CLEAN WHITE STYLING)
    ========================================================================== */
 
 .ml-filter-drawer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 99999;
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-  transition: visibility 0.3s ease, opacity 0.3s ease;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 99999 !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: visibility 0.3s ease, opacity 0.3s ease !important;
 }
 
 .ml-filter-drawer.is-open {
-  visibility: visible;
-  opacity: 1;
-  pointer-events: auto;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
 
 .ml-filter-drawer__backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(3px);
-  transition: opacity 0.3s ease;
+  position: absolute !important;
+  inset: 0 !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(2px) !important;
+  transition: opacity 0.3s ease !important;
 }
 
 .ml-filter-drawer__dialog {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 400px;
-  max-width: 88vw;
-  height: 100%;
-  background-color: rgb(var(--color-background));
-  box-shadow: 12px 0 32px rgba(0, 0, 0, 0.15);
-  display: flex;
-  flex-direction: column;
-  transform: translateX(-100%);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  font-family: 'Poppins', sans-serif;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 400px !important;
+  max-width: 88vw !important;
+  height: 100% !important;
+  background-color: #ffffff !important;
+  color: #111111 !important;
+  box-shadow: 12px 0 32px rgba(0, 0, 0, 0.12) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transform: translateX(-100%) !important;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  font-family: 'Poppins', sans-serif !important;
 }
 
 .ml-filter-drawer.is-open .ml-filter-drawer__dialog {
-  transform: translateX(0);
+  transform: translateX(0) !important;
 }
 
 .ml-filter-drawer__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.5rem 2rem;
-  border-bottom: 1.5px solid rgba(var(--color-foreground), 0.08);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 1.4rem 2rem !important;
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #eeeeee !important;
 }
 
 .ml-filter-drawer__title {
-  font-family: 'Poppins', sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  margin: 0;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  color: #111111 !important;
+  margin: 0 !important;
 }
 
 .ml-filter-drawer__close {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 6px;
-  color: rgb(var(--color-foreground));
-  transition: opacity 0.2s ease;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+  padding: 6px !important;
+  color: #111111 !important;
+  transition: opacity 0.2s ease !important;
 }
 
 .ml-filter-drawer__close:hover {
-  opacity: 0.7;
+  opacity: 0.7 !important;
 }
 
 .ml-filter-drawer__form-container {
-  display: flex;
-  flex-direction: column;
-  height: calc(100% - 70px);
+  display: flex !important;
+  flex-direction: column !important;
+  height: calc(100% - 70px) !important;
 }
 
 .ml-filter-drawer__form {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
 }
 
 .ml-filter-drawer__body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 1.5rem 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  flex: 1 !important;
+  overflow-y: auto !important;
+  padding: 1.5rem 2rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.5rem !important;
 }
 
-/* ACCORDIONS */
-.ml-drawer-accordion {
-  border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
-  padding-bottom: 1rem;
+/* ACCORDIONS - NO BORDERS OR FOCUS BOXES */
+.ml-drawer-accordion,
+details.ml-drawer-accordion {
+  border: none !important;
+  border-bottom: 1px solid #eeeeee !important;
+  padding-bottom: 0.8rem !important;
+  margin-bottom: 0.4rem !important;
+  background: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
 }
 
-.ml-drawer-accordion__summary {
-  font-family: 'Poppins', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  list-style: none;
-  padding: 0.6rem 0;
+.ml-drawer-accordion summary,
+details.ml-drawer-accordion summary {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #111111 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  list-style: none !important;
+  padding: 0.8rem 0 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
 }
 
-.ml-drawer-accordion__summary::-webkit-details-marker {
-  display: none;
+.ml-drawer-accordion summary::-webkit-details-marker,
+details.ml-drawer-accordion summary::-webkit-details-marker {
+  display: none !important;
+}
+
+.ml-drawer-accordion summary:focus,
+.ml-drawer-accordion summary:focus-visible,
+details.ml-drawer-accordion summary:focus,
+details.ml-drawer-accordion summary:focus-visible {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .ml-accordion-icon {
-  transition: transform 0.25s ease;
+  transition: transform 0.25s ease !important;
+  color: #111111 !important;
 }
 
 .ml-drawer-accordion[open] .ml-accordion-icon {
-  transform: rotate(180deg);
+  transform: rotate(180deg) !important;
 }
 
 .ml-drawer-accordion__content {
-  padding-top: 0.8rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.6rem !important;
+  padding-bottom: 0.5rem !important;
 }
 
 .ml-drawer-filter-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
 }
 
 .ml-drawer-checkbox-label {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  cursor: pointer;
-  user-select: none;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  user-select: none !important;
 }
 
 .ml-checkbox-input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
+  position: absolute !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 .ml-custom-checkbox {
-  width: 18px;
-  height: 18px;
-  border-radius: 4px;
-  border: 1.5px solid rgba(var(--color-foreground), 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 4px !important;
+  border: 1.5px solid #cccccc !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
 }
 
 .ml-checkbox-input:checked + .ml-custom-checkbox {
-  background-color: #e79f29;
-  border-color: #e79f29;
+  background-color: #111111 !important;
+  border-color: #111111 !important;
 }
 
 .ml-checkbox-text {
-  flex: 1;
-  color: rgb(var(--color-foreground));
+  flex: 1 !important;
+  color: #222222 !important;
 }
 
 .ml-checkbox-count {
-  font-size: 12px;
-  color: rgba(var(--color-foreground), 0.5);
+  font-size: 13px !important;
+  color: #888888 !important;
 }
 
 .ml-drawer-select-wrapper {
-  position: relative;
-  width: 100%;
+  position: relative !important;
+  width: 100% !important;
 }
 
 .ml-drawer-select {
-  width: 100%;
-  font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-  padding: 10px 16px;
-  border-radius: 8px;
-  border: 1.5px solid rgba(var(--color-foreground), 0.2);
-  background: transparent;
-  color: rgb(var(--color-foreground));
-  appearance: none;
+  width: 100% !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 14px !important;
+  padding: 10px 16px !important;
+  border-radius: 8px !important;
+  border: 1.5px solid #d0d0d0 !important;
+  background: #ffffff !important;
+  color: #111111 !important;
+  appearance: none !important;
+  outline: none !important;
 }
 
 .ml-select-caret {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
+  position: absolute !important;
+  right: 14px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  pointer-events: none !important;
+  color: #111111 !important;
 }
 
 /* STICKY FOOTER */
 .ml-filter-drawer__footer {
-  position: sticky;
-  bottom: 0;
-  background: rgb(var(--color-background));
-  padding: 1.2rem 2rem;
-  border-top: 1.5px solid rgba(var(--color-foreground), 0.08);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04);
+  position: sticky !important;
+  bottom: 0 !important;
+  background: #ffffff !important;
+  padding: 1.2rem 2rem !important;
+  border-top: 1px solid #eeeeee !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04) !important;
 }
 
 .ml-drawer-apply-btn {
-  font-family: 'Poppins', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  background-color: #e79f29;
-  color: #ffffff;
-  border: none;
-  padding: 14px;
-  border-radius: 30px;
-  cursor: pointer;
-  width: 100%;
-  transition: background 0.2s ease;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+  background-color: #111111 !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 14px !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  width: 100% !important;
+  transition: background 0.2s ease !important;
 }
 
 .ml-drawer-apply-btn:hover {
-  background-color: #d48e1f;
+  background-color: #333333 !important;
 }
 
 .ml-drawer-clear-btn {
-  font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(var(--color-foreground), 0.7);
-  text-align: center;
-  text-decoration: underline;
-  display: block;
-  width: 100%;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #666666 !important;
+  text-align: center !important;
+  text-decoration: underline !important;
+  display: block !important;
+  width: 100% !important;
 }
 
