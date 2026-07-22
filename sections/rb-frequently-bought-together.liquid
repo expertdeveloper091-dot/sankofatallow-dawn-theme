@@ -1,0 +1,54 @@
+{% comment %}
+  rb-frequently-bought-together.liquid
+  Modular Frequently Bought Together / Complementary Products section
+{% endcomment %}
+
+<div class="rb-fbt-section" id="RBFbtSection-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="page-width">
+    {% if section.settings.heading != blank %}
+      <h2 class="rb-section-title">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    {% assign recommendations = product.metafields.shopify.complementary-products.value | default: recommendations.products %}
+
+    <div class="rb-fbt-container">
+      {% comment %} Dynamic bundle rendering {% endcomment %}
+      {% if recommendations.size > 0 %}
+        <div class="rb-fbt-grid">
+          {% for item in recommendations limit: 3 %}
+            <div class="rb-fbt-card">
+              <a href="{{ item.url }}" class="rb-fbt-img-link">
+                <img src="{{ item.featured_image | img_url: '300x300' }}" alt="{{ item.title | escape }}" loading="lazy" width="150" height="150">
+              </a>
+              <div class="rb-fbt-details">
+                <a href="{{ item.url }}" class="rb-fbt-title">{{ item.title }}</a>
+                <span class="rb-fbt-price">{{ item.price | money }}</span>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "RB Frequently Bought",
+  "tag": "section",
+  "class": "rb-fbt-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Bought Together"
+    }
+  ],
+  "presets": [
+    {
+      "name": "RB Frequently Bought Together"
+    }
+  ]
+}
+{% endschema %}

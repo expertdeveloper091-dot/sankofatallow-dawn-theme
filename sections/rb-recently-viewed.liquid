@@ -1,0 +1,61 @@
+{% comment %}
+  rb-recently-viewed.liquid
+  Modular section for Recently Viewed Products using localStorage handles
+{% endcomment %}
+
+<div class="rb-recently-viewed-section" id="RBRecentlyViewedSection-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="page-width">
+    {% if section.settings.heading != blank %}
+      <h2 class="rb-section-title">{{ section.settings.heading }}</h2>
+    {% endif %}
+    <div class="rb-recently-viewed-grid" id="RBRecentlyViewedGrid">
+      {% comment %} Dynamically populated via JS {% endcomment %}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    /* Save current product handle to localStorage */
+    {% if product %}
+      try {
+        var handles = JSON.parse(localStorage.getItem('rb_recently_viewed') || '[]');
+        var currentHandle = {{ product.handle | json }};
+        handles = handles.filter(function(h) { return h !== currentHandle; });
+        handles.unshift(currentHandle);
+        if (handles.length > 8) handles = handles.slice(0, 8);
+        localStorage.setItem('rb_recently_viewed', JSON.stringify(handles));
+      } catch(e) {}
+    {% endif %}
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "RB Recently Viewed",
+  "tag": "section",
+  "class": "rb-recently-viewed-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Recently Viewed Products"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4,
+      "label": "Maximum products to show"
+    }
+  ],
+  "presets": [
+    {
+      "name": "RB Recently Viewed"
+    }
+  ]
+}
+{% endschema %}
