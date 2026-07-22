@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "custom_hero_reviews_Qa7QcQ": {
@@ -58,7 +67,7 @@
       "settings": {
         "layout_desktop": "left_content",
         "max_width": 1200,
-        "bg_color": "#FFF8ED",
+        "bg_color": "#fff8ed",
         "text_color": "#2c2609",
         "accent_color": "#000000",
         "show_rating": true,
@@ -480,160 +489,8 @@
         "trust_badge_count": "5K+",
         "trust_badge_text": "Happy Customers",
         "heading": "REAL FAMILIES. REAL RESULTS.",
-        "padding_top": 60,
-        "padding_bottom": 60
-      }
-    },
-    "maison_cta_dynamic": {
-      "type": "maison-cta-dynamic",
-      "blocks": {
-        "avatar_1": { "type": "avatar" },
-        "avatar_2": { "type": "avatar" },
-        "avatar_3": { "type": "avatar" },
-        "photo_1": {
-          "type": "photo",
-          "settings": {
-            "side": "left",
-            "size": 220,
-            "rotate": -8,
-            "offset_top": -60
-          }
-        },
-        "photo_2": {
-          "type": "photo",
-          "settings": {
-            "side": "left",
-            "size": 150,
-            "rotate": 6,
-            "offset_top": 90,
-            "offset_left": -20
-          }
-        },
-        "photo_3": {
-          "type": "photo",
-          "settings": {
-            "side": "left",
-            "size": 150,
-            "rotate": -4,
-            "offset_top": 140,
-            "offset_left": 60
-          }
-        },
-        "photo_4": {
-          "type": "photo",
-          "settings": {
-            "side": "right",
-            "size": 180,
-            "rotate": 6,
-            "offset_top": -80
-          }
-        },
-        "photo_5": {
-          "type": "photo",
-          "settings": {
-            "side": "right",
-            "size": 200,
-            "rotate": -6,
-            "offset_top": 100
-          }
-        }
-      },
-      "block_order": [
-        "avatar_1",
-        "avatar_2",
-        "avatar_3",
-        "photo_1",
-        "photo_2",
-        "photo_3",
-        "photo_4",
-        "photo_5"
-      ],
-      "settings": {
-        "background_color": "#feeb94",
-        "border_color": "#2c2609",
-        "heading_highlight": "RISK-FREE",
-        "heading_rest": "BEAUTY REVOLUTION",
-        "description": "We believe in our balm because it actually works. If your skin isn't looking better in 30 days, we'll give you your money back — no drama, no hoops. Subscribe now and save 30% on your first order!",
-        "button_text": "Subscribe & Save 30% Today",
-        "benefit_1": "100% Guarantee",
-        "benefit_2": "Free Shipping within the US Only",
-        "benefit_3": "Free & Easy Returns"
-      }
-    },
-    "custom_cta": {
-      "type": "custom-cta",
-      "blocks": {
-        "avatar_1": { "type": "avatar" },
-        "avatar_2": { "type": "avatar" },
-        "avatar_3": { "type": "avatar" },
-        "photo_1": {
-          "type": "photo",
-          "settings": {
-            "side": "left",
-            "size": 220,
-            "rotate": -8,
-            "offset_top": -60
-          }
-        },
-        "photo_2": {
-          "type": "photo",
-          "settings": {
-            "side": "left",
-            "size": 150,
-            "rotate": 6,
-            "offset_top": 90,
-            "offset_left": -20
-          }
-        },
-        "photo_3": {
-          "type": "photo",
-          "settings": {
-            "side": "left",
-            "size": 150,
-            "rotate": -4,
-            "offset_top": 140,
-            "offset_left": 60
-          }
-        },
-        "photo_4": {
-          "type": "photo",
-          "settings": {
-            "side": "right",
-            "size": 180,
-            "rotate": 6,
-            "offset_top": -80
-          }
-        },
-        "photo_5": {
-          "type": "photo",
-          "settings": {
-            "side": "right",
-            "size": 200,
-            "rotate": -6,
-            "offset_top": 100
-          }
-        }
-      },
-      "block_order": [
-        "avatar_1",
-        "avatar_2",
-        "avatar_3",
-        "photo_1",
-        "photo_2",
-        "photo_3",
-        "photo_4",
-        "photo_5"
-      ],
-      "settings": {
-        "background_color": "#feeb94",
-        "border_color": "#2c2609",
-        "heading_highlight": "RISK-FREE",
-        "heading_rest": "BEAUTY REVOLUTION",
-        "description": "We believe in our balm because it actually works. If your skin isn't looking better in 30 days, we'll give you your money back — no drama, no hoops. Subscribe now and save 30% on your first order!",
-        "button_text": "Subscribe & Save 30% Today",
-        "benefit_1": "100% Guarantee",
-        "benefit_2": "Free Shipping within the US Only",
-        "benefit_3": "Free & Easy Returns"
+        "padding_top": 80,
+        "padding_bottom": 0
       }
     }
   },
@@ -644,8 +501,6 @@
     "custom_skincare_tabs_GDR3NH",
     "custom_how_it_works_8QrXwL",
     "custom_compare_r3FjHq",
-    "custom_cta",
-    "maison_cta_dynamic",
     "custom_reviews_CVy7MQ"
   ]
 }
