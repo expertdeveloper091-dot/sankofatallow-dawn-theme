@@ -1,138 +1,29 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "rb_product_main": {
       "type": "rb-main-product",
-      "settings": {
-        "show_vendor": true,
-        "show_save_badge": true,
-        "show_sold_count": true,
-        "sold_count": 12,
-        "sold_text": "sold in last 20 hours",
-        "show_reviews": true,
-        "show_reviews_placeholder": false
-      },
       "blocks": {
-        "delivery_box": {
-          "type": "delivery_box",
-          "settings": {
-            "show_row1": true,
-            "row1_text": "<p><strong>Estimate delivery time:</strong> Delivery within <strong>3–7 working days.</strong> You'll be updated along the way.</p>",
-            "show_row2": true,
-            "row2_text": "<p><strong>Cash on Delivery (COD) only.</strong> Please <strong>check your parcel before payment.</strong></p>",
-            "show_row3": true,
-            "row3_text": "<p><strong>Shipping charges:</strong> Flat <strong>Rs.199</strong> on all orders — <strong>FREE shipping above Rs.10,000.</strong></p>"
-          }
-        },
-        "live_visitors": {
-          "type": "live_visitors",
-          "settings": {
-            "min_count": 8,
-            "max_count": 40,
-            "suffix_text": "peoples are viewing this right now"
-          }
-        },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": {}
-        },
-        "ask_question": {
-          "type": "ask_question",
-          "settings": {
-            "link_text": "Ask a question",
-            "contact_type": "whatsapp",
-            "contact_value": ""
-          }
-        },
-        "stock_countdown": {
-          "type": "stock_countdown",
-          "settings": {
-            "use_real_inventory": true,
-            "low_stock_threshold": 10,
-            "prefix_text": "Hurry up! Only",
-            "display_qty": 1,
-            "suffix_text": "items left in stock",
-            "bar_percent": 8,
-            "sold_out_text": "This product is currently sold out"
-          }
-        },
-        "buy_buttons": {
+        "buy_buttons_YLbYzU": {
           "type": "buy_buttons",
           "settings": {
-            "atc_text": "Add to Cart",
-            "sold_out_text": "Sold Out",
-            "show_buy_now": true,
-            "buy_now_text": "Buy it now",
             "show_wishlist": true,
             "show_compare": true
-          }
-        },
-        "accordion_use": {
-          "type": "accordion",
-          "settings": {
-            "heading": "How to Use & Care",
-            "content_source": "custom",
-            "content": "<p>Apply a small amount to clean skin. Massage gently in circular motions until absorbed. For best results, use morning and night.</p>"
-          }
-        },
-        "accordion_desc": {
-          "type": "accordion",
-          "settings": {
-            "heading": "Description",
-            "content_source": "description"
-          }
-        },
-        "accordion_shipping": {
-          "type": "accordion",
-          "settings": {
-            "heading": "Shipping and Returns",
-            "content_source": "custom",
-            "content": "<p>Orders dispatched within 1–2 business days. Delivery in 3–7 working days across Pakistan. Free shipping on orders above Rs.10,000. Returns accepted within 7 days of delivery.</p>"
-          }
-        },
-        "product_meta": {
-          "type": "product_meta",
-          "settings": {
-            "show_sku": true,
-            "sku_label": "Sku",
-            "show_availability": true,
-            "avail_label": "Available",
-            "in_stock_label": "Instock",
-            "out_of_stock_label": "Out of Stock",
-            "show_collections": true,
-            "collections_label": "Collections",
-            "show_type": true,
-            "type_label": "Type"
-          }
-        },
-        "trust_badge": {
-          "type": "trust_badge",
-          "settings": {
-            "badge_text": "Guaranteed Safe Checkout"
-          }
-        },
-        "fake_orders": {
-          "type": "fake_orders",
-          "settings": {
-            "enable": true,
-            "show_delay": 3,
-            "cycle_interval": 10
           }
         }
       },
       "block_order": [
-        "delivery_box",
-        "live_visitors",
-        "variant_picker",
-        "ask_question",
-        "stock_countdown",
-        "buy_buttons",
-        "accordion_use",
-        "accordion_desc",
-        "accordion_shipping",
-        "product_meta",
-        "trust_badge",
-        "fake_orders"
-      ]
+        "buy_buttons_YLbYzU"
+      ],
+      "settings": {}
     }
   },
   "order": [
