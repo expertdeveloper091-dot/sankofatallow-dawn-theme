@@ -1,1007 +1,577 @@
 <!-- sections/custom-girdproduct.liquid -->
-<link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" media="print" onload="this.media='all'">
+{{ 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css' | stylesheet_tag }}
 
 {%- style -%}
-  .maison_commerce_product_cards_eg-{{ section.id }} {
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
-    background-color: {{ section.settings.bg_color | default: '#ffffff' }};
+  .custom-gridproduct-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | default: 60 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 60 }}px;
+    background-color: {{ section.settings.bg_color | default: '#FAF7EF' }};
   }
 
-  /* Rich Text Header */
-  .maison-grid-header {
-    text-align: center;
-    margin-bottom: 40px;
-    padding: 0 15px;
-  }
-  
-  .maison-grid-header__caption {
-    color: {{ section.settings.accent_color | default: '#ffa004' }};
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 24px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    letter-spacing: 0.05em;
-    font-family: var(--font-body-family), 'Poppins', sans-serif;
-  }
-  
-  @media (max-width: 768px) {
-    .maison-grid-header__caption {
-      font-size: 12px;
-    }
-  }
-  
-  .maison-grid-header__title {
-    font-family: var(--font-heading-family), 'Poppins', sans-serif;
-    font-size: 48px;
-    font-weight: 800;
-    line-height: 1.1;
-    margin: 0 0 20px 0;
-    color: {{ section.settings.border_color | default: '#2c2609' }};
-    text-transform: uppercase;
-  }
-  
-  @media (max-width: 768px) {
-    .maison-grid-header__title {
-      font-size: 32px;
-    }
-  }
-  
-  .maison-grid-header__text {
-    font-size: 16px;
-    line-height: 1.5;
-    max-width: 800px;
-    margin: 0 auto 30px auto;
-    color: {{ section.settings.text_color | default: '#555555' }};
-    font-family: var(--font-body-family), 'Poppins', sans-serif;
-  }
-  
-  .maison__inline-benefits {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  
-  .maison__inline-benefit {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  
-  .maison__inline-benefit svg {
-    width: 21px;
-    height: 20px;
-    display: block;
-  }
-  
-  .maison__inline-benefit-text {
-    font-size: 14px;
-    font-weight: 700;
-    color: {{ section.settings.border_color | default: '#2c2609' }};
-    font-family: var(--font-body-family), 'Poppins', sans-serif;
-  }
-
-  /* Grid Container */
-  .ml-grid-container {
+  .custom-gridproduct-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
     box-sizing: border-box;
   }
 
+  /* Header */
+  .custom-gridproduct-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .custom-gridproduct-subtitle {
+    color: {{ section.settings.subtitle_color | default: '#E63946' }};
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .custom-gridproduct-heading {
+    color: {{ section.settings.heading_color | default: '#111111' }};
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 900;
+    text-transform: uppercase;
+    margin: 0 0 14px 0;
+    line-height: 1.15;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .custom-gridproduct-desc {
+    color: {{ section.settings.text_color | default: '#333333' }};
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 750px;
+    margin: 0 auto 24px auto;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* Trust Badges */
+  .custom-gridproduct-trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .custom-gridproduct-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: {{ section.settings.heading_color | default: '#111111' }};
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .custom-gridproduct-trust-item svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
   /* Grid Layout */
-  .ml-grid {
+  .custom-gridproduct-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 30px;
   }
 
-  @media (max-width: 1200px) {
-    .ml-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
+  @media (max-width: 900px) {
+    .custom-gridproduct-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
     }
   }
 
-  @media (max-width: 992px) {
-    .ml-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
+  /* Card Container */
+  .c-prod-card {
+    border: 1.5px solid {{ section.settings.card_border_color | default: '#111111' }};
+    border-radius: 12px;
+    background-color: {{ section.settings.card_bg | default: '#FFFDF5' }};
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .c-prod-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  }
+
+  .c-prod-card-body {
+    padding: 24px;
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
   }
 
   @media (max-width: 576px) {
-    .ml-grid {
-      grid-template-columns: 1fr;
-      gap: 20px;
+    .c-prod-card-body {
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 18px;
     }
   }
 
-  /* Card Styles */
-  .ml-card {
-    border: 1.5px solid {{ section.settings.border_color | default: '#2C2609' }};
-    border-radius: 16px;
-    background-color: {{ section.settings.card_bg | default: '#ffffff' }};
-    padding: 24px;
+  /* Card Image */
+  .c-prod-card-img-wrap {
+    width: 42%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (max-width: 576px) {
+    .c-prod-card-img-wrap {
+      width: 100%;
+      max-width: 240px;
+    }
+  }
+
+  .c-prod-card-img-wrap img {
+    width: 100%;
+    height: auto;
+    max-height: 230px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .c-prod-card-content {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    box-sizing: border-box;
-    box-shadow: 0px 4px 0px 0px {{ section.settings.border_color | default: '#2C2609' }};
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    position: relative;
-    top: 0;
   }
 
-  .ml-card:hover {
-    transform: translateY(2px);
-    box-shadow: 0px 2px 0px 0px {{ section.settings.border_color | default: '#2C2609' }};
-  }
-
-  .ml-card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-    width: 100%;
-    box-sizing: border-box;
-    min-height: 28px;
-  }
-
-  .ml-badge-new {
-    background-color: {{ section.settings.accent_color | default: '#ffa004' }};
-    color: {{ section.settings.border_color | default: '#2c2609' }};
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 6px 12px;
-    border-radius: 20px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .ml-rating {
-    border: 1.5px solid #e2e2e2;
-    border-radius: 20px;
-    padding: 4px 12px;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 11px;
-    font-weight: 700;
-    color: {{ section.settings.border_color | default: '#2c2609' }};
-    background-color: #ffffff;
-  }
-
-  .ml-rating .sep {
-    color: #e2e2e2;
-    margin: 0 2px;
-  }
-
-  .ml-rating .count {
-    color: #666666;
-  }
-
-  .ml-image-wrap {
-    background-color: #f6f6f6;
-    border-radius: 12px;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    min-height: 220px;
-    width: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
-  }
-
-  .ml-image-link {
-    display: block;
-    width: 100%;
-    text-align: center;
-  }
-
-  .ml-img-primary {
-    max-width: 100%;
-    max-height: 180px;
-    height: auto;
-    object-fit: contain;
-    display: inline-block;
-    transition: transform 0.3s ease;
-  }
-
-  .ml-card:hover .ml-img-primary {
-    transform: scale(1.04);
-  }
-
-  .ml-title {
+  .c-prod-card-title {
     font-size: 20px;
-    font-weight: 800;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: {{ section.settings.heading_color | default: '#111111' }};
     margin: 0 0 10px 0;
-    color: {{ section.settings.border_color | default: '#2c2609' }};
-    line-height: 1.25;
-    font-family: var(--font-heading-family), inherit;
-    text-transform: none;
-    flex-grow: 0;
+    line-height: 1.2;
+    font-family: 'Poppins', sans-serif;
   }
 
-  .ml-title-link {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .ml-title-link:hover {
-    text-decoration: none;
-  }
-
-  .ml-desc {
-    font-size: 13px;
+  .c-prod-card-description {
+    font-size: 13.5px;
     line-height: 1.5;
-    color: #555555;
+    color: #444444;
+    margin-bottom: 14px;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .c-prod-card-description strong,
+  .c-prod-card-description b {
+    font-weight: 700;
+    color: #111111;
+  }
+
+  /* Feature Bullets */
+  .c-prod-card-features {
+    list-style: none;
+    padding: 0;
     margin: 0 0 16px 0;
-    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
-  .ml-desc strong {
-    color: {{ section.settings.border_color | default: '#2c2609' }};
-  }
-
-  .ml-price-wrap {
+  .c-prod-card-feature-item {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 16px;
-    flex-wrap: wrap;
-  }
-
-  .ml-price-current {
-    font-size: 22px;
-    font-weight: 900;
-    color: {{ section.settings.border_color | default: '#2c2609' }};
-  }
-
-  .ml-price-old {
-    font-size: 15px;
-    text-decoration: line-through;
-    color: #888888;
-  }
-
-  .ml-discount {
-    background-color: #000000;
-    color: {{ section.settings.active_tab_bg | default: '#fedb36' }};
-    font-size: 11px;
-    font-weight: 700;
-    padding: 4px 8px;
-    border-radius: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    display: inline-block;
-  }
-
-  .ml-variant-wrap {
-    margin-bottom: 16px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .ml-variant-select {
-    width: 100%;
-    height: 48px;
-    padding: 0 36px 0 16px;
-    border-radius: 8px;
-    border: 1.5px solid {{ section.settings.border_color | default: '#2C2609' }};
-    background-color: #ffffff;
-    font-size: 12px;
-    font-weight: 700;
-    color: {{ section.settings.border_color | default: '#2c2609' }};
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    cursor: pointer;
-    box-sizing: border-box;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%232C2609' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    background-size: 16px;
-  }
-
-  .ml-variant-select:focus {
-    outline: none;
-    border-color: {{ section.settings.accent_color | default: '#ffa004' }};
-  }
-
-  .ml-atc {
-    width: 100%;
-    height: 48px;
-    background-color: #000000;
-    color: #ffffff;
-    border: none;
-    border-radius: 999px;
     font-size: 13px;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    color: {{ section.settings.heading_color | default: '#111111' }};
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .c-prod-card-feature-icon {
+    width: 16px;
+    height: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 0 20px;
-    box-sizing: border-box;
+    color: currentColor;
+    flex-shrink: 0;
   }
 
-  .ml-atc:hover {
-    background-color: #222222;
+  .c-prod-card-price {
+    font-size: 18px;
+    font-weight: 800;
+    color: {{ section.settings.heading_color | default: '#111111' }};
+    margin-top: auto;
+    font-family: 'Poppins', sans-serif;
   }
 
-  .ml-atc:active {
-    transform: scale(0.98);
+  /* Card Bottom Action Bar */
+  .c-prod-card-actions {
+    display: flex;
+    border-top: 1.5px solid {{ section.settings.card_border_color | default: '#111111' }};
   }
 
-  .ml-preorder-notice {
-    font-size: 11px;
-    color: #f63208;
-    margin-top: 8px;
-    font-weight: 600;
-    line-height: 1.4;
+  .c-prod-btn-learn {
+    width: 50%;
+    background-color: #ffffff;
+    color: #111111;
+    border: none;
+    border-right: 1.5px solid {{ section.settings.card_border_color | default: '#111111' }};
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    padding: 14px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: background 0.2s;
+  }
+
+  .c-prod-btn-learn:hover {
+    background-color: #f2f2f2;
+    color: #000;
+  }
+
+  .c-prod-btn-cart {
+    width: 50%;
+    background-color: {{ section.settings.btn_cart_bg | default: '#F3AD12' }};
+    color: {{ section.settings.btn_cart_text_color | default: '#111111' }};
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    padding: 14px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: filter 0.2s;
+  }
+
+  .c-prod-btn-cart:hover {
+    filter: brightness(0.95);
   }
 {%- endstyle -%}
 
-{%- assign show_placeholders = true -%}
-{%- if section.settings.collection != blank -%}
-  {%- assign show_placeholders = false -%}
-{%- else -%}
-  {%- for block in section.blocks -%}
-    {%- if block.settings.product != blank -%}
-      {%- assign show_placeholders = false -%}
-      {%- break -%}
-    {%- endif -%}
-  {%- endfor -%}
-{%- endif -%}
+<div class="custom-gridproduct-{{ section.id }}">
+  <div class="custom-gridproduct-container">
 
-<div class="maison_commerce_product_cards_eg-{{ section.id }}">
-  <div class="ml-grid-container">
-    
-    <!-- Rich Text Header -->
-    <div class="maison-grid-header">
-      {%- if section.settings.caption != blank -%}
-        <p class="maison-grid-header__caption">{{ section.settings.caption }}</p>
+    <!-- Header Section -->
+    <div class="custom-gridproduct-header">
+      {%- if section.settings.subtitle != blank -%}
+        <div class="custom-gridproduct-subtitle">{{ section.settings.subtitle | escape }}</div>
       {%- endif -%}
-      {%- if section.settings.title != blank -%}
-        <h2 class="maison-grid-header__title">{{ section.settings.title }}</h2>
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="custom-gridproduct-heading">{{ section.settings.heading | escape }}</h2>
       {%- endif -%}
+
       {%- if section.settings.description != blank -%}
-        <div class="maison-grid-header__text">
-          {{ section.settings.description }}
+        <div class="custom-gridproduct-desc">{{ section.settings.description }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.show_trust_badges -%}
+        <div class="custom-gridproduct-trust">
+          {%- if section.settings.badge_1_text != blank -%}
+            <div class="custom-gridproduct-trust-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#F3AD12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span>{{ section.settings.badge_1_text | escape }}</span>
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.badge_2_text != blank -%}
+            <div class="custom-gridproduct-trust-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#F3AD12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span>{{ section.settings.badge_2_text | escape }}</span>
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.badge_3_text != blank -%}
+            <div class="custom-gridproduct-trust-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#F3AD12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span>{{ section.settings.badge_3_text | escape }}</span>
+            </div>
+          {%- endif -%}
         </div>
       {%- endif -%}
-      
-      <!-- Top Benefits Inline List -->
-      <div class="maison__inline-benefits">
-        {%- if section.settings.benefit_1 != blank -%}
-          <div class="maison__inline-benefit">
-            <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g>
-                <path d="M10.5006 19.2857C15.629 19.2857 19.7863 15.1284 19.7863 10C19.7863 4.87165 15.629 0.714294 10.5006 0.714294C5.3722 0.714294 1.21484 4.87165 1.21484 10C1.21484 15.1284 5.3722 19.2857 10.5006 19.2857Z" fill="#fedb36"></path>
-                <path d="M10.5006 19.2857C15.629 19.2857 19.7863 15.1284 19.7863 10C19.7863 4.87165 15.629 0.714294 10.5006 0.714294C5.3722 0.714294 1.21484 4.87165 1.21484 10C1.21484 15.1284 5.3722 19.2857 10.5006 19.2857Z" stroke="#2c2609" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-                <path d="M14.6671 6.78574L8.95285 13.9286L6.0957 11.7857" stroke="#2c2609" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-              </g>
-            </svg>
-            <span class="maison__inline-benefit-text"><strong>{{ section.settings.benefit_1 }}</strong></span>
-          </div>
-        {%- endif -%}
-
-        {%- if section.settings.benefit_2 != blank -%}
-          <div class="maison__inline-benefit">
-            <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g>
-                <path d="M10.5006 19.2857C15.629 19.2857 19.7863 15.1284 19.7863 10C19.7863 4.87165 15.629 0.714294 10.5006 0.714294C5.3722 0.714294 1.21484 4.87165 1.21484 10C1.21484 15.1284 5.3722 19.2857 10.5006 19.2857Z" fill="#fedb36"></path>
-                <path d="M10.5006 19.2857C15.629 19.2857 19.7863 15.1284 19.7863 10C19.7863 4.87165 15.629 0.714294 10.5006 0.714294C5.3722 0.714294 1.21484 4.87165 1.21484 10C1.21484 15.1284 5.3722 19.2857 10.5006 19.2857Z" stroke="#2c2609" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-                <path d="M14.6671 6.78574L8.95285 13.9286L6.0957 11.7857" stroke="#2c2609" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-              </g>
-            </svg>
-            <span class="maison__inline-benefit-text"><strong>{{ section.settings.benefit_2 }}</strong></span>
-          </div>
-        {%- endif -%}
-
-        {%- if section.settings.benefit_3 != blank -%}
-          <div class="maison__inline-benefit">
-            <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g>
-                <path d="M10.5006 19.2857C15.629 19.2857 19.7863 15.1284 19.7863 10C19.7863 4.87165 15.629 0.714294 10.5006 0.714294C5.3722 0.714294 1.21484 4.87165 1.21484 10C1.21484 15.1284 5.3722 19.2857 10.5006 19.2857Z" fill="#fedb36"></path>
-                <path d="M10.5006 19.2857C15.629 19.2857 19.7863 15.1284 19.7863 10C19.7863 4.87165 15.629 0.714294 10.5006 0.714294C5.3722 0.714294 1.21484 4.87165 1.21484 10C1.21484 15.1284 5.3722 19.2857 10.5006 19.2857Z" stroke="#2c2609" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-                <path d="M14.6671 6.78574L8.95285 13.9286L6.0957 11.7857" stroke="#2c2609" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-              </g>
-            </svg>
-            <span class="maison__inline-benefit-text"><strong>{{ section.settings.benefit_3 }}</strong></span>
-          </div>
-        {%- endif -%}
-      </div>
     </div>
 
-    <!-- Products Cards Grid -->
-    <div class="ml-grid">
-      {%- if show_placeholders -%}
-        
-        {%- comment -%} ==========================================
-           RENDER STATIC PLACEHOLDER MOCKUPS (Works out-of-the-box)
-           ========================================== {%- endcomment -%}
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'product_card' -%}
-            {%- assign has_card_image = false -%}
-            {%- assign card_image_url = "" -%}
-            {%- if block.settings.image != blank -%}
-              {%- assign card_image_url = block.settings.image | image_url: width: 400 -%}
-              {%- assign has_card_image = true -%}
-            {%- elsif block.settings.image_fallback != blank -%}
-              {%- assign card_image_url = block.settings.image_fallback -%}
-              {%- assign has_card_image = true -%}
-            {%- endif -%}
+    <!-- Product Grid -->
+    <div class="custom-gridproduct-grid">
+      {%- for block in section.blocks -%}
+        {%- assign card_prod = block.settings.product -%}
 
-            <article class="ml-card" itemscope="" itemtype="http://schema.org/Product" {{ block.shopify_attributes }}>
-              <!-- Top bar with badges -->
-              <div class="ml-card-top">
-                {%- assign badge = block.settings.badge_text | default: "Best Seller" -%}
-                {%- if badge != blank -%}
-                  <div class="ml-badge-new">{{ badge }}</div>
-                {%- endif -%}
-                
-                {%- assign rat_val = block.settings.rating_value | default: "4.5" -%}
-                {%- assign rev_cnt = block.settings.review_count | default: "28" -%}
-                <div class="ml-rating">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFA004" style="display:inline-block; vertical-align:middle; margin-right:2px;">
-                    <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z"/>
-                  </svg>
-                  <span>{{ rat_val }}</span>
-                  <span class="sep">|</span>
-                  <span class="count">{{ rev_cnt }}</span>
-                  <span style="font-size: 11px; margin-left: 2px;">Reviews</span>
-                </div>
-              </div>
-              
-              <!-- Image -->
-              <div class="ml-image-wrap">
-                {%- if has_card_image -%}
-                  <a href="{{ block.settings.learn_more_url | default: '#' }}" class="ml-image-link" aria-label="{{ block.settings.title | escape }}">
-                    <img class="ml-img-primary" itemprop="image" src="{{ card_image_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="300">
-                  </a>
-                {%- else -%}
-                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                {%- endif -%}
-              </div>
-              
-              <!-- Title -->
-              <h3 class="ml-title" itemprop="name">
-                <a href="{{ block.settings.learn_more_url | default: '#' }}" class="ml-title-link">{{ block.settings.title }}</a>
-              </h3>
-              
-              <!-- Description -->
-              {%- if block.settings.description != blank -%}
-                <div class="ml-desc">{{ block.settings.description }}</div>
-              {%- endif -%}
-              
-              <!-- Price wrap -->
-              <div class="ml-price-wrap">
-                <span class="ml-price-current">{{ block.settings.price }}</span>
-                {%- if block.settings.compare_price != blank -%}
-                  <span class="ml-price-old">{{ block.settings.compare_price }}</span>
-                  {%- assign v_discount = "" -%}
-                  {%- assign p_val = block.settings.price | replace: "$", "" | replace: "£", "" | replace: "€", "" | plus: 0.0 -%}
-                  {%- assign c_val = block.settings.compare_price | replace: "$", "" | replace: "£", "" | replace: "€", "" | plus: 0.0 -%}
-                  {%- if c_val > p_val -%}
-                    {%- assign diff = c_val | minus: p_val -%}
-                    {%- assign pct = diff | times: 100.0 | divided_by: c_val | round -%}
-                    {%- assign v_discount = pct | append: "% OFF" -%}
-                  {%- endif -%}
-                  {%- if v_discount != blank -%}
-                    <span class="ml-discount">{{ v_discount }}</span>
-                  {%- endif -%}
-                {%- else -%}
-                  <span class="ml-price-old" style="display: none;"></span>
-                  <span class="ml-discount" style="display: none;"></span>
-                {%- endif -%}
-              </div>
-              
-              <!-- Form -->
-              <form method="post" action="/cart/add" class="form" enctype="multipart/form-data">
-                <input type="hidden" name="quantity" value="1">
-                
-                <!-- Variant select -->
-                {%- if block.settings.show_variants -%}
-                  <div class="ml-variant-wrap">
-                    <select name="id" class="ml-variant-select">
-                      {%- if block.settings.variant_1_name != blank -%}
-                        {%- assign v_discount = "" -%}
-                        {%- if block.settings.variant_1_compare != blank and block.settings.variant_1_price != blank -%}
-                          {%- assign p_val = block.settings.variant_1_price | replace: "$", "" | replace: "£", "" | replace: "€", "" | plus: 0.0 -%}
-                          {%- assign c_val = block.settings.variant_1_compare | replace: "$", "" | replace: "£", "" | replace: "€", "" | plus: 0.0 -%}
-                          {%- if c_val > p_val -%}
-                            {%- assign diff = c_val | minus: p_val -%}
-                            {%- assign pct = diff | times: 100.0 | divided_by: c_val | round -%}
-                            {%- assign v_discount = pct | append: "% OFF" -%}
-                          {%- endif -%}
-                        {%- endif -%}
-                        <option value="{{ block.settings.variant_1_id }}" 
-                          data-price="{{ block.settings.variant_1_price }}" 
-                          data-compare="{{ block.settings.variant_1_compare }}" 
-                          data-discount="{{ v_discount }}"
-                          selected="selected">
-                          {{ block.settings.variant_1_name | uppercase }}
-                        </option>
-                      {%- endif -%}
-                      {%- if block.settings.variant_2_name != blank -%}
-                        {%- assign v_discount = "" -%}
-                        {%- if block.settings.variant_2_compare != blank and block.settings.variant_2_price != blank -%}
-                          {%- assign p_val = block.settings.variant_2_price | replace: "$", "" | replace: "£", "" | replace: "€", "" | plus: 0.0 -%}
-                          {%- assign c_val = block.settings.variant_2_compare | replace: "$", "" | replace: "£", "" | replace: "€", "" | plus: 0.0 -%}
-                          {%- if c_val > p_val -%}
-                            {%- assign diff = c_val | minus: p_val -%}
-                            {%- assign pct = diff | times: 100.0 | divided_by: c_val | round -%}
-                            {%- assign v_discount = pct | append: "% OFF" -%}
-                          {%- endif -%}
-                        {%- endif -%}
-                        <option value="{{ block.settings.variant_2_id }}" 
-                          data-price="{{ block.settings.variant_2_price }}" 
-                          data-compare="{{ block.settings.variant_2_compare }}" 
-                          data-discount="{{ v_discount }}">
-                          {{ block.settings.variant_2_name | uppercase }}
-                        </option>
-                      {%- endif -%}
-                      {%- if block.settings.variant_3_name != blank -%}
-                        {%- assign v_discount = "" -%}
-                        {%- if block.settings.variant_3_compare != blank and block.settings.variant_3_price != blank -%}
-                          {%- assign p_val = block.settings.variant_3_price | replace: "$", "" | replace: "£", "" | replace: "€", "" | plus: 0.0 -%}
-                          {%- assign c_val = block.settings.variant_3_compare | replace: "$", "" | replace: "£", "" | replace: "€", "" | plus: 0.0 -%}
-                          {%- if c_val > p_val -%}
-                            {%- assign diff = c_val | minus: p_val -%}
-                            {%- assign pct = diff | times: 100.0 | divided_by: c_val | round -%}
-                            {%- assign v_discount = pct | append: "% OFF" -%}
-                          {%- endif -%}
-                        {%- endif -%}
-                        <option value="{{ block.settings.variant_3_id }}" 
-                          data-price="{{ block.settings.variant_3_price }}" 
-                          data-compare="{{ block.settings.variant_3_compare }}" 
-                          data-discount="{{ v_discount }}">
-                          {{ block.settings.variant_3_name | uppercase }}
-                        </option>
-                      {%- endif -%}
-                      {%- if block.settings.variant_4_name != blank -%}
-                        {%- assign v_discount = "" -%}
-                        {%- if block.settings.variant_4_compare != blank and block.settings.variant_4_price != blank -%}
-                          {%- assign p_val = block.settings.variant_4_price | replace: "$", "" | replace: "£", "" | replace: "€", "" | plus: 0.0 -%}
-                          {%- assign c_val = block.settings.variant_4_compare | replace: "$", "" | replace: "£", "" | replace: "€", "" | plus: 0.0 -%}
-                          {%- if c_val > p_val -%}
-                            {%- assign diff = c_val | minus: p_val -%}
-                            {%- assign pct = diff | times: 100.0 | divided_by: c_val | round -%}
-                            {%- assign v_discount = pct | append: "% OFF" -%}
-                          {%- endif -%}
-                        {%- endif -%}
-                        <option value="{{ block.settings.variant_4_id }}" 
-                          data-price="{{ block.settings.variant_4_price }}" 
-                          data-compare="{{ block.settings.variant_4_compare }}" 
-                          data-discount="{{ v_discount }}">
-                          {{ block.settings.variant_4_name | uppercase }}
-                        </option>
-                      {%- endif -%}
-                    </select>
-                  </div>
-                {%- else -%}
-                  <input type="hidden" name="id" value="{{ block.settings.variant_id }}">
-                {%- endif -%}
-                
-                <button type="submit" class="ml-atc">{{ block.settings.button_text | default: 'Add to Cart' }}</button>
-              </form>
-              
-              {%- if block.settings.pre_order_notice != blank -%}
-                <div class="ml-preorder-notice">{{ block.settings.pre_order_notice }}</div>
-              {%- endif -%}
-            </article>
-          {%- endif -%}
-        {%- endfor -%}
-
-      {%- else -%}
-        
-        {%- comment -%} ==========================================
-           RENDER DYNAMICALLY SELECTED COLLECTION PRODUCTS / BLOCKS
-           ========================================== {%- endcomment -%}
-        
-        {%- assign dynamic_products = "" -%}
-        {%- if section.settings.collection != blank -%}
-          {%- assign dynamic_products = section.settings.collection.products -%}
-        {%- endif -%}
-
-        {%- if dynamic_products != blank -%}
-          {%- for product in dynamic_products -%}
+        <div class="c-prod-card" {{ block.shopify_attributes }}>
+          <div class="c-prod-card-body">
             
-            {%- comment -%} Check if there is an override block config for this product {%- endcomment -%}
-            {%- assign override_block = blank -%}
-            {%- for b in section.blocks -%}
-              {%- if b.type == 'product_card' and b.settings.product.handle == product.handle -%}
-                {%- assign override_block = b -%}
-                {%- break -%}
+            <!-- Image -->
+            <div class="c-prod-card-img-wrap">
+              {%- if block.settings.image != blank -%}
+                <img src="{{ block.settings.image | image_url: width: 600 }}"
+                     alt="{{ block.settings.title | default: card_prod.title | escape }}"
+                     loading="lazy">
+              {%- elsif card_prod != blank and card_prod.featured_media != blank -%}
+                <img src="{{ card_prod.featured_media | image_url: width: 600 }}"
+                     alt="{{ card_prod.title | escape }}"
+                     loading="lazy">
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
               {%- endif -%}
-            {%- endfor -%}
+            </div>
 
-            {%- assign product_title = product.title -%}
-            {%- if override_block != blank and override_block.settings.title != blank -%}
-              {%- assign product_title = override_block.settings.title -%}
-            {%- endif -%}
-
-            {%- assign product_desc = product.description | truncatewords: 30 -%}
-            {%- if override_block != blank and override_block.settings.description != blank -%}
-              {%- assign product_desc = override_block.settings.description -%}
-            {%- endif -%}
-
-            {%- assign button_label = override_block.settings.button_text | default: "Add To Cart" -%}
-            {%- assign pre_notice = override_block.settings.pre_order_notice -%}
-
-            <article class="ml-card" itemscope="" itemtype="http://schema.org/Product">
-              <!-- Top bar with badges -->
-              <div class="ml-card-top">
-                {%- assign badge = "Best Seller" -%}
-                {%- if override_block != blank and override_block.settings.badge_text != blank -%}
-                  {%- assign badge = override_block.settings.badge_text -%}
-                {%- endif -%}
-                {%- if badge != blank -%}
-                  <div class="ml-badge-new">{{ badge }}</div>
-                {%- endif -%}
-                
-                {%- assign rat_val = "4.9" -%}
-                {%- if override_block != blank and override_block.settings.rating_value != blank -%}
-                  {%- assign rat_val = override_block.settings.rating_value -%}
-                {%- endif -%}
-                {%- assign rev_cnt = "12" -%}
-                {%- if override_block != blank and override_block.settings.review_count != blank -%}
-                  {%- assign rev_cnt = override_block.settings.review_count -%}
-                {%- endif -%}
-                <div class="ml-rating">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFA004" style="display:inline-block; vertical-align:middle; margin-right:2px;">
-                    <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z"/>
-                  </svg>
-                  <span>{{ rat_val }}</span>
-                  <span class="sep">|</span>
-                  <span class="count">{{ rev_cnt }}</span>
-                  <span style="font-size: 11px; margin-left: 2px;">Reviews</span>
-                </div>
-              </div>
-              
-              <!-- Image -->
-              <div class="ml-image-wrap">
-                {%- if product.featured_image != blank -%}
-                  <a href="{{ product.url }}" class="ml-image-link" aria-label="{{ product_title | escape }}">
-                    <img class="ml-img-primary" itemprop="image" src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product_title | escape }}" loading="lazy" width="300">
-                  </a>
-                {%- else -%}
-                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                {%- endif -%}
-              </div>
-              
-              <!-- Title -->
-              <h3 class="ml-title" itemprop="name">
-                <a href="{{ product.url }}" class="ml-title-link">{{ product_title }}</a>
+            <!-- Content -->
+            <div class="c-prod-card-content">
+              <h3 class="c-prod-card-title">
+                {{ block.settings.title | default: card_prod.title | default: 'Product Title' | escape }}
               </h3>
-              
-              <!-- Description -->
-              {%- if product_desc != blank -%}
-                <div class="ml-desc">{{ product_desc }}</div>
-              {%- endif -%}
-              
-              <!-- Price wrap -->
-              <div class="ml-price-wrap">
-                <span class="ml-price-current">{{ product.price | money }}</span>
-                {%- if product.compare_at_price > product.price -%}
-                  <span class="ml-price-old">{{ product.compare_at_price | money }}</span>
-                  {%- assign diff = product.compare_at_price | minus: product.price -%}
-                  {%- assign pct = diff | times: 100.0 | divided_by: product.compare_at_price | round -%}
-                  <span class="ml-discount">{{ pct }}% OFF</span>
+
+              <div class="c-prod-card-description">
+                {%- if block.settings.description != blank -%}
+                  {{ block.settings.description }}
+                {%- elsif card_prod != blank and card_prod.description != blank -%}
+                  {{ card_prod.description | strip_html | truncatewords: 22 }}
                 {%- else -%}
-                  <span class="ml-price-old" style="display: none;"></span>
-                  <span class="ml-discount" style="display: none;"></span>
+                  Organic multipurpose balm that <strong>deeply moisturizes</strong> and nourishes skin.
                 {%- endif -%}
               </div>
-              
-              <!-- Form -->
-              <form method="post" action="/cart/add" class="form" enctype="multipart/form-data">
-                <input type="hidden" name="quantity" value="1">
-                
-                <!-- Variant select -->
-                {%- if product.variants.size > 0 -%}
-                  <div class="ml-variant-wrap">
-                    <select name="id" class="ml-variant-select">
-                      {%- for variant in product.variants -%}
-                        {%- assign var_discount = "" -%}
-                        {%- if variant.compare_at_price > variant.price -%}
-                          {%- assign diff = variant.compare_at_price | minus: variant.price -%}
-                          {%- assign pct = diff | times: 100.0 | divided_by: variant.compare_at_price | round -%}
-                          {%- assign var_discount = pct | append: "% OFF" -%}
-                        {%- endif -%}
-                        <option value="{{ variant.id }}" 
-                          data-price="{{ variant.price | money }}" 
-                          data-compare="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money }}{% endif %}"
-                          data-discount="{{ var_discount }}"
-                          {% if variant.id == product.selected_or_first_available_variant.id %}selected="selected"{% endif %}>
-                          {{ variant.title | uppercase }}
-                        </option>
-                      {%- endfor -%}
-                    </select>
-                  </div>
+
+              <ul class="c-prod-card-features">
+                {%- if block.settings.feature_1 != blank -%}
+                  <li class="c-prod-card-feature-item">
+                    <span class="c-prod-card-feature-icon">
+                      {%- if block.settings.feature_1_icon == 'star' -%}
+                        <i class="fa-regular fa-star"></i>
+                      {%- elsif block.settings.feature_1_icon == 'leaf' -%}
+                        <i class="fa-solid fa-leaf"></i>
+                      {%- elsif block.settings.feature_1_icon == 'shield' -%}
+                        <i class="fa-solid fa-shield-halved"></i>
+                      {%- else -%}
+                        <i class="fa-solid fa-check"></i>
+                      {%- endif -%}
+                    </span>
+                    <span>{{ block.settings.feature_1 | escape }}</span>
+                  </li>
+                {%- endif -%}
+
+                {%- if block.settings.feature_2 != blank -%}
+                  <li class="c-prod-card-feature-item">
+                    <span class="c-prod-card-feature-icon">
+                      {%- if block.settings.feature_2_icon == 'star' -%}
+                        <i class="fa-regular fa-star"></i>
+                      {%- elsif block.settings.feature_2_icon == 'leaf' -%}
+                        <i class="fa-solid fa-leaf"></i>
+                      {%- elsif block.settings.feature_2_icon == 'shield' -%}
+                        <i class="fa-solid fa-shield-halved"></i>
+                      {%- else -%}
+                        <i class="fa-solid fa-check"></i>
+                      {%- endif -%}
+                    </span>
+                    <span>{{ block.settings.feature_2 | escape }}</span>
+                  </li>
+                {%- endif -%}
+
+                {%- if block.settings.feature_3 != blank -%}
+                  <li class="c-prod-card-feature-item">
+                    <span class="c-prod-card-feature-icon">
+                      {%- if block.settings.feature_3_icon == 'star' -%}
+                        <i class="fa-regular fa-star"></i>
+                      {%- elsif block.settings.feature_3_icon == 'leaf' -%}
+                        <i class="fa-solid fa-leaf"></i>
+                      {%- elsif block.settings.feature_3_icon == 'shield' -%}
+                        <i class="fa-solid fa-shield-halved"></i>
+                      {%- else -%}
+                        <i class="fa-solid fa-check"></i>
+                      {%- endif -%}
+                    </span>
+                    <span>{{ block.settings.feature_3 | escape }}</span>
+                  </li>
+                {%- endif -%}
+              </ul>
+
+              <div class="c-prod-card-price">
+                {%- if block.settings.price != blank -%}
+                  {{ block.settings.price }}
+                {%- elsif card_prod != blank -%}
+                  {{ card_prod.price | money }}
                 {%- else -%}
-                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  $49.99
                 {%- endif -%}
-                
-                <button type="submit" class="ml-atc">{{ button_label }}</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Actions Bar -->
+          <div class="c-prod-card-actions">
+            {%- assign learn_url = block.settings.learn_more_link | default: card_prod.url | default: '#' -%}
+            <a href="{{ learn_url }}" class="c-prod-btn-learn">
+              <span>{{ block.settings.learn_more_text | default: 'Learn More' | escape }}</span>
+              <span>&rarr;</span>
+            </a>
+
+            {%- if card_prod != blank and card_prod.available -%}
+              <form method="post" action="/cart/add" style="width: 50%; display: flex;">
+                <input type="hidden" name="id" value="{{ card_prod.selected_or_first_available_variant.id }}">
+                <button type="submit" class="c-prod-btn-cart" style="width: 100%;">
+                  <span>{{ block.settings.button_text | default: 'Add To Cart' | escape }}</span>
+                  <i class="fa-solid fa-cart-shopping"></i>
+                </button>
               </form>
-              
-              {%- if pre_notice != blank -%}
-                <div class="ml-preorder-notice">{{ pre_notice }}</div>
-              {%- endif -%}
-            </article>
-
-          {%- endfor -%}
-        {%- else -%}
-          
-          {%- comment -%} ==========================================
-             RENDER DYNAMICALLY ADDED INDIVIDUAL PRODUCT BLOCKS
-             ========================================== {%- endcomment -%}
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'product_card' and block.settings.product != blank -%}
-              {%- assign product = block.settings.product -%}
-
-              {%- assign product_title = product.title -%}
-              {%- if block.settings.title != blank -%}
-                {%- assign product_title = block.settings.title -%}
-              {%- endif -%}
-
-              {%- assign product_desc = product.description | truncatewords: 30 -%}
-              {%- if block.settings.description != blank -%}
-                {%- assign product_desc = block.settings.description -%}
-              {%- endif -%}
-
-              {%- assign button_label = block.settings.button_text | default: "Add To Cart" -%}
-              {%- assign pre_notice = block.settings.pre_order_notice -%}
-
-              <article class="ml-card" itemscope="" itemtype="http://schema.org/Product" {{ block.shopify_attributes }}>
-                <!-- Top bar with badges -->
-                <div class="ml-card-top">
-                  {%- assign badge = block.settings.badge_text | default: "Best Seller" -%}
-                  {%- if badge != blank -%}
-                    <div class="ml-badge-new">{{ badge }}</div>
-                  {%- endif -%}
-                  
-                  {%- assign rat_val = block.settings.rating_value | default: "4.9" -%}
-                  {%- assign rev_cnt = block.settings.review_count | default: "12" -%}
-                  <div class="ml-rating">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFA004" style="display:inline-block; vertical-align:middle; margin-right:2px;">
-                      <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z"/>
-                    </svg>
-                    <span>{{ rat_val }}</span>
-                    <span class="sep">|</span>
-                    <span class="count">{{ rev_cnt }}</span>
-                    <span style="font-size: 11px; margin-left: 2px;">Reviews</span>
-                  </div>
-                </div>
-                
-                <!-- Image -->
-                <div class="ml-image-wrap">
-                  {%- if product.featured_image != blank -%}
-                    <a href="{{ product.url }}" class="ml-image-link" aria-label="{{ product_title | escape }}">
-                      <img class="ml-img-primary" itemprop="image" src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product_title | escape }}" loading="lazy" width="300">
-                    </a>
-                  {%- else -%}
-                    {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                  {%- endif -%}
-                </div>
-                
-                <!-- Title -->
-                <h3 class="ml-title" itemprop="name">
-                  <a href="{{ product.url }}" class="ml-title-link">{{ product_title }}</a>
-                </h3>
-                
-                <!-- Description -->
-                {%- if product_desc != blank -%}
-                  <div class="ml-desc">{{ product_desc }}</div>
-                {%- endif -%}
-                
-                <!-- Price wrap -->
-                <div class="ml-price-wrap">
-                  <span class="ml-price-current">{{ product.price | money }}</span>
-                  {%- if product.compare_at_price > product.price -%}
-                    <span class="ml-price-old">{{ product.compare_at_price | money }}</span>
-                    {%- assign diff = product.compare_at_price | minus: product.price -%}
-                    {%- assign pct = diff | times: 100.0 | divided_by: product.compare_at_price | round -%}
-                    <span class="ml-discount">{{ pct }}% OFF</span>
-                  {%- else -%}
-                    <span class="ml-price-old" style="display: none;"></span>
-                    <span class="ml-discount" style="display: none;"></span>
-                  {%- endif -%}
-                </div>
-                
-                <!-- Form -->
-                <form method="post" action="/cart/add" class="form" enctype="multipart/form-data">
-                  <input type="hidden" name="quantity" value="1">
-                  
-                  <!-- Variant select -->
-                  {%- if product.variants.size > 0 -%}
-                    <div class="ml-variant-wrap">
-                      <select name="id" class="ml-variant-select">
-                        {%- for variant in product.variants -%}
-                          {%- assign var_discount = "" -%}
-                          {%- if variant.compare_at_price > variant.price -%}
-                            {%- assign diff = variant.compare_at_price | minus: variant.price -%}
-                            {%- assign pct = diff | times: 100.0 | divided_by: variant.compare_at_price | round -%}
-                            {%- assign var_discount = pct | append: "% OFF" -%}
-                          {%- endif -%}
-                          <option value="{{ variant.id }}" 
-                            data-price="{{ variant.price | money }}" 
-                            data-compare="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money }}{% endif %}"
-                            data-discount="{{ var_discount }}"
-                            {% if variant.id == product.selected_or_first_available_variant.id %}selected="selected"{% endif %}>
-                            {{ variant.title | uppercase }}
-                          </option>
-                        {%- endfor -%}
-                      </select>
-                    </div>
-                  {%- else -%}
-                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                  {%- endif -%}
-                  
-                  <button type="submit" class="ml-atc">{{ button_label }}</button>
-                </form>
-                
-                {%- if pre_notice != blank -%}
-                  <div class="ml-preorder-notice">{{ pre_notice }}</div>
-                {%- endif -%}
-              </article>
+            {%- else -%}
+              <a href="{{ learn_url }}" class="c-prod-btn-cart">
+                <span>{{ block.settings.button_text | default: 'Add To Cart' | escape }}</span>
+                <i class="fa-solid fa-cart-shopping"></i>
+              </a>
             {%- endif -%}
-          {%- endfor -%}
-        {%- endif -%}
-
-      {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
     </div>
+
   </div>
 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const selectElements = document.querySelectorAll('.ml-variant-select');
-    selectElements.forEach(select => {
-      select.addEventListener('change', function() {
-        const selectedOption = this.options[this.selectedIndex];
-        const price = selectedOption.getAttribute('data-price');
-        const comparePrice = selectedOption.getAttribute('data-compare');
-        const discount = selectedOption.getAttribute('data-discount');
-        
-        const card = this.closest('.ml-card');
-        if (!card) return;
-        
-        // Update current price
-        const currentPriceEl = card.querySelector('.ml-price-current');
-        if (currentPriceEl) currentPriceEl.textContent = price;
-        
-        // Update compare-at price
-        const oldPriceEl = card.querySelector('.ml-price-old');
-        if (oldPriceEl) {
-          if (comparePrice && comparePrice !== '') {
-            oldPriceEl.textContent = comparePrice;
-            oldPriceEl.style.display = '';
-          } else {
-            oldPriceEl.style.display = 'none';
-          }
-        }
-        
-        // Update discount badge
-        const discountEl = card.querySelector('.ml-discount');
-        if (discountEl) {
-          if (discount && discount !== '') {
-            discountEl.textContent = discount;
-            discountEl.style.display = '';
-          } else {
-            discountEl.style.display = 'none';
-          }
-        }
-      });
-    });
-  });
-</script>
-
 {% schema %}
 {
-  "name": "Maison Product Columns",
+  "name": "Custom Product Grid",
   "settings": [
     {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
       "type": "text",
-      "id": "caption",
-      "label": "Caption",
+      "id": "subtitle",
+      "label": "Subtitle",
       "default": "MEET THE WHIPPED TALLOW HONEY BALM"
     },
     {
       "type": "text",
-      "id": "title",
-      "label": "Heading",
-      "default": "No fluff - Just results!"
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "NO FLUFF - JUST RESULTS!"
     },
     {
       "type": "textarea",
       "id": "description",
-      "label": "Description",
+      "label": "Section Description",
       "default": "Choose the balm that fits your needs — each formula is packed with healing fats, soothing botanicals, and zero BS. Built for glow-ups, not gimmicks."
     },
     {
+      "type": "checkbox",
+      "id": "show_trust_badges",
+      "label": "Show Trust Badges",
+      "default": true
+    },
+    {
       "type": "text",
-      "id": "benefit_1",
-      "label": "Header Benefit 1",
+      "id": "badge_1_text",
+      "label": "Badge 1 Text",
       "default": "Made in USA"
     },
     {
       "type": "text",
-      "id": "benefit_2",
-      "label": "Header Benefit 2",
+      "id": "badge_2_text",
+      "label": "Badge 2 Text",
       "default": "100% Natural Ingredients"
     },
     {
       "type": "text",
-      "id": "benefit_3",
-      "label": "Header Benefit 3",
+      "id": "badge_3_text",
+      "label": "Badge 3 Text",
       "default": "30-Day Money-Back Guarantee"
     },
     {
-      "type": "collection",
-      "id": "collection",
-      "label": "Select Collection",
-      "info": "Optionally load all products dynamically from a Shopify Collection. Overrides individual product block selections below."
+      "type": "header",
+      "content": "Colors & Styling"
     },
     {
       "type": "color",
       "id": "bg_color",
-      "label": "Background Color",
-      "default": "#ffffff"
+      "label": "Section Background",
+      "default": "#FAF7EF"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle Color",
+      "default": "#E63946"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Description Text Color",
+      "default": "#333333"
     },
     {
       "type": "color",
       "id": "card_bg",
-      "label": "Card Background Color",
-      "default": "#ffffff"
+      "label": "Card Background",
+      "default": "#FFFDF5"
     },
     {
       "type": "color",
-      "id": "border_color",
-      "label": "Borders & Shadows Color",
-      "default": "#2c2609"
+      "id": "card_border_color",
+      "label": "Card Border Color",
+      "default": "#111111"
     },
     {
       "type": "color",
-      "id": "accent_color",
-      "label": "Accent Badge Color",
-      "default": "#ffa004"
+      "id": "btn_cart_bg",
+      "label": "Add to Cart Button Background",
+      "default": "#F3AD12"
+    },
+    {
+      "type": "color",
+      "id": "btn_cart_text_color",
+      "label": "Add to Cart Button Text Color",
+      "default": "#111111"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
     },
     {
       "type": "range",
       "id": "padding_top",
       "min": 0,
-      "max": 100,
+      "max": 120,
       "step": 4,
       "unit": "px",
-      "label": "Top Padding",
-      "default": 36
+      "label": "Padding Top",
+      "default": 60
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
-      "max": 100,
+      "max": 120,
       "step": 4,
       "unit": "px",
-      "label": "Bottom Padding",
-      "default": 36
+      "label": "Padding Bottom",
+      "default": 60
     }
   ],
   "blocks": [
@@ -1012,309 +582,143 @@
         {
           "type": "product",
           "id": "product",
-          "label": "Select Shopify Product"
-        },
-        {
-          "type": "text",
-          "id": "badge_text",
-          "label": "Badge Text",
-          "default": "Best Seller"
-        },
-        {
-          "type": "text",
-          "id": "rating_value",
-          "label": "Rating Value (e.g. 4.5)",
-          "default": "4.5"
-        },
-        {
-          "type": "text",
-          "id": "review_count",
-          "label": "Review Count (e.g. 28)",
-          "default": "28"
+          "label": "Select Product"
         },
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Mockup Image Override",
-          "info": "Only used for default mockup templates. Live products use their featured image automatically."
-        },
-        {
-          "type": "text",
-          "id": "image_fallback",
-          "label": "Product Image Fallback URL",
-          "info": "Only used for default mockup templates."
+          "label": "Custom Image (Overrides product image)"
         },
         {
           "type": "text",
           "id": "title",
-          "label": "Product Title / Override"
+          "label": "Product Title",
+          "default": "WHIPPED TALLOW HONEY BALM"
         },
         {
-          "type": "textarea",
+          "type": "richtext",
           "id": "description",
-          "label": "Product Description Override"
+          "label": "Product Description / Excerpt",
+          "default": "<p>Organic multipurpose balm that <strong>deeply moisturizes</strong> and nourishes the face, body, and lips using <strong>natural ingredients</strong> like beef tallow and manuka honey.</p>"
+        },
+        {
+          "type": "header",
+          "content": "Feature Bullets"
+        },
+        {
+          "type": "text",
+          "id": "feature_1",
+          "label": "Feature 1 Text",
+          "default": "Skin Barrier Support"
+        },
+        {
+          "type": "select",
+          "id": "feature_1_icon",
+          "label": "Feature 1 Icon",
+          "options": [
+            { "value": "star", "label": "Star" },
+            { "value": "check", "label": "Checkmark" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "shield", "label": "Shield" }
+          ],
+          "default": "star"
+        },
+        {
+          "type": "text",
+          "id": "feature_2",
+          "label": "Feature 2 Text",
+          "default": "Fast Absorption"
+        },
+        {
+          "type": "select",
+          "id": "feature_2_icon",
+          "label": "Feature 2 Icon",
+          "options": [
+            { "value": "star", "label": "Star" },
+            { "value": "check", "label": "Checkmark" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "shield", "label": "Shield" }
+          ],
+          "default": "check"
+        },
+        {
+          "type": "text",
+          "id": "feature_3",
+          "label": "Feature 3 Text",
+          "default": "Zero Toxins"
+        },
+        {
+          "type": "select",
+          "id": "feature_3_icon",
+          "label": "Feature 3 Icon",
+          "options": [
+            { "value": "star", "label": "Star" },
+            { "value": "check", "label": "Checkmark" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "shield", "label": "Shield" }
+          ],
+          "default": "shield"
         },
         {
           "type": "text",
           "id": "price",
-          "label": "Price Override",
-          "info": "E.g. $49.99 (Only for static mockup fallback)"
+          "label": "Price Display",
+          "default": "$49.99"
+        },
+        {
+          "type": "header",
+          "content": "Action Buttons"
+        },
+        {
+          "type": "url",
+          "id": "learn_more_link",
+          "label": "Learn More Link"
         },
         {
           "type": "text",
-          "id": "compare_price",
-          "label": "Compare Price Override",
-          "info": "E.g. $59.99 (Only for static mockup fallback)"
-        },
-        {
-          "type": "text",
-          "id": "learn_more_url",
-          "label": "Learn More URL Override"
-        },
-        {
-          "type": "text",
-          "id": "product_id",
-          "label": "Product ID (Fallback)",
-          "info": "For static mockup fallback"
-        },
-        {
-          "type": "text",
-          "id": "variant_id",
-          "label": "Variant ID (Fallback)",
-          "info": "For static mockup fallback"
+          "id": "learn_more_text",
+          "label": "Learn More Button Text",
+          "default": "Learn More"
         },
         {
           "type": "text",
           "id": "button_text",
-          "label": "Add Button Text Override",
+          "label": "Add to Cart Button Text",
           "default": "Add To Cart"
-        },
-        {
-          "type": "header",
-          "content": "Static Variant Option Mockups"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_variants",
-          "label": "Show Static Variant Options",
-          "default": false
-        },
-        {
-          "type": "text",
-          "id": "variants_label",
-          "label": "Variants Label Override",
-          "default": "Select your scent"
-        },
-        {
-          "type": "text",
-          "id": "variant_1_name",
-          "label": "Variant 1 Name"
-        },
-        {
-          "type": "text",
-          "id": "variant_1_id",
-          "label": "Variant 1 ID"
-        },
-        {
-          "type": "text",
-          "id": "variant_1_price",
-          "label": "Variant 1 Price"
-        },
-        {
-          "type": "text",
-          "id": "variant_1_compare",
-          "label": "Variant 1 Compare Price"
-        },
-        {
-          "type": "text",
-          "id": "variant_2_name",
-          "label": "Variant 2 Name"
-        },
-        {
-          "type": "text",
-          "id": "variant_2_id",
-          "label": "Variant 2 ID"
-        },
-        {
-          "type": "text",
-          "id": "variant_2_price",
-          "label": "Variant 2 Price"
-        },
-        {
-          "type": "text",
-          "id": "variant_2_compare",
-          "label": "Variant 2 Compare Price"
-        },
-        {
-          "type": "text",
-          "id": "variant_3_name",
-          "label": "Variant 3 Name"
-        },
-        {
-          "type": "text",
-          "id": "variant_3_id",
-          "label": "Variant 3 ID"
-        },
-        {
-          "type": "text",
-          "id": "variant_3_price",
-          "label": "Variant 3 Price"
-        },
-        {
-          "type": "text",
-          "id": "variant_3_compare",
-          "label": "Variant 3 Compare Price"
-        },
-        {
-          "type": "text",
-          "id": "variant_4_name",
-          "label": "Variant 4 Name"
-        },
-        {
-          "type": "text",
-          "id": "variant_4_id",
-          "label": "Variant 4 ID"
-        },
-        {
-          "type": "text",
-          "id": "variant_4_price",
-          "label": "Variant 4 Price"
-        },
-        {
-          "type": "text",
-          "id": "variant_4_compare",
-          "label": "Variant 4 Compare Price"
-        },
-        {
-          "type": "header",
-          "content": "Pre-Order Notice"
-        },
-        {
-          "type": "text",
-          "id": "pre_order_notice",
-          "label": "Pre-Order Notice Text"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Maison Product Columns",
+      "name": "Custom Product Grid",
       "blocks": [
         {
           "type": "product_card",
           "settings": {
-            "title": "Whipped Tallow Honey Balm",
-            "image_fallback": "https://evilgoods.com/cdn/shop/files/Whipped_Tallow_Honey_Balm_1.png?v=1783354358",
-            "description": "Organic multipurpose balm that <strong>deeply moisturizes and nourishes</strong> the face, body, and lips using <strong>natural ingredients</strong> like beef tallow and manuka honey.",
-            "price": "$49.99",
-            "learn_more_url": "/products/whipped-beef-tallow-honey-skin-cream",
-            "product_id": "7865147850932",
-            "variant_id": "43663729000628"
+            "title": "WHIPPED TALLOW HONEY BALM",
+            "description": "<p>Organic multipurpose balm that <strong>deeply moisturizes</strong> and nourishes the face, body, and lips using <strong>natural ingredients</strong> like beef tallow and manuka honey.</p>",
+            "feature_1": "Skin Barrier Support",
+            "feature_1_icon": "star",
+            "feature_2": "Fast Absorption",
+            "feature_2_icon": "check",
+            "feature_3": "Zero Toxins",
+            "feature_3_icon": "shield",
+            "price": "$49.99"
           }
         },
         {
           "type": "product_card",
           "settings": {
-            "title": "Magnesium cream",
-            "image_fallback": "https://evilgoods.com/cdn/shop/files/trbg__Magnesium_Look_2.png?v=1762085602",
-            "description": "<strong>Restorative magnesium cream</strong> that relieves muscle cramps, helps you fall asleep faster, and keeps you from tossing and turning - made with grass-fed tallow and magnesium that absorbs into your skin in just <strong>10 minutes</strong>.",
-            "price": "$29.99",
-            "learn_more_url": "/products/magnesium-cream",
-            "product_id": "7969129922740",
-            "variant_id": "43972026826932"
-          }
-        },
-        {
-          "type": "product_card",
-          "settings": {
-            "title": "2 oz Tallow Balm",
-            "image_fallback": "https://evilgoods.com/cdn/shop/files/tallow-honey-balm-02oz_1.webp?v=1782162293",
-            "description": "Truly natural moisturizer with <strong>grass-fed tallow, Manuka honey</strong>, and vitamins A, D, E, K <strong>for deep, daily hydration</strong> — face, body, and lips.",
-            "price": "$19.99",
-            "compare_price": "$29.99",
-            "learn_more_url": "/products/tallow-honey-balm-2oz",
-            "product_id": "8070626967732",
-            "variant_id": "44244202225844",
-            "show_variants": true,
-            "variants_label": "Select your scent",
-            "variant_1_name": "Unscented",
-            "variant_1_id": "44244202225844",
-            "variant_1_price": "$19.99",
-            "variant_1_compare": "$29.99",
-            "variant_2_name": "Lavender",
-            "variant_2_id": "44244202258612",
-            "variant_2_price": "$19.99",
-            "variant_2_compare": "$29.99",
-            "variant_3_name": "Frankincense",
-            "variant_3_id": "44244202291380",
-            "variant_3_price": "$19.99",
-            "variant_3_compare": "$29.99",
-            "variant_4_name": "Santal Vanilla",
-            "variant_4_id": "44244202356916",
-            "variant_4_price": "$19.99",
-            "variant_4_compare": "$29.99"
-          }
-        },
-        {
-          "type": "product_card",
-          "settings": {
-            "title": "Tallow Deodorant",
-            "image_fallback": "https://evilgoods.com/cdn/shop/files/7_7253f75b-119f-453c-a972-af9083f9ce36.png?v=1781041871",
-            "description": "Say goodbye to harsh chemicals and hello to nature's most effective deodorant. Evil Goods Tallow Deodorant harnesses the power of grass-fed beef tallow combined with magnesium to keep you fresh all day, naturally.",
-            "price": "$29.99",
-            "learn_more_url": "/products/tallow-deodorant",
-            "product_id": "8044923551924",
-            "variant_id": "44180798996660"
-          }
-        },
-        {
-          "type": "product_card",
-          "settings": {
-            "title": "Copper Peptide Blue Honey Serum",
-            "image_fallback": "https://evilgoods.com/cdn/shop/files/1_e2f568a0-419c-4480-9a0b-943d8f4b3c65.png?v=1781041869",
-            "description": "A lightweight anti-aging serum with GHK-Cu copper peptides & Manuka honey that <strong>stimulate collagen, firm skin, and diminish fine lines</strong> while delivering intense hydration.",
-            "price": "$59.99",
-            "learn_more_url": "/products/copper-peptide-blue-honey-serum",
-            "product_id": "8060106571956",
-            "variant_id": "44227731488948"
-          }
-        },
-        {
-          "type": "product_card",
-          "settings": {
-            "title": "Copper Peptide Blue Honey Cream",
-            "image_fallback": "https://evilgoods.com/cdn/shop/files/2_3e382c01-53ca-4899-a4ff-09f07e9a01c0.png?v=1781041870",
-            "description": "Copper peptides, Manuka honey & grass-fed tallow that <strong>smooth wrinkles, restore elasticity, and deeply hydrate</strong> for skin that naturally glows.",
-            "price": "$69.99",
-            "learn_more_url": "/products/copper-peptide-blue-honey-cream",
-            "product_id": "8060106965172",
-            "variant_id": "44227733455028"
-          }
-        },
-        {
-          "type": "product_card",
-          "settings": {
-            "title": "Sunscreen",
-            "image_fallback": "https://evilgoods.com/cdn/shop/files/Sunscreen_1.png?v=1781041872",
-            "description": "Truly natural sunscreen with zinc oxide, grass-fed tallow, and organic botanicals for clean, daily sun protection.",
-            "price": "$27.99",
-            "compare_price": "$34.99",
-            "learn_more_url": "/products/sunscreen",
-            "product_id": "8070626967733",
-            "variant_id": "default_spf30_id",
-            "button_text": "Pre-Order",
-            "show_variants": true,
-            "variants_label": "Select SPF Level",
-            "variant_1_name": "SPF 30",
-            "variant_1_id": "default_spf30_id",
-            "variant_1_price": "$27.99",
-            "variant_1_compare": "$34.99",
-            "variant_2_name": "SPF 50",
-            "variant_2_id": "default_spf50_id",
-            "variant_2_price": "$27.99",
-            "variant_2_compare": "$34.99",
-            "pre_order_notice": "*Pre-Order Now & Save 20% - Guaranteed delivery by August 1st. If we miss it, you get it free."
+            "title": "MAGNESIUM CREAM",
+            "description": "<p>Restorative magnesium cream that relieves muscle cramps, helps you fall asleep faster, and keeps you from tossing and turning - made with grass-fed tallow and magnesium that absorbs into your skin in just <strong>10 minutes</strong>.</p>",
+            "feature_1": "Ultra-Fast Absorption",
+            "feature_1_icon": "star",
+            "feature_2": "Muscle, Sleep & Energy Support",
+            "feature_2_icon": "check",
+            "feature_3": "Targeted Pain Relief",
+            "feature_3_icon": "shield",
+            "price": "$49.99"
           }
         }
       ]
