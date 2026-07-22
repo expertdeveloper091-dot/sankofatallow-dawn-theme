@@ -26,205 +26,229 @@
       </div>
     </div>
 
-    <!-- RIGHT: PRODUCT DETAILS & PURCHASE SECTION -->
     <div class="clay-info-wrapper">
-      
-      <!-- Vendor -->
-      {% if section.settings.show_vendor and product.vendor != blank %}
-        <div class="clay-vendor-tag">{{ product.vendor }}</div>
-      {% endif %}
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'product_badges' or 'badges' -%}
+            {% render 'product-badges', card_product: product, type: 'price_badges' %}
 
-      <!-- Product Title -->
-      <h1 class="clay-product-title">{{ product.title }}</h1>
+          {%- when 'product_title' or 'title' -%}
+            {% if section.settings.show_vendor and product.vendor != blank %}
+              <div class="clay-vendor-tag">{{ product.vendor }}</div>
+            {% endif %}
+            <h1 class="clay-product-title" {{ block.shopify_attributes }}>{{ product.title }}</h1>
 
-      <!-- Ratings & Sold Counter Row -->
-      <div class="clay-rating-sold-row">
-        <div class="clay-stars-box">
-          <span class="clay-stars">★★★★★</span>
-          <span class="clay-rating-text">5.0 (4 reviews)</span>
-        </div>
-        <div class="clay-sold-badge">
-          🔥 12 Sold in last 24 hours
-        </div>
-      </div>
+          {%- when 'review_and_sold' -%}
+            <div class="clay-rating-sold-row" {{ block.shopify_attributes }}>
+              <div class="clay-stars-box">
+                <span class="clay-stars">★★★★★</span>
+                <span class="clay-rating-text">5.0 ({{ block.settings.reviews_count | default: 4 }} reviews)</span>
+              </div>
+              <div class="clay-sold-badge">
+                🔥 {{ section.settings.sold_count | default: 12 }} {{ section.settings.sold_text | default: 'Sold in last 24 hours' }}
+              </div>
+            </div>
 
-      <!-- Price Row -->
-      <div class="clay-price-row">
-        <span class="clay-price-current" id="ClayProductPrice">{{ product.selected_or_first_available_variant.price | money }}</span>
-        {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
-          <span class="clay-price-compare">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
-          <span class="clay-save-badge">SAVE {{ product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price | times: 100 | divided_by: product.selected_or_first_available_variant.compare_at_price }}%</span>
-        {% endif %}
-      </div>
+          {%- when 'price' -%}
+            <div class="clay-price-row" {{ block.shopify_attributes }}>
+              <span class="clay-price-current" id="ClayProductPrice">{{ product.selected_or_first_available_variant.price | money }}</span>
+              <span class="clay-price-compare" id="ClayComparePrice" {% unless product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}style="display:none;"{% endunless %}>
+                {{ product.selected_or_first_available_variant.compare_at_price | money }}
+              </span>
+              <span class="clay-save-badge" id="ClaySaveBadge" {% unless product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}style="display:none;"{% endunless %}>
+                {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+                  SAVE {{ product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price | times: 100 | divided_by: product.selected_or_first_available_variant.compare_at_price }}%
+                {% endif %}
+              </span>
+            </div>
 
-      <!-- Feature Highlights List Box (Clay Theme Style) -->
-      <div class="clay-feature-highlights-box">
-        <div class="clay-feature-item">
-          <div class="clay-feature-icon">🚚</div>
-          <div class="clay-feature-text">
-            <strong>Fast Home Delivery:</strong> Delivery within 3 to 5 Working Days nationwide.
-          </div>
-        </div>
-        <div class="clay-feature-item">
-          <div class="clay-feature-icon">💵</div>
-          <div class="clay-feature-text">
-            <strong>Cash on Delivery (COD):</strong> Available with 100% inspection before payment.
-          </div>
-        </div>
-        <div class="clay-feature-item">
-          <div class="clay-feature-icon">📦</div>
-          <div class="clay-feature-text">
-            <strong>Flat Shipping Rate:</strong> Standard shipping charge flat Rs. 199 on all orders.
-          </div>
-        </div>
-      </div>
+          {%- when 'short_description' -%}
+            {% if product.description != blank %}
+              <div class="clay-short-desc mb-20" {{ block.shopify_attributes }} style="font-size:14px;color:#475467;line-height:1.6;">
+                {{ product.description | truncatewords: 35 }}
+              </div>
+            {% endif %}
 
-      <!-- Live Visitors Urgency Bar -->
-      <div class="clay-live-visitors-bar">
-        <span class="clay-live-dot"></span>
-        <span><strong id="ClayLiveCounter">16</strong> people looking right now</span>
-      </div>
+          {%- when 'delivery_return' or 'feature_highlights' -%}
+            <div class="clay-feature-highlights-box" {{ block.shopify_attributes }}>
+              {% if block.settings.row1_text != blank %}
+                <div class="clay-feature-item">
+                  <div class="clay-feature-icon">🚚</div>
+                  <div class="clay-feature-text">{{ block.settings.row1_text }}</div>
+                </div>
+              {% else %}
+                <div class="clay-feature-item">
+                  <div class="clay-feature-icon">🚚</div>
+                  <div class="clay-feature-text"><strong>Fast Home Delivery:</strong> Delivery within 3 to 5 Working Days nationwide.</div>
+                </div>
+              {% endif %}
 
-      <!-- Ask Question & Share Row -->
-      <div class="clay-addons-row">
-        <button type="button" class="clay-addon-link" id="ClayAskBtn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-          Ask a question
-        </button>
-        <button type="button" class="clay-addon-link" onclick="navigator.clipboard.writeText(window.location.href); alert('Product link copied!');">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-          Share
-        </button>
-      </div>
+              {% if block.settings.row2_text != blank %}
+                <div class="clay-feature-item">
+                  <div class="clay-feature-icon">💵</div>
+                  <div class="clay-feature-text">{{ block.settings.row2_text }}</div>
+                </div>
+              {% else %}
+                <div class="clay-feature-item">
+                  <div class="clay-feature-icon">💵</div>
+                  <div class="clay-feature-text"><strong>Cash on Delivery (COD):</strong> Available with 100% inspection before payment.</div>
+                </div>
+              {% endif %}
 
-      <!-- Variant Picker (If Applicable) -->
-      {% unless product.has_only_default_variant %}
-        <div class="clay-variant-picker">
-          {% for option in product.options_with_values %}
-            <div class="clay-option-group">
-              <label class="clay-option-label">{{ option.name }}: <span class="clay-option-val" id="ClayOptVal-{{ forloop.index0 }}">{{ option.selected_value }}</span></label>
-              <div class="clay-option-pills">
-                {% for value in option.values %}
-                  <button type="button" class="clay-pill-btn {% if option.selected_value == value %}active{% endif %}" onclick="selectClayVariant(this, '{{ option.name }}', '{{ value }}', {{ forloop.parentloop.index0 }})">
-                    {{ value }}
+              {% if block.settings.row3_text != blank %}
+                <div class="clay-feature-item">
+                  <div class="clay-feature-icon">📦</div>
+                  <div class="clay-feature-text">{{ block.settings.row3_text }}</div>
+                </div>
+              {% else %}
+                <div class="clay-feature-item">
+                  <div class="clay-feature-icon">📦</div>
+                  <div class="clay-feature-text"><strong>Flat Shipping Rate:</strong> Standard shipping charge flat Rs. 199 on all orders.</div>
+                </div>
+              {% endif %}
+            </div>
+
+          {%- when 'live_view' -%}
+            <div class="clay-live-visitors-bar" {{ block.shopify_attributes }}>
+              <span class="clay-live-dot"></span>
+              <span><strong id="ClayLiveCounter">{{ block.settings.min_count | default: 16 }}</strong> {{ block.settings.suffix_text | default: 'people looking right now' }}</span>
+            </div>
+
+          {%- when 'addons' or 'ask_share_addons' -%}
+            <div class="clay-addons-row" {{ block.shopify_attributes }}>
+              <button type="button" class="clay-addon-link" id="ClayAskBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                Ask a question
+              </button>
+              <button type="button" class="clay-addon-link" onclick="navigator.clipboard.writeText(window.location.href); alert('Product link copied!');">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                Share
+              </button>
+            </div>
+
+          {%- when 'variant_picker' -%}
+            {% unless product.has_only_default_variant %}
+              <div class="clay-variant-picker" {{ block.shopify_attributes }}>
+                {% for option in product.options_with_values %}
+                  <div class="clay-option-group" data-option-index="{{ forloop.index0 }}">
+                    <label class="clay-option-label">{{ option.name }}: <span class="clay-option-val" id="ClayOptVal-{{ forloop.index0 }}">{{ option.selected_value }}</span></label>
+                    <div class="clay-option-pills">
+                      {% for value in option.values %}
+                        <button type="button" class="clay-pill-btn {% if option.selected_value == value %}active{% endif %}" data-option-name="{{ option.name }}" data-option-value="{{ value }}" onclick="selectClayVariant(this, '{{ option.name }}', '{{ value }}', {{ forloop.parentloop.index0 }})">
+                          {{ value }}
+                        </button>
+                      {% endfor %}
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endunless %}
+
+          {%- when 'buy_buttons' -%}
+            <div class="clay-buy-buttons-block" {{ block.shopify_attributes }}>
+              {% form 'product', product, id: 'ClayProductForm', class: 'clay-product-form' %}
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" id="ClayVariantIdInput">
+                
+                <div class="clay-atc-row">
+                  <div class="clay-qty-pill">
+                    <button type="button" class="clay-qty-btn" onclick="updateClayQty(-1)">-</button>
+                    <input type="number" name="quantity" id="ClayQtyInput" value="1" min="1" readonly>
+                    <button type="button" class="clay-qty-btn" onclick="updateClayQty(1)">+</button>
+                  </div>
+
+                  <button type="submit" name="add" class="clay-atc-btn" id="ClayAddToCartBtn" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+                    <span id="ClayAddToCartText">
+                      {% if product.selected_or_first_available_variant.available %}
+                        {{ block.settings.atc_text | default: 'ADD TO CART' }}
+                      {% else %}
+                        {{ block.settings.sold_out_text | default: 'SOLD OUT' }}
+                      {% endif %}
+                    </span>
                   </button>
+
+                  <button type="button" class="clay-icon-btn" title="Add to Wishlist" onclick="alert('Added to Wishlist!')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                  </button>
+                  <button type="button" class="clay-icon-btn" title="Compare" onclick="alert('Added to Compare!')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="8 21 3 21 3 16"></polyline><line x1="15" y1="9" x2="3" y2="21"></line></svg>
+                  </button>
+                </div>
+
+                {% if block.settings.show_buy_now or block.settings.show_dynamic_checkout %}
+                  <button type="submit" name="checkout" class="clay-buy-now-btn" id="ClayBuyNowBtn" {% unless product.selected_or_first_available_variant.available %}disabled style="opacity:0.5;cursor:not-allowed;"{% endunless %}>
+                    {{ block.settings.buy_now_text | default: 'BUY IT NOW' }}
+                  </button>
+                {% endif %}
+              {% endform %}
+            </div>
+
+          {%- when 'product_meta' -%}
+            <div class="clay-product-meta-list" {{ block.shopify_attributes }}>
+              {% if block.settings.show_sku != false %}
+                <div class="clay-meta-item">
+                  <span class="clay-meta-label">SKU:</span>
+                  <span class="clay-meta-val" id="ClayProductSku">{{ product.selected_or_first_available_variant.sku | default: 'N/A' }}</span>
+                </div>
+              {% endif %}
+              {% if block.settings.show_availability != false %}
+                <div class="clay-meta-item">
+                  <span class="clay-meta-label">Availability:</span>
+                  <span class="clay-meta-val clay-in-stock" id="ClayProductAvailability">
+                    {% if product.selected_or_first_available_variant.available %}In Stock{% else %}Out of Stock{% endif %}
+                  </span>
+                </div>
+              {% endif %}
+              {% if block.settings.show_collections != false %}
+                <div class="clay-meta-item">
+                  <span class="clay-meta-label">Collections:</span>
+                  <span class="clay-meta-val">{{ product.collections | map: 'title' | join: ', ' | default: 'Skincare, Tallow' }}</span>
+                </div>
+              {% endif %}
+            </div>
+
+          {%- when 'customer_photos' -%}
+            <div class="clay-customer-photos-section" {{ block.shopify_attributes }}>
+              <h4 class="clay-section-subheading">{{ block.settings.heading | default: 'What our Customers Say' }}</h4>
+              <div class="clay-customer-photos-grid">
+                {% for image in product.images limit: 3 %}
+                  <div class="clay-customer-photo-card">
+                    <img src="{{ image | image_url: width: 300 }}" alt="Customer Photo {{ forloop.index }}" loading="lazy" width="150" height="200">
+                  </div>
+                {% else %}
+                  <div class="clay-customer-photo-card">
+                    <img src="{{ product.featured_image | image_url: width: 300 }}" alt="Customer Photo 1" width="150" height="200">
+                  </div>
                 {% endfor %}
               </div>
             </div>
-          {% endfor %}
-        </div>
-      {% endunless %}
 
-      <!-- Quantity Selector & ADD TO CART Form -->
-      {% form 'product', product, id: 'ClayProductForm', class: 'clay-product-form' %}
-        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" id="ClayVariantIdInput">
-        
-        <div class="clay-atc-row">
-          <!-- Quantity Input Pill -->
-          <div class="clay-qty-pill">
-            <button type="button" class="clay-qty-btn" onclick="updateClayQty(-1)">-</button>
-            <input type="number" name="quantity" id="ClayQtyInput" value="1" min="1" readonly>
-            <button type="button" class="clay-qty-btn" onclick="updateClayQty(1)">+</button>
-          </div>
-
-          <!-- ADD TO CART Button -->
-          <button type="submit" name="add" class="clay-atc-btn" id="ClayAddToCartBtn">
-            <span>ADD TO CART</span>
-          </button>
-
-          <!-- Wishlist & Compare Icons -->
-          <button type="button" class="clay-icon-btn" title="Add to Wishlist" onclick="alert('Added to Wishlist!')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-          </button>
-          <button type="button" class="clay-icon-btn" title="Compare" onclick="alert('Added to Compare!')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="8 21 3 21 3 16"></polyline><line x1="15" y1="9" x2="3" y2="21"></line></svg>
-          </button>
-        </div>
-
-        <!-- BUY IT NOW Button -->
-        <button type="submit" name="checkout" class="clay-buy-now-btn">
-          BUY IT NOW
-        </button>
-      {% endform %}
-
-      <!-- Product Meta Info -->
-      <div class="clay-product-meta-list">
-        <div class="clay-meta-item">
-          <span class="clay-meta-label">SKU:</span>
-          <span class="clay-meta-val">{{ product.selected_or_first_available_variant.sku | default: 'SKU-102' }}</span>
-        </div>
-        <div class="clay-meta-item">
-          <span class="clay-meta-label">Availability:</span>
-          <span class="clay-meta-val clay-in-stock">{% if product.selected_or_first_available_variant.available %}In Stock{% else %}Out of Stock{% endif %}</span>
-        </div>
-        <div class="clay-meta-item">
-          <span class="clay-meta-label">Collections:</span>
-          <span class="clay-meta-val">{{ product.collections | map: 'title' | join: ', ' | default: 'Skincare, Tallow' }}</span>
-        </div>
-      </div>
-
-      <!-- Customer Photo Showcase ("What our Customers Say") -->
-      <div class="clay-customer-photos-section">
-        <h4 class="clay-section-subheading">What our Customers Say</h4>
-        <div class="clay-customer-photos-grid">
-          {% for image in product.images limit: 3 %}
-            <div class="clay-customer-photo-card">
-              <img src="{{ image | image_url: width: 300 }}" alt="Customer Photo {{ forloop.index }}" loading="lazy" width="150" height="200">
+          {%- when 'trust_badge' -%}
+            <div class="clay-trust-banner-box" {{ block.shopify_attributes }}>
+              <div class="clay-trust-heading">{{ block.settings.badge_text | default: 'Guarantee Safe Checkout' }}</div>
+              <div class="clay-trust-svg-icons">
+                <svg width="45" height="28" viewBox="0 0 38 24" fill="none"><rect width="38" height="24" rx="4" fill="#1A1F71"/><path d="M15.4 16.5L17.2 6.8H19.7L17.9 16.5H15.4ZM24.7 7C24.2 6.8 23.4 6.6 22.4 6.6C19.8 6.6 18 8 18 9.9C18 11.3 19.3 12.1 20.3 12.6C21.3 13.1 21.6 13.4 21.6 13.9C21.6 14.6 20.7 14.9 19.9 14.9C18.7 14.9 18 14.6 17.3 14.3L16.9 16.2C17.6 16.5 18.7 16.8 20 16.8C22.8 16.8 24.6 15.4 24.6 13.4C24.6 10.9 21.2 10.7 21.2 9.7C21.2 9.3 21.6 8.9 22.4 8.9C23.2 8.9 24.1 9.1 24.6 9.4L24.7 7ZM30.7 16.5H32.9L31 6.8H29C28.4 6.8 27.9 7.1 27.7 7.7L23.7 16.5H26.3L26.8 15.1H30.1L30.7 16.5ZM27.5 13.2L28.9 9.3L29.7 13.2H27.5ZM13.8 6.8L11.4 13.4L11.1 12.1C10.6 10.4 9.1 8.5 7.3 7.5L9.5 16.5H12.1L16.1 6.8H13.8Z" fill="white"/></svg>
+                <svg width="45" height="28" viewBox="0 0 38 24" fill="none"><rect width="38" height="24" rx="4" fill="#0A0E27"/><circle cx="14" cy="12" r="7" fill="#EB001B"/><circle cx="24" cy="12" r="7" fill="#F79E1B"/><path d="M19 6.8A6.9 6.9 0 0 0 16.5 12A6.9 6.9 0 0 0 19 17.2A6.9 6.9 0 0 0 21.5 12A6.9 6.9 0 0 0 19 6.8Z" fill="#FF5F00"/></svg>
+                <svg width="45" height="28" viewBox="0 0 38 24" fill="none"><rect width="38" height="24" rx="4" fill="#006FCF"/><path d="M7 16L10 8H13L16 16H13.5L12.9 14.3H10.1L9.5 16H7ZM10.7 12.5H12.3L11.5 10.2L10.7 12.5Z" fill="white"/><path d="M17 16V8H22C23.5 8 24.5 9 24.5 10.3C24.5 11.3 23.8 12 22.8 12.2L24.8 16H22.3L20.6 12.6H19.2V16H17ZM19.2 11H21.5C22.1 11 22.6 10.7 22.6 10.1C22.6 9.5 22.1 9.2 21.5 9.2H19.2V11Z" fill="white"/><path d="M26 16V8H31.5V9.6H28.2V11.2H31V12.7H28.2V14.4H31.5V16H26Z" fill="white"/></svg>
+              </div>
             </div>
-          {% else %}
-            <div class="clay-customer-photo-card">
-              <img src="{{ product.featured_image | image_url: width: 300 }}" alt="Customer Photo 1" width="150" height="200">
-            </div>
-          {% endfor %}
-        </div>
-      </div>
 
-      <!-- Guarantee Safe Checkout Banner -->
-      <div class="clay-trust-banner-box">
-        <div class="clay-trust-heading">Guarantee Safe Checkout</div>
-        <div class="clay-trust-svg-icons">
-          <!-- Visa SVG -->
-          <svg width="45" height="28" viewBox="0 0 38 24" fill="none"><rect width="38" height="24" rx="4" fill="#1A1F71"/><path d="M15.4 16.5L17.2 6.8H19.7L17.9 16.5H15.4ZM24.7 7C24.2 6.8 23.4 6.6 22.4 6.6C19.8 6.6 18 8 18 9.9C18 11.3 19.3 12.1 20.3 12.6C21.3 13.1 21.6 13.4 21.6 13.9C21.6 14.6 20.7 14.9 19.9 14.9C18.7 14.9 18 14.6 17.3 14.3L16.9 16.2C17.6 16.5 18.7 16.8 20 16.8C22.8 16.8 24.6 15.4 24.6 13.4C24.6 10.9 21.2 10.7 21.2 9.7C21.2 9.3 21.6 8.9 22.4 8.9C23.2 8.9 24.1 9.1 24.6 9.4L24.7 7ZM30.7 16.5H32.9L31 6.8H29C28.4 6.8 27.9 7.1 27.7 7.7L23.7 16.5H26.3L26.8 15.1H30.1L30.7 16.5ZM27.5 13.2L28.9 9.3L29.7 13.2H27.5ZM13.8 6.8L11.4 13.4L11.1 12.1C10.6 10.4 9.1 8.5 7.3 7.5L9.5 16.5H12.1L16.1 6.8H13.8Z" fill="white"/></svg>
-          <!-- Mastercard SVG -->
-          <svg width="45" height="28" viewBox="0 0 38 24" fill="none"><rect width="38" height="24" rx="4" fill="#0A0E27"/><circle cx="14" cy="12" r="7" fill="#EB001B"/><circle cx="24" cy="12" r="7" fill="#F79E1B"/><path d="M19 6.8A6.9 6.9 0 0 0 16.5 12A6.9 6.9 0 0 0 19 17.2A6.9 6.9 0 0 0 21.5 12A6.9 6.9 0 0 0 19 6.8Z" fill="#FF5F00"/></svg>
-          <!-- Amex SVG -->
-          <svg width="45" height="28" viewBox="0 0 38 24" fill="none"><rect width="38" height="24" rx="4" fill="#006FCF"/><path d="M7 16L10 8H13L16 16H13.5L12.9 14.3H10.1L9.5 16H7ZM10.7 12.5H12.3L11.5 10.2L10.7 12.5Z" fill="white"/><path d="M17 16V8H22C23.5 8 24.5 9 24.5 10.3C24.5 11.3 23.8 12 22.8 12.2L24.8 16H22.3L20.6 12.6H19.2V16H17ZM19.2 11H21.5C22.1 11 22.6 10.7 22.6 10.1C22.6 9.5 22.1 9.2 21.5 9.2H19.2V11Z" fill="white"/><path d="M26 16V8H31.5V9.6H28.2V11.2H31V12.7H28.2V14.4H31.5V16H26Z" fill="white"/></svg>
-        </div>
-      </div>
+          {%- when 'collapsible_tab' -%}
+            <details class="clay-accordion-item" {{ block.shopify_attributes }} open>
+              <summary class="clay-accordion-summary">
+                <span>{{ block.settings.heading | default: 'Collapsible Row' }}</span>
+                <span class="clay-accordion-icon">+</span>
+              </summary>
+              <div class="clay-accordion-content">
+                {% if block.settings.content_source == 'description' %}
+                  {{ product.description }}
+                {% else %}
+                  {{ block.settings.content }}
+                {% endif %}
+              </div>
+            </details>
 
-      <!-- Accordions Collapsible Tabs -->
-      <div class="clay-accordions-group">
-        <details class="clay-accordion-item" open>
-          <summary class="clay-accordion-summary">
-            <span>How to Use & Care</span>
-            <span class="clay-accordion-icon">+</span>
-          </summary>
-          <div class="clay-accordion-content">
-            Apply a small amount to clean, dry skin. Gently massage in circular motions until fully absorbed. Store in a cool, dry place away from direct sunlight.
-          </div>
-        </details>
-        
-        <details class="clay-accordion-item">
-          <summary class="clay-accordion-summary">
-            <span>Description</span>
-            <span class="clay-accordion-icon">+</span>
-          </summary>
-          <div class="clay-accordion-content">
-            {{ product.description | default: 'Experience the nourishing power of nature with House of Sankofa Tallow Body Butter. Handcrafted using premium grass-fed tallow, organic oils, and pure botanicals to deeply hydrate and restore your skin.' }}
-          </div>
-        </details>
-
-        <details class="clay-accordion-item">
-          <summary class="clay-accordion-summary">
-            <span>Shipping and Returns</span>
-            <span class="clay-accordion-icon">+</span>
-          </summary>
-          <div class="clay-accordion-content">
-            We offer 15-day hassle-free money-back returns. Shipping takes 3-5 business days across the country. All orders include tracked delivery.
-          </div>
-        </details>
-      </div>
-
+        {%- endcase -%}
+      {%- endfor -%}
     </div>
   </div>
 
@@ -1072,11 +1096,238 @@ function closeClayAskModal() {
       "id": "show_vendor",
       "label": "Show Vendor",
       "default": true
+    },
+    {
+      "type": "number",
+      "id": "sold_count",
+      "label": "Sold Count",
+      "default": 12
+    },
+    {
+      "type": "text",
+      "id": "sold_text",
+      "label": "Sold Text",
+      "default": "Sold in last 24 hours"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_badges",
+      "name": "Product Badges",
+      "limit": 1
+    },
+    {
+      "type": "product_title",
+      "name": "Title",
+      "limit": 1
+    },
+    {
+      "type": "review_and_sold",
+      "name": "Reviews & Sold Badge",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "reviews_count",
+          "label": "Reviews Count",
+          "default": "4"
+        }
+      ]
+    },
+    {
+      "type": "price",
+      "name": "Price",
+      "limit": 1
+    },
+    {
+      "type": "short_description",
+      "name": "Short Description",
+      "limit": 1
+    },
+    {
+      "type": "delivery_return",
+      "name": "Feature Highlights Box",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "html",
+          "id": "row1_text",
+          "label": "Highlight Row 1",
+          "default": "<strong>Fast Home Delivery:</strong> Delivery within 3 to 5 Working Days nationwide."
+        },
+        {
+          "type": "html",
+          "id": "row2_text",
+          "label": "Highlight Row 2",
+          "default": "<strong>Cash on Delivery (COD):</strong> Available with 100% inspection before payment."
+        },
+        {
+          "type": "html",
+          "id": "row3_text",
+          "label": "Highlight Row 3",
+          "default": "<strong>Flat Shipping Rate:</strong> Standard shipping charge flat Rs. 199 on all orders."
+        }
+      ]
+    },
+    {
+      "type": "live_view",
+      "name": "Live Visitors Bar",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "number",
+          "id": "min_count",
+          "label": "Initial Count",
+          "default": 16
+        },
+        {
+          "type": "text",
+          "id": "suffix_text",
+          "label": "Suffix Text",
+          "default": "people looking right now"
+        }
+      ]
+    },
+    {
+      "type": "ask_share_addons",
+      "name": "Ask Question & Share",
+      "limit": 1
+    },
+    {
+      "type": "variant_picker",
+      "name": "Variant Picker",
+      "limit": 1
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Buy Buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "atc_text",
+          "label": "Add to Cart Text",
+          "default": "ADD TO CART"
+        },
+        {
+          "type": "text",
+          "id": "sold_out_text",
+          "label": "Sold Out Text",
+          "default": "SOLD OUT"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_buy_now",
+          "label": "Show Buy It Now Button",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "buy_now_text",
+          "label": "Buy It Now Text",
+          "default": "BUY IT NOW"
+        }
+      ]
+    },
+    {
+      "type": "product_meta",
+      "name": "Product Metadata",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_sku",
+          "label": "Show SKU",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_availability",
+          "label": "Show Availability",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_collections",
+          "label": "Show Collections",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "customer_photos",
+      "name": "Customer Photo Showcase",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "What our Customers Say"
+        }
+      ]
+    },
+    {
+      "type": "trust_badge",
+      "name": "Guarantee Safe Checkout",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Heading",
+          "default": "Guarantee Safe Checkout"
+        }
+      ]
+    },
+    {
+      "type": "collapsible_tab",
+      "name": "Collapsible Accordion Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Tab Heading",
+          "default": "Collapsible Row"
+        },
+        {
+          "type": "select",
+          "id": "content_source",
+          "label": "Content Source",
+          "options": [
+            { "value": "description", "label": "Product Description" },
+            { "value": "custom", "label": "Custom Text" }
+          ],
+          "default": "custom"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Custom Content",
+          "default": "<p>Add custom text or details here.</p>"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Clay Single Product"
+      "name": "Clay Single Product",
+      "blocks": [
+        { "type": "product_title" },
+        { "type": "review_and_sold" },
+        { "type": "price" },
+        { "type": "delivery_return" },
+        { "type": "live_view" },
+        { "type": "ask_share_addons" },
+        { "type": "variant_picker" },
+        { "type": "buy_buttons" },
+        { "type": "product_meta" },
+        { "type": "customer_photos" },
+        { "type": "trust_badge" },
+        { "type": "collapsible_tab", "settings": { "heading": "How to Use & Care", "content_source": "custom", "content": "<p>Apply a small amount to clean, dry skin. Gently massage in circular motions until fully absorbed. Store in a cool, dry place away from direct sunlight.</p>" } },
+        { "type": "collapsible_tab", "settings": { "heading": "Description", "content_source": "description" } },
+        { "type": "collapsible_tab", "settings": { "heading": "Shipping and Returns", "content_source": "custom", "content": "<p>We offer 15-day hassle-free money-back returns. Shipping takes 3-5 business days across the country. All orders include tracked delivery.</p>" } }
+      ]
     }
   ]
 }

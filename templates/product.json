@@ -117,10 +117,20 @@
             "show_type": true
           }
         },
+        "ask_share_addons": {
+          "type": "ask_share_addons",
+          "settings": {}
+        },
+        "customer_photos": {
+          "type": "customer_photos",
+          "settings": {
+            "heading": "What our Customers Say"
+          }
+        },
         "trust_badge": {
           "type": "trust_badge",
           "settings": {
-            "badge_text": "Guaranteed Safe Checkout"
+            "badge_text": "Guarantee Safe Checkout"
           }
         }
       },
@@ -132,14 +142,16 @@
         "short_description",
         "delivery_return",
         "live_view",
+        "ask_share_addons",
         "variant_picker",
         "stock_countdown",
         "buy_buttons",
+        "product_meta",
+        "customer_photos",
+        "trust_badge",
         "collapsible_desc",
         "collapsible_shipping",
-        "collapsible_returns",
-        "product_meta",
-        "trust_badge"
+        "collapsible_returns"
       ]
     },
     "related-products": {
