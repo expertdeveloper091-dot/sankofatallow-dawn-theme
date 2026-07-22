@@ -34,6 +34,16 @@
   .custom-footer-{{ section.id }} .custom-footer-copyright p {
     color: {{ section.settings.copyright_text_color | default: '#111111' }};
   }
+  .custom-footer-{{ section.id }} .disclaimer {
+    background-color: {{ section.settings.mission_bg | default: '#FE9D01' }};
+    border: 1px solid {{ section.settings.mission_border_color | default: '#222222' }};
+  }
+  .custom-footer-{{ section.id }} .disclaimer h4 {
+    color: {{ section.settings.mission_heading_color | default: '#111111' }};
+  }
+  .custom-footer-{{ section.id }} .disclaimer p {
+    color: {{ section.settings.mission_text_color | default: '#111111' }};
+  }
 {% endstyle %}
 
 <footer class="custom-footer custom-footer-{{ section.id }}">
@@ -458,6 +468,30 @@
       "id": "show_disclaimer",
       "label": "Show Disclaimer/Mission Section",
       "default": true
+    },
+    {
+      "type": "color",
+      "id": "mission_bg",
+      "label": "Mission Box Background",
+      "default": "#FE9D01"
+    },
+    {
+      "type": "color",
+      "id": "mission_heading_color",
+      "label": "Mission Heading Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "mission_text_color",
+      "label": "Mission Text Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "mission_border_color",
+      "label": "Mission Border Color",
+      "default": "#222222"
     },
     {
       "type": "text",
