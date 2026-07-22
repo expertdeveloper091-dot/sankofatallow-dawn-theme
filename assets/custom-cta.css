@@ -1,14 +1,9 @@
-/* Namespace-scoped CSS for Shopify Dawn Custom CTA section */
+/* Custom CTA Section CSS */
 
 .ag-cta {
   font-family: 'Poppins', sans-serif;
-  background-color: var(--ag-cta-bg, #feeb94);
   position: relative;
   overflow: hidden;
-  padding-top: var(--ag-cta-padding-top, 64px);
-  padding-bottom: var(--ag-cta-padding-bottom, 64px);
-  padding-left: 20px;
-  padding-right: 20px;
   box-sizing: border-box;
   width: 100%;
   display: flex;
@@ -22,24 +17,25 @@
 }
 
 .ag-cta__content {
-  max-width: var(--ag-cta-max-width, 700px);
+  max-width: 700px;
   width: 100%;
-  text-align: center;
-  z-index: 5;
-  position: relative;
   margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  padding: 0 20px;
 }
 
-/* Customer Badge */
 .ag-cta__customers {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  gap: 10px;
   background: #ffffff;
   border: 1px solid #2c2609;
   padding: 4px 14px 4px 4px;
   border-radius: 999px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .ag-cta__avatars {
@@ -48,8 +44,8 @@
 }
 
 .ag-cta__avatar-img {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: 2px solid #feeb94;
   margin-left: -10px;
@@ -64,54 +60,43 @@
   font-size: 14px;
   color: #1d211e;
   margin: 0;
-  line-height: 1.4;
   font-weight: 500;
 }
 
-.ag-cta__customers-text strong {
-  font-weight: 700;
-}
-
-/* Title */
 .ag-cta__title {
-  font-size: 44px;
+  font-size: 42px;
   font-weight: 800;
   line-height: 1.15;
-  margin-top: 0;
-  margin-bottom: 16px;
+  margin: 0 0 16px 0;
   color: #1d211e;
   font-family: 'Poppins', sans-serif;
   text-transform: uppercase;
 }
 
 .ag-cta__title-highlight {
-  color: var(--ag-cta-accent-color, #f63208);
+  color: #f63208;
 }
 
-/* Description */
 .ag-cta__description,
 .ag-cta__description p {
-  font-family: 'Poppins', sans-serif;
-  font-size: 18px;
-  color: var(--ag-cta-text-color, #1d211e);
+  font-size: 16px;
+  color: #1d211e;
   line-height: 1.5;
-  margin-top: 0;
-  margin-bottom: 24px;
+  margin: 0 0 24px 0;
 }
 
-/* Button */
 .ag-cta__button {
   display: inline-block;
-  padding: 16px 36px;
-  background-color: var(--ag-cta-btn-bg, #fedb36);
-  border-radius: var(--ag-cta-btn-border-radius, 12px);
-  color: var(--ag-cta-btn-text-color, #1d211e);
+  padding: 14px 36px;
+  background-color: #fedb36;
+  border-radius: 12px;
+  color: #1d211e;
   text-decoration: none;
   font-weight: 700;
   font-size: 16px;
   border: 1px solid #2c2609;
   box-shadow: 0px 4px 0px 0px #2c2609;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
   cursor: pointer;
 }
 
@@ -120,20 +105,14 @@
   box-shadow: 0px 6px 0px 0px #2c2609;
 }
 
-.ag-cta__button:active {
-  transform: translateY(2px);
-  box-shadow: 0px 2px 0px 0px #2c2609;
-}
-
-/* Features checklist */
 .ag-cta__features {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 28px;
-  margin-top: 28px;
+  gap: 24px;
+  margin-top: 24px;
   color: #1d211e;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
   flex-wrap: wrap;
 }
@@ -141,33 +120,30 @@
 .ag-cta__feature-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .ag-cta__feature-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background-color: #fedb36;
   border: 1px solid #2c2609;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
   color: #2c2609;
-  flex-shrink: 0;
 }
 
-/* Floating side images on desktop */
 .ag-cta__floating-images {
   position: absolute;
   top: 0;
   height: 100%;
-  display: flex;
-  align-items: center;
-  z-index: 2;
+  width: 320px;
   pointer-events: none;
+  z-index: 5;
 }
 
 .ag-cta__floating-images--left {
@@ -178,55 +154,87 @@
   right: 0;
 }
 
-.ag-cta__img-single {
-  height: 100%;
-  display: flex;
-  align-items: center;
+.ag-cta__img-wrapper {
+  position: absolute;
+  border: 6px solid #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  background: #ffffff;
 }
 
-.ag-cta__img-single img {
-  max-height: 100%;
-  width: auto;
-  object-fit: contain;
+.ag-cta__img-wrapper img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ag-cta__img-wrapper--one {
+  width: 190px;
+  height: 190px;
+  top: 15px;
+  left: 15px;
+  transform: rotate(-10deg);
+}
+
+.ag-cta__img-wrapper--two {
+  width: 150px;
+  height: 170px;
+  top: 170px;
+  left: 5px;
+  transform: rotate(14deg);
+}
+
+.ag-cta__img-wrapper--three {
+  width: 170px;
+  height: 180px;
+  bottom: 15px;
+  left: 100px;
+  transform: rotate(8deg);
+}
+
+.ag-cta__img-wrapper--four {
+  width: 180px;
+  height: 180px;
+  top: 20px;
+  right: 30px;
+  transform: rotate(-12deg);
+}
+
+.ag-cta__img-wrapper--five {
+  width: 180px;
+  height: 210px;
+  bottom: 25px;
+  right: 15px;
+  transform: rotate(10deg);
 }
 
 .ag-cta__image-mobile {
   display: none;
   width: 100%;
-  z-index: 3;
+  max-width: 450px;
+  margin: 0 auto 16px;
 }
 
 .ag-cta__image-mobile img {
-  max-height: 100%;
-  max-width: 100%;
-  width: auto;
-  margin: 0 auto 16px;
-  object-fit: contain;
-  object-position: bottom center;
+  width: 100%;
+  height: auto;
   display: block;
 }
 
-/* Responsive */
 @media (max-width: 1200px) {
-  .ag-cta__img-single img {
-    max-width: 260px;
+  .ag-cta__floating-images {
+    width: 250px;
   }
+  .ag-cta__img-wrapper--one { width: 150px; height: 150px; left: 5px; }
+  .ag-cta__img-wrapper--two { width: 120px; height: 140px; left: 0; }
+  .ag-cta__img-wrapper--three { width: 130px; height: 140px; left: 70px; }
+  .ag-cta__img-wrapper--four { width: 140px; height: 140px; right: 10px; }
+  .ag-cta__img-wrapper--five { width: 140px; height: 160px; right: 5px; }
 }
 
 @media (max-width: 990px) {
-  .ag-cta__title {
-    font-size: 34px;
-  }
-  .ag-cta__description,
-  .ag-cta__description p {
-    font-size: 16px;
-  }
-  .ag-cta__img-single img {
-    max-width: 200px;
-  }
-}
-
-@media (max-width: 768px) {
   .ag-cta__floating-images {
     display: none !important;
   }
@@ -234,14 +242,16 @@
     display: block !important;
   }
   .ag-cta__title {
-    font-size: 28px;
+    font-size: 32px;
   }
-  .ag-cta__features {
-    gap: 12px;
-    margin-top: 20px;
+}
+
+@media (max-width: 480px) {
+  .ag-cta__title {
+    font-size: 26px;
   }
   .ag-cta__button {
     width: 100%;
-    padding: 14px 20px;
+    box-sizing: border-box;
   }
 }
