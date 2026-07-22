@@ -1,420 +1,108 @@
 {{ 'custom-cta.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
-  #ag-cta-{{ section.id }} {
-    background-color: {{ section.settings.bg_color | default: '#feeb94' }} !important;
+  #maison-cta-{{ section.id }} {
+    background-color: {{ section.settings.bg_color | default: '#feeb94' }};
     border-top: 1px solid #2c2609;
     border-bottom: 1px solid #2c2609;
-    position: relative;
-    overflow: hidden;
-    padding-top: {{ section.settings.padding_top | default: 64 }}px !important;
-    padding-bottom: {{ section.settings.padding_bottom | default: 64 }}px !important;
-    min-height: 520px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    width: 100%;
-  }
-
-  /* Center Content Container */
-  #ag-cta-{{ section.id }} .ag-cta__content {
-    max-width: {{ section.settings.max_width | default: 700 }}px;
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
-    z-index: 10;
-    padding: 0 20px;
-    box-sizing: border-box;
-  }
-
-  /* Customers Badge */
-  #ag-cta-{{ section.id }} .ag-cta__customers {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: #ffffff;
-    border: 1px solid #2c2609;
-    padding: 4px 14px 4px 4px;
-    border-radius: 999px;
-    margin-bottom: 20px;
-  }
-  #ag-cta-{{ section.id }} .ag-cta__avatars {
-    display: flex;
-    align-items: center;
-  }
-  #ag-cta-{{ section.id }} .ag-cta__avatar-img {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 2px solid {{ section.settings.bg_color | default: '#feeb94' }};
-    margin-left: -10px;
-    object-fit: cover;
-  }
-  #ag-cta-{{ section.id }} .ag-cta__avatar-img:first-child {
-    margin-left: 0;
-  }
-  #ag-cta-{{ section.id }} .ag-cta__customers-text {
-    font-size: 14px;
-    color: {{ section.settings.text_color | default: '#1d211e' }};
-    margin: 0;
-    font-weight: 500;
-  }
-
-  /* Heading */
-  #ag-cta-{{ section.id }} .ag-cta__title {
-    font-size: 42px;
-    font-weight: 800;
-    line-height: 1.15;
-    margin: 0 0 16px 0;
-    color: {{ section.settings.text_color | default: '#1d211e' }};
-    font-family: 'Poppins', sans-serif;
-    text-transform: uppercase;
-  }
-  #ag-cta-{{ section.id }} .ag-cta__title-highlight {
-    color: {{ section.settings.accent_color | default: '#f63208' }};
-  }
-
-  /* Description */
-  #ag-cta-{{ section.id }} .ag-cta__description,
-  #ag-cta-{{ section.id }} .ag-cta__description p {
-    font-size: 16px;
-    color: {{ section.settings.text_color | default: '#1d211e' }};
-    line-height: 1.5;
-    margin: 0 0 24px 0;
-  }
-
-  /* Button */
-  #ag-cta-{{ section.id }} .ag-cta__button {
-    display: inline-block;
-    padding: 14px 36px;
-    background-color: {{ section.settings.button_color | default: '#fedb36' }} !important;
-    border-radius: {{ section.settings.border_radius | default: 12 }}px;
-    color: {{ section.settings.button_text_color | default: '#1d211e' }} !important;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 16px;
-    border: 1px solid #2c2609;
-    box-shadow: 0px 4px 0px 0px #2c2609;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-    cursor: pointer;
-  }
-  #ag-cta-{{ section.id }} .ag-cta__button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0px 6px 0px 0px #2c2609;
-  }
-
-  /* Features */
-  #ag-cta-{{ section.id }} .ag-cta__features {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 24px;
-    margin-top: 24px;
-    color: {{ section.settings.text_color | default: '#1d211e' }};
-    font-size: 13.5px;
-    font-weight: 600;
-    flex-wrap: wrap;
-  }
-  #ag-cta-{{ section.id }} .ag-cta__feature-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  #ag-cta-{{ section.id }} .ag-cta__feature-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-  #ag-cta-{{ section.id }} .ag-cta__feature-icon svg {
-    width: 20px;
-    height: 20px;
-    display: block;
-  }
-
-  /* Floating side image wrappers */
-  #ag-cta-{{ section.id }} .ag-cta__floating-images {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 340px;
-    pointer-events: none;
-    z-index: 5;
-    display: flex;
-    align-items: center;
-  }
-  #ag-cta-{{ section.id }} .ag-cta__floating-images--left {
-    left: 0;
-    justify-content: flex-start;
-  }
-  #ag-cta-{{ section.id }} .ag-cta__floating-images--right {
-    right: 0;
-    justify-content: flex-end;
-  }
-
-  /* Single Full Height Composite Image */
-  #ag-cta-{{ section.id }} .ag-cta__img-single {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-  }
-  #ag-cta-{{ section.id }} .ag-cta__img-single img {
-    max-height: 100%;
-    width: auto;
-    max-width: 100%;
-    object-fit: contain;
-    display: block;
-  }
-
-  /* Individual Polaroid Photo Cards */
-  #ag-cta-{{ section.id }} .ag-cta__img-wrapper {
-    position: absolute;
-    border: 6px solid #ffffff;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
-    background: #ffffff;
-  }
-  #ag-cta-{{ section.id }} .ag-cta__img-wrapper img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* Left photo cards (3 cards) */
-  #ag-cta-{{ section.id }} .ag-cta__img-wrapper--one {
-    width: 190px;
-    height: 190px;
-    top: 15px;
-    left: 15px;
-    transform: rotate(-10deg);
-  }
-  #ag-cta-{{ section.id }} .ag-cta__img-wrapper--two {
-    width: 150px;
-    height: 170px;
-    top: 170px;
-    left: 5px;
-    transform: rotate(14deg);
-  }
-  #ag-cta-{{ section.id }} .ag-cta__img-wrapper--three {
-    width: 170px;
-    height: 180px;
-    bottom: 15px;
-    left: 100px;
-    transform: rotate(8deg);
-  }
-
-  /* Right photo cards (2 cards) */
-  #ag-cta-{{ section.id }} .ag-cta__img-wrapper--four {
-    width: 180px;
-    height: 180px;
-    top: 20px;
-    right: 30px;
-    transform: rotate(-12deg);
-  }
-  #ag-cta-{{ section.id }} .ag-cta__img-wrapper--five {
-    width: 180px;
-    height: 210px;
-    bottom: 25px;
-    right: 15px;
-    transform: rotate(10deg);
-  }
-
-  /* Mobile Collage Image */
-  #ag-cta-{{ section.id }} .ag-cta__image-mobile {
-    display: none;
-    width: 100%;
-    max-width: 450px;
-    margin: 0 auto 20px;
-    z-index: 6;
-  }
-  #ag-cta-{{ section.id }} .ag-cta__image-mobile img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  /* Responsive Rules */
-  @media (max-width: 1200px) {
-    #ag-cta-{{ section.id }} .ag-cta__floating-images {
-      width: 250px;
-    }
-    #ag-cta-{{ section.id }} .ag-cta__img-wrapper--one { width: 150px; height: 150px; left: 5px; }
-    #ag-cta-{{ section.id }} .ag-cta__img-wrapper--two { width: 120px; height: 140px; left: 0; }
-    #ag-cta-{{ section.id }} .ag-cta__img-wrapper--three { width: 130px; height: 140px; left: 70px; }
-    #ag-cta-{{ section.id }} .ag-cta__img-wrapper--four { width: 140px; height: 140px; right: 10px; }
-    #ag-cta-{{ section.id }} .ag-cta__img-wrapper--five { width: 140px; height: 160px; right: 5px; }
-  }
-
-  @media (max-width: 990px) {
-    #ag-cta-{{ section.id }} {
-      padding-top: max(32px, calc({{ section.settings.padding_top | default: 64 }}px * 0.5)) !important;
-      padding-bottom: max(32px, calc({{ section.settings.padding_bottom | default: 64 }}px * 0.5)) !important;
-    }
-    #ag-cta-{{ section.id }} .ag-cta__floating-images {
-      display: none !important;
-    }
-    #ag-cta-{{ section.id }} .ag-cta__image-mobile {
-      display: block !important;
-    }
-    #ag-cta-{{ section.id }} .ag-cta__title {
-      font-size: 32px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    #ag-cta-{{ section.id }} .ag-cta__title {
-      font-size: 26px;
-    }
-    #ag-cta-{{ section.id }} .ag-cta__button {
-      width: 100%;
-      box-sizing: border-box;
-    }
+    padding-top: {{ section.settings.padding_top | default: 64 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 64 }}px;
   }
 {%- endstyle -%}
 
-<section id="ag-cta-{{ section.id }}" class="ag-cta" aria-labelledby="ag-cta-title-{{ section.id }}">
+<div id="maison-cta-{{ section.id }}" class="maison-cta_section">
   
-  {%- comment -%} Mobile Collage Image (Shown on mobile screens) {%- endcomment -%}
-  {%- if section.settings.mobile_image != blank -%}
-    <div class="ag-cta__image-mobile">
-      <img
-        src="{{ section.settings.mobile_image | image_url: width: 800 }}"
-        alt="{{ section.settings.mobile_image.alt | default: 'Product Image Mobile' | escape }}"
-        loading="lazy"
-        width="600"
-        height="auto"
-      >
-    </div>
-  {%- endif -%}
-
-  {%- comment -%} Left Floating Images (Supports both single composite image and 3 separate polaroid cards) {%- endcomment -%}
-  <div class="ag-cta__floating-images ag-cta__floating-images--left" aria-hidden="true">
-    {%- if section.settings.left_image != blank -%}
-      <div class="ag-cta__img-single">
-        <img src="{{ section.settings.left_image | image_url: width: 800 }}" alt="Floating composite left" loading="lazy" width="400" height="auto">
-      </div>
-    {%- else -%}
-      {%- if section.settings.left_image_1 != blank -%}
-        <div class="ag-cta__img-wrapper ag-cta__img-wrapper--one">
-          <img src="{{ section.settings.left_image_1 | image_url: width: 500 }}" alt="Floating image 1" loading="lazy" width="200" height="200">
-        </div>
-      {%- endif -%}
-      {%- if section.settings.left_image_2 != blank -%}
-        <div class="ag-cta__img-wrapper ag-cta__img-wrapper--two">
-          <img src="{{ section.settings.left_image_2 | image_url: width: 400 }}" alt="Floating image 2" loading="lazy" width="180" height="200">
-        </div>
-      {%- endif -%}
-      {%- if section.settings.left_image_3 != blank -%}
-        <div class="ag-cta__img-wrapper ag-cta__img-wrapper--three">
-          <img src="{{ section.settings.left_image_3 | image_url: width: 400 }}" alt="Floating image 3" loading="lazy" width="180" height="200">
-        </div>
-      {%- endif -%}
+  {%- comment -%} Mobile Top Image {%- endcomment -%}
+  <div class="maison-cta_image-mobile">
+    {%- if section.settings.mobile_image != blank -%}
+      <img src="{{ section.settings.mobile_image | image_url: width: 800 }}" alt="Product Image" loading="lazy" width="600" height="auto">
     {%- endif -%}
   </div>
 
-  {%- comment -%} Main CTA Content {%- endcomment -%}
-  <div class="ag-cta__content">
-    {%- if section.settings.avatar_1 != blank or section.settings.avatar_2 != blank or section.settings.avatar_3 != blank or section.settings.customer_label != blank -%}
-      <div class="ag-cta__customers">
-        <div class="ag-cta__avatars" aria-hidden="true">
-          {%- if section.settings.avatar_1 != blank -%}
-            <img class="ag-cta__avatar-img" src="{{ section.settings.avatar_1 | image_url: width: 80 }}" alt="Customer" loading="lazy" width="36" height="36">
-          {%- endif -%}
-          {%- if section.settings.avatar_2 != blank -%}
-            <img class="ag-cta__avatar-img" src="{{ section.settings.avatar_2 | image_url: width: 80 }}" alt="Customer" loading="lazy" width="36" height="36">
-          {%- endif -%}
-          {%- if section.settings.avatar_3 != blank -%}
-            <img class="ag-cta__avatar-img" src="{{ section.settings.avatar_3 | image_url: width: 80 }}" alt="Customer" loading="lazy" width="36" height="36">
-          {%- endif -%}
-        </div>
-
-        {%- if section.settings.customer_count != blank or section.settings.customer_label != blank -%}
-          <p class="ag-cta__customers-text">
+  <div class="maison-cta_container">
+    <div class="maison-cta_content">
+      
+      {%- if section.settings.avatar_1 != blank or section.settings.avatar_2 != blank or section.settings.avatar_3 != blank or section.settings.customer_label != blank -%}
+        <div class="maison-cta_badge" style="border-color: #2c2609;">
+          <div class="maison-cta_avatars">
+            {%- if section.settings.avatar_1 != blank -%}
+              <img src="{{ section.settings.avatar_1 | image_url: width: 100 }}" alt="Customer" class="maison-cta_avatar" style="border-color: {{ section.settings.bg_color | default: '#feeb94' }};" width="40" height="40">
+            {%- endif -%}
+            {%- if section.settings.avatar_2 != blank -%}
+              <img src="{{ section.settings.avatar_2 | image_url: width: 100 }}" alt="Customer" class="maison-cta_avatar" style="border-color: {{ section.settings.bg_color | default: '#feeb94' }};" width="40" height="40">
+            {%- endif -%}
+            {%- if section.settings.avatar_3 != blank -%}
+              <img src="{{ section.settings.avatar_3 | image_url: width: 100 }}" alt="Customer" class="maison-cta_avatar" style="border-color: {{ section.settings.bg_color | default: '#feeb94' }};" width="40" height="40">
+            {%- endif -%}
+          </div>
+          <span class="maison-cta_badge-text" style="color: {{ section.settings.text_color | default: '#1d211e' }};">
             {%- if section.settings.customer_count != blank -%}
               <strong>{{ section.settings.customer_count }}</strong>
             {%- endif -%}
             {{ section.settings.customer_label }}
-          </p>
+          </span>
+        </div>
+      {%- endif -%}
+
+      <h2 class="maison-cta_heading" style="color: {{ section.settings.text_color | default: '#1d211e' }};">
+        {%- if section.settings.title_highlight != blank -%}
+          <span class="maison-cta_highlight" style="color: {{ section.settings.accent_color | default: '#f63208' }};">{{ section.settings.title_highlight }}</span>
         {%- endif -%}
-      </div>
-    {%- endif -%}
+        {%- if section.settings.title_main != blank -%}
+          {{ section.settings.title_main }}
+        {%- endif -%}
+      </h2>
 
-    <h2 id="ag-cta-title-{{ section.id }}" class="ag-cta__title">
-      {%- if section.settings.title_highlight != blank -%}
-        <span class="ag-cta__title-highlight">{{ section.settings.title_highlight }}</span>
+      {%- if section.settings.description != blank -%}
+        <div class="maison-cta_description" style="color: {{ section.settings.text_color | default: '#1d211e' }};">
+          {{ section.settings.description }}
+        </div>
       {%- endif -%}
-      {%- if section.settings.title_main != blank -%}
-        {%- if section.settings.title_highlight != blank -%}<br>{%- endif -%}
-        {{ section.settings.title_main }}
+
+      {%- if section.settings.btn_text != blank -%}
+        <a href="{{ section.settings.btn_url | default: '/' }}" class="maison-cta_button" style="
+            background-color: {{ section.settings.button_color | default: '#fedb36' }};
+            color: {{ section.settings.button_text_color | default: '#1d211e' }};
+            border-color: #2c2609;
+            box-shadow: 0px 4px 0px 0px #2c2609;
+          " {% if section.settings.btn_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>
+          {{ section.settings.btn_text }}
+        </a>
       {%- endif -%}
-    </h2>
 
-    {%- if section.settings.description != blank -%}
-      <div class="ag-cta__description">
-        {{ section.settings.description }}
-      </div>
-    {%- endif -%}
+      {%- if section.blocks.size > 0 -%}
+        <div class="maison-cta_benefits">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.enabled -%}
+              <div class="maison-cta_benefit" {{ block.shopify_attributes }}>
+                <span class="maison-cta_icon" style="background-color: {{ section.settings.button_color | default: '#fedb36' }};">✓</span>
+                <span class="maison-cta_text" style="color: {{ section.settings.text_color | default: '#1d211e' }};">{{ block.settings.text | remove: '✔' | remove: '✓' | strip }}</span>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
 
-    {%- if section.settings.btn_text != blank and section.settings.btn_url != blank -%}
-      <a
-        href="{{ section.settings.btn_url }}"
-        class="ag-cta__button"
-        {% if section.settings.btn_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
-      >
-        {{ section.settings.btn_text }}
-      </a>
-    {%- endif -%}
+    </div>
+  </div>
 
-    {%- comment -%} Features List with Yellow Circle Checkmark SVG {%- endcomment -%}
-    {%- if section.blocks.size > 0 -%}
-      <div class="ag-cta__features">
-        {%- for block in section.blocks -%}
-          {%- if block.settings.enabled -%}
-            <div class="ag-cta__feature-item" {{ block.shopify_attributes }}>
-              <span class="ag-cta__feature-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="10" cy="10" r="9" fill="{{ section.settings.button_color | default: '#fedb36' }}" stroke="#2c2609" stroke-width="1.25"/>
-                  <path d="M6 10L8.8 13L14 7" stroke="#2c2609" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
-              <span>{{ block.settings.text | remove: '✔' | remove: '✓' | strip }}</span>
-            </div>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
+  {%- comment -%} Left Image {%- endcomment -%}
+  <div class="maison-cta_image-left">
+    {%- assign l_img = section.settings.left_image | default: section.settings.left_image_1 -%}
+    {%- if l_img != blank -%}
+      <img src="{{ l_img | image_url: width: 800 }}" alt="Product Image" loading="lazy" width="400" height="auto">
     {%- endif -%}
   </div>
 
-  {%- comment -%} Right Floating Images (Supports both single composite image and 2 separate polaroid cards) {%- endcomment -%}
-  <div class="ag-cta__floating-images ag-cta__floating-images--right" aria-hidden="true">
-    {%- if section.settings.right_image != blank -%}
-      <div class="ag-cta__img-single">
-        <img src="{{ section.settings.right_image | image_url: width: 800 }}" alt="Floating composite right" loading="lazy" width="400" height="auto">
-      </div>
-    {%- else -%}
-      {%- if section.settings.right_image_1 != blank -%}
-        <div class="ag-cta__img-wrapper ag-cta__img-wrapper--four">
-          <img src="{{ section.settings.right_image_1 | image_url: width: 500 }}" alt="Floating image right 1" loading="lazy" width="200" height="200">
-        </div>
-      {%- endif -%}
-      {%- if section.settings.right_image_2 != blank -%}
-        <div class="ag-cta__img-wrapper ag-cta__img-wrapper--five">
-          <img src="{{ section.settings.right_image_2 | image_url: width: 500 }}" alt="Floating image right 2" loading="lazy" width="200" height="200">
-        </div>
-      {%- endif -%}
+  {%- comment -%} Right Image {%- endcomment -%}
+  <div class="maison-cta_image-right">
+    {%- assign r_img = section.settings.right_image | default: section.settings.right_image_1 -%}
+    {%- if r_img != blank -%}
+      <img src="{{ r_img | image_url: width: 800 }}" alt="Product Image" loading="lazy" width="400" height="auto">
     {%- endif -%}
   </div>
 
-</section>
+</div>
 
 {% schema %}
 {
@@ -452,45 +140,30 @@
     {
       "type": "image_picker",
       "id": "left_image",
-      "label": "Desktop Left Composite Image (Single Image)",
-      "info": "Upload 1 composite image for left side."
+      "label": "Desktop Left Composite Image",
+      "info": "Upload single grouped composite image for left side on desktop."
     },
     {
       "type": "image_picker",
       "id": "left_image_1",
-      "label": "Left Polaroid Image 1 (Top Left)"
-    },
-    {
-      "type": "image_picker",
-      "id": "left_image_2",
-      "label": "Left Polaroid Image 2 (Middle Left)"
-    },
-    {
-      "type": "image_picker",
-      "id": "left_image_3",
-      "label": "Left Polaroid Image 3 (Bottom Left)"
+      "label": "Left Image Fallback"
     },
     {
       "type": "image_picker",
       "id": "right_image",
-      "label": "Desktop Right Composite Image (Single Image)",
-      "info": "Upload 1 composite image for right side."
+      "label": "Desktop Right Composite Image",
+      "info": "Upload single grouped composite image for right side on desktop."
     },
     {
       "type": "image_picker",
       "id": "right_image_1",
-      "label": "Right Polaroid Image 1 (Top Right)"
-    },
-    {
-      "type": "image_picker",
-      "id": "right_image_2",
-      "label": "Right Polaroid Image 2 (Bottom Right)"
+      "label": "Right Image Fallback"
     },
     {
       "type": "image_picker",
       "id": "mobile_image",
       "label": "Mobile Top Composite Image",
-      "info": "Upload 1 composite image to show above content on mobile."
+      "info": "Upload composite image to show above content on mobile."
     },
     {
       "type": "header",
@@ -574,16 +247,6 @@
       "default": "#1d211e"
     },
     {
-      "type": "range",
-      "id": "border_radius",
-      "label": "Button Border Radius",
-      "min": 0,
-      "max": 50,
-      "step": 2,
-      "unit": "px",
-      "default": 12
-    },
-    {
       "type": "checkbox",
       "id": "btn_new_tab",
       "label": "Open Button Link in New Tab",
@@ -592,16 +255,6 @@
     {
       "type": "header",
       "content": "Section Layout & Spacing"
-    },
-    {
-      "type": "range",
-      "id": "max_width",
-      "label": "Maximum Content Width",
-      "min": 500,
-      "max": 1000,
-      "step": 50,
-      "unit": "px",
-      "default": 700
     },
     {
       "type": "range",
