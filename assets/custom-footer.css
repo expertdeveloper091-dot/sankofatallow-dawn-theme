@@ -533,21 +533,27 @@ CONTACT INFORMATION LIST
 .custom-footer-contact-list .contact-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
+    gap: 12px;
+    margin-bottom: 14px;
     font-size: 15px;
     line-height: 22px;
 }
 
-.custom-footer-contact-list .contact-item i {
-    width: 20px;
-    height: 20px;
+.custom-footer-contact-list .contact-item .contact-icon {
+    width: 22px;
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #111;
-    font-size: 14px;
     flex-shrink: 0;
+    color: currentColor;
+}
+
+.custom-footer-contact-list .contact-item .contact-icon svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+    stroke: currentColor;
 }
 
 .custom-footer-contact-list .contact-item a {
@@ -558,6 +564,37 @@ CONTACT INFORMATION LIST
 
 .custom-footer-contact-list .contact-item a:hover {
     text-decoration: underline;
+}
+
+.social-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.social-icons a {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.06);
+    transition: transform 0.2s, background 0.2s;
+    color: currentColor;
+}
+
+.social-icons a:hover {
+    transform: translateY(-2px);
+    background: rgba(0,0,0,0.12);
+}
+
+.social-icons a svg {
+    width: 16px;
+    height: 16px;
+    display: block;
 }
 
 @media(max-width:768px){
