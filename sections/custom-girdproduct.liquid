@@ -314,134 +314,252 @@
 
     <!-- Product Grid -->
     <div class="custom-gridproduct-grid">
-      {%- for block in section.blocks -%}
-        {%- assign card_prod = block.settings.product -%}
+      {%- assign selected_collection = section.settings.collection -%}
 
-        <div class="c-prod-card" {{ block.shopify_attributes }}>
-          <div class="c-prod-card-body">
-            
-            <!-- Image -->
-            <div class="c-prod-card-img-wrap">
-              {%- if block.settings.image != blank -%}
-                <img src="{{ block.settings.image | image_url: width: 600 }}"
-                     alt="{{ block.settings.title | default: card_prod.title | escape }}"
-                     loading="lazy">
-              {%- elsif card_prod != blank and card_prod.featured_media != blank -%}
-                <img src="{{ card_prod.featured_media | image_url: width: 600 }}"
-                     alt="{{ card_prod.title | escape }}"
-                     loading="lazy">
+      {%- if selected_collection != blank and selected_collection.products_count > 0 -%}
+        {%- for product in selected_collection.products limit: section.settings.products_to_show -%}
+          <div class="c-prod-card">
+            <div class="c-prod-card-body">
+              
+              <!-- Image -->
+              <div class="c-prod-card-img-wrap">
+                {%- if product.featured_media != blank -%}
+                  <img src="{{ product.featured_media | image_url: width: 600 }}"
+                       alt="{{ product.title | escape }}"
+                       loading="lazy">
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+
+              <!-- Content -->
+              <div class="c-prod-card-content">
+                <h3 class="c-prod-card-title">
+                  {{ product.title | escape }}
+                </h3>
+
+                <div class="c-prod-card-description">
+                  {%- if product.description != blank -%}
+                    {{ product.description | strip_html | truncatewords: 22 }}
+                  {%- else -%}
+                    Organic multipurpose balm that <strong>deeply moisturizes</strong> and nourishes skin.
+                  {%- endif -%}
+                </div>
+
+                <ul class="c-prod-card-features">
+                  {%- if section.settings.default_feature_1 != blank -%}
+                    <li class="c-prod-card-feature-item">
+                      <span class="c-prod-card-feature-icon">
+                        {%- if section.settings.default_feature_1_icon == 'star' -%}
+                          <i class="fa-regular fa-star"></i>
+                        {%- elsif section.settings.default_feature_1_icon == 'leaf' -%}
+                          <i class="fa-solid fa-leaf"></i>
+                        {%- elsif section.settings.default_feature_1_icon == 'shield' -%}
+                          <i class="fa-solid fa-shield-halved"></i>
+                        {%- else -%}
+                          <i class="fa-solid fa-check"></i>
+                        {%- endif -%}
+                      </span>
+                      <span>{{ section.settings.default_feature_1 | escape }}</span>
+                    </li>
+                  {%- endif -%}
+
+                  {%- if section.settings.default_feature_2 != blank -%}
+                    <li class="c-prod-card-feature-item">
+                      <span class="c-prod-card-feature-icon">
+                        {%- if section.settings.default_feature_2_icon == 'star' -%}
+                          <i class="fa-regular fa-star"></i>
+                        {%- elsif section.settings.default_feature_2_icon == 'leaf' -%}
+                          <i class="fa-solid fa-leaf"></i>
+                        {%- elsif section.settings.default_feature_2_icon == 'shield' -%}
+                          <i class="fa-solid fa-shield-halved"></i>
+                        {%- else -%}
+                          <i class="fa-solid fa-check"></i>
+                        {%- endif -%}
+                      </span>
+                      <span>{{ section.settings.default_feature_2 | escape }}</span>
+                    </li>
+                  {%- endif -%}
+
+                  {%- if section.settings.default_feature_3 != blank -%}
+                    <li class="c-prod-card-feature-item">
+                      <span class="c-prod-card-feature-icon">
+                        {%- if section.settings.default_feature_3_icon == 'star' -%}
+                          <i class="fa-regular fa-star"></i>
+                        {%- elsif section.settings.default_feature_3_icon == 'leaf' -%}
+                          <i class="fa-solid fa-leaf"></i>
+                        {%- elsif section.settings.default_feature_3_icon == 'shield' -%}
+                          <i class="fa-solid fa-shield-halved"></i>
+                        {%- else -%}
+                          <i class="fa-solid fa-check"></i>
+                        {%- endif -%}
+                      </span>
+                      <span>{{ section.settings.default_feature_3 | escape }}</span>
+                    </li>
+                  {%- endif -%}
+                </ul>
+
+                <div class="c-prod-card-price">
+                  {{ product.price | money }}
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Bottom Actions Bar -->
+            <div class="c-prod-card-actions">
+              <a href="{{ product.url }}" class="c-prod-btn-learn">
+                <span>{{ section.settings.default_learn_text | default: 'Learn More' | escape }}</span>
+                <span>&rarr;</span>
+              </a>
+
+              {%- if product.available -%}
+                <form method="post" action="/cart/add" style="width: 50%; display: flex;">
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  <button type="submit" class="c-prod-btn-cart" style="width: 100%;">
+                    <span>{{ section.settings.default_cart_text | default: 'Add To Cart' | escape }}</span>
+                    <i class="fa-solid fa-cart-shopping"></i>
+                  </button>
+                </form>
               {%- else -%}
-                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                <a href="{{ product.url }}" class="c-prod-btn-cart">
+                  <span>Sold Out</span>
+                </a>
               {%- endif -%}
             </div>
+          </div>
+        {%- endfor -%}
 
-            <!-- Content -->
-            <div class="c-prod-card-content">
-              <h3 class="c-prod-card-title">
-                {{ block.settings.title | default: card_prod.title | default: 'Product Title' | escape }}
-              </h3>
+      {%- elsif section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- assign card_prod = block.settings.product -%}
 
-              <div class="c-prod-card-description">
-                {%- if block.settings.description != blank -%}
-                  {{ block.settings.description }}
-                {%- elsif card_prod != blank and card_prod.description != blank -%}
-                  {{ card_prod.description | strip_html | truncatewords: 22 }}
+          <div class="c-prod-card" {{ block.shopify_attributes }}>
+            <div class="c-prod-card-body">
+              
+              <!-- Image -->
+              <div class="c-prod-card-img-wrap">
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url: width: 600 }}"
+                       alt="{{ block.settings.title | default: card_prod.title | escape }}"
+                       loading="lazy">
+                {%- elsif card_prod != blank and card_prod.featured_media != blank -%}
+                  <img src="{{ card_prod.featured_media | image_url: width: 600 }}"
+                       alt="{{ card_prod.title | escape }}"
+                       loading="lazy">
                 {%- else -%}
-                  Organic multipurpose balm that <strong>deeply moisturizes</strong> and nourishes skin.
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
                 {%- endif -%}
               </div>
 
-              <ul class="c-prod-card-features">
-                {%- if block.settings.feature_1 != blank -%}
-                  <li class="c-prod-card-feature-item">
-                    <span class="c-prod-card-feature-icon">
-                      {%- if block.settings.feature_1_icon == 'star' -%}
-                        <i class="fa-regular fa-star"></i>
-                      {%- elsif block.settings.feature_1_icon == 'leaf' -%}
-                        <i class="fa-solid fa-leaf"></i>
-                      {%- elsif block.settings.feature_1_icon == 'shield' -%}
-                        <i class="fa-solid fa-shield-halved"></i>
-                      {%- else -%}
-                        <i class="fa-solid fa-check"></i>
-                      {%- endif -%}
-                    </span>
-                    <span>{{ block.settings.feature_1 | escape }}</span>
-                  </li>
-                {%- endif -%}
+              <!-- Content -->
+              <div class="c-prod-card-content">
+                <h3 class="c-prod-card-title">
+                  {{ block.settings.title | default: card_prod.title | default: 'Product Title' | escape }}
+                </h3>
 
-                {%- if block.settings.feature_2 != blank -%}
-                  <li class="c-prod-card-feature-item">
-                    <span class="c-prod-card-feature-icon">
-                      {%- if block.settings.feature_2_icon == 'star' -%}
-                        <i class="fa-regular fa-star"></i>
-                      {%- elsif block.settings.feature_2_icon == 'leaf' -%}
-                        <i class="fa-solid fa-leaf"></i>
-                      {%- elsif block.settings.feature_2_icon == 'shield' -%}
-                        <i class="fa-solid fa-shield-halved"></i>
-                      {%- else -%}
-                        <i class="fa-solid fa-check"></i>
-                      {%- endif -%}
-                    </span>
-                    <span>{{ block.settings.feature_2 | escape }}</span>
-                  </li>
-                {%- endif -%}
+                <div class="c-prod-card-description">
+                  {%- if block.settings.description != blank -%}
+                    {{ block.settings.description }}
+                  {%- elsif card_prod != blank and card_prod.description != blank -%}
+                    {{ card_prod.description | strip_html | truncatewords: 22 }}
+                  {%- else -%}
+                    Organic multipurpose balm that <strong>deeply moisturizes</strong> and nourishes skin.
+                  {%- endif -%}
+                </div>
 
-                {%- if block.settings.feature_3 != blank -%}
-                  <li class="c-prod-card-feature-item">
-                    <span class="c-prod-card-feature-icon">
-                      {%- if block.settings.feature_3_icon == 'star' -%}
-                        <i class="fa-regular fa-star"></i>
-                      {%- elsif block.settings.feature_3_icon == 'leaf' -%}
-                        <i class="fa-solid fa-leaf"></i>
-                      {%- elsif block.settings.feature_3_icon == 'shield' -%}
-                        <i class="fa-solid fa-shield-halved"></i>
-                      {%- else -%}
-                        <i class="fa-solid fa-check"></i>
-                      {%- endif -%}
-                    </span>
-                    <span>{{ block.settings.feature_3 | escape }}</span>
-                  </li>
-                {%- endif -%}
-              </ul>
+                <ul class="c-prod-card-features">
+                  {%- if block.settings.feature_1 != blank -%}
+                    <li class="c-prod-card-feature-item">
+                      <span class="c-prod-card-feature-icon">
+                        {%- if block.settings.feature_1_icon == 'star' -%}
+                          <i class="fa-regular fa-star"></i>
+                        {%- elsif block.settings.feature_1_icon == 'leaf' -%}
+                          <i class="fa-solid fa-leaf"></i>
+                        {%- elsif block.settings.feature_1_icon == 'shield' -%}
+                          <i class="fa-solid fa-shield-halved"></i>
+                        {%- else -%}
+                          <i class="fa-solid fa-check"></i>
+                        {%- endif -%}
+                      </span>
+                      <span>{{ block.settings.feature_1 | escape }}</span>
+                    </li>
+                  {%- endif -%}
 
-              <div class="c-prod-card-price">
-                {%- if block.settings.price != blank -%}
-                  {{ block.settings.price }}
-                {%- elsif card_prod != blank -%}
-                  {{ card_prod.price | money }}
-                {%- else -%}
-                  $49.99
-                {%- endif -%}
+                  {%- if block.settings.feature_2 != blank -%}
+                    <li class="c-prod-card-feature-item">
+                      <span class="c-prod-card-feature-icon">
+                        {%- if block.settings.feature_2_icon == 'star' -%}
+                          <i class="fa-regular fa-star"></i>
+                        {%- elsif block.settings.feature_2_icon == 'leaf' -%}
+                          <i class="fa-solid fa-leaf"></i>
+                        {%- elsif block.settings.feature_2_icon == 'shield' -%}
+                          <i class="fa-solid fa-shield-halved"></i>
+                        {%- else -%}
+                          <i class="fa-solid fa-check"></i>
+                        {%- endif -%}
+                      </span>
+                      <span>{{ block.settings.feature_2 | escape }}</span>
+                    </li>
+                  {%- endif -%}
+
+                  {%- if block.settings.feature_3 != blank -%}
+                    <li class="c-prod-card-feature-item">
+                      <span class="c-prod-card-feature-icon">
+                        {%- if block.settings.feature_3_icon == 'star' -%}
+                          <i class="fa-regular fa-star"></i>
+                        {%- elsif block.settings.feature_3_icon == 'leaf' -%}
+                          <i class="fa-solid fa-leaf"></i>
+                        {%- elsif block.settings.feature_3_icon == 'shield' -%}
+                          <i class="fa-solid fa-shield-halved"></i>
+                        {%- else -%}
+                          <i class="fa-solid fa-check"></i>
+                        {%- endif -%}
+                      </span>
+                      <span>{{ block.settings.feature_3 | escape }}</span>
+                    </li>
+                  {%- endif -%}
+                </ul>
+
+                <div class="c-prod-card-price">
+                  {%- if block.settings.price != blank -%}
+                    {{ block.settings.price }}
+                  {%- elsif card_prod != blank -%}
+                    {{ card_prod.price | money }}
+                  {%- else -%}
+                    $49.99
+                  {%- endif -%}
+                </div>
               </div>
+
             </div>
 
-          </div>
+            <!-- Bottom Actions Bar -->
+            <div class="c-prod-card-actions">
+              {%- assign learn_url = block.settings.learn_more_link | default: card_prod.url | default: '#' -%}
+              <a href="{{ learn_url }}" class="c-prod-btn-learn">
+                <span>{{ block.settings.learn_more_text | default: 'Learn More' | escape }}</span>
+                <span>&rarr;</span>
+              </a>
 
-          <!-- Bottom Actions Bar -->
-          <div class="c-prod-card-actions">
-            {%- assign learn_url = block.settings.learn_more_link | default: card_prod.url | default: '#' -%}
-            <a href="{{ learn_url }}" class="c-prod-btn-learn">
-              <span>{{ block.settings.learn_more_text | default: 'Learn More' | escape }}</span>
-              <span>&rarr;</span>
-            </a>
-
-            {%- if card_prod != blank and card_prod.available -%}
-              <form method="post" action="/cart/add" style="width: 50%; display: flex;">
-                <input type="hidden" name="id" value="{{ card_prod.selected_or_first_available_variant.id }}">
-                <button type="submit" class="c-prod-btn-cart" style="width: 100%;">
+              {%- if card_prod != blank and card_prod.available -%}
+                <form method="post" action="/cart/add" style="width: 50%; display: flex;">
+                  <input type="hidden" name="id" value="{{ card_prod.selected_or_first_available_variant.id }}">
+                  <button type="submit" class="c-prod-btn-cart" style="width: 100%;">
+                    <span>{{ block.settings.button_text | default: 'Add To Cart' | escape }}</span>
+                    <i class="fa-solid fa-cart-shopping"></i>
+                  </button>
+                </form>
+              {%- else -%}
+                <a href="{{ learn_url }}" class="c-prod-btn-cart">
                   <span>{{ block.settings.button_text | default: 'Add To Cart' | escape }}</span>
                   <i class="fa-solid fa-cart-shopping"></i>
-                </button>
-              </form>
-            {%- else -%}
-              <a href="{{ learn_url }}" class="c-prod-btn-cart">
-                <span>{{ block.settings.button_text | default: 'Add To Cart' | escape }}</span>
-                <i class="fa-solid fa-cart-shopping"></i>
-              </a>
-            {%- endif -%}
+                </a>
+              {%- endif -%}
+            </div>
           </div>
-        </div>
-      {%- endfor -%}
+        {%- endfor -%}
+      {%- endif -%}
     </div>
 
   </div>
@@ -451,6 +569,91 @@
 {
   "name": "Custom Product Grid",
   "settings": [
+    {
+      "type": "header",
+      "content": "Collection Source (Automatic Products)"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection (Loads all products automatically)"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 16,
+      "step": 1,
+      "default": 4,
+      "label": "Maximum Products to Show"
+    },
+    {
+      "type": "text",
+      "id": "default_feature_1",
+      "label": "Collection Mode - Feature 1 Bullet",
+      "default": "Skin Barrier Support"
+    },
+    {
+      "type": "select",
+      "id": "default_feature_1_icon",
+      "label": "Collection Mode - Feature 1 Icon",
+      "options": [
+        { "value": "star", "label": "Star" },
+        { "value": "check", "label": "Checkmark" },
+        { "value": "leaf", "label": "Leaf" },
+        { "value": "shield", "label": "Shield" }
+      ],
+      "default": "star"
+    },
+    {
+      "type": "text",
+      "id": "default_feature_2",
+      "label": "Collection Mode - Feature 2 Bullet",
+      "default": "Fast Absorption"
+    },
+    {
+      "type": "select",
+      "id": "default_feature_2_icon",
+      "label": "Collection Mode - Feature 2 Icon",
+      "options": [
+        { "value": "star", "label": "Star" },
+        { "value": "check", "label": "Checkmark" },
+        { "value": "leaf", "label": "Leaf" },
+        { "value": "shield", "label": "Shield" }
+      ],
+      "default": "check"
+    },
+    {
+      "type": "text",
+      "id": "default_feature_3",
+      "label": "Collection Mode - Feature 3 Bullet",
+      "default": "Zero Toxins"
+    },
+    {
+      "type": "select",
+      "id": "default_feature_3_icon",
+      "label": "Collection Mode - Feature 3 Icon",
+      "options": [
+        { "value": "star", "label": "Star" },
+        { "value": "check", "label": "Checkmark" },
+        { "value": "leaf", "label": "Leaf" },
+        { "value": "shield", "label": "Shield" }
+      ],
+      "default": "shield"
+    },
+    {
+      "type": "text",
+      "id": "default_learn_text",
+      "label": "Collection Mode - Learn More Button Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "text",
+      "id": "default_cart_text",
+      "label": "Collection Mode - Add to Cart Button Text",
+      "default": "Add To Cart"
+    },
+
     {
       "type": "header",
       "content": "Section Header"
@@ -497,6 +700,7 @@
       "label": "Badge 3 Text",
       "default": "30-Day Money-Back Guarantee"
     },
+
     {
       "type": "header",
       "content": "Colors & Styling"
@@ -577,7 +781,7 @@
   "blocks": [
     {
       "type": "product_card",
-      "name": "Product Card",
+      "name": "Manual Product Card",
       "settings": [
         {
           "type": "product",
