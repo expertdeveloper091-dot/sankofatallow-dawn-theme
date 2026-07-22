@@ -1,6 +1,7 @@
-/* Verbatim CSS for Maison CTA Section from Evilgoods.com */
+/* Verbatim CSS for Maison CTA Section from Evilgoods.com with AG-CTA fallback selectors */
 
-.maison-cta_section {
+.maison-cta_section,
+.ag-cta {
   position: relative;
   overflow: hidden;
   font-family: inherit, sans-serif;
@@ -8,18 +9,21 @@
   width: 100%;
 }
 
-.maison-cta_section * {
+.maison-cta_section *,
+.ag-cta * {
   box-sizing: border-box;
 }
 
-.maison-cta_container {
+.maison-cta_container,
+.ag-cta__container {
   max-width: 1100px;
   margin: 0 auto;
   position: relative;
   padding: 0 1em;
 }
 
-.maison-cta_content {
+.maison-cta_content,
+.ag-cta__content {
   text-align: center;
   max-width: 700px;
   margin: 0 auto;
@@ -27,7 +31,8 @@
   z-index: 2;
 }
 
-.maison-cta_badge {
+.maison-cta_badge,
+.ag-cta__customers {
   display: inline-flex;
   flex-direction: row;
   align-items: center;
@@ -40,12 +45,14 @@
   padding: 4px 12px 4px 4px;
 }
 
-.maison-cta_avatars {
+.maison-cta_avatars,
+.ag-cta__avatars {
   display: flex;
   align-items: center;
 }
 
-.maison-cta_avatar {
+.maison-cta_avatar,
+.ag-cta__avatar-img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -54,18 +61,21 @@
   object-fit: cover;
 }
 
-.maison-cta_avatar:first-child {
+.maison-cta_avatar:first-child,
+.ag-cta__avatar-img:first-child {
   margin-left: 0;
 }
 
-.maison-cta_badge-text {
+.maison-cta_badge-text,
+.ag-cta__customers-text {
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
 }
 
-.maison-cta_heading {
+.maison-cta_heading,
+.ag-cta__title {
   font-size: 2.75em;
   font-weight: 700;
   margin-bottom: 0.5em;
@@ -74,17 +84,20 @@
   text-transform: uppercase;
 }
 
-.maison-cta_highlight {
+.maison-cta_highlight,
+.ag-cta__title-highlight {
   display: block;
 }
 
-.maison-cta_description {
+.maison-cta_description,
+.ag-cta__description {
   font-size: 1.125em;
   line-height: 1.5;
   margin-bottom: 20px;
 }
 
-.maison-cta_button {
+.maison-cta_button,
+.ag-cta__button {
   display: inline-block;
   font-weight: 700;
   font-size: 1em;
@@ -92,23 +105,23 @@
   text-decoration: none;
   transition: transform 0.2s, box-shadow 0.2s;
   border-radius: 12px;
-  border-top: 1px solid #2c2609;
-  border-right: 1px solid #2c2609;
-  border-bottom: 1px solid #2c2609;
-  border-left: 1px solid #2c2609;
+  border: 1px solid #2c2609;
   cursor: pointer;
 }
 
-.maison-cta_button:hover {
+.maison-cta_button:hover,
+.ag-cta__button:hover {
   transform: translateY(-2px);
 }
 
-.maison-cta_button:active {
+.maison-cta_button:active,
+.ag-cta__button:active {
   transform: translateY(2px);
   box-shadow: 0px 2px 0px -1px #2c2609;
 }
 
-.maison-cta_benefits {
+.maison-cta_benefits,
+.ag-cta__features {
   display: flex;
   justify-content: center;
   gap: 2em;
@@ -116,13 +129,15 @@
   flex-wrap: wrap;
 }
 
-.maison-cta_benefit {
+.maison-cta_benefit,
+.ag-cta__feature-item {
   display: flex;
   align-items: center;
   gap: 0.5em;
 }
 
-.maison-cta_icon {
+.maison-cta_icon,
+.ag-cta__feature-icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,18 +156,10 @@
   font-weight: 500;
 }
 
-.maison-cta_images {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-}
-
 .maison-cta_image-left,
-.maison-cta_image-right {
+.ag-cta__floating-images--left,
+.maison-cta_image-right,
+.ag-cta__floating-images--right {
   position: absolute;
   top: 0;
   height: 100%;
@@ -162,28 +169,34 @@
   pointer-events: none;
 }
 
-.maison-cta_image-left {
+.maison-cta_image-left,
+.ag-cta__floating-images--left {
   left: 0;
 }
 
-.maison-cta_image-right {
+.maison-cta_image-right,
+.ag-cta__floating-images--right {
   right: 0;
 }
 
 .maison-cta_image-left img,
-.maison-cta_image-right img {
+.ag-cta__floating-images--left img,
+.maison-cta_image-right img,
+.ag-cta__floating-images--right img {
   max-height: 100%;
   width: auto;
   object-fit: contain;
   display: block;
 }
 
-.maison-cta_image-mobile {
+.maison-cta_image-mobile,
+.ag-cta__image-mobile {
   display: none;
   width: 100%;
 }
 
-.maison-cta_image-mobile img {
+.maison-cta_image-mobile img,
+.ag-cta__image-mobile img {
   max-height: 100%;
   max-width: 100%;
   width: auto;
@@ -194,72 +207,90 @@
 }
 
 @media (max-width: 1315px) {
-  .maison-cta_image-left {
+  .maison-cta_image-left,
+  .ag-cta__floating-images--left {
     left: -8px;
   }
-  .maison-cta_image-right {
+  .maison-cta_image-right,
+  .ag-cta__floating-images--right {
     right: -80px;
   }
 }
 
 @media (max-width: 1300px) {
-  .maison-cta_image-left {
+  .maison-cta_image-left,
+  .ag-cta__floating-images--left {
     left: -100px;
   }
-  .maison-cta_image-right {
+  .maison-cta_image-right,
+  .ag-cta__floating-images--right {
     right: -100px;
   }
 }
 
 @media (min-width: 750px) and (max-width: 1415px) {
-  .maison-cta_content {
+  .maison-cta_content,
+  .ag-cta__content {
     max-width: 540px;
   }
 }
 
 @media (max-width: 1100px) {
-  .maison-cta_heading {
+  .maison-cta_heading,
+  .ag-cta__title {
     font-size: 2.25em;
   }
-  .maison-cta_image-left {
+  .maison-cta_image-left,
+  .ag-cta__floating-images--left {
     left: -80px;
   }
-  .maison-cta_image-right {
+  .maison-cta_image-right,
+  .ag-cta__floating-images--right {
     right: -80px;
   }
   .maison-cta_image-left img,
-  .maison-cta_image-right img {
+  .ag-cta__floating-images--left img,
+  .maison-cta_image-right img,
+  .ag-cta__floating-images--right img {
     max-width: 250px;
   }
 }
 
 @media (max-width: 768px) {
-  .maison-cta_section {
+  .maison-cta_section,
+  .ag-cta {
     padding-bottom: 6em !important;
   }
-  .maison-cta_heading {
+  .maison-cta_heading,
+  .ag-cta__title {
     font-size: 2em;
     margin-bottom: 12px;
   }
-  .maison-cta_description {
+  .maison-cta_description,
+  .ag-cta__description {
     font-size: 1em;
     margin-bottom: 12px;
   }
   .maison-cta_image-left,
-  .maison-cta_image-right {
-    display: none;
+  .ag-cta__floating-images--left,
+  .maison-cta_image-right,
+  .ag-cta__floating-images--right {
+    display: none !important;
   }
-  .maison-cta_image-mobile {
-    display: block;
+  .maison-cta_image-mobile,
+  .ag-cta__image-mobile {
+    display: block !important;
   }
-  .maison-cta_benefits {
+  .maison-cta_benefits,
+  .ag-cta__features {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 9px;
     margin-top: 12px;
   }
-  .maison-cta_avatar {
+  .maison-cta_avatar,
+  .ag-cta__avatar-img {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -267,19 +298,23 @@
     margin-left: -10px;
     object-fit: cover;
   }
-  .maison-cta_badge {
+  .maison-cta_badge,
+  .ag-cta__customers {
     gap: 4px;
   }
 }
 
 @media (max-width: 480px) {
-  .maison-cta_section {
+  .maison-cta_section,
+  .ag-cta {
     padding-block: 20px !important;
   }
-  .maison-cta_heading {
+  .maison-cta_heading,
+  .ag-cta__title {
     font-size: 36px;
   }
-  .maison-cta_button {
+  .maison-cta_button,
+  .ag-cta__button {
     width: 100%;
     padding: 0.75em 1.5em;
   }
