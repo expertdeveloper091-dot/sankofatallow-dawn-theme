@@ -1,217 +1,132 @@
-
 {{ 'custom-cta.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   #ag-cta-{{ section.id }} {
-    background-color: #e7a621 !important;
-    --ag-cta-bg: {{ section.settings.bg_color }};
-    --ag-cta-text-color: {{ section.settings.text_color }};
-    --ag-cta-accent-color: {{ section.settings.accent_color }};
-    --ag-cta-btn-bg: {{ section.settings.button_color }};
-    --ag-cta-btn-hover-bg: {{ section.settings.button_hover_color }};
-    --ag-cta-btn-text-color: {{ section.settings.button_text_color }};
-    --ag-cta-btn-border-radius: {{ section.settings.border_radius }}px;
-    --ag-cta-max-width: {{ section.settings.max_width }}px;
-    --ag-cta-padding-top: {{ section.settings.padding_top }}px;
-    --ag-cta-padding-bottom: {{ section.settings.padding_bottom }}px;
-    --ag-cta-overlay-color: {{ section.settings.overlay_color }};
-    --ag-cta-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    background-color: {{ section.settings.bg_color | default: '#feeb94' }} !important;
+    border-top: 1px solid #2c2609;
+    border-bottom: 1px solid #2c2609;
+    padding-top: {{ section.settings.padding_top | default: 64 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 64 }}px;
   }
-  {%- if section.settings.bg_image != blank -%}
-    #ag-cta-{{ section.id }} {
-      background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');
-    }
-  {%- endif -%}
 {%- endstyle -%}
 
-<section id="ag-cta-{{ section.id }}" class="ag-cta" aria-labelledby="ag-cta-title-{{ section.id }}">
-  {%- if section.settings.show_overlay and section.settings.overlay_opacity > 0 -%}
-    <div class="ag-cta__overlay"></div>
+<section id="ag-cta-{{ section.id }}" class="maison-cta_section">
+  
+  {%- comment -%} Mobile Image (Shown on mobile top) {%- endcomment -%}
+  {%- if section.settings.mobile_image != blank -%}
+    <div class="maison-cta_image-mobile">
+      <img
+        src="{{ section.settings.mobile_image | image_url: width: 800 }}"
+        alt="{{ section.settings.mobile_image.alt | default: 'Product Image Mobile' | escape }}"
+        loading="lazy"
+        width="600"
+        height="auto"
+      >
+    </div>
   {%- endif -%}
 
-  {%- comment -%} Left Floating Images {%- endcomment -%}
-  <div class="ag-cta__floating-images ag-cta__floating-images--left" aria-hidden="true">
-    <div class="ag-cta__img-wrapper ag-cta__img-wrapper--one">
-      {%- if section.settings.left_image_1 != blank -%}
-        <img
-          src="{{ section.settings.left_image_1 | image_url: width: 600 }}"
-          alt="{{ section.settings.left_image_1.alt | default: 'Floating decorative image 1' | escape }}"
-          loading="lazy"
-          width="270"
-          height="270"
-        >
-      {%- else -%}
-        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-      {%- endif -%}
-    </div>
-
-    <div class="ag-cta__img-wrapper ag-cta__img-wrapper--two">
-      {%- if section.settings.left_image_2 != blank -%}
-        <img
-          src="{{ section.settings.left_image_2 | image_url: width: 400 }}"
-          alt="{{ section.settings.left_image_2.alt | default: 'Floating decorative image 2' | escape }}"
-          loading="lazy"
-          width="180"
-          height="220"
-        >
-      {%- else -%}
-        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-      {%- endif -%}
-    </div>
-
-    <div class="ag-cta__img-wrapper ag-cta__img-wrapper--three">
-      {%- if section.settings.left_image_3 != blank -%}
-        <img
-          src="{{ section.settings.left_image_3 | image_url: width: 500 }}"
-          alt="{{ section.settings.left_image_3.alt | default: 'Floating decorative image 3' | escape }}"
-          loading="lazy"
-          width="240"
-          height="250"
-        >
-      {%- else -%}
-        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-      {%- endif -%}
-    </div>
-  </div>
-
-  {%- comment -%} Main CTA Content {%- endcomment -%}
-  <div class="ag-cta__content">
-    {%- if section.settings.avatar_1 != blank or section.settings.avatar_2 != blank or section.settings.avatar_3 != blank or section.settings.customer_count != blank or section.settings.customer_label != blank -%}
-      <div class="ag-cta__customers">
-        <div class="ag-cta__avatars" aria-hidden="true">
-          {%- if section.settings.avatar_1 != blank -%}
-            <img
-              class="ag-cta__avatar-img"
-              src="{{ section.settings.avatar_1 | image_url: width: 100 }}"
-              alt="{{ section.settings.avatar_1.alt | default: 'Customer avatar 1' | escape }}"
-              loading="lazy"
-              width="40"
-              height="40"
-            >
-          {%- else -%}
-            <div class="ag-cta__avatar-placeholder ag-cta__avatar-placeholder--1">A1</div>
-          {%- endif -%}
-          
-          {%- if section.settings.avatar_2 != blank -%}
-            <img
-              class="ag-cta__avatar-img"
-              src="{{ section.settings.avatar_2 | image_url: width: 100 }}"
-              alt="{{ section.settings.avatar_2.alt | default: 'Customer avatar 2' | escape }}"
-              loading="lazy"
-              width="40"
-              height="40"
-            >
-          {%- else -%}
-            <div class="ag-cta__avatar-placeholder ag-cta__avatar-placeholder--2">A2</div>
-          {%- endif -%}
-          
-          {%- if section.settings.avatar_3 != blank -%}
-            <img
-              class="ag-cta__avatar-img"
-              src="{{ section.settings.avatar_3 | image_url: width: 100 }}"
-              alt="{{ section.settings.avatar_3.alt | default: 'Customer avatar 3' | escape }}"
-              loading="lazy"
-              width="40"
-              height="40"
-            >
-          {%- else -%}
-            <div class="ag-cta__avatar-placeholder ag-cta__avatar-placeholder--3">A3</div>
-          {%- endif -%}
-        </div>
-
-        {%- if section.settings.customer_count != blank or section.settings.customer_label != blank -%}
-          <p class="ag-cta__customers-text">
+  <div class="maison-cta_container">
+    <div class="maison-cta_content">
+      
+      {%- comment -%} Customer Avatars & Badge {%- endcomment -%}
+      {%- if section.settings.avatar_1 != blank or section.settings.avatar_2 != blank or section.settings.avatar_3 != blank or section.settings.customer_label != blank -%}
+        <div class="maison-cta_badge" style="border-color: #2c2609;">
+          <div class="maison-cta_avatars">
+            {%- if section.settings.avatar_1 != blank -%}
+              <img src="{{ section.settings.avatar_1 | image_url: width: 80 }}" alt="Customer" class="maison-cta_avatar" style="border-color: {{ section.settings.bg_color | default: '#feeb94' }};" width="40" height="40">
+            {%- endif -%}
+            {%- if section.settings.avatar_2 != blank -%}
+              <img src="{{ section.settings.avatar_2 | image_url: width: 80 }}" alt="Customer" class="maison-cta_avatar" style="border-color: {{ section.settings.bg_color | default: '#feeb94' }};" width="40" height="40">
+            {%- endif -%}
+            {%- if section.settings.avatar_3 != blank -%}
+              <img src="{{ section.settings.avatar_3 | image_url: width: 80 }}" alt="Customer" class="maison-cta_avatar" style="border-color: {{ section.settings.bg_color | default: '#feeb94' }};" width="40" height="40">
+            {%- endif -%}
+          </div>
+          <span class="maison-cta_badge-text" style="color: #1d211e;">
             {%- if section.settings.customer_count != blank -%}
               <strong>{{ section.settings.customer_count }}</strong>
             {%- endif -%}
             {{ section.settings.customer_label }}
-          </p>
+          </span>
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} Main Heading {%- endcomment -%}
+      <h2 class="maison-cta_heading" style="color: #1d211e;">
+        {%- if section.settings.title_highlight != blank -%}
+          <span class="maison-cta_highlight" style="color: #f63208;">{{ section.settings.title_highlight }}</span>
         {%- endif -%}
-      </div>
-    {%- endif -%}
-
-    <h2 id="ag-cta-title-{{ section.id }}" class="ag-cta__title">
-      {%- if section.settings.title_highlight != blank -%}
-        <span class="ag-cta__title-highlight">{{ section.settings.title_highlight }}</span>
-      {%- endif -%}
-      {%- if section.settings.title_main != blank -%}
-        {%- if section.settings.title_highlight != blank -%}<br>{%- endif -%}
         {{ section.settings.title_main }}
+      </h2>
+
+      {%- comment -%} Description {%- endcomment -%}
+      {%- if section.settings.description != blank -%}
+        <div class="maison-cta_description" style="color: #1d211e;">
+          {{ section.settings.description }}
+        </div>
       {%- endif -%}
-    </h2>
 
-    {%- if section.settings.description != blank -%}
-      <div class="ag-cta__description">
-        {{ section.settings.description }}
-      </div>
-    {%- endif -%}
-
-    {%- if section.settings.btn_text != blank and section.settings.btn_url != blank -%}
-      <a
-        href="{{ section.settings.btn_url }}"
-        class="ag-cta__button"
-        {% if section.settings.btn_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
-      >
-        {{ section.settings.btn_text }}
-      </a>
-    {%- endif -%}
-
-    {%- comment -%} Features List {%- endcomment -%}
-    {%- if section.blocks.size > 0 -%}
-      <div class="ag-cta__features">
-        {%- for block in section.blocks -%}
-          {%- if block.settings.enabled -%}
-            <div class="ag-cta__feature-item" {{ block.shopify_attributes }}>
-              <span class="ag-cta__feature-icon" aria-hidden="true">
-                {%- if block.settings.icon != blank -%}
-                  <img
-                    src="{{ block.settings.icon | image_url: width: 60 }}"
-                    alt="{{ block.settings.icon.alt | default: 'Feature icon' | escape }}"
-                    loading="lazy"
-                    width="20"
-                    height="20"
-                  >
-                {%- else -%}
-                  <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="cta-feature-checkmark">
-                    <g>
-                      <path class="cta-feature-checkmark__bg" d="M10.5006 19.2857C15.629 19.2857 19.7863 15.1284 19.7863 10C19.7863 4.87165 15.629 0.714294 10.5006 0.714294C5.3722 0.714294 1.21484 4.87165 1.21484 10C1.21484 15.1284 5.3722 19.2857 10.5006 19.2857Z" fill="currentColor"></path>
-                      <path class="cta-feature-checkmark__border" d="M10.5006 19.2857C15.629 19.2857 19.7863 15.1284 19.7863 10C19.7863 4.87165 15.629 0.714294 10.5006 0.714294C5.3722 0.714294 1.21484 4.87165 1.21484 10C1.21484 15.1284 5.3722 19.2857 10.5006 19.2857Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-                      <path class="cta-feature-checkmark__line" d="M14.6671 6.78574L8.95285 13.9286L6.0957 11.7857" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </g>
-                  </svg>
-                {%- endif -%}
-              </span>
-              <span>{{ block.settings.text | remove: '✔' | remove: '✓' | strip }}</span>
-            </div>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
-    {%- endif -%}
-  </div>
-
-  {%- comment -%} Right Floating Image (Single image on right) {%- endcomment -%}
-  <div class="ag-cta__floating-images ag-cta__floating-images--right" aria-hidden="true">
-    <div class="ag-cta__img-wrapper ag-cta__img-wrapper--four">
-      {%- if section.settings.right_image_1 != blank -%}
-        <img
-          src="{{ section.settings.right_image_1 | image_url: width: 500 }}"
-          alt="{{ section.settings.right_image_1.alt | default: 'Floating decorative image right' | escape }}"
-          loading="lazy"
-          width="220"
-          height="220"
+      {%- comment -%} Button {%- endcomment -%}
+      {%- if section.settings.btn_text != blank and section.settings.btn_url != blank -%}
+        <a
+          href="{{ section.settings.btn_url }}"
+          class="maison-cta_button"
+          style="
+            background-color: {{ section.settings.button_color | default: '#fedb36' }};
+            color: #1d211e;
+            border-color: #2c2609;
+            box-shadow: 0px 4px 0px 0px #2c2609;
+          "
+          {% if section.settings.btn_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
         >
-      {%- else -%}
-        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {{ section.settings.btn_text }}
+        </a>
       {%- endif -%}
+
+      {%- comment -%} Benefits Checklist {%- endcomment -%}
+      {%- if section.blocks.size > 0 -%}
+        <div class="maison-cta_benefits">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.enabled -%}
+              <div class="maison-cta_benefit" {{ block.shopify_attributes }}>
+                <span class="maison-cta_icon" style="background-color: {{ section.settings.button_color | default: '#fedb36' }};">✓</span>
+                <span class="maison-cta_text" style="color: #1d211e;">{{ block.settings.text }}</span>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
     </div>
   </div>
+
+  {%- comment -%} Desktop Left Image (1 single composite image wrapper) {%- endcomment -%}
+  <div class="maison-cta_image-left">
+    {%- assign l_img = section.settings.left_image | default: section.settings.left_image_1 -%}
+    {%- if l_img != blank -%}
+      <img src="{{ l_img | image_url: width: 800 }}" alt="{{ l_img.alt | default: 'Product Image Left' | escape }}" loading="lazy" width="400" height="auto">
+    {%- else -%}
+      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Desktop Right Image (1 single composite image wrapper) {%- endcomment -%}
+  <div class="maison-cta_image-right">
+    {%- assign r_img = section.settings.right_image | default: section.settings.right_image_1 -%}
+    {%- if r_img != blank -%}
+      <img src="{{ r_img | image_url: width: 800 }}" alt="{{ r_img.alt | default: 'Product Image Right' | escape }}" loading="lazy" width="400" height="auto">
+    {%- else -%}
+      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </div>
+
 </section>
 
 {% schema %}
 {
   "name": "Custom CTA",
   "tag": "section",
-  "class": "section",
+  "class": "section subscription-cta-section",
   "max_blocks": 8,
   "settings": [
     {
@@ -222,69 +137,39 @@
       "type": "color",
       "id": "bg_color",
       "label": "Background Color",
-      "default": "#f79446"
-    },
-    {
-      "type": "image_picker",
-      "id": "bg_image",
-      "label": "Background Image",
-      "info": "Optional. Overrides Background Color."
-    },
-    {
-      "type": "checkbox",
-      "id": "show_overlay",
-      "label": "Enable Color Overlay",
-      "default": false
-    },
-    {
-      "type": "color",
-      "id": "overlay_color",
-      "label": "Overlay Color",
-      "default": "#000000"
-    },
-    {
-      "type": "range",
-      "id": "overlay_opacity",
-      "label": "Overlay Opacity",
-      "min": 0,
-      "max": 100,
-      "step": 10,
-      "unit": "%",
-      "default": 50
+      "default": "#feeb94"
     },
     {
       "type": "header",
-      "content": "Floating Images"
+      "content": "Desktop & Mobile Floating Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image",
+      "label": "Desktop Left Composite Image",
+      "info": "Upload 1 grouped composite image for left side on desktop."
     },
     {
       "type": "image_picker",
       "id": "left_image_1",
-      "label": "Left Image 1",
-      "info": "Positioned at top-left, rotated -10deg."
+      "label": "Left Image Fallback"
     },
     {
       "type": "image_picker",
-      "id": "left_image_2",
-      "label": "Left Image 2",
-      "info": "Positioned middle-left, rotated 18deg."
-    },
-    {
-      "type": "image_picker",
-      "id": "left_image_3",
-      "label": "Left Image 3",
-      "info": "Positioned bottom-left, rotated 12deg."
+      "id": "right_image",
+      "label": "Desktop Right Composite Image",
+      "info": "Upload 1 grouped composite image for right side on desktop."
     },
     {
       "type": "image_picker",
       "id": "right_image_1",
-      "label": "Right Image 1",
-      "info": "Positioned top-right, rotated -14deg."
+      "label": "Right Image Fallback"
     },
     {
       "type": "image_picker",
-      "id": "right_image_2",
-      "label": "Right Image 2",
-      "info": "Positioned bottom-right, rotated 10deg."
+      "id": "mobile_image",
+      "label": "Mobile Top Composite Image",
+      "info": "Upload 1 composite image to show above content on mobile."
     },
     {
       "type": "header",
@@ -360,6 +245,12 @@
       "default": "/"
     },
     {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button Color",
+      "default": "#fedb36"
+    },
+    {
       "type": "checkbox",
       "id": "btn_new_tab",
       "label": "Open Button Link in New Tab",
@@ -371,97 +262,41 @@
     },
     {
       "type": "range",
-      "id": "max_width",
-      "label": "Maximum Content Width",
-      "min": 600,
-      "max": 1200,
-      "step": 50,
-      "unit": "px",
-      "default": 850
-    },
-    {
-      "type": "range",
       "id": "padding_top",
       "label": "Top Padding",
-      "min": 0,
+      "min": 20,
       "max": 150,
-      "step": 10,
+      "step": 4,
       "unit": "px",
-      "default": 80
+      "default": 64
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "label": "Bottom Padding",
-      "min": 0,
+      "min": 20,
       "max": 150,
-      "step": 10,
+      "step": 4,
       "unit": "px",
-      "default": 80
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Description & Features Color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Title Highlight Color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "button_color",
-      "label": "Button Color",
-      "default": "#f47c20"
-    },
-    {
-      "type": "color",
-      "id": "button_hover_color",
-      "label": "Button Hover Color",
-      "default": "#e06b12"
-    },
-    {
-      "type": "color",
-      "id": "button_text_color",
-      "label": "Button Text Color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "range",
-      "id": "border_radius",
-      "label": "Button Border Radius",
-      "min": 0,
-      "max": 50,
-      "step": 2,
-      "unit": "px",
-      "default": 14
+      "default": 64
     }
   ],
   "blocks": [
     {
       "type": "feature",
-      "name": "Feature",
+      "name": "Benefit",
       "settings": [
         {
           "type": "checkbox",
           "id": "enabled",
-          "label": "Enable Feature",
+          "label": "Enable Benefit",
           "default": true
         },
         {
           "type": "text",
           "id": "text",
-          "label": "Feature Text",
-          "default": "Feature"
-        },
-        {
-          "type": "image_picker",
-          "id": "icon",
-          "label": "Custom Icon (Optional)",
-          "info": "Upload a transparent PNG/SVG icon to override the default checkmark."
+          "label": "Benefit Text",
+          "default": "100% Guarantee"
         }
       ]
     }
@@ -473,21 +308,21 @@
         {
           "type": "feature",
           "settings": {
-            "text": "Made in USA",
+            "text": "100% Guarantee",
             "enabled": true
           }
         },
         {
           "type": "feature",
           "settings": {
-            "text": "100% Natural Ingredients",
+            "text": "Free Shipping within the US Only",
             "enabled": true
           }
         },
         {
           "type": "feature",
           "settings": {
-            "text": "30-Day Money-Back Guarantee",
+            "text": "Free & Easy Returns",
             "enabled": true
           }
         }
