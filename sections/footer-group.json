@@ -38,7 +38,7 @@
             "image": "shopify://shop_images/02.png",
             "alt": "",
             "side": "left",
-            "size": 500,
+            "size": 400,
             "rotate": 0,
             "offset_top": 0,
             "offset_left": 0
@@ -50,9 +50,9 @@
             "image": "shopify://shop_images/imagw01.png",
             "alt": "",
             "side": "right",
-            "size": 180,
-            "rotate": 6,
-            "offset_top": -80,
+            "size": 400,
+            "rotate": 0,
+            "offset_top": -100,
             "offset_left": 0
           }
         }
