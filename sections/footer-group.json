@@ -108,7 +108,7 @@
         "footer_border_color": "#222222",
         "btn_bg": "#FE9D01",
         "btn_text_color": "#ffffff",
-        "copyright_bg": "#f8f5ea",
+        "copyright_bg": "#FFF8ED",
         "copyright_text_color": "#111111",
         "show_logo": true,
         "logo": "shopify://shop_images/Logo.avif",
