@@ -559,6 +559,82 @@
         "benefit_2": "Free Shipping within the US Only",
         "benefit_3": "Free & Easy Returns"
       }
+    },
+    "custom_cta": {
+      "type": "custom-cta",
+      "blocks": {
+        "avatar_1": { "type": "avatar" },
+        "avatar_2": { "type": "avatar" },
+        "avatar_3": { "type": "avatar" },
+        "photo_1": {
+          "type": "photo",
+          "settings": {
+            "side": "left",
+            "size": 220,
+            "rotate": -8,
+            "offset_top": -60
+          }
+        },
+        "photo_2": {
+          "type": "photo",
+          "settings": {
+            "side": "left",
+            "size": 150,
+            "rotate": 6,
+            "offset_top": 90,
+            "offset_left": -20
+          }
+        },
+        "photo_3": {
+          "type": "photo",
+          "settings": {
+            "side": "left",
+            "size": 150,
+            "rotate": -4,
+            "offset_top": 140,
+            "offset_left": 60
+          }
+        },
+        "photo_4": {
+          "type": "photo",
+          "settings": {
+            "side": "right",
+            "size": 180,
+            "rotate": 6,
+            "offset_top": -80
+          }
+        },
+        "photo_5": {
+          "type": "photo",
+          "settings": {
+            "side": "right",
+            "size": 200,
+            "rotate": -6,
+            "offset_top": 100
+          }
+        }
+      },
+      "block_order": [
+        "avatar_1",
+        "avatar_2",
+        "avatar_3",
+        "photo_1",
+        "photo_2",
+        "photo_3",
+        "photo_4",
+        "photo_5"
+      ],
+      "settings": {
+        "background_color": "#feeb94",
+        "border_color": "#2c2609",
+        "heading_highlight": "RISK-FREE",
+        "heading_rest": "BEAUTY REVOLUTION",
+        "description": "We believe in our balm because it actually works. If your skin isn't looking better in 30 days, we'll give you your money back — no drama, no hoops. Subscribe now and save 30% on your first order!",
+        "button_text": "Subscribe & Save 30% Today",
+        "benefit_1": "100% Guarantee",
+        "benefit_2": "Free Shipping within the US Only",
+        "benefit_3": "Free & Easy Returns"
+      }
     }
   },
   "order": [
@@ -568,6 +644,7 @@
     "custom_skincare_tabs_GDR3NH",
     "custom_how_it_works_8QrXwL",
     "custom_compare_r3FjHq",
+    "custom_cta",
     "maison_cta_dynamic",
     "custom_reviews_CVy7MQ"
   ]
