@@ -1,7 +1,7 @@
 {
   "sections": {
     "main": {
-      "type": "rb-main-product",
+      "type": "main-product-layout-2",
       "settings": {
         "section_width": "default",
         "enable_sticky_content": true,

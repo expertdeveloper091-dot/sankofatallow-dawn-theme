@@ -72,7 +72,6 @@ class StickyAddCart extends HTMLElement {
   }
 }
 customElements.define("sticky-add-cart", StickyAddCart);
-
 // js for fake sold
 class SoldProduct extends HTMLElement {
   constructor() {
@@ -135,6 +134,8 @@ class LiveView extends HTMLElement {
   }
 }
 customElements.define("live-view", LiveView);
+
+
 
 class CompareRadios extends SwatchInit {
   constructor() {
@@ -221,6 +222,7 @@ class ProductRecommendations extends SlideSection {
             this.innerHTML = recommendations.innerHTML;
           }
           if (recommendations.innerHTML.trim().length === 0) {
+            // this.remove();
             this.style.display = "none";
             if (document.querySelector(".product-recommendations-heading")) {
               document
@@ -249,6 +251,7 @@ class ProductRecommendations extends SlideSection {
 }
 customElements.define("product-recommendations", ProductRecommendations);
 
+// js for live view
 class SkeletonPage extends HTMLElement {
   constructor() {
     super();
@@ -262,6 +265,7 @@ class SkeletonPage extends HTMLElement {
 }
 customElements.define("skeleton-page", SkeletonPage);
 
+// js for live view
 class ProductGrouped extends HTMLElement {
   constructor() {
     super();
@@ -589,6 +593,7 @@ class ProductGrouped extends HTMLElement {
 }
 customElements.define("product-group", ProductGrouped);
 
+// js for product addons
 class ProductAddons extends PopupBase {
   constructor() {
     super();

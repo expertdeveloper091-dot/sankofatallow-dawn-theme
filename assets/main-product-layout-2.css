@@ -145,6 +145,9 @@ input#custom-image-upload::-webkit-file-upload-button {
   color: var(--color-heading);
 }
 .drift-zoom-pane {
+  /* background: rgba(0, 0, 0, 0.5); */
+  /* This is required because of a bug that causes border-radius to not
+  work with child elements in certain cases. */
   background: rgba(0, 0, 0, 0.5);
   transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
@@ -586,6 +589,7 @@ collapsible-block + product-recommendations {
   margin-top: 15px;
   font-size: 13px;
 }
+/* Product tab */
 .design-tab {
   border-top: 1px solid var(--border-color-base);
   border-bottom: 1px solid var(--border-color-base);
