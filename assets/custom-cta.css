@@ -120,7 +120,7 @@
 .ag-cta__feature-item {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .ag-cta__feature-icon {
@@ -130,28 +130,49 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: #fedb36;
-  border: 1px solid #2c2609;
-  font-size: 11px;
-  font-weight: 800;
-  color: #2c2609;
+  flex-shrink: 0;
+}
+
+.ag-cta__feature-icon svg {
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 
 .ag-cta__floating-images {
   position: absolute;
   top: 0;
   height: 100%;
-  width: 320px;
+  width: 340px;
   pointer-events: none;
   z-index: 5;
+  display: flex;
+  align-items: center;
 }
 
 .ag-cta__floating-images--left {
   left: 0;
+  justify-content: flex-start;
 }
 
 .ag-cta__floating-images--right {
   right: 0;
+  justify-content: flex-end;
+}
+
+.ag-cta__img-single {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.ag-cta__img-single img {
+  max-height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .ag-cta__img-wrapper {
@@ -214,7 +235,8 @@
   display: none;
   width: 100%;
   max-width: 450px;
-  margin: 0 auto 16px;
+  margin: 0 auto 20px;
+  z-index: 6;
 }
 
 .ag-cta__image-mobile img {
