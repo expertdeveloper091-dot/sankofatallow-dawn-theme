@@ -11,6 +11,93 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "custom_cta_PMPTkC": {
+      "type": "custom-cta",
+      "blocks": {
+        "avatar_MfKhG6": {
+          "type": "avatar",
+          "settings": {
+            "image": "shopify://shop_images/3qr.webp"
+          }
+        },
+        "avatar_wbUaR9": {
+          "type": "avatar",
+          "settings": {
+            "image": "shopify://shop_images/third.webp"
+          }
+        },
+        "avatar_J6YNBD": {
+          "type": "avatar",
+          "settings": {
+            "image": "shopify://shop_images/bbbe.webp"
+          }
+        },
+        "photo_eKeYXG": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/02.png",
+            "alt": "",
+            "side": "left",
+            "size": 150,
+            "rotate": 6,
+            "offset_top": 90,
+            "offset_left": -20
+          }
+        },
+        "photo_nYJEit": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/imagw01.png",
+            "alt": "",
+            "side": "right",
+            "size": 180,
+            "rotate": 6,
+            "offset_top": -80,
+            "offset_left": 0
+          }
+        }
+      },
+      "block_order": [
+        "avatar_MfKhG6",
+        "avatar_wbUaR9",
+        "avatar_J6YNBD",
+        "photo_eKeYXG",
+        "photo_nYJEit"
+      ],
+      "name": "Custom CTA",
+      "settings": {
+        "background_color": "#FE9D01",
+        "border_color": "#2c2609",
+        "heading_color": "#1d211e",
+        "highlight_color": "#f63208",
+        "description_color": "#1d211e",
+        "badge_bg": "#ffffff",
+        "badge_text_color": "#1d211e",
+        "button_bg": "#FFF8ED",
+        "button_text_color": "#1d211e",
+        "button_border": "#2c2609",
+        "button_shadow_color": "#2c2609",
+        "icon_bg": "#FFF8ED",
+        "icon_border": "#FE9D01",
+        "icon_text_color": "#1d211e",
+        "benefit_text_color": "#1d211e",
+        "container_width": 1100,
+        "content_width": 700,
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "show_badge": true,
+        "badge_count": "350,000+",
+        "badge_text": "Happy Customers",
+        "heading_highlight": "RISK-FREE",
+        "heading_rest": "BEAUTY REVOLUTION",
+        "description": "We believe in our balm because it actually works. If your skin isn't looking better in 30 days, we'll give you your money back — no drama, no hoops. Subscribe now and save 30% on your first order!",
+        "button_text": "Subscribe & Save 30% Today",
+        "button_link": "",
+        "benefit_1": "100% Guarantee",
+        "benefit_2": "Free Shipping within the US Only",
+        "benefit_3": "Free & Easy Returns"
+      }
+    },
     "custom_footer_aWBBQb": {
       "type": "custom-footer",
       "name": "Custom Footer",
@@ -52,6 +139,7 @@
     }
   },
   "order": [
+    "custom_cta_PMPTkC",
     "custom_footer_aWBBQb",
     "footer"
   ]
