@@ -312,9 +312,12 @@
       {%- endif -%}
     </div>
 
-    <!-- Product Grid -->
+    <!-- Product Grid (Pure Collection Driven) -->
     <div class="custom-gridproduct-grid">
       {%- assign selected_collection = section.settings.collection -%}
+      {%- if selected_collection == blank -%}
+        {%- assign selected_collection = collections['all'] -%}
+      {%- endif -%}
 
       {%- if selected_collection != blank and selected_collection.products_count > 0 -%}
         {%- for product in selected_collection.products limit: section.settings.products_to_show -%}
@@ -429,133 +432,24 @@
             </div>
           </div>
         {%- endfor -%}
-
-      {%- elsif section.blocks.size > 0 -%}
-        {%- for block in section.blocks -%}
-          {%- assign card_prod = block.settings.product -%}
-
-          <div class="c-prod-card" {{ block.shopify_attributes }}>
+      {%- else -%}
+        {%- for i in (1..2) -%}
+          <div class="c-prod-card">
             <div class="c-prod-card-body">
-              
-              <!-- Image -->
               <div class="c-prod-card-img-wrap">
-                {%- if block.settings.image != blank -%}
-                  <img src="{{ block.settings.image | image_url: width: 600 }}"
-                       alt="{{ block.settings.title | default: card_prod.title | escape }}"
-                       loading="lazy">
-                {%- elsif card_prod != blank and card_prod.featured_media != blank -%}
-                  <img src="{{ card_prod.featured_media | image_url: width: 600 }}"
-                       alt="{{ card_prod.title | escape }}"
-                       loading="lazy">
-                {%- else -%}
-                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                {%- endif -%}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
               </div>
-
-              <!-- Content -->
               <div class="c-prod-card-content">
-                <h3 class="c-prod-card-title">
-                  {{ block.settings.title | default: card_prod.title | default: 'Product Title' | escape }}
-                </h3>
-
+                <h3 class="c-prod-card-title">Sample Product {{ i }}</h3>
                 <div class="c-prod-card-description">
-                  {%- if block.settings.description != blank -%}
-                    {{ block.settings.description }}
-                  {%- elsif card_prod != blank and card_prod.description != blank -%}
-                    {{ card_prod.description | strip_html | truncatewords: 22 }}
-                  {%- else -%}
-                    Organic multipurpose balm that <strong>deeply moisturizes</strong> and nourishes skin.
-                  {%- endif -%}
+                  Organic multipurpose balm that <strong>deeply moisturizes</strong> and nourishes skin.
                 </div>
-
-                <ul class="c-prod-card-features">
-                  {%- if block.settings.feature_1 != blank -%}
-                    <li class="c-prod-card-feature-item">
-                      <span class="c-prod-card-feature-icon">
-                        {%- if block.settings.feature_1_icon == 'star' -%}
-                          <i class="fa-regular fa-star"></i>
-                        {%- elsif block.settings.feature_1_icon == 'leaf' -%}
-                          <i class="fa-solid fa-leaf"></i>
-                        {%- elsif block.settings.feature_1_icon == 'shield' -%}
-                          <i class="fa-solid fa-shield-halved"></i>
-                        {%- else -%}
-                          <i class="fa-solid fa-check"></i>
-                        {%- endif -%}
-                      </span>
-                      <span>{{ block.settings.feature_1 | escape }}</span>
-                    </li>
-                  {%- endif -%}
-
-                  {%- if block.settings.feature_2 != blank -%}
-                    <li class="c-prod-card-feature-item">
-                      <span class="c-prod-card-feature-icon">
-                        {%- if block.settings.feature_2_icon == 'star' -%}
-                          <i class="fa-regular fa-star"></i>
-                        {%- elsif block.settings.feature_2_icon == 'leaf' -%}
-                          <i class="fa-solid fa-leaf"></i>
-                        {%- elsif block.settings.feature_2_icon == 'shield' -%}
-                          <i class="fa-solid fa-shield-halved"></i>
-                        {%- else -%}
-                          <i class="fa-solid fa-check"></i>
-                        {%- endif -%}
-                      </span>
-                      <span>{{ block.settings.feature_2 | escape }}</span>
-                    </li>
-                  {%- endif -%}
-
-                  {%- if block.settings.feature_3 != blank -%}
-                    <li class="c-prod-card-feature-item">
-                      <span class="c-prod-card-feature-icon">
-                        {%- if block.settings.feature_3_icon == 'star' -%}
-                          <i class="fa-regular fa-star"></i>
-                        {%- elsif block.settings.feature_3_icon == 'leaf' -%}
-                          <i class="fa-solid fa-leaf"></i>
-                        {%- elsif block.settings.feature_3_icon == 'shield' -%}
-                          <i class="fa-solid fa-shield-halved"></i>
-                        {%- else -%}
-                          <i class="fa-solid fa-check"></i>
-                        {%- endif -%}
-                      </span>
-                      <span>{{ block.settings.feature_3 | escape }}</span>
-                    </li>
-                  {%- endif -%}
-                </ul>
-
-                <div class="c-prod-card-price">
-                  {%- if block.settings.price != blank -%}
-                    {{ block.settings.price }}
-                  {%- elsif card_prod != blank -%}
-                    {{ card_prod.price | money }}
-                  {%- else -%}
-                    $49.99
-                  {%- endif -%}
-                </div>
+                <div class="c-prod-card-price">$49.99</div>
               </div>
-
             </div>
-
-            <!-- Bottom Actions Bar -->
             <div class="c-prod-card-actions">
-              {%- assign learn_url = block.settings.learn_more_link | default: card_prod.url | default: '#' -%}
-              <a href="{{ learn_url }}" class="c-prod-btn-learn">
-                <span>{{ block.settings.learn_more_text | default: 'Learn More' | escape }}</span>
-                <span>&rarr;</span>
-              </a>
-
-              {%- if card_prod != blank and card_prod.available -%}
-                <form method="post" action="/cart/add" style="width: 50%; display: flex;">
-                  <input type="hidden" name="id" value="{{ card_prod.selected_or_first_available_variant.id }}">
-                  <button type="submit" class="c-prod-btn-cart" style="width: 100%;">
-                    <span>{{ block.settings.button_text | default: 'Add To Cart' | escape }}</span>
-                    <i class="fa-solid fa-cart-shopping"></i>
-                  </button>
-                </form>
-              {%- else -%}
-                <a href="{{ learn_url }}" class="c-prod-btn-cart">
-                  <span>{{ block.settings.button_text | default: 'Add To Cart' | escape }}</span>
-                  <i class="fa-solid fa-cart-shopping"></i>
-                </a>
-              {%- endif -%}
+              <a href="#" class="c-prod-btn-learn"><span>Learn More</span> <span>&rarr;</span></a>
+              <a href="#" class="c-prod-btn-cart"><span>Add To Cart</span> <i class="fa-solid fa-cart-shopping"></i></a>
             </div>
           </div>
         {%- endfor -%}
@@ -571,32 +465,36 @@
   "settings": [
     {
       "type": "header",
-      "content": "Collection Source (Automatic Products)"
+      "content": "Collection Source"
     },
     {
       "type": "collection",
       "id": "collection",
-      "label": "Select Collection (Loads all products automatically)"
+      "label": "Select Collection"
     },
     {
       "type": "range",
       "id": "products_to_show",
       "min": 2,
-      "max": 16,
+      "max": 24,
       "step": 1,
-      "default": 4,
+      "default": 8,
       "label": "Maximum Products to Show"
+    },
+    {
+      "type": "header",
+      "content": "Product Card Bullet Features"
     },
     {
       "type": "text",
       "id": "default_feature_1",
-      "label": "Collection Mode - Feature 1 Bullet",
+      "label": "Feature 1 Bullet Text",
       "default": "Skin Barrier Support"
     },
     {
       "type": "select",
       "id": "default_feature_1_icon",
-      "label": "Collection Mode - Feature 1 Icon",
+      "label": "Feature 1 Icon",
       "options": [
         { "value": "star", "label": "Star" },
         { "value": "check", "label": "Checkmark" },
@@ -608,13 +506,13 @@
     {
       "type": "text",
       "id": "default_feature_2",
-      "label": "Collection Mode - Feature 2 Bullet",
+      "label": "Feature 2 Bullet Text",
       "default": "Fast Absorption"
     },
     {
       "type": "select",
       "id": "default_feature_2_icon",
-      "label": "Collection Mode - Feature 2 Icon",
+      "label": "Feature 2 Icon",
       "options": [
         { "value": "star", "label": "Star" },
         { "value": "check", "label": "Checkmark" },
@@ -626,13 +524,13 @@
     {
       "type": "text",
       "id": "default_feature_3",
-      "label": "Collection Mode - Feature 3 Bullet",
+      "label": "Feature 3 Bullet Text",
       "default": "Zero Toxins"
     },
     {
       "type": "select",
       "id": "default_feature_3_icon",
-      "label": "Collection Mode - Feature 3 Icon",
+      "label": "Feature 3 Icon",
       "options": [
         { "value": "star", "label": "Star" },
         { "value": "check", "label": "Checkmark" },
@@ -644,13 +542,13 @@
     {
       "type": "text",
       "id": "default_learn_text",
-      "label": "Collection Mode - Learn More Button Text",
+      "label": "Learn More Button Text",
       "default": "Learn More"
     },
     {
       "type": "text",
       "id": "default_cart_text",
-      "label": "Collection Mode - Add to Cart Button Text",
+      "label": "Add to Cart Button Text",
       "default": "Add To Cart"
     },
 
@@ -778,154 +676,9 @@
       "default": 60
     }
   ],
-  "blocks": [
-    {
-      "type": "product_card",
-      "name": "Manual Product Card",
-      "settings": [
-        {
-          "type": "product",
-          "id": "product",
-          "label": "Select Product"
-        },
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Custom Image (Overrides product image)"
-        },
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Product Title",
-          "default": "WHIPPED TALLOW HONEY BALM"
-        },
-        {
-          "type": "richtext",
-          "id": "description",
-          "label": "Product Description / Excerpt",
-          "default": "<p>Organic multipurpose balm that <strong>deeply moisturizes</strong> and nourishes the face, body, and lips using <strong>natural ingredients</strong> like beef tallow and manuka honey.</p>"
-        },
-        {
-          "type": "header",
-          "content": "Feature Bullets"
-        },
-        {
-          "type": "text",
-          "id": "feature_1",
-          "label": "Feature 1 Text",
-          "default": "Skin Barrier Support"
-        },
-        {
-          "type": "select",
-          "id": "feature_1_icon",
-          "label": "Feature 1 Icon",
-          "options": [
-            { "value": "star", "label": "Star" },
-            { "value": "check", "label": "Checkmark" },
-            { "value": "leaf", "label": "Leaf" },
-            { "value": "shield", "label": "Shield" }
-          ],
-          "default": "star"
-        },
-        {
-          "type": "text",
-          "id": "feature_2",
-          "label": "Feature 2 Text",
-          "default": "Fast Absorption"
-        },
-        {
-          "type": "select",
-          "id": "feature_2_icon",
-          "label": "Feature 2 Icon",
-          "options": [
-            { "value": "star", "label": "Star" },
-            { "value": "check", "label": "Checkmark" },
-            { "value": "leaf", "label": "Leaf" },
-            { "value": "shield", "label": "Shield" }
-          ],
-          "default": "check"
-        },
-        {
-          "type": "text",
-          "id": "feature_3",
-          "label": "Feature 3 Text",
-          "default": "Zero Toxins"
-        },
-        {
-          "type": "select",
-          "id": "feature_3_icon",
-          "label": "Feature 3 Icon",
-          "options": [
-            { "value": "star", "label": "Star" },
-            { "value": "check", "label": "Checkmark" },
-            { "value": "leaf", "label": "Leaf" },
-            { "value": "shield", "label": "Shield" }
-          ],
-          "default": "shield"
-        },
-        {
-          "type": "text",
-          "id": "price",
-          "label": "Price Display",
-          "default": "$49.99"
-        },
-        {
-          "type": "header",
-          "content": "Action Buttons"
-        },
-        {
-          "type": "url",
-          "id": "learn_more_link",
-          "label": "Learn More Link"
-        },
-        {
-          "type": "text",
-          "id": "learn_more_text",
-          "label": "Learn More Button Text",
-          "default": "Learn More"
-        },
-        {
-          "type": "text",
-          "id": "button_text",
-          "label": "Add to Cart Button Text",
-          "default": "Add To Cart"
-        }
-      ]
-    }
-  ],
   "presets": [
     {
-      "name": "Custom Product Grid",
-      "blocks": [
-        {
-          "type": "product_card",
-          "settings": {
-            "title": "WHIPPED TALLOW HONEY BALM",
-            "description": "<p>Organic multipurpose balm that <strong>deeply moisturizes</strong> and nourishes the face, body, and lips using <strong>natural ingredients</strong> like beef tallow and manuka honey.</p>",
-            "feature_1": "Skin Barrier Support",
-            "feature_1_icon": "star",
-            "feature_2": "Fast Absorption",
-            "feature_2_icon": "check",
-            "feature_3": "Zero Toxins",
-            "feature_3_icon": "shield",
-            "price": "$49.99"
-          }
-        },
-        {
-          "type": "product_card",
-          "settings": {
-            "title": "MAGNESIUM CREAM",
-            "description": "<p>Restorative magnesium cream that relieves muscle cramps, helps you fall asleep faster, and keeps you from tossing and turning - made with grass-fed tallow and magnesium that absorbs into your skin in just <strong>10 minutes</strong>.</p>",
-            "feature_1": "Ultra-Fast Absorption",
-            "feature_1_icon": "star",
-            "feature_2": "Muscle, Sleep & Energy Support",
-            "feature_2_icon": "check",
-            "feature_3": "Targeted Pain Relief",
-            "feature_3_icon": "shield",
-            "price": "$49.99"
-          }
-        }
-      ]
+      "name": "Custom Product Grid"
     }
   ]
 }
