@@ -12,10 +12,6 @@
     "clay_product_main": {
       "type": "clay-main-product",
       "blocks": {
-        "variant_picker_XTKT93": {
-          "type": "variant_picker",
-          "settings": {}
-        },
         "review_and_sold_qMAYJE": {
           "type": "review_and_sold",
           "settings": {
@@ -32,6 +28,10 @@
             "min_count": 16,
             "suffix_text": "people looking right now"
           }
+        },
+        "variant_picker_XTKT93": {
+          "type": "variant_picker",
+          "settings": {}
         },
         "price_Dy68E6": {
           "type": "price",
@@ -66,10 +66,10 @@
         }
       },
       "block_order": [
-        "variant_picker_XTKT93",
         "review_and_sold_qMAYJE",
         "product_title_AeWWWA",
         "live_view_yFWaFk",
+        "variant_picker_XTKT93",
         "price_Dy68E6",
         "product_badges_8fVwyY",
         "buy_buttons_BmEAxf",
