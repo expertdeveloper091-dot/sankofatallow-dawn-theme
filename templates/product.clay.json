@@ -1,9 +1,54 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "clay_product_main": {
       "type": "clay-main-product",
+      "blocks": {
+        "variant_picker_XTKT93": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "review_and_sold_qMAYJE": {
+          "type": "review_and_sold",
+          "settings": {
+            "reviews_count": "4"
+          }
+        },
+        "product_title_AeWWWA": {
+          "type": "product_title",
+          "settings": {}
+        },
+        "live_view_yFWaFk": {
+          "type": "live_view",
+          "settings": {
+            "min_count": 16,
+            "suffix_text": "people looking right now"
+          }
+        },
+        "price_Dy68E6": {
+          "type": "price",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "variant_picker_XTKT93",
+        "review_and_sold_qMAYJE",
+        "product_title_AeWWWA",
+        "live_view_yFWaFk",
+        "price_Dy68E6"
+      ],
       "settings": {
-        "show_vendor": true
+        "show_vendor": true,
+        "sold_count": 12,
+        "sold_text": "Sold in last 24 hours"
       }
     }
   },
