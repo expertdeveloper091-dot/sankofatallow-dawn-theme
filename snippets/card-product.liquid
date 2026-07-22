@@ -16,6 +16,9 @@
     if short_desc == blank
       assign short_desc = card_product.description | strip_html | truncatewords: 22
     endif
+    if short_desc == blank
+      assign short_desc = 'Pure natural tallow skincare formula for deep hydration & nourishment.'
+    endif
 
     assign rating_val = card_product.metafields.reviews.rating.value.rating | default: card_product.metafields.reviews.rating.value | default: card_product.metafields.loox.avg_rating | default: card_product.metafields.judgeme.badge
     assign rating_count = card_product.metafields.reviews.rating_count | default: card_product.metafields.loox.num_reviews
