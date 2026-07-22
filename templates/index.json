@@ -124,7 +124,7 @@
       ],
       "name": "Industry Statistics",
       "settings": {
-        "bg_color": "#faf9f5",
+        "bg_color": "#FFF8ED",
         "text_color": "#000000",
         "accent_color": "#e7a621",
         "card_bg": "#ffffff",
@@ -192,7 +192,7 @@
       ],
       "name": "Why Switch",
       "settings": {
-        "bg_color": "#faf9f5",
+        "bg_color": "#FFF8ED",
         "text_color": "#2c2609",
         "accent_color": "#e7a621",
         "card_bg": "#ffffff",
@@ -235,7 +235,7 @@
       ],
       "name": "Skincare Benefits Tabs",
       "settings": {
-        "bg_color": "#e7a621",
+        "bg_color": "#FE9D01",
         "title_color": "#000000",
         "subtitle_color": "#333333",
         "card_bg": "#ffffff",
@@ -281,15 +281,15 @@
       ],
       "name": "How It Works",
       "settings": {
-        "bg_color": "#ffffff",
+        "bg_color": "#FFFFFF",
         "text_color": "#2c2609",
-        "accent_color": "#e7a621",
+        "accent_color": "#FE9D01",
         "tag_text_color": "#ffffff",
         "card_bg": "#faf9f5",
         "card_border": "#2c2609",
         "heading": "FROM NATURE TO YOUR SKIN",
-        "padding_top": 64,
-        "padding_bottom": 64
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "custom_compare_r3FjHq": {
@@ -375,18 +375,18 @@
         "table_bg": "#fffaf1",
         "table_border": "#171717",
         "feature_text_color": "#000000",
-        "brand_column_bg": "#e7a621",
+        "brand_column_bg": "#FE9D01",
         "brand_title_color": "#ffffff",
         "brand_check_bg": "#000000",
-        "brand_check_color": "#ffffff",
-        "competitor_circle_bg": "#ffffff",
+        "brand_check_color": "#000000",
+        "competitor_circle_bg": "#000000",
         "competitor_mark_color": "#171717",
         "competitor_circle_border": "#171717",
         "heading": "WHY SANKOFAtallow STANDS APART",
         "brand_name": "SANKOFA TALLOW",
         "others_name": "OTHERS",
-        "padding_top": 64,
-        "padding_bottom": 64
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "custom_reviews_CVy7MQ": {
@@ -482,10 +482,10 @@
       "settings": {
         "bg_color": "#ffffff",
         "text_color": "#171717",
-        "accent_color": "#e7a621",
-        "card_bg": "#fffaf1",
+        "accent_color": "#FE9D01",
+        "card_bg": "#FFF8ED",
         "card_border": "#171717",
-        "footer_bg": "#fff3cf",
+        "footer_bg": "#FE9D01",
         "trust_badge_count": "5K+",
         "trust_badge_text": "Happy Customers",
         "heading": "REAL FAMILIES. REAL RESULTS.",
