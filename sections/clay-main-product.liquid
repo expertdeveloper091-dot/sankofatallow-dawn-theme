@@ -162,15 +162,57 @@
             {% unless product.has_only_default_variant %}
               <div class="clay-variant-picker" {{ block.shopify_attributes }}>
                 {% for option in product.options_with_values %}
+                  {% assign opt_name_down = option.name | downcase %}
                   <div class="clay-option-group" data-option-index="{{ forloop.index0 }}">
-                    <label class="clay-option-label">{{ option.name }}: <span class="clay-option-val" id="ClayOptVal-{{ forloop.index0 }}">{{ option.selected_value }}</span></label>
-                    <div class="clay-option-pills">
-                      {% for value in option.values %}
-                        <button type="button" class="clay-pill-btn {% if option.selected_value == value %}active{% endif %}" data-option-name="{{ option.name }}" data-option-value="{{ value }}" onclick="selectClayVariant(this, '{{ option.name }}', '{{ value }}', {{ forloop.parentloop.index0 }})">
-                          {{ value }}
-                        </button>
-                      {% endfor %}
-                    </div>
+                    <label class="clay-option-label">
+                      {{ option.name }}: <span class="clay-option-val" id="ClayOptVal-{{ forloop.index0 }}">{{ option.selected_value }}</span>
+                    </label>
+
+                    {% if opt_name_down contains 'size' %}
+                      <!-- SIZE DROPDOWN SELECT -->
+                      <div class="clay-select-wrapper">
+                        <select class="clay-option-select" onchange="selectClayVariant(this, '{{ option.name }}', this.value, {{ forloop.index0 }})">
+                          {% for value in option.values %}
+                            <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
+                              {{ value }}
+                            </option>
+                          {% endfor %}
+                        </select>
+                        <svg class="clay-select-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                      </div>
+
+                    {% elsif opt_name_down contains 'fragrance' or opt_name_down contains 'scent' or opt_name_down contains 'flavour' or opt_name_down contains 'flavor' %}
+                      <!-- FRAGRANCE CARD BUTTONS WITH RADIUS 8PX (IMAGE 3 MATCH) -->
+                      <div class="clay-fragrance-cards-grid">
+                        {% for value in option.values %}
+                          {% assign value_variant = null %}
+                          {% for v in product.variants %}
+                            {% if v.options contains value and v.featured_image %}
+                              {% assign value_variant = v %}
+                              {% break %}
+                            {% endif %}
+                          {% endfor %}
+                          {% assign sw_img = value_variant.featured_image | default: product.featured_image %}
+                          
+                          <button type="button" class="clay-fragrance-card-btn {% if option.selected_value == value %}active{% endif %}" data-option-name="{{ option.name }}" data-option-value="{{ value | escape }}" onclick="selectClayVariant(this, '{{ option.name }}', '{{ value | escape }}', {{ forloop.parentloop.index0 }})">
+                            <div class="clay-fragrance-card-img">
+                              <img src="{{ sw_img | image_url: width: 120 }}" alt="{{ value | escape }}" width="42" height="42" loading="lazy">
+                            </div>
+                            <span class="clay-fragrance-card-title">{{ value }}</span>
+                          </button>
+                        {% endfor %}
+                      </div>
+
+                    {% else %}
+                      <!-- OTHER PILL BUTTONS WITH RADIUS 8PX -->
+                      <div class="clay-option-pills">
+                        {% for value in option.values %}
+                          <button type="button" class="clay-pill-btn {% if option.selected_value == value %}active{% endif %}" data-option-name="{{ option.name }}" data-option-value="{{ value | escape }}" onclick="selectClayVariant(this, '{{ option.name }}', '{{ value | escape }}', {{ forloop.parentloop.index0 }})">
+                            {{ value }}
+                          </button>
+                        {% endfor %}
+                      </div>
+                    {% endif %}
                   </div>
                 {% endfor %}
               </div>
@@ -709,6 +751,154 @@
 
 .clay-addon-link:hover {
   color: #d15b47;
+}
+
+/* Variant Picker Options - Image 3 Match */
+.clay-variant-picker {
+  margin-bottom: 20px;
+}
+
+.clay-option-group {
+  margin-bottom: 18px;
+}
+
+.clay-option-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 8px;
+}
+
+.clay-option-val {
+  font-weight: 500;
+  color: #555555;
+}
+
+/* Size Dropdown Select */
+.clay-select-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  margin-top: 6px;
+}
+
+.clay-option-select {
+  width: 100%;
+  padding: 10px 36px 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111111;
+  background: #ffffff;
+  border: 1.5px solid #d0d5dd;
+  border-radius: 8px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.clay-option-select:focus, .clay-option-select:hover {
+  border-color: #111111;
+}
+
+.clay-select-arrow {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #555555;
+}
+
+/* Fragrance Card Buttons - Image 3 Match */
+.clay-fragrance-cards-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.clay-fragrance-card-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 84px;
+  min-height: 84px;
+  padding: 8px 6px;
+  border-radius: 8px;
+  border: 1.5px solid #d0d5dd;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.clay-fragrance-card-btn:hover {
+  border-color: #f59e0b;
+  background: #fffdf0;
+}
+
+.clay-fragrance-card-btn.active {
+  border: 2px solid #ffd633;
+  background: #fffbeb;
+  box-shadow: 0 0 0 1px #ffd633;
+}
+
+.clay-fragrance-card-img {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.clay-fragrance-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.clay-fragrance-card-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #111111;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* Generic Pill Buttons with 8px radius */
+.clay-option-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.clay-pill-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1.5px solid #d0d5dd;
+  background: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111111;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clay-pill-btn:hover {
+  border-color: #111111;
+}
+
+.clay-pill-btn.active {
+  border: 2px solid #111111;
+  background: #f9fafb;
 }
 
 /* Quantity & ATC Row - Image 2 Match */
@@ -1270,11 +1460,13 @@ function updateClayQty(delta) {
   input.value = val;
 }
 
-function selectClayVariant(buttonEl, optionName, optionVal, optionIndex) {
-  var group = buttonEl.closest('.clay-option-group');
+function selectClayVariant(element, optionName, optionVal, optionIndex) {
+  var group = element.closest('.clay-option-group');
   if (group) {
-    group.querySelectorAll('.clay-pill-btn').forEach(btn => btn.classList.remove('active'));
-    buttonEl.classList.add('active');
+    if (element.tagName !== 'SELECT') {
+      group.querySelectorAll('.clay-pill-btn, .clay-fragrance-card-btn').forEach(btn => btn.classList.remove('active'));
+      element.classList.add('active');
+    }
     var labelVal = document.getElementById('ClayOptVal-' + optionIndex);
     if (labelVal) labelVal.textContent = optionVal;
   }
@@ -1282,8 +1474,13 @@ function selectClayVariant(buttonEl, optionName, optionVal, optionIndex) {
   // Find selected options
   var selectedOptions = [];
   document.querySelectorAll('.clay-option-group').forEach(g => {
-    var activeBtn = g.querySelector('.clay-pill-btn.active');
-    if (activeBtn) selectedOptions.push(activeBtn.getAttribute('data-option-value') || activeBtn.textContent.trim());
+    var selectEl = g.querySelector('.clay-option-select');
+    if (selectEl) {
+      selectedOptions.push(selectEl.value);
+    } else {
+      var activeBtn = g.querySelector('.clay-pill-btn.active, .clay-fragrance-card-btn.active');
+      if (activeBtn) selectedOptions.push(activeBtn.getAttribute('data-option-value') || activeBtn.textContent.trim());
+    }
   });
 
   // Match variant
