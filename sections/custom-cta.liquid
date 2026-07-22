@@ -189,30 +189,16 @@
     {%- endif -%}
   </div>
 
-  {%- comment -%} Right Floating Images {%- endcomment -%}
+  {%- comment -%} Right Floating Image (Single image on right) {%- endcomment -%}
   <div class="ag-cta__floating-images ag-cta__floating-images--right" aria-hidden="true">
     <div class="ag-cta__img-wrapper ag-cta__img-wrapper--four">
       {%- if section.settings.right_image_1 != blank -%}
         <img
           src="{{ section.settings.right_image_1 | image_url: width: 500 }}"
-          alt="{{ section.settings.right_image_1.alt | default: 'Floating decorative image 4' | escape }}"
+          alt="{{ section.settings.right_image_1.alt | default: 'Floating decorative image right' | escape }}"
           loading="lazy"
           width="220"
           height="220"
-        >
-      {%- else -%}
-        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-      {%- endif -%}
-    </div>
-
-    <div class="ag-cta__img-wrapper ag-cta__img-wrapper--five">
-      {%- if section.settings.right_image_2 != blank -%}
-        <img
-          src="{{ section.settings.right_image_2 | image_url: width: 600 }}"
-          alt="{{ section.settings.right_image_2.alt | default: 'Floating decorative image 5' | escape }}"
-          loading="lazy"
-          width="260"
-          height="320"
         >
       {%- else -%}
         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}

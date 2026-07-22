@@ -195,16 +195,18 @@
   @media screen and (max-width: 749px) {
     .ml-collection-toolbar {
       padding: 0 16px !important;
-      min-height: 64px !important;
-      height: 64px !important;
+      min-height: 56px !important;
+      height: auto !important;
+      justify-content: flex-start !important;
+      margin-bottom: 1.5rem !important;
+      border-bottom: none !important;
     }
-    .ml-grid-switcher--desktop {
-      display: none !important;
-    }
-    .ml-grid-switcher--mobile {
-      display: flex !important;
-    }
-    .ml-desktop-sort-form {
+    .ml-toolbar__center,
+    .ml-grid-switcher,
+    .ml-toolbar__right,
+    .ml-sort-label,
+    .ml-desktop-sort-form,
+    .ml-results-count {
       display: none !important;
     }
   }
@@ -367,7 +369,7 @@
               data-id="{{ section.id }}"
               class="
                 grid product-grid ml-product-grid
-                grid--2-col-tablet-down
+                grid--1-col-tablet-down
                 grid--2-col-desktop
                 {% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %}
               "
