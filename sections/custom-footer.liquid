@@ -2,102 +2,140 @@
 {{ 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css' | stylesheet_tag }}
 <script src="{{ 'custom-footer.js' | asset_url }}" defer="defer"></script>
 
-<footer class="custom-footer">
+{% style %}
+  .custom-footer-{{ section.id }} {
+    background-color: {{ section.settings.footer_bg | default: '#f8f5ea' }};
+    color: {{ section.settings.footer_text_color | default: '#111111' }};
+    border-top: 1px solid {{ section.settings.footer_border_color | default: '#222222' }};
+  }
+  .custom-footer-{{ section.id }} a,
+  .custom-footer-{{ section.id }} p,
+  .custom-footer-{{ section.id }} li,
+  .custom-footer-{{ section.id }} .custom-footer-contact-list .contact-item {
+    color: {{ section.settings.footer_text_color | default: '#111111' }};
+  }
+  .custom-footer-{{ section.id }} .custom-footer-column h3,
+  .custom-footer-{{ section.id }} .disclaimer h4,
+  .custom-footer-{{ section.id }} .custom-footer-logo-fallback {
+    color: {{ section.settings.footer_heading_color | default: '#111111' }};
+  }
+  .custom-footer-{{ section.id }} .custom-footer-logo {
+    border-bottom: 1px solid {{ section.settings.footer_border_color | default: '#222222' }};
+  }
+  .custom-footer-{{ section.id }} .newsletter-form button {
+    background-color: {{ section.settings.btn_bg | default: '#fe9d01' }};
+    color: {{ section.settings.btn_text_color | default: '#ffffff' }};
+  }
+  .custom-footer-{{ section.id }} .custom-footer-copyright {
+    background-color: {{ section.settings.copyright_bg | default: '#f8f5ea' }};
+    color: {{ section.settings.copyright_text_color | default: '#111111' }};
+    border-top: 1px solid {{ section.settings.footer_border_color | default: '#222222' }};
+  }
+  .custom-footer-{{ section.id }} .custom-footer-copyright p {
+    color: {{ section.settings.copyright_text_color | default: '#111111' }};
+  }
+{% endstyle %}
+
+<footer class="custom-footer custom-footer-{{ section.id }}">
 
     <!-- Logo -->
-    <div class="custom-footer-logo">
-        {%- if section.settings.logo != blank -%}
-            <img src="{{ section.settings.logo | image_url: width: section.settings.logo_width }}"
-                 alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
-                 width="{{ section.settings.logo_width }}"
-                 height="{{ section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio | round }}"
-                 loading="lazy">
-        {%- else -%}
-            <h2 class="custom-footer-logo-fallback">{{ shop.name }}</h2>
-        {%- endif -%}
-    </div>
+    {%- if section.settings.show_logo -%}
+      <div class="custom-footer-logo">
+          {%- if section.settings.logo != blank -%}
+              <img src="{{ section.settings.logo | image_url: width: section.settings.logo_width }}"
+                   alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+                   width="{{ section.settings.logo_width }}"
+                   height="{{ section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio | round }}"
+                   loading="lazy">
+          {%- else -%}
+              <h2 class="custom-footer-logo-fallback">{{ shop.name }}</h2>
+          {%- endif -%}
+      </div>
+    {%- endif -%}
 
     <div class="custom-footer-container">
 
-        <!-- Newsletter -->
-        <div class="custom-footer-column newsletter">
+        <!-- Newsletter Column -->
+        {%- if section.settings.show_newsletter -%}
+          <div class="custom-footer-column newsletter">
 
-            <div class="accordion-title">
-                <h3>{{ section.settings.newsletter_heading | escape }}</h3>
-                <span class="plus">+</span>
-            </div>
+              <div class="accordion-title">
+                  <h3>{{ section.settings.newsletter_heading | escape }}</h3>
+                  <span class="plus">+</span>
+              </div>
 
-            <div class="accordion-content">
+              <div class="accordion-content">
 
-                <p>
-                    {{ section.settings.newsletter_text | escape }}
-                </p>
+                  {%- if section.settings.newsletter_text != blank -%}
+                    <p>{{ section.settings.newsletter_text | escape }}</p>
+                  {%- endif -%}
 
-                {%- form 'customer', class: 'newsletter-form' -%}
-                    <input type="hidden" name="contact[tags]" value="newsletter">
+                  {%- form 'customer', class: 'newsletter-form' -%}
+                      <input type="hidden" name="contact[tags]" value="newsletter">
 
-                    <input
-                        id="NewsletterForm-{{ section.id }}"
-                        type="email"
-                        name="contact[email]"
-                        value="{{ form.email }}"
-                        aria-required="true"
-                        autocorrect="off"
-                        autocapitalize="off"
-                        autocomplete="email"
-                        placeholder="Enter your email"
-                        required
-                    >
+                      <input
+                          id="NewsletterForm-{{ section.id }}"
+                          type="email"
+                          name="contact[email]"
+                          value="{{ form.email }}"
+                          aria-required="true"
+                          autocorrect="off"
+                          autocapitalize="off"
+                          autocomplete="email"
+                          placeholder="{{ section.settings.newsletter_placeholder | default: 'Enter your email' | escape }}"
+                          required
+                      >
 
-                    <button type="submit" aria-label="Subscribe" name="commit" id="Subscribe-{{ section.id }}">
-                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-                    </button>
+                      <button type="submit" aria-label="Subscribe" name="commit" id="Subscribe-{{ section.id }}">
+                          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                      </button>
 
-                    {%- if form.errors -%}
-                        <small class="newsletter-form__message form__message" style="display: block; width: 100%; margin-top: 10px; color: red;" id="Newsletter-error-{{ section.id }}">
-                            {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
-                        </small>
-                    {%- endif -%}
-                    {%- if form.posted_successfully? -%}
-                        <small class="newsletter-form__message newsletter-form__message--success form__message" style="display: block; width: 100%; margin-top: 10px; color: green;" id="Newsletter-success-{{ section.id }}">
-                            {{ 'general.newsletter.success' | t | default: 'Thanks for subscribing!' }}
-                        </small>
-                    {%- endif -%}
-                {%- endform -%}
+                      {%- if form.errors -%}
+                          <small class="newsletter-form__message form__message" style="display: block; width: 100%; margin-top: 10px; color: red;" id="Newsletter-error-{{ section.id }}">
+                              {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+                          </small>
+                      {%- endif -%}
+                      {%- if form.posted_successfully? -%}
+                          <small class="newsletter-form__message newsletter-form__message--success form__message" style="display: block; width: 100%; margin-top: 10px; color: green;" id="Newsletter-success-{{ section.id }}">
+                              {{ 'general.newsletter.success' | t | default: 'Thanks for subscribing!' }}
+                          </small>
+                      {%- endif -%}
+                  {%- endform -%}
 
-                {%- if section.settings.show_social -%}
-                    <div class="social-icons">
-                        {%- if settings.social_facebook_link != blank -%}
-                            <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" aria-label="Facebook">
-                                <i class="fab fa-facebook-f" aria-hidden="true"></i>
-                            </a>
-                        {%- endif -%}
+                  {%- if section.settings.show_social -%}
+                      <div class="social-icons">
+                          {%- if settings.social_facebook_link != blank -%}
+                              <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" aria-label="Facebook">
+                                  <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                              </a>
+                          {%- endif -%}
 
-                        {%- if settings.social_x_link != blank or settings.social_twitter_link != blank -%}
-                            <a href="{{ settings.social_x_link | default: settings.social_twitter_link }}" target="_blank" rel="noopener" aria-label="X (Twitter)">
-                                <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
-                            </a>
-                        {%- endif -%}
+                          {%- if settings.social_x_link != blank or settings.social_twitter_link != blank -%}
+                              <a href="{{ settings.social_x_link | default: settings.social_twitter_link }}" target="_blank" rel="noopener" aria-label="X (Twitter)">
+                                  <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+                              </a>
+                          {%- endif -%}
 
-                        {%- if settings.social_youtube_link != blank -%}
-                            <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" aria-label="YouTube">
-                                <i class="fab fa-youtube" aria-hidden="true"></i>
-                            </a>
-                        {%- endif -%}
+                          {%- if settings.social_youtube_link != blank -%}
+                              <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" aria-label="YouTube">
+                                  <i class="fab fa-youtube" aria-hidden="true"></i>
+                              </a>
+                          {%- endif -%}
 
-                        {%- if settings.social_instagram_link != blank -%}
-                            <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" aria-label="Instagram">
-                                <i class="fab fa-instagram" aria-hidden="true"></i>
-                            </a>
-                        {%- endif -%}
-                    </div>
-                {%- endif -%}
+                          {%- if settings.social_instagram_link != blank -%}
+                              <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" aria-label="Instagram">
+                                  <i class="fab fa-instagram" aria-hidden="true"></i>
+                              </a>
+                          {%- endif -%}
+                      </div>
+                  {%- endif -%}
 
-            </div>
+              </div>
 
-        </div>
+          </div>
+        {%- endif -%}
 
-        <!-- Discover Menu -->
+        <!-- Menu 1 Column -->
         <div class="custom-footer-column">
 
             <div class="accordion-title">
@@ -116,19 +154,16 @@
                 {%- else -%}
                     <ul>
                         <li><a href="#">Home</a></li>
-                        <li><a href="#">Shop</a></li>
-                        <li><a href="#">Pre-Order</a></li>
-                        <li><a href="#">Affiliate</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Shop All</a></li>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">All Products</a></li>
+                        <li><a href="#">Contact Us</a></li>
                     </ul>
                 {%- endif -%}
             </div>
 
         </div>
 
-        <!-- Collections Menu -->
+        <!-- Menu 2 Column -->
         <div class="custom-footer-column">
 
             <div class="accordion-title">
@@ -146,18 +181,17 @@
                     </ul>
                 {%- else -%}
                     <ul>
-                        <li><a href="#">Natural Body Lotion</a></li>
-                        <li><a href="#">Natural Face Moisturizers</a></li>
-                        <li><a href="#">Beef Tallow for Skin</a></li>
-                        <li><a href="#">Organic Lip Balm</a></li>
-                        <li><a href="#">Deep Sleep Magnesium Cream</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Condition</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">FAQ's</a></li>
                     </ul>
                 {%- endif -%}
             </div>
 
         </div>
 
-        <!-- Customer Service / Contact Info Menu -->
+        <!-- Contact Info Column -->
         <div class="custom-footer-column contact-info-column">
 
             <div class="accordion-title">
@@ -208,18 +242,18 @@
 
     </div>
 
+    <!-- Disclaimer / Mission -->
+    {%- if section.settings.show_disclaimer -%}
+      <div class="disclaimer">
+          {%- if section.settings.disclaimer_heading != blank -%}
+            <h4>{{ section.settings.disclaimer_heading | escape }}</h4>
+          {%- endif -%}
 
-
-    <!-- Disclaimer -->
-    <div class="disclaimer">
-
-        <h4>{{ section.settings.disclaimer_heading | escape }}</h4>
-
-        <p>
-            {{ section.settings.disclaimer_text | escape }}
-        </p>
-
-    </div>
+          {%- if section.settings.disclaimer_text != blank -%}
+            <p>{{ section.settings.disclaimer_text | escape }}</p>
+          {%- endif -%}
+      </div>
+    {%- endif -%}
 
     <!-- Copyright -->
     {%- if section.settings.show_copyright -%}
@@ -236,7 +270,66 @@
   "settings": [
     {
       "type": "header",
+      "content": "Color Scheme Settings"
+    },
+    {
+      "type": "color",
+      "id": "footer_bg",
+      "label": "Footer Background",
+      "default": "#f8f5ea"
+    },
+    {
+      "type": "color",
+      "id": "footer_text_color",
+      "label": "Text Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "footer_heading_color",
+      "label": "Heading Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "footer_border_color",
+      "label": "Border Color",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button Background",
+      "default": "#fe9d01"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button Icon/Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "copyright_bg",
+      "label": "Copyright Background",
+      "default": "#f8f5ea"
+    },
+    {
+      "type": "color",
+      "id": "copyright_text_color",
+      "label": "Copyright Text Color",
+      "default": "#111111"
+    },
+
+    {
+      "type": "header",
       "content": "Logo Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_logo",
+      "label": "Show Logo",
+      "default": true
     },
     {
       "type": "image_picker",
@@ -247,15 +340,22 @@
       "type": "range",
       "id": "logo_width",
       "min": 50,
-      "max": 300,
+      "max": 400,
       "step": 10,
       "default": 220,
       "unit": "px",
       "label": "Logo Width"
     },
+
     {
       "type": "header",
       "content": "Newsletter Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Show Newsletter Column",
+      "default": true
     },
     {
       "type": "text",
@@ -270,49 +370,56 @@
       "default": "Sign up for updates and exclusive offers"
     },
     {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Email Input Placeholder",
+      "default": "Enter your email"
+    },
+    {
       "type": "checkbox",
       "id": "show_social",
       "label": "Show Social Media Icons",
       "default": true
     },
+
     {
       "type": "header",
-      "content": "Menu Settings"
+      "content": "Menu Columns"
     },
     {
       "type": "text",
       "id": "menu_1_heading",
       "label": "Menu 1 Heading",
-      "default": "Discover More"
+      "default": "Quick Links"
     },
     {
       "type": "link_list",
       "id": "menu_1",
-      "label": "Menu 1",
-      "default": "footer"
+      "label": "Menu 1 Linklist"
     },
     {
       "type": "text",
       "id": "menu_2_heading",
       "label": "Menu 2 Heading",
-      "default": "Our Collections"
+      "default": "Customer Service"
     },
     {
       "type": "link_list",
       "id": "menu_2",
-      "label": "Menu 2"
+      "label": "Menu 2 Linklist"
     },
     {
       "type": "text",
       "id": "menu_3_heading",
-      "label": "Menu 3 Heading",
+      "label": "Contact Column Heading",
       "default": "Contact Information"
     },
     {
       "type": "link_list",
       "id": "menu_3",
-      "label": "Menu 3"
+      "label": "Menu 3 Optional Links"
     },
+
     {
       "type": "header",
       "content": "Contact Information Settings"
@@ -344,20 +451,27 @@
 
     {
       "type": "header",
-      "content": "Disclaimer Settings"
+      "content": "Disclaimer / Mission Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_disclaimer",
+      "label": "Show Disclaimer/Mission Section",
+      "default": true
     },
     {
       "type": "text",
       "id": "disclaimer_heading",
       "label": "Disclaimer Heading",
-      "default": "FDA Disclaimer"
+      "default": "Our mission"
     },
     {
       "type": "textarea",
       "id": "disclaimer_text",
       "label": "Disclaimer Text",
-      "default": "All products sold through this website have not been evaluated by the U.S. Food and Drug Administration (FDA). These products are not intended to diagnose, treat, cure, or prevent any disease. Customers are advised to consult with a qualified healthcare provider before using any of the products offered for sale on this website."
+      "default": "At Sankofa Tallow, we believe skincare should be simple, safe, and nourishing. Inspired by African traditions and created from a mother's search for healthier skincare, our handcrafted body butter is made with only five carefully selected ingredients to help protect, hydrate, and care for your family's skin—naturally"
     },
+
     {
       "type": "header",
       "content": "Copyright Settings"
