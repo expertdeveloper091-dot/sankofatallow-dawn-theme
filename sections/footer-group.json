@@ -38,10 +38,10 @@
             "image": "shopify://shop_images/02.png",
             "alt": "",
             "side": "left",
-            "size": 150,
-            "rotate": 6,
-            "offset_top": 90,
-            "offset_left": -20
+            "size": 500,
+            "rotate": 0,
+            "offset_top": 0,
+            "offset_left": 0
           }
         },
         "photo_nYJEit": {
@@ -66,19 +66,19 @@
       ],
       "name": "Custom CTA",
       "settings": {
-        "background_color": "#FE9D01",
+        "background_color": "#fe9d01",
         "border_color": "#2c2609",
         "heading_color": "#1d211e",
         "highlight_color": "#f63208",
         "description_color": "#1d211e",
         "badge_bg": "#ffffff",
         "badge_text_color": "#1d211e",
-        "button_bg": "#FFF8ED",
+        "button_bg": "#fff8ed",
         "button_text_color": "#1d211e",
         "button_border": "#2c2609",
         "button_shadow_color": "#2c2609",
-        "icon_bg": "#FFF8ED",
-        "icon_border": "#FE9D01",
+        "icon_bg": "#fff8ed",
+        "icon_border": "#fe9d01",
         "icon_text_color": "#1d211e",
         "benefit_text_color": "#1d211e",
         "container_width": 1100,
