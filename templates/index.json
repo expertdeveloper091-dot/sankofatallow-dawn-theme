@@ -67,7 +67,7 @@
       "settings": {
         "layout_desktop": "left_content",
         "max_width": 1200,
-        "bg_color": "#FFFFFF",
+        "bg_color": "#FFF8ED",
         "text_color": "#2c2609",
         "accent_color": "#000000",
         "show_rating": true,
