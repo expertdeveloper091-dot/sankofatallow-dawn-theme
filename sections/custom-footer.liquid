@@ -119,32 +119,32 @@
                       {%- assign yt_link = section.settings.social_youtube | default: settings.social_youtube_link -%}
 
                       <div class="social-icons">
-                          {%- if fb_link != blank or section.settings.show_default_socials -%}
-                              <a href="{{ fb_link | default: '#' }}" target="_blank" rel="noopener" aria-label="Facebook">
+                          {%- if section.settings.show_facebook and fb_link != blank -%}
+                              <a href="{{ fb_link }}" target="_blank" rel="noopener" aria-label="Facebook">
                                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                               </a>
                           {%- endif -%}
 
-                          {%- if ig_link != blank or section.settings.show_default_socials -%}
-                              <a href="{{ ig_link | default: '#' }}" target="_blank" rel="noopener" aria-label="Instagram">
+                          {%- if section.settings.show_instagram and ig_link != blank -%}
+                              <a href="{{ ig_link }}" target="_blank" rel="noopener" aria-label="Instagram">
                                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                               </a>
                           {%- endif -%}
 
-                          {%- if tt_link != blank or section.settings.show_default_socials -%}
-                              <a href="{{ tt_link | default: '#' }}" target="_blank" rel="noopener" aria-label="TikTok">
+                          {%- if section.settings.show_tiktok and tt_link != blank -%}
+                              <a href="{{ tt_link }}" target="_blank" rel="noopener" aria-label="TikTok">
                                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-4.64V5.79a6.34 6.34 0 0 0-6.14 6.34 6.34 6.34 0 0 0 10.78 4.54V9.65a8.28 8.28 0 0 0 5.47 2.05V8.25a4.85 4.85 0 0 1-2.87-1.56z"></path></svg>
                               </a>
                           {%- endif -%}
 
-                          {%- if x_link != blank or section.settings.show_default_socials -%}
-                              <a href="{{ x_link | default: '#' }}" target="_blank" rel="noopener" aria-label="X (Twitter)">
+                          {%- if section.settings.show_x and x_link != blank -%}
+                              <a href="{{ x_link }}" target="_blank" rel="noopener" aria-label="X (Twitter)">
                                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
                               </a>
                           {%- endif -%}
 
-                          {%- if yt_link != blank or section.settings.show_default_socials -%}
-                              <a href="{{ yt_link | default: '#' }}" target="_blank" rel="noopener" aria-label="YouTube">
+                          {%- if section.settings.show_youtube and yt_link != blank -%}
+                              <a href="{{ yt_link }}" target="_blank" rel="noopener" aria-label="YouTube">
                                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#fff"></polygon></svg>
                               </a>
                           {%- endif -%}
@@ -412,13 +412,13 @@
     {
       "type": "checkbox",
       "id": "show_social",
-      "label": "Show Social Media Icons",
+      "label": "Show Social Media Section",
       "default": true
     },
     {
       "type": "checkbox",
-      "id": "show_default_socials",
-      "label": "Always Show Default Social Icons",
+      "id": "show_facebook",
+      "label": "Enable Facebook Icon",
       "default": true
     },
     {
@@ -427,9 +427,21 @@
       "label": "Facebook URL"
     },
     {
+      "type": "checkbox",
+      "id": "show_instagram",
+      "label": "Enable Instagram Icon",
+      "default": true
+    },
+    {
       "type": "url",
       "id": "social_instagram",
       "label": "Instagram URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tiktok",
+      "label": "Enable TikTok Icon",
+      "default": true
     },
     {
       "type": "url",
@@ -437,9 +449,21 @@
       "label": "TikTok URL"
     },
     {
+      "type": "checkbox",
+      "id": "show_x",
+      "label": "Enable X / Twitter Icon",
+      "default": true
+    },
+    {
       "type": "url",
       "id": "social_x",
       "label": "X / Twitter URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_youtube",
+      "label": "Enable YouTube Icon",
+      "default": true
     },
     {
       "type": "url",

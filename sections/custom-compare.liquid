@@ -120,13 +120,22 @@
 
   .eg-comp-{{ section.id }} .eg-other span {
     color: {{ comp_color }} !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 32px !important;
+    height: 32px !important;
   }
 
   .eg-comp-{{ section.id }} .eg-center-icons span svg,
   .eg-comp-{{ section.id }} .eg-other span svg {
-    display: block;
-    width: 100%;
-    height: 100%;
+    display: block !important;
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .eg-comp-{{ section.id }} .eg-other span svg path {
+    stroke: {{ comp_color }} !important;
   }
 
   /* ==========================================
