@@ -300,7 +300,7 @@
           "settings": {
             "feature": "ONLY 5 SIMPLE INGREDIENTS",
             "brand_icon": "check",
-            "competitor_icon": "minus",
+            "competitor_icon": "cross",
             "other_val": "-"
           }
         },
