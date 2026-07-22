@@ -1,47 +1,53 @@
-/* Custom CTA Section Styles (Matching Evilgoods / Maison CTA) */
+/* Namespace-scoped CSS for Shopify Dawn Custom CTA section */
 
-.maison-cta_section {
+.ag-cta {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--ag-cta-bg, #feeb94);
   position: relative;
   overflow: hidden;
-  font-family: 'Poppins', sans-serif;
+  padding-top: var(--ag-cta-padding-top, 64px);
+  padding-bottom: var(--ag-cta-padding-bottom, 64px);
+  padding-left: 20px;
+  padding-right: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ag-cta * {
   box-sizing: border-box;
 }
 
-.maison-cta_container {
-  max-width: 1100px;
-  margin: 0 auto;
-  position: relative;
-  padding: 0 1em;
-  z-index: 2;
-}
-
-.maison-cta_content {
+.ag-cta__content {
+  max-width: var(--ag-cta-max-width, 700px);
+  width: 100%;
   text-align: center;
-  max-width: 700px;
-  margin: 0 auto;
+  z-index: 5;
   position: relative;
-  z-index: 3;
+  margin: 0 auto;
 }
 
-.maison-cta_badge {
+/* Customer Badge */
+.ag-cta__customers {
   display: inline-flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: 0.75em;
-  margin-bottom: 1.5em;
-  border-radius: 999px;
+  gap: 12px;
+  background: #ffffff;
   border: 1px solid #2c2609;
-  background: #FFFFFF;
-  padding: 4px 12px 4px 4px;
+  padding: 4px 14px 4px 4px;
+  border-radius: 999px;
+  margin-bottom: 24px;
 }
 
-.maison-cta_avatars {
+.ag-cta__avatars {
   display: flex;
   align-items: center;
 }
 
-.maison-cta_avatar {
+.ag-cta__avatar-img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -50,139 +56,147 @@
   object-fit: cover;
 }
 
-.maison-cta_avatar:first-child {
+.ag-cta__avatar-img:first-child {
   margin-left: 0;
 }
 
-.maison-cta_badge-text {
+.ag-cta__customers-text {
   font-size: 14px;
-  font-weight: 500;
-  line-height: 150%;
   color: #1d211e;
+  margin: 0;
+  line-height: 1.4;
+  font-weight: 500;
 }
 
-.maison-cta_heading {
-  font-size: 2.75em;
+.ag-cta__customers-text strong {
+  font-weight: 700;
+}
+
+/* Title */
+.ag-cta__title {
+  font-size: 44px;
   font-weight: 800;
-  margin-top: 0;
-  margin-bottom: 0.5em;
   line-height: 1.15;
+  margin-top: 0;
+  margin-bottom: 16px;
   color: #1d211e;
   font-family: 'Poppins', sans-serif;
   text-transform: uppercase;
 }
 
-.maison-cta_highlight {
-  color: #f63208;
+.ag-cta__title-highlight {
+  color: var(--ag-cta-accent-color, #f63208);
 }
 
-.maison-cta_description {
-  font-size: 1.125em;
+/* Description */
+.ag-cta__description,
+.ag-cta__description p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  color: var(--ag-cta-text-color, #1d211e);
   line-height: 1.5;
+  margin-top: 0;
   margin-bottom: 24px;
-  color: #1d211e;
 }
 
-.maison-cta_description p {
-  font-size: 1.125em;
-  line-height: 1.5;
-  margin: 0;
-  color: #1d211e;
-}
-
-.maison-cta_button {
+/* Button */
+.ag-cta__button {
   display: inline-block;
-  font-weight: 700;
-  font-size: 1em;
-  padding: 0.875em 2em;
+  padding: 16px 36px;
+  background-color: var(--ag-cta-btn-bg, #fedb36);
+  border-radius: var(--ag-cta-btn-border-radius, 12px);
+  color: var(--ag-cta-btn-text-color, #1d211e);
   text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
   border: 1px solid #2c2609;
-  background-color: #fedb36;
-  color: #1d211e;
   box-shadow: 0px 4px 0px 0px #2c2609;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
 }
 
-.maison-cta_button:hover {
+.ag-cta__button:hover {
   transform: translateY(-2px);
   box-shadow: 0px 6px 0px 0px #2c2609;
 }
 
-.maison-cta_button:active {
+.ag-cta__button:active {
   transform: translateY(2px);
   box-shadow: 0px 2px 0px 0px #2c2609;
 }
 
-.maison-cta_benefits {
+/* Features checklist */
+.ag-cta__features {
   display: flex;
   justify-content: center;
-  gap: 2em;
-  margin-top: 2em;
+  align-items: center;
+  gap: 28px;
+  margin-top: 28px;
+  color: #1d211e;
+  font-size: 14px;
+  font-weight: 600;
   flex-wrap: wrap;
 }
 
-.maison-cta_benefit {
+.ag-cta__feature-item {
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  gap: 8px;
 }
 
-.maison-cta_icon {
-  display: flex;
+.ag-cta__feature-icon {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.5em;
-  height: 1.5em;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  font-size: 0.875em;
-  font-weight: 700;
-  border: 1px solid #2C2609;
   background-color: #fedb36;
+  border: 1px solid #2c2609;
+  font-size: 12px;
+  font-weight: 800;
   color: #2c2609;
   flex-shrink: 0;
 }
 
-.maison-cta_text {
-  font-size: 0.875em;
-  font-weight: 600;
-  color: #1d211e;
-}
-
-/* Floating side images */
-.maison-cta_image-left,
-.maison-cta_image-right {
+/* Floating side images on desktop */
+.ag-cta__floating-images {
   position: absolute;
   top: 0;
   height: 100%;
   display: flex;
   align-items: center;
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
 }
 
-.maison-cta_image-left {
+.ag-cta__floating-images--left {
   left: 0;
 }
 
-.maison-cta_image-right {
+.ag-cta__floating-images--right {
   right: 0;
 }
 
-.maison-cta_image-left img,
-.maison-cta_image-right img {
+.ag-cta__img-single {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.ag-cta__img-single img {
   max-height: 100%;
   width: auto;
   object-fit: contain;
 }
 
-.maison-cta_image-mobile {
+.ag-cta__image-mobile {
   display: none;
   width: 100%;
+  z-index: 3;
 }
 
-.maison-cta_image-mobile img {
+.ag-cta__image-mobile img {
   max-height: 100%;
   max-width: 100%;
   width: auto;
@@ -192,94 +206,42 @@
   display: block;
 }
 
-/* Responsive Breakpoints */
-@media (max-width: 1315px) {
-  .maison-cta_image-left {
-    left: -8px;
-  }
-  .maison-cta_image-right {
-    right: -80px;
+/* Responsive */
+@media (max-width: 1200px) {
+  .ag-cta__img-single img {
+    max-width: 260px;
   }
 }
 
-@media (max-width: 1300px) {
-  .maison-cta_image-left {
-    left: -100px;
+@media (max-width: 990px) {
+  .ag-cta__title {
+    font-size: 34px;
   }
-  .maison-cta_image-right {
-    right: -100px;
+  .ag-cta__description,
+  .ag-cta__description p {
+    font-size: 16px;
   }
-}
-
-@media (min-width: 750px) and (max-width: 1415px) {
-  .maison-cta_content {
-    max-width: 540px;
-  }
-}
-
-@media (max-width: 1100px) {
-  .maison-cta_heading {
-    font-size: 2.25em;
-  }
-  .maison-cta_image-left {
-    left: -80px;
-  }
-  .maison-cta_image-right {
-    right: -80px;
-  }
-  .maison-cta_image-left img,
-  .maison-cta_image-right img {
-    max-width: 250px;
+  .ag-cta__img-single img {
+    max-width: 200px;
   }
 }
 
 @media (max-width: 768px) {
-  .maison-cta_section {
-    padding-bottom: 3em !important;
-  }
-  .maison-cta_heading {
-    font-size: 2em;
-  }
-  .maison-cta_description {
-    font-size: 1em;
-  }
-  .maison-cta_image-left,
-  .maison-cta_image-right {
+  .ag-cta__floating-images {
     display: none !important;
   }
-  .maison-cta_image-mobile {
+  .ag-cta__image-mobile {
     display: block !important;
   }
-  .maison-cta_benefits {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 9px;
-    margin-top: 12px;
-  }
-  .maison-cta_description,
-  .maison-cta_heading {
-    margin-bottom: 12px;
-  }
-  .maison-cta_avatar {
-    width: 30px;
-    height: 30px;
-  }
-  .maison-cta_badge {
-    gap: 4px;
-  }
-}
-
-@media (max-width: 480px) {
-  .maison-cta_section {
-    padding-block: 24px !important;
-  }
-  .maison-cta_heading {
+  .ag-cta__title {
     font-size: 28px;
   }
-  .maison-cta_button {
+  .ag-cta__features {
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .ag-cta__button {
     width: 100%;
-    padding: 0.75em 1.5em;
-    text-align: center;
+    padding: 14px 20px;
   }
 }
