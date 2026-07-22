@@ -36,6 +36,33 @@
         "price_Dy68E6": {
           "type": "price",
           "settings": {}
+        },
+        "product_badges_8fVwyY": {
+          "type": "product_badges",
+          "settings": {}
+        },
+        "buy_buttons_BmEAxf": {
+          "type": "buy_buttons",
+          "settings": {
+            "atc_text": "ADD TO CART",
+            "sold_out_text": "SOLD OUT",
+            "show_buy_now": true,
+            "buy_now_text": "BUY IT NOW"
+          }
+        },
+        "collapsible_tab_AhQeLm": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Description",
+            "content_source": "description",
+            "content": "<p>Add custom text or details here.</p>"
+          }
+        },
+        "trust_badge_cmctEY": {
+          "type": "trust_badge",
+          "settings": {
+            "badge_text": "Guarantee Safe Checkout"
+          }
         }
       },
       "block_order": [
@@ -43,7 +70,11 @@
         "review_and_sold_qMAYJE",
         "product_title_AeWWWA",
         "live_view_yFWaFk",
-        "price_Dy68E6"
+        "price_Dy68E6",
+        "product_badges_8fVwyY",
+        "buy_buttons_BmEAxf",
+        "collapsible_tab_AhQeLm",
+        "trust_badge_cmctEY"
       ],
       "settings": {
         "show_vendor": true,
