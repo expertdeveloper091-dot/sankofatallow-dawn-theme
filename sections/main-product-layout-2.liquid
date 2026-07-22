@@ -1,6 +1,14 @@
 {{ 'critical.css' | asset_url | stylesheet_tag }}
 {{ 'clay-theme.css' | asset_url | stylesheet_tag }}
 {{ 'main-product-layout-2.css' | asset_url | stylesheet_tag }}
+{{ 'animation.css' | asset_url | stylesheet_tag }}
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'utils.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'motion.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'animation.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'main-product.js' | asset_url }}" defer="defer"></script>
 {%- liquid
   assign theme_st = settings
   assign section_st = section.settings
@@ -203,7 +211,7 @@
       {% if enable_skeleton_loading == true %}
         hold
       {% endif %}
-      class="product-detail__information {% if enable_skeleton_loading != true %} opacity-0 {% endif %} col-md-remaining w-full"
+      class="product-detail__information col-md-remaining w-full"
     >
       {% if enable_sticky_content_on_desktop %}<div class="sticky top-30">{% endif %}
       {%- assign product_form_id = 'product-form-' | append: section.id -%}
@@ -223,7 +231,7 @@
             <motion-element
               data-motion="fade-up"
               data-motion-delay="50"
-              class="block opacity-0"
+              class="block"
             >
               <h1
                 class="product-detail__title heading-letter-spacing fs-26 mt-0 mb-10{% if enable_skeleton_loading %} skeleton-loading{% endif %}"
