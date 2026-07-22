@@ -67,7 +67,7 @@
         <div class="rb-fake-order-info">
           <div class="flex fake-list fs-small mb-3">
             <span data-user class="user-purchase heading-color me-5">{{ list_user[0] }}</span>
-            <span class="light-dark-grey">{{ 'fake_order.purchased' | t }}</span>
+            <span class="light-dark-grey">{{ 'fake_order.purchased' | t | default: 'purchased' }}</span>
           </div>
           <a
             data-url
@@ -76,11 +76,11 @@
             aria-label="{{ products.title }}"
             class="no-underline heading-style block lh-normal mb-12"
           >
-            {{- 'fake_order.product_name' | t -}}
+            {{- products.title | default: 'Product Title' -}}
           </a>
           <div class="flex light-dark-grey gap-15 fs-small align-center">
             <div class="minutes-ago">
-              <span data-time class="minutes-number">8</span> {{ 'fake_order.time_minutes' | t }}
+              <span data-time class="minutes-number">8</span> {{ 'fake_order.time_minutes' | t | default: 'minutes ago' }}
             </div>
             <span class="text-verify inline-flex align-center" aria-label="{{ products.title }}">
               <svg width="12" height="11" fill="none" class="heading-color me-5">
@@ -211,45 +211,45 @@
     {
       "type": "checkbox",
       "id": "show_fake_order",
-      "label": "t:sections.fake-order.settings.show_fake_order.label",
+      "label": "Show fake order popup",
       "default": false
     },
     {
       "type": "checkbox",
       "id": "disable_mobile",
-      "label": "t:sections.fake-order.settings.disable_mobile.label",
+      "label": "Disable on mobile devices",
       "default": false
     },
     {
       "type": "product_list",
       "id": "fake_product",
-      "label": "t:sections.fake-order.settings.fake_product.label"
+      "label": "Select products for popup"
     },
     {
       "type": "textarea",
       "id": "fake_user",
-      "label": "t:sections.fake-order.settings.fake_user.label",
+      "label": "Fake buyers list (separated by |)",
       "default": "Jonson (California) | Tony (Texas) | Bruno (New York) | Eren (Ohio) | Lauren (Washington) | Flortino (California) | Blue (Ohio)"
     },
     {
       "type": "text",
       "id": "text_verify",
-      "label": "t:sections.fake-order.settings.text_verify.label",
+      "label": "Verified badge text",
       "default": "Verify"
     },
     {
       "type": "text",
       "id": "delay_time",
-      "label": "t:sections.fake-order.settings.delay_time.label",
+      "label": "Popup delay time (ms)",
       "default": "5000",
-      "info": "t:sections.fake-order.settings.delay_time.info"
+      "info": "Time between popup cycles in milliseconds"
     },
     {
       "type": "text",
       "id": "display_time",
-      "label": "t:sections.fake-order.settings.display_time.label",
+      "label": "Popup display duration (ms)",
       "default": "6000",
-      "info": "t:sections.fake-order.settings.delay_time.info"
+      "info": "How long popup stays visible"
     }
   ],
   "presets": [

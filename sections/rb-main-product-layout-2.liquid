@@ -1,5 +1,6 @@
+{{ 'main-product-layout-2.css' | asset_url | stylesheet_tag }}
 {{ 'rb-product.css' | asset_url | stylesheet_tag }}
-{{ 'main-product.css' | asset_url | stylesheet_tag }}
+
 {%- liquid
   assign theme_st = settings
   assign section_st = section.settings
@@ -78,7 +79,7 @@
   <script src="{{ 'photoswipe-init.js' | asset_url }}" defer="defer" type="module"></script>
   {% if enable_skeleton_loading == true %}
     {{ 'skeleton.css' | asset_url | stylesheet_tag }}
-    <skeleton-page class="{{ section_width }} skeleton  block">
+    <skeleton-page class="{{ section_width }} skeleton block">
   {% else %}
     <div class="{{ section_width }}">
   {% endif %}
@@ -88,7 +89,7 @@
     style="--col-gap: 30px;--col-width: {{ desktop_media_width }}%"
   >
     {%- if product.media.size > 0 -%}
-      <div class="product-detail__media rb-product-detail__media col-md-w-custom w-full ">
+      <div class="product-detail__media rb-product-detail__media col-md-w-custom w-full">
         {%- liquid
           assign default_position = 0
           unless product.has_only_default_variant
@@ -178,7 +179,7 @@
         {% endif %}
         <button-wishlist
           tabindex="0"
-          class="product-item__button pointer hidden-md product-item__button-wishlist tooltip relative btn-hover transition btn-hover transition bg-white rounded-50 border w-50 h-50 inline-flex content-center skeleton-loading"
+          class="product-item__button pointer hidden-md product-item__button-wishlist tooltip relative btn-hover transition bg-white rounded-50 border w-50 h-50 inline-flex content-center skeleton-loading"
           data-product-id="{{ product.id }}"
           data-action="{{ action_when_click_added_wishlist }}"
           data-tooltip-remove="{{ 'products.product.actions.wishlist.remove' | t }}"
@@ -195,7 +196,7 @@
       </div>
     {% endif %}
 
-    {% comment %} Dynamic Product Information Snippet {% endcomment %}
+    {% comment %} Product Information Snippet {% endcomment %}
     {% render 'rb-product-info', product: product, section: section %}
 
   </div>
@@ -210,9 +211,9 @@
 
 {% schema %}
 {
-  "name": "RB Main Product (Clay)",
+  "name": "RB Product Layout 2",
   "tag": "section",
-  "class": "section rb-main-product-section main-product-section",
+  "class": "section rb-main-product-layout-2 main-product-section",
   "settings": [
     {
       "type": "select",
@@ -258,8 +259,7 @@
     },
     {
       "type": "header",
-      "content": "Media Settings",
-      "info": "Configure gallery layout and zoom"
+      "content": "Media Settings"
     },
     {
       "type": "range",
@@ -341,8 +341,7 @@
       "type": "checkbox",
       "id": "enable_video_autoplay",
       "default": true,
-      "label": "Enable video autoplay",
-      "info": "Autoplay media videos automatically"
+      "label": "Enable video autoplay"
     },
     {
       "type": "header",
@@ -352,7 +351,7 @@
       "type": "checkbox",
       "id": "enable_frequently_bought_together",
       "default": true,
-      "label": "Enable Frequently Bought Together section"
+      "label": "Enable Frequently Bought Together"
     },
     {
       "type": "header",
@@ -388,8 +387,7 @@
         }
       ],
       "default": "show_thumbnails",
-      "label": "Mobile Layout Options",
-      "info": "Configure thumbnail visibility on mobile"
+      "label": "Mobile Layout Options"
     },
     {
       "type": "header",
@@ -456,10 +454,6 @@
           "label": "Show rating review"
         },
         {
-          "type": "header",
-          "content": "Fake Sold Count"
-        },
-        {
           "type": "checkbox",
           "id": "show_sold_products",
           "default": true,
@@ -468,14 +462,12 @@
         {
           "type": "textarea",
           "id": "sold",
-          "label": "Sold quantity range (e.g. 10-30)",
-          "info": "Random number between min-max"
+          "label": "Sold quantity range"
         },
         {
           "type": "textarea",
           "id": "hours",
-          "label": "Time interval hours (e.g. 12-24)",
-          "info": "Random hours between min-max"
+          "label": "Time interval hours"
         }
       ]
     },
@@ -493,15 +485,13 @@
           "type": "checkbox",
           "id": "show_dynamic_checkout",
           "default": true,
-          "label": "Show dynamic checkout button",
-          "info": "Allows customers to check out using quick payment methods"
+          "label": "Show dynamic checkout button"
         },
         {
           "type": "checkbox",
           "id": "show_gift_card_recipient",
           "default": true,
-          "label": "Show gift card recipient form",
-          "info": "Allow buyers to send gift card to recipient"
+          "label": "Show gift card recipient form"
         },
         {
           "type": "checkbox",
@@ -579,10 +569,6 @@
           "default": "swatches"
         },
         {
-          "type": "header",
-          "content": "Size Guide Modal"
-        },
-        {
           "type": "checkbox",
           "id": "show_size_guide",
           "label": "Show size guide link",
@@ -597,8 +583,7 @@
         {
           "type": "page",
           "id": "size_guide_page",
-          "label": "Size guide page content",
-          "info": "Select page containing size table"
+          "label": "Size guide page content"
         }
       ]
     },
@@ -622,10 +607,6 @@
               "label": "Horizontal columns"
             }
           ]
-        },
-        {
-          "type": "header",
-          "content": "Delivery Information"
         },
         {
           "type": "select",
@@ -666,10 +647,6 @@
           "default": "<p>Estimate delivery times: <strong>3-5 days International.</strong></p>"
         },
         {
-          "type": "header",
-          "content": "Discount Coupon Info"
-        },
-        {
           "type": "select",
           "id": "discount_content_icon",
           "label": "Discount Icon",
@@ -690,10 +667,6 @@
           "id": "discount_content",
           "label": "Discount Content",
           "default": "<p>Use code <strong>'WELCOME15'</strong> for discount 15% on your first order.</p>"
-        },
-        {
-          "type": "header",
-          "content": "Return Policy Info"
         },
         {
           "type": "select",
@@ -1091,7 +1064,7 @@
   ],
   "presets": [
     {
-      "name": "RB Main Product (Clay)"
+      "name": "RB Product Layout 2"
     }
   ]
 }
