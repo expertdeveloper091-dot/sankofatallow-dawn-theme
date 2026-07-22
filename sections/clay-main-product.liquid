@@ -887,10 +887,29 @@
 </style>
 
 <script>
+var clayProductVariants = {{ product.variants | json }};
+
 function changeClayMainImage(element, newSrc) {
   document.getElementById('ClayMainFeaturedImage').src = newSrc;
   document.querySelectorAll('.clay-thumb-item').forEach(el => el.classList.remove('active'));
-  element.classList.add('active');
+  if (element) element.classList.add('active');
+}
+
+function openClayImageModal() {
+  var mainImg = document.getElementById('ClayMainFeaturedImage');
+  var zoomImg = document.getElementById('ClayZoomModalImage');
+  var zoomModal = document.getElementById('ClayZoomModal');
+  if (mainImg && zoomImg && zoomModal) {
+    zoomImg.src = mainImg.src;
+    zoomModal.style.display = 'flex';
+  }
+}
+
+function closeClayZoomModal(e) {
+  if (!e || e.target.id === 'ClayZoomModal' || e.target.classList.contains('clay-modal-close')) {
+    var zoomModal = document.getElementById('ClayZoomModal');
+    if (zoomModal) zoomModal.style.display = 'none';
+  }
 }
 
 function updateClayQty(delta) {
@@ -900,11 +919,132 @@ function updateClayQty(delta) {
   input.value = val;
 }
 
+function selectClayVariant(buttonEl, optionName, optionVal, optionIndex) {
+  var group = buttonEl.closest('.clay-option-group');
+  if (group) {
+    group.querySelectorAll('.clay-pill-btn').forEach(btn => btn.classList.remove('active'));
+    buttonEl.classList.add('active');
+    var labelVal = document.getElementById('ClayOptVal-' + optionIndex);
+    if (labelVal) labelVal.textContent = optionVal;
+  }
+
+  // Find selected options
+  var selectedOptions = [];
+  document.querySelectorAll('.clay-option-group').forEach(g => {
+    var activeBtn = g.querySelector('.clay-pill-btn.active');
+    if (activeBtn) selectedOptions.push(activeBtn.getAttribute('data-option-value') || activeBtn.textContent.trim());
+  });
+
+  // Match variant
+  var matchedVariant = clayProductVariants.find(function(v) {
+    return v.options.every(function(opt, idx) {
+      return opt === selectedOptions[idx];
+    });
+  });
+
+  if (matchedVariant) {
+    var varIdInput = document.getElementById('ClayVariantIdInput');
+    if (varIdInput) varIdInput.value = matchedVariant.id;
+    
+    // Update price & compare price
+    var priceEl = document.getElementById('ClayProductPrice');
+    if (priceEl) priceEl.textContent = formatClayMoney(matchedVariant.price);
+    
+    var compareEl = document.getElementById('ClayComparePrice');
+    var saveBadgeEl = document.getElementById('ClaySaveBadge');
+    if (matchedVariant.compare_at_price > matchedVariant.price) {
+      if (compareEl) {
+        compareEl.textContent = formatClayMoney(matchedVariant.compare_at_price);
+        compareEl.style.display = 'inline-block';
+      }
+      if (saveBadgeEl) {
+        var pct = Math.round((matchedVariant.compare_at_price - matchedVariant.price) * 100 / matchedVariant.compare_at_price);
+        saveBadgeEl.textContent = 'SAVE ' + pct + '%';
+        saveBadgeEl.style.display = 'inline-block';
+      }
+    } else {
+      if (compareEl) compareEl.style.display = 'none';
+      if (saveBadgeEl) saveBadgeEl.style.display = 'none';
+    }
+
+    // Update SKU
+    var skuEl = document.getElementById('ClayProductSku');
+    if (skuEl) skuEl.textContent = matchedVariant.sku || 'N/A';
+
+    // Update Availability & Buttons
+    var availEl = document.getElementById('ClayProductAvailability');
+    var atcBtn = document.getElementById('ClayAddToCartBtn');
+    var atcText = document.getElementById('ClayAddToCartText');
+    var buyBtn = document.getElementById('ClayBuyNowBtn');
+
+    if (matchedVariant.available) {
+      if (availEl) { availEl.textContent = 'In Stock'; availEl.className = 'clay-meta-val clay-in-stock'; }
+      if (atcBtn) atcBtn.removeAttribute('disabled');
+      if (atcText) atcText.textContent = 'ADD TO CART';
+      if (buyBtn) { buyBtn.removeAttribute('disabled'); buyBtn.style.opacity = '1'; buyBtn.style.cursor = 'pointer'; }
+    } else {
+      if (availEl) { availEl.textContent = 'Out of Stock'; availEl.className = 'clay-meta-val'; }
+      if (atcBtn) atcBtn.setAttribute('disabled', 'true');
+      if (atcText) atcText.textContent = 'SOLD OUT';
+      if (buyBtn) { buyBtn.setAttribute('disabled', 'true'); buyBtn.style.opacity = '0.5'; buyBtn.style.cursor = 'not-allowed'; }
+    }
+
+    // Update Featured Image if variant has image
+    if (matchedVariant.featured_image && matchedVariant.featured_image.src) {
+      var mainImg = document.getElementById('ClayMainFeaturedImage');
+      if (mainImg) mainImg.src = matchedVariant.featured_image.src;
+    }
+  }
+}
+
+function formatClayMoney(cents) {
+  return (cents / 100).toLocaleString('en-US', { style: 'currency', currency: '{{ cart.currency.iso_code | default: "USD" }}' });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   var askBtn = document.getElementById('ClayAskBtn');
   var askModal = document.getElementById('ClayAskModal');
   if (askBtn && askModal) {
     askBtn.addEventListener('click', function() { askModal.style.display = 'flex'; });
+  }
+
+  // AJAX Form Add to Cart
+  var form = document.getElementById('ClayProductForm');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      // If clicking BUY IT NOW, submit normally to checkout
+      if (e.submitter && e.submitter.name === 'checkout') {
+        return true;
+      }
+      e.preventDefault();
+      var atcText = document.getElementById('ClayAddToCartText');
+      if (atcText) atcText.textContent = 'ADDING...';
+
+      var formData = new FormData(form);
+      fetch('/cart/add.js', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (atcText) atcText.textContent = 'ADDED TO CART!';
+        setTimeout(function() { if (atcText) atcText.textContent = 'ADD TO CART'; }, 2000);
+        
+        fetch('/cart.js').then(r => r.json()).then(cart => {
+          var cartCountEl = document.querySelector('.cart-count-bubble span');
+          if (cartCountEl) cartCountEl.textContent = cart.item_count;
+        });
+        
+        var cartDrawer = document.querySelector('cart-drawer');
+        if (cartDrawer && typeof cartDrawer.open === 'function') {
+          cartDrawer.open();
+        }
+      })
+      .catch(error => {
+        console.error('Error adding to cart:', error);
+        if (atcText) atcText.textContent = 'ADD TO CART';
+      });
+    });
   }
 
   // Live counter simulation

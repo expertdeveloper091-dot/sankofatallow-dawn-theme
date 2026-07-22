@@ -1,7 +1,7 @@
 {
   "sections": {
     "main": {
-      "type": "main-product-layout-2",
+      "type": "clay-main-product",
       "settings": {
         "section_width": "default",
         "enable_sticky_content": true,
