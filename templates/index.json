@@ -460,6 +460,7 @@
         "review_icrNgf": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/second.webp",
             "show_tags": true,
             "problem": "PROBLEM: ACCELERATED AGING",
             "review_text": "\"I wasn’t expecting much, but this balm goes hard. My breakouts are rare now, my skin isn’t oily by noon, and the redness is gone.\"",
