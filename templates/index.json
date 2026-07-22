@@ -204,6 +204,62 @@
         "padding_bottom": 60
       }
     },
+    "custom_girdproduct_TW3fg9": {
+      "type": "custom-girdproduct",
+      "blocks": {
+        "product_card_HKXqXX": {
+          "type": "product_card",
+          "settings": {
+            "product": "ancient-wisdom-for-modern-skin",
+            "title": "WHIPPED TALLOW HONEY BALM",
+            "description": "<p>Organic multipurpose balm that <strong>deeply moisturizes</strong> and nourishes the face, body, and lips using <strong>natural ingredients</strong> like beef tallow and manuka honey.</p>",
+            "feature_1": "Skin Barrier Support",
+            "feature_1_icon": "star",
+            "feature_2": "Fast Absorption",
+            "feature_2_icon": "check",
+            "feature_3": "Zero Toxins",
+            "feature_3_icon": "shield",
+            "price": "$49.99",
+            "learn_more_link": "",
+            "learn_more_text": "Learn More",
+            "button_text": "Add To Cart"
+          }
+        }
+      },
+      "block_order": [
+        "product_card_HKXqXX"
+      ],
+      "name": "Custom Product Grid",
+      "settings": {
+        "collection": "",
+        "products_to_show": 4,
+        "default_feature_1": "Skin Barrier Support",
+        "default_feature_1_icon": "star",
+        "default_feature_2": "Fast Absorption",
+        "default_feature_2_icon": "check",
+        "default_feature_3": "Zero Toxins",
+        "default_feature_3_icon": "shield",
+        "default_learn_text": "Learn More",
+        "default_cart_text": "Add To Cart",
+        "subtitle": "MEET THE WHIPPED TALLOW HONEY BALM",
+        "heading": "NO FLUFF - JUST RESULTS!",
+        "description": "Choose the balm that fits your needs — each formula is packed with healing fats, soothing botanicals, and zero BS. Built for glow-ups, not gimmicks.",
+        "show_trust_badges": true,
+        "badge_1_text": "Made in USA",
+        "badge_2_text": "100% Natural Ingredients",
+        "badge_3_text": "30-Day Money-Back Guarantee",
+        "bg_color": "#FAF7EF",
+        "subtitle_color": "#E63946",
+        "heading_color": "#111111",
+        "text_color": "#333333",
+        "card_bg": "#FFFDF5",
+        "card_border_color": "#111111",
+        "btn_cart_bg": "#F3AD12",
+        "btn_cart_text_color": "#111111",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
     "custom_skincare_tabs_GDR3NH": {
       "type": "custom-skincare-tabs",
       "blocks": {
@@ -499,6 +555,7 @@
     "custom_hero_reviews_Qa7QcQ",
     "custom_industry_stats_MADKUX",
     "custom_why_switch_PqTMCU",
+    "custom_girdproduct_TW3fg9",
     "custom_skincare_tabs_GDR3NH",
     "custom_how_it_works_8QrXwL",
     "custom_compare_r3FjHq",
