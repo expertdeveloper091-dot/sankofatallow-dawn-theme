@@ -157,30 +157,51 @@
 
         </div>
 
-        <!-- Customer Service Menu -->
-        <div class="custom-footer-column">
+        <!-- Customer Service / Contact Info Menu -->
+        <div class="custom-footer-column contact-info-column">
 
             <div class="accordion-title">
-                <h3>{{ section.settings.menu_3_heading | escape }}</h3>
+                <h3>{{ section.settings.menu_3_heading | default: 'Contact Information' | escape }}</h3>
                 <span class="plus">+</span>
             </div>
 
             <div class="accordion-content">
-                {%- assign menu_3 = linklists[section.settings.menu_3] -%}
-                {%- if menu_3 != blank -%}
-                    <ul>
+                <ul class="custom-footer-contact-list">
+                    {%- if section.settings.contact_phone != blank -%}
+                      <li class="contact-item">
+                        <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                        <a href="tel:{{ section.settings.contact_phone | replace: ' ', '' | replace: '-', '' }}">{{ section.settings.contact_phone }}</a>
+                      </li>
+                    {%- endif -%}
+
+                    {%- if section.settings.contact_email != blank -%}
+                      <li class="contact-item">
+                        <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                        <a href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a>
+                      </li>
+                    {%- endif -%}
+
+                    {%- if section.settings.contact_hours != blank -%}
+                      <li class="contact-item">
+                        <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                        <span>{{ section.settings.contact_hours }}</span>
+                      </li>
+                    {%- endif -%}
+
+                    {%- if section.settings.contact_address != blank -%}
+                      <li class="contact-item">
+                        <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                        <span>{{ section.settings.contact_address }}</span>
+                      </li>
+                    {%- endif -%}
+
+                    {%- assign menu_3 = linklists[section.settings.menu_3] -%}
+                    {%- if menu_3 != blank -%}
                         {%- for link in menu_3.links -%}
                             <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
                         {%- endfor -%}
-                    </ul>
-                {%- else -%}
-                    <ul>
-                        <li><a href="#">Terms and Conditions</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Shipping & Returns</a></li>
-                        <li><a href="#">Subscriptions</a></li>
-                    </ul>
-                {%- endif -%}
+                    {%- endif -%}
+                </ul>
             </div>
 
         </div>
@@ -285,12 +306,40 @@
       "type": "text",
       "id": "menu_3_heading",
       "label": "Menu 3 Heading",
-      "default": "Customer Service"
+      "default": "Contact Information"
     },
     {
       "type": "link_list",
       "id": "menu_3",
       "label": "Menu 3"
+    },
+    {
+      "type": "header",
+      "content": "Contact Information Settings"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Phone Number",
+      "default": "+1 (800) 123-4567"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Email Address",
+      "default": "support@sankofatallow.com"
+    },
+    {
+      "type": "text",
+      "id": "contact_hours",
+      "label": "Working Hours",
+      "default": "Mon - Fri: 9:00 AM - 6:00 PM EST"
+    },
+    {
+      "type": "text",
+      "id": "contact_address",
+      "label": "Address / Location",
+      "default": "United States"
     },
 
     {

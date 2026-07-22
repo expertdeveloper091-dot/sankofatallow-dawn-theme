@@ -521,6 +521,45 @@ COPYRIGHT STYLING
     margin:0;
 }
 
+/*==================================================
+CONTACT INFORMATION LIST
+==================================================*/
+.custom-footer-contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.custom-footer-contact-list .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 22px;
+}
+
+.custom-footer-contact-list .contact-item i {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #111;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.custom-footer-contact-list .contact-item a {
+    color: #111;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.custom-footer-contact-list .contact-item a:hover {
+    text-decoration: underline;
+}
+
 @media(max-width:768px){
     .custom-footer-copyright {
         padding:15px;
