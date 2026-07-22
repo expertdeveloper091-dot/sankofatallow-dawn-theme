@@ -3,6 +3,16 @@
     "main": {
       "type": "rb-main-product",
       "settings": {
+        "section_width": "default",
+        "enable_sticky_content": true,
+        "enable_skeleton_loading": false,
+        "desktop_media_width": 50,
+        "desktop_layout": "thumbnail_left",
+        "image_zoom": "lightbox",
+        "enable_video_looping": false,
+        "enable_video_autoplay": true,
+        "enable_sticky_atc": true,
+        "enable_fbt": true,
         "show_vendor": true,
         "show_save_badge": true,
         "show_sold_count": true,
@@ -10,8 +20,28 @@
         "sold_text": "sold in last 15 hours"
       },
       "blocks": {
-        "delivery_box": {
-          "type": "delivery_box",
+        "product_badges": {
+          "type": "product_badges",
+          "settings": {}
+        },
+        "product_title": {
+          "type": "product_title",
+          "settings": {}
+        },
+        "review_and_sold": {
+          "type": "review_and_sold",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "short_description": {
+          "type": "short_description",
+          "settings": {}
+        },
+        "delivery_return": {
+          "type": "delivery_return",
           "settings": {
             "show_row1": true,
             "row1_text": "<p><strong>Estimate delivery times:</strong> <strong>3-5 days International.</strong></p>",
@@ -21,8 +51,8 @@
             "row3_text": "<p><strong>Free shipping & returns:</strong> On all orders over $150.</p>"
           }
         },
-        "live_visitors": {
-          "type": "live_visitors",
+        "live_view": {
+          "type": "live_view",
           "settings": {
             "min_count": 14,
             "max_count": 35,
@@ -33,14 +63,6 @@
           "type": "variant_picker",
           "settings": {}
         },
-        "ask_question": {
-          "type": "ask_question",
-          "settings": {
-            "link_text": "Ask a question",
-            "contact_type": "whatsapp",
-            "contact_value": ""
-          }
-        },
         "stock_countdown": {
           "type": "stock_countdown",
           "settings": {
@@ -49,8 +71,7 @@
             "prefix_text": "Hurry up! Only",
             "display_qty": 1,
             "suffix_text": "items left in stock",
-            "bar_percent": 8,
-            "sold_out_text": "This product is currently sold out"
+            "bar_percent": 8
           }
         },
         "buy_buttons": {
@@ -64,34 +85,36 @@
             "show_compare": true
           }
         },
-        "accordion_desc": {
-          "type": "accordion",
+        "collapsible_desc": {
+          "type": "collapsible_tab",
           "settings": {
-            "heading": "Description",
+            "heading": "Collapsible row – Description",
             "content_source": "description"
           }
         },
-        "accordion_shipping": {
-          "type": "accordion",
+        "collapsible_shipping": {
+          "type": "collapsible_tab",
           "settings": {
-            "heading": "Shipping and Returns",
+            "heading": "Collapsible row – Shipping and...",
             "content_source": "custom",
             "content": "<p>Orders dispatched within 1–2 business days. Free shipping over $150.</p>"
+          }
+        },
+        "collapsible_returns": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Collapsible row – Return Policies",
+            "content_source": "custom",
+            "content": "<p>Returns accepted within 7 days of delivery.</p>"
           }
         },
         "product_meta": {
           "type": "product_meta",
           "settings": {
             "show_sku": true,
-            "sku_label": "Sku",
             "show_availability": true,
-            "avail_label": "Available",
-            "in_stock_label": "Instock",
-            "out_of_stock_label": "Out of Stock",
             "show_collections": true,
-            "collections_label": "Collections",
-            "show_type": true,
-            "type_label": "Type"
+            "show_type": true
           }
         },
         "trust_badge": {
@@ -99,28 +122,24 @@
           "settings": {
             "badge_text": "Guaranteed Safe Checkout"
           }
-        },
-        "fake_orders": {
-          "type": "fake_orders",
-          "settings": {
-            "enable": true,
-            "show_delay": 3,
-            "cycle_interval": 10
-          }
         }
       },
       "block_order": [
-        "delivery_box",
-        "live_visitors",
+        "product_badges",
+        "product_title",
+        "review_and_sold",
+        "price",
+        "short_description",
+        "delivery_return",
+        "live_view",
         "variant_picker",
-        "ask_question",
         "stock_countdown",
         "buy_buttons",
-        "accordion_desc",
-        "accordion_shipping",
+        "collapsible_desc",
+        "collapsible_shipping",
+        "collapsible_returns",
         "product_meta",
-        "trust_badge",
-        "fake_orders"
+        "trust_badge"
       ]
     },
     "related-products": {

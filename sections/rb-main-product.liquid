@@ -1,13 +1,15 @@
 {% comment %}
   rb-main-product.liquid
-  100% Dynamic Shopify OS 2.0 Product Section
-  Namespace: rb-*
+  Full Clay Theme Design System & OS 2.0 Schema
+  Supports: Media layout (Thumbnail left, Thumbnail bottom, Grid, Stacked), Desktop media width %, Skeleton loading, Sticky content, Image zoom, Sticky ATC, Frequently Bought Together, and 20+ OS 2.0 blocks
 {% endcomment %}
 
 {{ 'rb-product.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
+  assign media_width = section.settings.desktop_media_width | default: 50
+  assign media_layout = section.settings.desktop_layout | default: 'thumbnail_left'
 -%}
 
 <script>
@@ -25,7 +27,18 @@
   };
 </script>
 
-<div class="rb-product-wrapper" id="rb-product-root" data-section-id="{{ section.id }}" data-product-id="{{ product.id }}">
+<style>
+  @media screen and (min-width: 990px) {
+    #rb-product-root .rb-product-grid {
+      grid-template-columns: {{ media_width }}% calc({{ 100 | minus: media_width }}% - 4rem);
+    }
+  }
+</style>
+
+<div class="rb-product-wrapper {% if section.settings.enable_sticky_content %}rb-sticky-enabled{% endif %}"
+     id="rb-product-root"
+     data-section-id="{{ section.id }}"
+     data-product-id="{{ product.id }}">
 
   {%- comment %} Breadcrumb {%- endcomment %}
   <nav class="rb-breadcrumb" aria-label="breadcrumb">
@@ -38,10 +51,10 @@
     <span>{{ product.title }}</span>
   </nav>
 
-  <div class="rb-product-grid">
+  <div class="rb-product-grid rb-layout-{{ media_layout }}">
 
     {%- comment %} Media Gallery Snippet {%- endcomment %}
-    {% render 'rb-product-gallery', product: product %}
+    {% render 'rb-product-gallery', product: product, media_layout: media_layout, image_zoom: section.settings.image_zoom %}
 
     {%- comment %} Product Info Column Snippet {%- endcomment %}
     {% render 'rb-product-info', product: product, section: section %}
@@ -53,7 +66,9 @@
 {% render 'rb-fake-orders', product: product %}
 
 {%- comment %} Sticky ATC Bar Snippet {%- endcomment %}
-{% render 'rb-sticky-atc', product: product, current_variant: current_variant, section: section %}
+{%- if section.settings.enable_sticky_atc -%}
+  {% render 'rb-sticky-atc', product: product, current_variant: current_variant, section: section %}
+{%- endif -%}
 
 <script src="{{ 'rb-product.js' | asset_url }}" defer></script>
 <script src="{{ 'rb-gallery.js' | asset_url }}" defer></script>
@@ -66,6 +81,104 @@
   "tag": "section",
   "class": "rb-main-product-section",
   "settings": [
+    {
+      "type": "header",
+      "content": "Section Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        { "value": "default", "label": "Default" },
+        { "value": "page_width", "label": "Page width" }
+      ],
+      "default": "default"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_content",
+      "label": "Enable sticky content on desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_skeleton_loading",
+      "label": "Enable skeleton loading",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Media Settings"
+    },
+    {
+      "type": "range",
+      "id": "desktop_media_width",
+      "label": "Desktop media width (%)",
+      "min": 30,
+      "max": 70,
+      "step": 5,
+      "default": 50
+    },
+    {
+      "type": "select",
+      "id": "desktop_layout",
+      "label": "Desktop layout",
+      "options": [
+        { "value": "thumbnail_left", "label": "Thumbnail left" },
+        { "value": "thumbnail_bottom", "label": "Thumbnail bottom" },
+        { "value": "grid", "label": "Grid 2-column" },
+        { "value": "stacked", "label": "Stacked" }
+      ],
+      "default": "thumbnail_left"
+    },
+    {
+      "type": "select",
+      "id": "image_zoom",
+      "label": "Image zoom",
+      "options": [
+        { "value": "lightbox", "label": "Open lightbox" },
+        { "value": "hover", "label": "Hover zoom" },
+        { "value": "none", "label": "No zoom" }
+      ],
+      "default": "lightbox"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_looping",
+      "label": "Enable video looping",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_autoplay",
+      "label": "Enable video autoplay",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Sticky Add to Cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_atc",
+      "label": "Enable sticky add to cart bar",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Frequently Bought Together"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_fbt",
+      "label": "Enable frequently bought together",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "General Product Info"
+    },
     {
       "type": "checkbox",
       "id": "show_vendor",
@@ -88,79 +201,104 @@
       "type": "number",
       "id": "sold_count",
       "label": "Sold count number",
-      "default": 12
+      "default": 15
     },
     {
       "type": "text",
       "id": "sold_text",
       "label": "Sold counter suffix",
-      "default": "sold in last 20 hours"
+      "default": "sold in last 15 hours"
     }
   ],
   "blocks": [
     {
-      "type": "delivery_box",
-      "name": "📦 Delivery Info Box",
-      "limit": 1,
-      "settings": [
-        { "type": "checkbox", "id": "show_row1", "label": "Show row 1", "default": true },
-        { "type": "image_picker", "id": "row1_icon_image", "label": "Row 1 icon (optional PNG/SVG)" },
-        { "type": "richtext", "id": "row1_text", "label": "Row 1 text", "default": "<p><strong>Estimate delivery time:</strong> Delivery within <strong>3–7 working days.</strong> You'll be updated along the way.</p>" },
-        { "type": "checkbox", "id": "show_row2", "label": "Show row 2", "default": true },
-        { "type": "image_picker", "id": "row2_icon_image", "label": "Row 2 icon (optional PNG/SVG)" },
-        { "type": "richtext", "id": "row2_text", "label": "Row 2 text", "default": "<p><strong>Cash on Delivery (COD) only.</strong> Please <strong>check your parcel before payment.</strong></p>" },
-        { "type": "checkbox", "id": "show_row3", "label": "Show row 3", "default": true },
-        { "type": "image_picker", "id": "row3_icon_image", "label": "Row 3 icon (optional PNG/SVG)" },
-        { "type": "richtext", "id": "row3_text", "label": "Row 3 text", "default": "<p><strong>Shipping charges:</strong> Flat <strong>Rs.199</strong> on all orders — <strong>FREE shipping above Rs.10,000.</strong></p>" }
-      ]
-    },
-    {
-      "type": "live_visitors",
-      "name": "👁 Live Visitor Counter",
-      "limit": 1,
-      "settings": [
-        { "type": "number", "id": "min_count", "label": "Minimum visitors", "default": 8 },
-        { "type": "number", "id": "max_count", "label": "Maximum visitors", "default": 40 },
-        { "type": "text", "id": "suffix_text", "label": "Suffix text", "default": "peoples are viewing this right now" }
-      ]
-    },
-    {
-      "type": "variant_picker",
-      "name": "🎨 Variant Picker",
+      "type": "product_badges",
+      "name": "🏷 Product badges",
       "limit": 1,
       "settings": []
     },
     {
-      "type": "ask_question",
-      "name": "❓ Ask a Question",
+      "type": "product_title",
+      "name": "📝 Product title",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "review_and_sold",
+      "name": "⭐ Review and sold",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "price",
+      "name": "💰 Price",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "short_description",
+      "name": "📄 Short description",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "delivery_return",
+      "name": "🚚 Delivery return box",
       "limit": 1,
       "settings": [
-        { "type": "text", "id": "link_text", "label": "Link text", "default": "Ask a question" },
-        { "type": "select", "id": "contact_type", "label": "Contact via", "options": [{ "value": "email", "label": "Email" }, { "value": "whatsapp", "label": "WhatsApp" }], "default": "whatsapp" },
-        { "type": "text", "id": "contact_value", "label": "Email or WhatsApp number" }
+        { "type": "checkbox", "id": "show_row1", "label": "Show row 1", "default": true },
+        { "type": "image_picker", "id": "row1_icon_image", "label": "Row 1 icon" },
+        { "type": "richtext", "id": "row1_text", "label": "Row 1 text", "default": "<p><strong>Estimate delivery times:</strong> <strong>3-5 days International.</strong></p>" },
+        { "type": "checkbox", "id": "show_row2", "label": "Show row 2", "default": true },
+        { "type": "image_picker", "id": "row2_icon_image", "label": "Row 2 icon" },
+        { "type": "richtext", "id": "row2_text", "label": "Row 2 text", "default": "<p>Use code <strong>\"WELCOME15\"</strong> for discount 15% on your first order.</p>" },
+        { "type": "checkbox", "id": "show_row3", "label": "Show row 3", "default": true },
+        { "type": "image_picker", "id": "row3_icon_image", "label": "Row 3 icon" },
+        { "type": "richtext", "id": "row3_text", "label": "Row 3 text", "default": "<p><strong>Free shipping & returns:</strong> On all orders over $150.</p>" }
       ]
     },
     {
+      "type": "live_view",
+      "name": "👁 Live view counter",
+      "limit": 1,
+      "settings": [
+        { "type": "number", "id": "min_count", "label": "Minimum visitors", "default": 14 },
+        { "type": "number", "id": "max_count", "label": "Maximum visitors", "default": 35 },
+        { "type": "text", "id": "suffix_text", "label": "Suffix text", "default": "peoples are viewing this right now" }
+      ]
+    },
+    {
+      "type": "countdown_timer",
+      "name": "⏳ Countdown timer",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "variant_picker",
+      "name": "🎨 Variant picker - size-guide",
+      "limit": 1,
+      "settings": []
+    },
+    {
       "type": "stock_countdown",
-      "name": "⏳ Stock Countdown",
+      "name": "🔥 Stock countdown",
       "limit": 1,
       "settings": [
         { "type": "checkbox", "id": "use_real_inventory", "label": "Use real Shopify inventory", "default": true },
-        { "type": "number", "id": "low_stock_threshold", "label": "Show only when qty is below", "default": 10 },
+        { "type": "number", "id": "low_stock_threshold", "label": "Show when qty is below", "default": 10 },
         { "type": "text", "id": "prefix_text", "label": "Prefix text", "default": "Hurry up! Only" },
         { "type": "number", "id": "display_qty", "label": "Display qty", "default": 1 },
         { "type": "text", "id": "suffix_text", "label": "Suffix text", "default": "items left in stock" },
-        { "type": "range", "id": "bar_percent", "label": "Stock bar fill %", "min": 1, "max": 100, "step": 1, "default": 8 },
-        { "type": "text", "id": "sold_out_text", "label": "Sold out message", "default": "This product is currently sold out" }
+        { "type": "range", "id": "bar_percent", "label": "Stock bar fill %", "min": 1, "max": 100, "step": 1, "default": 8 }
       ]
     },
     {
       "type": "buy_buttons",
-      "name": "🛒 Buy Buttons",
+      "name": "🛒 Buy buttons",
       "limit": 1,
       "settings": [
         { "type": "text", "id": "atc_text", "label": "Add to Cart text", "default": "Add to Cart" },
-        { "type": "text", "id": "sold_out_text", "label": "Sold out button text", "default": "Sold Out" },
+        { "type": "text", "id": "sold_out_text", "label": "Sold out text", "default": "Sold Out" },
         { "type": "checkbox", "id": "show_buy_now", "label": "Show Buy it now", "default": true },
         { "type": "text", "id": "buy_now_text", "label": "Buy it now text", "default": "Buy it now" },
         { "type": "checkbox", "id": "show_wishlist", "label": "Show Wishlist icon", "default": true },
@@ -168,40 +306,33 @@
       ]
     },
     {
-      "type": "accordion",
-      "name": "📄 Accordion Tab",
+      "type": "collapsible_tab",
+      "name": "📄 Collapsible row",
       "settings": [
         { "type": "text", "id": "heading", "label": "Tab heading", "default": "Description" },
         { "type": "select", "id": "content_source", "label": "Content source", "options": [{ "value": "custom", "label": "Custom text" }, { "value": "description", "label": "Product description" }, { "value": "metafield", "label": "Product metafield" }], "default": "custom" },
         { "type": "text", "id": "metafield_key", "label": "Metafield key (namespace.key)" },
-        { "type": "richtext", "id": "content", "label": "Custom content", "default": "<p>Add content here.</p>" }
+        { "type": "richtext", "id": "content", "label": "Custom content", "default": "<p>Add custom text here.</p>" }
       ]
     },
     {
       "type": "product_meta",
-      "name": "🏷 Product Meta",
+      "name": "🏷 Product meta",
       "limit": 1,
       "settings": [
         { "type": "checkbox", "id": "show_sku", "label": "Show SKU", "default": true },
-        { "type": "text", "id": "sku_label", "label": "SKU label", "default": "Sku" },
         { "type": "checkbox", "id": "show_availability", "label": "Show availability", "default": true },
-        { "type": "text", "id": "avail_label", "label": "Availability label", "default": "Available" },
-        { "type": "text", "id": "in_stock_label", "label": "In stock text", "default": "Instock" },
-        { "type": "text", "id": "out_of_stock_label", "label": "Out of stock text", "default": "Out of Stock" },
         { "type": "checkbox", "id": "show_collections", "label": "Show collections", "default": true },
-        { "type": "text", "id": "collections_label", "label": "Collections label", "default": "Collections" },
-        { "type": "checkbox", "id": "show_type", "label": "Show product type", "default": true },
-        { "type": "text", "id": "type_label", "label": "Type label", "default": "Type" }
+        { "type": "checkbox", "id": "show_type", "label": "Show product type", "default": true }
       ]
     },
     {
       "type": "trust_badge",
-      "name": "🔒 Trust Badges",
+      "name": "🔒 Trust badge",
       "limit": 1,
       "settings": [
         { "type": "text", "id": "badge_text", "label": "Heading text", "default": "Guaranteed Safe Checkout" },
-        { "type": "image_picker", "id": "badge_image_1", "label": "Custom badge image (optional)" },
-        { "type": "text", "id": "badge_1_alt", "label": "Badge image alt text" }
+        { "type": "image_picker", "id": "badge_image_1", "label": "Custom badge image" }
       ]
     },
     {

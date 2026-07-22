@@ -5,51 +5,60 @@
 
 <div class="rb-product-info" id="RBProductInfo">
 
-  {%- comment %} Badges Snippet {%- endcomment %}
-  {% render 'rb-product-badges', product: product, variant: current_variant %}
-
-  {%- comment %} Vendor {%- endcomment %}
-  {%- if section.settings.show_vendor and product.vendor != blank -%}
-    <p class="rb-vendor">{{ product.vendor }}</p>
-  {%- endif -%}
-
-  {%- comment %} Title {%- endcomment %}
-  <h1 class="rb-title">{{ product.title }}</h1>
-
-  {%- comment %} Reviews Snippet {%- endcomment %}
-  {% render 'rb-review', product: product %}
-
-  {%- comment %} Price Snippet {%- endcomment %}
-  {% render 'rb-price', product: product, variant: current_variant %}
-
-  {%- comment %} Sold Count {%- endcomment %}
-  {%- if section.settings.show_sold_count -%}
-    <div class="rb-sold-row">
-      🔥 <span>{{ section.settings.sold_count }}</span> {{ section.settings.sold_text }}
-    </div>
-  {%- endif -%}
-
-  {%- comment %} OS 2.0 Block Loop {%- endcomment %}
   {%- for block in section.blocks -%}
     {%- case block.type -%}
-      {%- when 'delivery_box' -%}
+      {%- when 'product_badges' -%}
+        {% render 'rb-product-badges', product: product, variant: current_variant %}
+
+      {%- when 'product_title' -%}
+        {%- if section.settings.show_vendor and product.vendor != blank -%}
+          <p class="rb-vendor">{{ product.vendor }}</p>
+        {%- endif -%}
+        <h1 class="rb-title">{{ product.title }}</h1>
+
+      {%- when 'review_and_sold' -%}
+        {% render 'rb-review', product: product %}
+        {%- if section.settings.show_sold_count -%}
+          <div class="rb-sold-row">
+            🔥 <span>{{ section.settings.sold_count }}</span> {{ section.settings.sold_text }}
+          </div>
+        {%- endif -%}
+
+      {%- when 'price' -%}
+        {% render 'rb-price', product: product, variant: current_variant %}
+
+      {%- when 'short_description' -%}
+        {%- if product.description != blank -%}
+          <div class="rb-short-desc">{{ product.description | truncatewords: 30 }}</div>
+        {%- endif -%}
+
+      {%- when 'delivery_return', 'delivery_box' -%}
         {% render 'rb-delivery-box', block: block %}
-      {%- when 'live_visitors' -%}
+
+      {%- when 'live_view', 'live_visitors' -%}
         {% render 'rb-live-visitors', block: block %}
+
+      {%- when 'countdown_timer', 'stock_countdown' -%}
+        {% render 'rb-stock-countdown', product: product, block: block %}
+
       {%- when 'variant_picker' -%}
         {% render 'rb-variant-picker', product: product, block: block %}
+
       {%- when 'ask_question' -%}
         {% render 'rb-ask-question', product: product, block: block %}
-      {%- when 'stock_countdown' -%}
-        {% render 'rb-stock-countdown', product: product, block: block %}
+
       {%- when 'buy_buttons' -%}
         {% render 'rb-buy-buttons', product: product, block: block, section: section %}
-      {%- when 'accordion' -%}
+
+      {%- when 'collapsible_tab', 'accordion' -%}
         {% render 'rb-accordions', product: product, block: block %}
+
       {%- when 'product_meta' -%}
         {% render 'rb-product-meta', product: product, block: block %}
+
       {%- when 'trust_badge' -%}
         {% render 'rb-trust-badges', block: block %}
+
       {%- when '@app' -%}
         <div class="rb-app-block-wrap" {{ block.shopify_attributes }}>
           {% render block %}
