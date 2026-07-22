@@ -1,56 +1,57 @@
 {% comment %}
   rb-sticky-atc.liquid
-  Sticky Add to Cart bar — Clay theme style
-  Each product option shown as a SEPARATE dropdown
+  Fully dynamic sticky bar — reads from product.options_with_values
+  Each option = separate dropdown, auto-generated
 {% endcomment %}
 
 <div class="rb-sticky-bar" id="RBStickyBar" aria-label="Quick Add to Cart">
   <div class="rb-sticky-inner">
 
-    {% comment %} Product Image + Title {% endcomment %}
+    {%- comment %} Product thumbnail + title {%- endcomment %}
     <div class="rb-sticky-product">
       <img class="rb-sticky-img"
         src="{{ product.featured_image | img_url: '80x80', crop: 'center' }}"
         alt="{{ product.title | escape }}"
-        width="46"
-        height="46">
+        id="RBStickyThumb"
+        width="46" height="46">
       <span class="rb-sticky-title">{{ product.title }}</span>
     </div>
 
-    {% comment %} Separate dropdown for EACH option {% endcomment %}
-    {% unless product.has_only_default_variant %}
-      {% for option in product.options_with_values %}
+    {%- comment %} One dropdown per option — all dynamic from product {%- endcomment %}
+    {%- unless product.has_only_default_variant -%}
+      {%- for option in product.options_with_values -%}
         <select
-          class="rb-sticky-variant-select"
-          id="RBStickyOption{{ option.position }}"
-          data-option-position="{{ option.position }}"
+          class="rb-sticky-option-select"
+          id="RBStickyOpt{{ forloop.index0 }}"
+          data-option-index="{{ forloop.index0 }}"
+          data-option-position="{{ forloop.index }}"
           aria-label="{{ option.name }}">
-          {% for value in option.values %}
-            <option value="{{ value }}" {% if option.selected_value == value %}selected{% endif %}>
+          {%- for value in option.values -%}
+            <option value="{{ value | escape }}"
+              {%- if option.selected_value == value -%} selected{%- endif -%}>
               {{ option.name }}: {{ value }}
             </option>
-          {% endfor %}
+          {%- endfor -%}
         </select>
-      {% endfor %}
-    {% else %}
-      <span class="rb-sticky-price">{{ product.selected_or_first_available_variant.price | money }}</span>
-    {% endunless %}
+      {%- endfor -%}
+    {%- endunless -%}
 
-    {% comment %} Hidden price shown after options {% endcomment %}
-    {% unless product.has_only_default_variant %}
-      <span class="rb-sticky-price" id="RBStickyPrice">{{ product.selected_or_first_available_variant.price | money }}</span>
-    {% endunless %}
+    {%- comment %} Dynamic price — updated by JS on variant change {%- endcomment %}
+    <span class="rb-sticky-price" id="RBStickyPrice">
+      {{ current_variant.price | money }}
+    </span>
 
-    {% comment %} Qty Stepper {% endcomment %}
+    {%- comment %} Qty stepper {%- endcomment %}
     <div class="rb-sticky-qty">
-      <button type="button" class="rb-sticky-qty-btn" id="RBStickyQtyMinus">−</button>
+      <button type="button" class="rb-sticky-qty-btn" id="RBStickyQtyMinus" aria-label="Decrease quantity">−</button>
       <input type="number" class="rb-sticky-qty-input" id="RBStickyQtyInput" value="1" min="1" aria-label="Quantity">
-      <button type="button" class="rb-sticky-qty-btn" id="RBStickyQtyPlus">+</button>
+      <button type="button" class="rb-sticky-qty-btn" id="RBStickyQtyPlus" aria-label="Increase quantity">+</button>
     </div>
 
-    {% comment %} Add to Cart {% endcomment %}
-    <button type="button" class="rb-sticky-atc" id="RBStickyAtcBtn">
-      Add to Cart
+    {%- comment %} Add to Cart {%- endcomment %}
+    <button type="button" class="rb-sticky-atc" id="RBStickyAtcBtn"
+      {%- unless current_variant.available -%} disabled{%- endunless -%}>
+      {%- if current_variant.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
     </button>
 
   </div>

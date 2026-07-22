@@ -184,6 +184,43 @@
   margin-bottom: 0.4rem;
 }
 
+/* Rating row */
+.rb-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+.rb-stars {
+  color: #f59e0b;
+  font-size: 1.4rem;
+  letter-spacing: 0.05em;
+}
+.rb-review-count {
+  font-size: 1.2rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+.rb-meta-link {
+  color: #374151;
+  text-decoration: underline;
+}
+.rb-meta-link:hover { color: #111827; }
+
+/* Thumbnail video icon */
+.rb-thumb-video-icon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  font-size: 1.8rem;
+  color: #374151;
+}
+
+
+
 /* Title */
 .rb-title {
   font-size: 2.2rem;
@@ -658,7 +695,8 @@ details[open] .rb-acc-icon { transform: rotate(45deg); }
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.rb-sticky-variant-select {
+.rb-sticky-variant-select,
+.rb-sticky-option-select {
   font-family: 'Inter', sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
@@ -668,9 +706,11 @@ details[open] .rb-acc-icon { transform: rotate(45deg); }
   padding: 0.7rem 1rem;
   background: #fff;
   cursor: pointer;
-  min-width: 160px;
+  min-width: 120px;
+  max-width: 160px;
   flex-shrink: 0;
 }
+
 .rb-sticky-price {
   font-size: 1.5rem;
   font-weight: 800;

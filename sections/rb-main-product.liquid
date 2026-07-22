@@ -1,275 +1,469 @@
 {% comment %}
-  rb-main-product.liquid — Full Shopify OS 2.0 Block Architecture
-  Every element editable in Theme Customizer
+  rb-main-product.liquid
+  Fully Dynamic Shopify OS 2.0 Product Section
+  - Zero hardcoded product content
+  - All data from Shopify Liquid (product, variant, metafields, inventory)
+  - All UI strings editable via Theme Customizer schema blocks
+  - Gallery updates on variant change
+  - Price / availability / SKU update via JS
   Template: product.rb.json
 {% endcomment %}
 
 {{ 'rb-product.css' | asset_url | stylesheet_tag }}
 
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_form_id = 'rb-product-form-' | append: section.id
+-%}
+
+{%- comment %} Inject all variant data for JS (includes featured_media) {%- endcomment %}
 <script>
-  window.__rbVariants = {{ product.variants | json }};
+  window.__rbProductData = {
+    id: {{ product.id | json }},
+    handle: {{ product.handle | json }},
+    url: {{ product.url | json }},
+    currentVariantId: {{ current_variant.id | json }},
+    variants: {{ product.variants | json }},
+    media: [
+      {%- for media in product.media -%}
+        { "id": {{ media.id }}, "src": {{ media | img_url: '700x700' | json }}, "thumb": {{ media | img_url: '120x120', crop: 'center' | json }}, "alt": {{ media.alt | default: product.title | json }}, "type": {{ media.media_type | json }} }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  };
 </script>
 
-<div class="rb-product-wrapper" id="rb-product-root">
+<div class="rb-product-wrapper" id="rb-product-root" data-section-id="{{ section.id }}" data-product-id="{{ product.id }}">
 
-  {% comment %} Breadcrumb {% endcomment %}
-  <div class="rb-breadcrumb">
-    <a href="{{ routes.root_url }}">Home</a>
-    <span>›</span>
+  {%- comment %} Breadcrumb {%- endcomment %}
+  <nav class="rb-breadcrumb" aria-label="breadcrumb">
+    <a href="{{ routes.root_url }}">{{ 'general.breadcrumbs.home' | t | default: 'Home' }}</a>
+    <span aria-hidden="true">›</span>
+    {%- if collection -%}
+      <a href="{{ collection.url }}">{{ collection.title }}</a>
+      <span aria-hidden="true">›</span>
+    {%- endif -%}
     <span>{{ product.title }}</span>
-  </div>
+  </nav>
 
   <div class="rb-product-grid">
 
-    {% comment %} === GALLERY === {% endcomment %}
-    <div class="rb-product-gallery">
+    {%- comment %} =================== GALLERY =================== {%- endcomment %}
+    <div class="rb-product-gallery" id="RBGallery">
       <div class="rb-gallery-layout">
-        {% if product.images.size > 1 %}
-          <div class="rb-thumbnail-strip">
-            {% for image in product.images %}
-              <div class="rb-thumb {% if forloop.first %}rb-active{% endif %}" data-src="{{ image | img_url: '700x700' }}">
-                <img src="{{ image | img_url: '120x120', crop: 'center' }}"
-                     alt="{{ image.alt | default: product.title | escape }}"
-                     width="64" height="64" loading="lazy">
+
+        {%- comment %} Thumbnails — all product media {%- endcomment %}
+        {%- if product.media.size > 1 -%}
+          <div class="rb-thumbnail-strip" id="RBThumbStrip">
+            {%- for media in product.media -%}
+              <div class="rb-thumb{% if forloop.first %} rb-active{% endif %}"
+                   data-media-id="{{ media.id }}"
+                   data-src="{{ media | img_url: '700x700' }}"
+                   role="button"
+                   tabindex="0"
+                   aria-label="{{ media.alt | default: product.title | escape }}">
+                {%- if media.media_type == 'image' -%}
+                  <img src="{{ media | img_url: '120x120', crop: 'center' }}"
+                       alt="{{ media.alt | default: product.title | escape }}"
+                       width="64" height="64" loading="lazy">
+                {%- elsif media.media_type == 'video' -%}
+                  <div class="rb-thumb-video-icon">▶</div>
+                {%- else -%}
+                  <img src="{{ media | img_url: '120x120', crop: 'center' }}"
+                       alt="{{ media.alt | default: product.title | escape }}"
+                       width="64" height="64" loading="lazy">
+                {%- endif -%}
               </div>
-            {% endfor %}
+            {%- endfor -%}
           </div>
-        {% endif %}
-        <div class="rb-main-image-wrap">
+        {%- endif -%}
+
+        {%- comment %} Main media display {%- endcomment %}
+        <div class="rb-main-image-wrap" id="RBMainWrap">
+          {%- assign featured = current_variant.featured_media | default: product.featured_media -%}
           <img id="RBMainImg"
-               src="{{ product.featured_image | img_url: '700x700' }}"
-               alt="{{ product.featured_image.alt | default: product.title | escape }}"
-               width="700" height="700" loading="eager"
-               style="transition: opacity 0.15s ease;">
-          <button type="button" class="rb-expand-btn" aria-label="Expand image">
+               src="{{ featured | img_url: '700x700' }}"
+               srcset="{{ featured | img_url: '400x400' }} 400w, {{ featured | img_url: '700x700' }} 700w, {{ featured | img_url: '1000x1000' }} 1000w"
+               sizes="(max-width: 990px) 100vw, 50vw"
+               alt="{{ featured.alt | default: product.title | escape }}"
+               width="700" height="700"
+               loading="eager">
+          <button type="button" class="rb-expand-btn" id="RBExpandBtn" aria-label="View full image">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
           </button>
         </div>
+
       </div>
     </div>
+    {%- comment %} =================== END GALLERY =================== {%- endcomment %}
 
-    {% comment %} === PRODUCT INFO COLUMN === {% endcomment %}
-    <div class="rb-product-info">
 
-      {% comment %} Save Badge {% endcomment %}
-      {% if section.settings.show_save_badge and product.compare_at_price_max > product.price %}
-        {% assign save_pct = product.compare_at_price_max | minus: product.price | times: 100 | divided_by: product.compare_at_price_max %}
-        <div class="rb-save-badge">-{{ save_pct }}%</div>
-      {% endif %}
+    {%- comment %} =================== PRODUCT INFO =================== {%- endcomment %}
+    <div class="rb-product-info" id="RBProductInfo">
 
-      {% comment %} Vendor {% endcomment %}
-      {% if section.settings.show_vendor and product.vendor != blank %}
+      {%- comment %} Save badge — calculated from real compare_at_price {%- endcomment %}
+      {%- if section.settings.show_save_badge -%}
+        {%- if current_variant.compare_at_price > current_variant.price -%}
+          {%- assign save_pct = current_variant.compare_at_price | minus: current_variant.price | times: 100 | divided_by: current_variant.compare_at_price -%}
+          <div class="rb-save-badge" id="RBSaveBadge" data-show="{{ section.settings.show_save_badge }}">-<span id="RBSavePct">{{ save_pct }}</span>%</div>
+        {%- else -%}
+          <div class="rb-save-badge" id="RBSaveBadge" style="display:none;" data-show="{{ section.settings.show_save_badge }}">-<span id="RBSavePct">0</span>%</div>
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- comment %} Vendor {%- endcomment %}
+      {%- if section.settings.show_vendor and product.vendor != blank -%}
         <p class="rb-vendor">{{ product.vendor }}</p>
-      {% endif %}
+      {%- endif -%}
 
-      {% comment %} Title {% endcomment %}
+      {%- comment %} Title {%- endcomment %}
       <h1 class="rb-title">{{ product.title }}</h1>
 
-      {% comment %} Sold Counter {% endcomment %}
-      {% if section.settings.show_sold_count %}
+      {%- comment %} Reviews — from metafields if app installed {%- endcomment %}
+      {%- if section.settings.show_reviews -%}
+        {%- liquid
+          assign review_count = product.metafields.reviews.rating_count.value
+          assign review_rating = product.metafields.reviews.rating.value
+        -%}
+        {%- if review_count > 0 -%}
+          <div class="rb-rating-row">
+            <span class="rb-stars" aria-label="{{ review_rating }} out of 5 stars">
+              {%- for i in (1..5) -%}
+                {%- if i <= review_rating -%}★{%- else -%}☆{%- endif -%}
+              {%- endfor -%}
+            </span>
+            <span class="rb-review-count">{{ review_count }} {{ section.settings.reviews_label | default: 'reviews' }}</span>
+          </div>
+        {%- elsif section.settings.show_reviews_placeholder -%}
+          <div class="rb-rating-row">
+            <span class="rb-stars" aria-hidden="true">★★★★★</span>
+            <span class="rb-review-count">{{ section.settings.placeholder_reviews_text | default: 'Be the first to review' }}</span>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- comment %} Price block {%- endcomment %}
+      <div class="rb-price-row" id="RBPriceRow">
+        <span class="rb-price-sale" id="RBPriceSale">{{ current_variant.price | money }}</span>
+        {%- if current_variant.compare_at_price > current_variant.price -%}
+          <span class="rb-price-original" id="RBPriceCompare">{{ current_variant.compare_at_price | money }}</span>
+        {%- else -%}
+          <span class="rb-price-original" id="RBPriceCompare" style="display:none;"></span>
+        {%- endif -%}
+      </div>
+
+      {%- comment %} Sold count — purely from settings, not fake inventory {%- endcomment %}
+      {%- if section.settings.show_sold_count -%}
         <div class="rb-sold-row">
           🔥 <span>{{ section.settings.sold_count }}</span> {{ section.settings.sold_text }}
         </div>
-      {% endif %}
+      {%- endif -%}
 
-      {% comment %} Price {% endcomment %}
-      <div class="rb-price-row">
-        <span class="rb-price-sale">{{ product.selected_or_first_available_variant.price | money }}</span>
-        {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
-          <span class="rb-price-original">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
-        {% endif %}
-      </div>
+      {%- comment %} ===================== BLOCKS ===================== {%- endcomment %}
+      {%- for block in section.blocks -%}
 
-      {% comment %} === DYNAMIC BLOCKS === {% endcomment %}
-      {% for block in section.blocks %}
+        {%- case block.type -%}
 
-        {% case block.type %}
-
-          {% when 'delivery_box' %}
-            <div class="rb-delivery-box" {{ block.shopify_attributes }}>
-              {% if block.settings.row1_text != blank %}
-                <div class="rb-delivery-row">
-                  <div class="rb-d-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          {%- when 'delivery_box' -%}
+            {%- if block.settings.show_row1 or block.settings.show_row2 or block.settings.show_row3 -%}
+              <div class="rb-delivery-box" {{ block.shopify_attributes }}>
+                {%- if block.settings.show_row1 and block.settings.row1_text != blank -%}
+                  <div class="rb-delivery-row">
+                    <div class="rb-d-icon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                    </div>
+                    <div class="rb-d-text">{{ block.settings.row1_text }}</div>
                   </div>
-                  <div class="rb-d-text">{{ block.settings.row1_text }}</div>
-                </div>
-              {% endif %}
-              {% if block.settings.row2_text != blank %}
-                <div class="rb-delivery-row">
-                  <div class="rb-d-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                {%- endif -%}
+                {%- if block.settings.show_row2 and block.settings.row2_text != blank -%}
+                  <div class="rb-delivery-row">
+                    <div class="rb-d-icon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    </div>
+                    <div class="rb-d-text">{{ block.settings.row2_text }}</div>
                   </div>
-                  <div class="rb-d-text">{{ block.settings.row2_text }}</div>
-                </div>
-              {% endif %}
-              {% if block.settings.row3_text != blank %}
-                <div class="rb-delivery-row">
-                  <div class="rb-d-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                {%- endif -%}
+                {%- if block.settings.show_row3 and block.settings.row3_text != blank -%}
+                  <div class="rb-delivery-row">
+                    <div class="rb-d-icon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    </div>
+                    <div class="rb-d-text">{{ block.settings.row3_text }}</div>
                   </div>
-                  <div class="rb-d-text">{{ block.settings.row3_text }}</div>
-                </div>
-              {% endif %}
-            </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
 
-          {% when 'live_visitors' %}
+          {%- when 'live_visitors' -%}
             <div class="rb-live-pill" {{ block.shopify_attributes }}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span class="rb-live-dot"></span>
               <span id="RBLiveCount"
-                    data-min="{{ block.settings.min_count }}"
-                    data-max="{{ block.settings.max_count }}">
-                {{ block.settings.min_count }}
+                    data-min="{{ block.settings.min_count | default: 8 }}"
+                    data-max="{{ block.settings.max_count | default: 40 }}">
+                {{ block.settings.min_count | default: 8 }}
               </span>
-              {{ block.settings.suffix_text }}
+              {{ block.settings.suffix_text | default: 'peoples are viewing this right now' }}
             </div>
 
-          {% when 'variant_picker' %}
-            <div class="rb-variant-section" {{ block.shopify_attributes }}>
-              {% unless product.has_only_default_variant %}
-                {% for option in product.options_with_values %}
-                  <div class="rb-option-group">
-                    <div class="rb-variant-label-row">{{ option.name }}: <strong>{{ option.selected_value }}</strong></div>
+          {%- when 'variant_picker' -%}
+            {%- unless product.has_only_default_variant -%}
+              <div class="rb-variant-section" {{ block.shopify_attributes }}>
+                {%- for option in product.options_with_values -%}
+                  <div class="rb-option-group" data-option-index="{{ forloop.index0 }}">
+                    <div class="rb-variant-label-row">
+                      {{ option.name }}:
+                      <strong class="rb-option-selected-val" id="RBOptVal{{ forloop.index }}">{{ option.selected_value }}</strong>
+                    </div>
                     <div class="rb-pills">
-                      {% for value in option.values %}
+                      {%- for value in option.values -%}
+                        {%- liquid
+                          assign variant_option_name = 'option' | append: forloop.parentloop.index
+                          assign is_selected = false
+                          if option.selected_value == value
+                            assign is_selected = true
+                          endif
+                        -%}
                         <button type="button"
-                                class="rb-pill{% if option.selected_value == value %} rb-selected{% endif %}"
-                                data-option="{{ option.position }}"
-                                data-value="{{ value }}">
+                                class="rb-pill{% if is_selected %} rb-selected{% endif %}"
+                                data-option-index="{{ forloop.parentloop.index0 }}"
+                                data-option-position="{{ forloop.parentloop.index }}"
+                                data-value="{{ value | escape }}"
+                                aria-label="{{ option.name }}: {{ value }}"
+                                {% if is_selected %}aria-pressed="true"{% else %}aria-pressed="false"{% endif %}>
                           {{ value }}
                         </button>
-                      {% endfor %}
+                      {%- endfor -%}
                     </div>
                   </div>
-                {% endfor %}
-              {% endunless %}
-            </div>
+                {%- endfor -%}
+              </div>
+            {%- endunless -%}
 
-          {% when 'ask_question' %}
+          {%- when 'ask_question' -%}
             <div {{ block.shopify_attributes }}>
-              <button type="button" class="rb-ask-link" id="RBAskBtn">
+              <a href="{% if block.settings.contact_type == 'email' %}mailto:{{ block.settings.contact_value }}{% elsif block.settings.contact_type == 'whatsapp' %}https://wa.me/{{ block.settings.contact_value | remove: '+' | remove: ' ' }}?text={{ 'Hi, I have a question about: ' | append: product.title | url_encode }}{% else %}#ask-question{% endif %}"
+                 class="rb-ask-link"
+                 {% if block.settings.contact_type == 'whatsapp' %}target="_blank" rel="noopener"{% endif %}>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                {{ block.settings.link_text }}
-              </button>
+                {{ block.settings.link_text | default: 'Ask a question' }}
+              </a>
             </div>
 
-          {% when 'stock_countdown' %}
-            <div class="rb-stock-row" {{ block.shopify_attributes }}>
-              <div class="rb-stock-text">
-                {{ block.settings.prefix_text }} <span>{{ block.settings.stock_qty }}</span> {{ block.settings.suffix_text }}
-              </div>
-              <div class="rb-stock-bar">
-                <div class="rb-stock-fill" style="width: {{ block.settings.bar_percent }}%;"></div>
-              </div>
-            </div>
-
-          {% when 'buy_buttons' %}
-            <div {{ block.shopify_attributes }}>
-              {% form 'product', product, class: 'rb-form', id: 'rb-product-form' %}
-                <input type="hidden" name="id" id="RBVariantId" value="{{ product.selected_or_first_available_variant.id }}">
-                <div class="rb-atc-row">
-                  <div class="rb-qty">
-                    <button type="button" class="rb-qty-btn" id="RBQtyMinus">−</button>
-                    <input type="number" class="rb-qty-input" name="quantity" id="RBQtyInput" value="1" min="1">
-                    <button type="button" class="rb-qty-btn" id="RBQtyPlus">+</button>
+          {%- when 'stock_countdown' -%}
+            {%- if block.settings.use_real_inventory -%}
+              {%- assign inv_qty = current_variant.inventory_quantity -%}
+              {%- if current_variant.inventory_management == 'shopify' and inv_qty > 0 and inv_qty <= block.settings.low_stock_threshold -%}
+                {%- assign bar_pct = inv_qty | times: 100 | divided_by: block.settings.low_stock_threshold -%}
+                <div class="rb-stock-row" id="RBStockRow" {{ block.shopify_attributes }}>
+                  <div class="rb-stock-text">
+                    {{ block.settings.prefix_text | default: 'Hurry up! Only' }}
+                    <span id="RBStockQty">{{ inv_qty }}</span>
+                    {{ block.settings.suffix_text | default: 'items left in stock' }}
                   </div>
-                  <button type="submit" class="rb-atc-btn" id="RBAtcBtn">
-                    {%- if product.available -%}{{ block.settings.atc_text }}{%- else -%}Sold Out{%- endif -%}
+                  <div class="rb-stock-bar"><div class="rb-stock-fill" id="RBStockFill" style="width:{{ bar_pct }}%;"></div></div>
+                </div>
+              {%- elsif not current_variant.available -%}
+                <div class="rb-stock-row rb-sold-out" id="RBStockRow" {{ block.shopify_attributes }}>
+                  <div class="rb-stock-text" style="color:#dc2626;">{{ block.settings.sold_out_text | default: 'This product is sold out' }}</div>
+                </div>
+              {%- endif -%}
+            {%- else -%}
+              <div class="rb-stock-row" id="RBStockRow" {{ block.shopify_attributes }}>
+                <div class="rb-stock-text">
+                  {{ block.settings.prefix_text | default: 'Hurry up! Only' }}
+                  <span id="RBStockQty">{{ block.settings.display_qty | default: 1 }}</span>
+                  {{ block.settings.suffix_text | default: 'items left in stock' }}
+                </div>
+                <div class="rb-stock-bar">
+                  <div class="rb-stock-fill" id="RBStockFill" style="width:{{ block.settings.bar_percent | default: 8 }}%;"></div>
+                </div>
+              </div>
+            {%- endif -%}
+
+          {%- when 'buy_buttons' -%}
+            <div {{ block.shopify_attributes }}>
+              {%- form 'product', product, id: product_form_id, class: 'rb-form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                <input type="hidden" name="id" id="RBVariantId" value="{{ current_variant.id }}">
+                <input type="hidden" name="quantity" id="RBFormQty" value="1">
+
+                <div class="rb-atc-row">
+                  {%- comment %} Quantity Stepper {%- endcomment %}
+                  <div class="rb-qty" id="RBQtyWrap">
+                    <button type="button" class="rb-qty-btn" id="RBQtyMinus" aria-label="Decrease quantity">−</button>
+                    <input type="number" class="rb-qty-input" id="RBQtyInput" value="1" min="1"
+                           max="{{ current_variant.inventory_quantity | default: 999 }}"
+                           aria-label="{{ 'products.product.quantity.label' | t | default: 'Quantity' }}">
+                    <button type="button" class="rb-qty-btn" id="RBQtyPlus" aria-label="Increase quantity">+</button>
+                  </div>
+
+                  {%- comment %} Add to Cart {%- endcomment %}
+                  <button type="submit"
+                          name="add"
+                          class="rb-atc-btn"
+                          id="RBAtcBtn"
+                          {%- unless current_variant.available -%}disabled{%- endunless -%}>
+                    <span class="rb-atc-text">
+                      {%- if current_variant.available -%}
+                        {{ block.settings.atc_text | default: 'Add to Cart' }}
+                      {%- else -%}
+                        {{ block.settings.sold_out_text | default: 'Sold Out' }}
+                      {%- endif -%}
+                    </span>
                   </button>
-                  {% if block.settings.show_wishlist %}
-                    <button type="button" class="rb-icon-action" title="Wishlist" aria-label="Wishlist">
+
+                  {%- comment %} Wishlist Icon {%- endcomment %}
+                  {%- if block.settings.show_wishlist -%}
+                    <button type="button" class="rb-icon-action" aria-label="{{ 'products.product.add_to_wishlist' | t | default: 'Add to wishlist' }}">
                       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                     </button>
-                  {% endif %}
-                  {% if block.settings.show_compare %}
-                    <button type="button" class="rb-icon-action" title="Compare" aria-label="Compare">
+                  {%- endif -%}
+
+                  {%- comment %} Compare Icon {%- endcomment %}
+                  {%- if block.settings.show_compare -%}
+                    <button type="button" class="rb-icon-action" aria-label="Compare">
                       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
                     </button>
-                  {% endif %}
+                  {%- endif -%}
                 </div>
-                {% if block.settings.show_buy_now %}
-                  <button type="button" class="rb-buy-btn" id="RBBuyNow">{{ block.settings.buy_now_text }}</button>
-                {% endif %}
-              {% endform %}
+
+                {%- comment %} Buy it Now {%- endcomment %}
+                {%- if block.settings.show_buy_now -%}
+                  <button type="button"
+                          class="rb-buy-btn"
+                          id="RBBuyNow"
+                          {%- unless current_variant.available -%}disabled{%- endunless -%}>
+                    {{ block.settings.buy_now_text | default: 'Buy it now' }}
+                  </button>
+                {%- endif -%}
+
+              {%- endform -%}
             </div>
 
-          {% when 'accordion' %}
-            <div class="rb-accordions" {{ block.shopify_attributes }}>
-              <details class="rb-acc">
-                <summary class="rb-acc-summary">
-                  {{ block.settings.heading }}
-                  <span class="rb-acc-icon">+</span>
-                </summary>
-                <div class="rb-acc-body">{{ block.settings.content }}</div>
-              </details>
-            </div>
+          {%- when 'accordion' -%}
+            {%- comment %} Support metafield content source {%- endcomment %}
+            {%- liquid
+              assign acc_content = block.settings.content
+              if block.settings.content_source == 'description'
+                assign acc_content = product.description
+              elsif block.settings.content_source == 'metafield' and block.settings.metafield_key != blank
+                assign mf_parts = block.settings.metafield_key | split: '.'
+                if mf_parts.size == 2
+                  assign acc_content = product.metafields[mf_parts[0]][mf_parts[1]].value
+                endif
+              endif
+            -%}
+            {%- if block.settings.heading != blank and acc_content != blank -%}
+              <div class="rb-accordions" {{ block.shopify_attributes }}>
+                <details class="rb-acc">
+                  <summary class="rb-acc-summary">
+                    {{ block.settings.heading }}
+                    <span class="rb-acc-icon">+</span>
+                  </summary>
+                  <div class="rb-acc-body">{{ acc_content }}</div>
+                </details>
+              </div>
+            {%- endif -%}
 
-          {% when 'product_meta' %}
+          {%- when 'product_meta' -%}
             <div class="rb-meta" {{ block.shopify_attributes }}>
-              {% if block.settings.show_sku %}
+              {%- if block.settings.show_sku -%}
                 <div class="rb-meta-r">
-                  <div class="rb-meta-key">Sku:</div>
-                  <div class="rb-meta-val">{{ product.selected_or_first_available_variant.sku | default: 'N/A' }}</div>
+                  <div class="rb-meta-key">{{ block.settings.sku_label | default: 'SKU' }}:</div>
+                  <div class="rb-meta-val" id="RBMetaSku">{{ current_variant.sku | default: 'N/A' }}</div>
                 </div>
-              {% endif %}
-              {% if block.settings.show_availability %}
+              {%- endif -%}
+              {%- if block.settings.show_availability -%}
                 <div class="rb-meta-r">
-                  <div class="rb-meta-key">Available:</div>
-                  <div class="rb-meta-val">{% if product.available %}<span style="color:#16a34a;font-weight:700;">Instock</span>{% else %}<span style="color:#dc2626;font-weight:700;">Out of Stock</span>{% endif %}</div>
+                  <div class="rb-meta-key">{{ block.settings.avail_label | default: 'Available' }}:</div>
+                  <div class="rb-meta-val" id="RBMetaAvail">
+                    {%- if current_variant.available -%}
+                      <span style="color:#16a34a;font-weight:700;">{{ block.settings.in_stock_label | default: 'Instock' }}</span>
+                    {%- else -%}
+                      <span style="color:#dc2626;font-weight:700;">{{ block.settings.out_of_stock_label | default: 'Out of Stock' }}</span>
+                    {%- endif -%}
+                  </div>
                 </div>
-              {% endif %}
-              {% if block.settings.show_collections and product.collections.size > 0 %}
+              {%- endif -%}
+              {%- if block.settings.show_barcode and current_variant.barcode != blank -%}
                 <div class="rb-meta-r">
-                  <div class="rb-meta-key">Collections:</div>
-                  <div class="rb-meta-val">{% for c in product.collections %}{{ c.title }}{% unless forloop.last %}, {% endunless %}{% endfor %}</div>
+                  <div class="rb-meta-key">{{ block.settings.barcode_label | default: 'Barcode' }}:</div>
+                  <div class="rb-meta-val">{{ current_variant.barcode }}</div>
                 </div>
-              {% endif %}
-              {% if block.settings.show_type and product.type != blank %}
+              {%- endif -%}
+              {%- if block.settings.show_collections and product.collections.size > 0 -%}
                 <div class="rb-meta-r">
-                  <div class="rb-meta-key">Type:</div>
+                  <div class="rb-meta-key">{{ block.settings.collections_label | default: 'Collections' }}:</div>
+                  <div class="rb-meta-val">
+                    {%- for c in product.collections -%}
+                      <a href="{{ c.url }}" class="rb-meta-link">{{ c.title }}</a>{%- unless forloop.last -%}, {%- endunless -%}
+                    {%- endfor -%}
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.show_type and product.type != blank -%}
+                <div class="rb-meta-r">
+                  <div class="rb-meta-key">{{ block.settings.type_label | default: 'Type' }}:</div>
                   <div class="rb-meta-val">{{ product.type }}</div>
                 </div>
-              {% endif %}
+              {%- endif -%}
+              {%- if block.settings.show_tags and product.tags.size > 0 -%}
+                <div class="rb-meta-r">
+                  <div class="rb-meta-key">{{ block.settings.tags_label | default: 'Tags' }}:</div>
+                  <div class="rb-meta-val">
+                    {%- for tag in product.tags -%}
+                      {{ tag }}{%- unless forloop.last -%}, {%- endunless -%}
+                    {%- endfor -%}
+                  </div>
+                </div>
+              {%- endif -%}
             </div>
 
-          {% when 'trust_badge' %}
+          {%- when 'trust_badge' -%}
             <div class="rb-trust-box" {{ block.shopify_attributes }}>
-              {% if block.settings.badge_text != blank %}
+              {%- if block.settings.badge_text != blank -%}
                 <p class="rb-trust-label">{{ block.settings.badge_text }}</p>
-              {% endif %}
+              {%- endif -%}
               <div class="rb-trust-icons">
-                <img src="{{ 'visa.svg' | asset_url }}" alt="Visa" width="38" height="24" onerror="this.style.display='none'">
-                <img src="{{ 'mastercard.svg' | asset_url }}" alt="Mastercard" width="38" height="24" onerror="this.style.display='none'">
-                <svg width="38" height="24" viewBox="0 0 50 30" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="50" height="30" rx="4" fill="#F4F5F7"/><text x="25" y="20" font-size="9" fill="#374151" text-anchor="middle" font-weight="bold">COD</text></svg>
-                <svg width="38" height="24" viewBox="0 0 50 30" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="50" height="30" rx="4" fill="#F4F5F7"/><text x="25" y="20" font-size="8" fill="#374151" text-anchor="middle" font-weight="bold">PayFast</text></svg>
+                {%- if block.settings.badge_image_1 != blank -%}
+                  <img src="{{ block.settings.badge_image_1 | img_url: '80x50' }}" alt="{{ block.settings.badge_1_alt | default: 'Payment badge' }}" loading="lazy">
+                {%- else -%}
+                  {%- comment %} Default SVG icons {%- endcomment %}
+                  <svg width="46" height="28" viewBox="0 0 46 28" fill="none"><rect width="46" height="28" rx="4" fill="#F4F5F7"/><text x="23" y="19" font-size="9" fill="#374151" text-anchor="middle" font-family="sans-serif" font-weight="bold">VISA</text></svg>
+                  <svg width="46" height="28" viewBox="0 0 46 28" fill="none"><rect width="46" height="28" rx="4" fill="#F4F5F7"/><circle cx="17" cy="14" r="8" fill="#EB001B" opacity=".8"/><circle cx="29" cy="14" r="8" fill="#F79E1B" opacity=".8"/></svg>
+                  <svg width="46" height="28" viewBox="0 0 46 28" fill="none"><rect width="46" height="28" rx="4" fill="#F4F5F7"/><text x="23" y="19" font-size="8" fill="#374151" text-anchor="middle" font-family="sans-serif" font-weight="bold">COD</text></svg>
+                  <svg width="46" height="28" viewBox="0 0 46 28" fill="none"><rect width="46" height="28" rx="4" fill="#F4F5F7"/><text x="23" y="19" font-size="7" fill="#374151" text-anchor="middle" font-family="sans-serif" font-weight="bold">PayFast</text></svg>
+                  <svg width="46" height="28" viewBox="0 0 46 28" fill="none"><rect width="46" height="28" rx="4" fill="#F4F5F7"/><text x="23" y="19" font-size="8" fill="#374151" text-anchor="middle" font-family="sans-serif" font-weight="bold">JazzCash</text></svg>
+                {%- endif -%}
               </div>
             </div>
 
-          {% when 'fake_orders' %}
-            {% if block.settings.enable %}
-              <div style="display:none;"
-                   data-fake-orders="true"
-                   data-show-delay="{{ block.settings.show_delay }}"
-                   data-cycle-interval="{{ block.settings.cycle_interval }}"
-                   {{ block.shopify_attributes }}>
-              </div>
-            {% endif %}
+          {%- when 'fake_orders' -%}
+            {%- comment %} Config data — rendered in HTML, consumed by JS {%- endcomment %}
+            <div id="RBFakeOrdersConfig"
+                 data-enable="{{ block.settings.enable }}"
+                 data-show-delay="{{ block.settings.show_delay | default: 3 }}"
+                 data-cycle="{{ block.settings.cycle_interval | default: 10 }}"
+                 data-custom-names="{{ block.settings.custom_names }}"
+                 data-custom-cities="{{ block.settings.custom_cities }}"
+                 data-custom-products="{{ block.settings.custom_products }}"
+                 style="display:none;"
+                 {{ block.shopify_attributes }}>
+            </div>
 
-        {% endcase %}
-      {% endfor %}
-      {% comment %} === END BLOCKS === {% endcomment %}
+        {%- endcase -%}
+      {%- endfor -%}
+      {%- comment %} ===================== END BLOCKS ===================== {%- endcomment %}
 
     </div>
-    {% comment %} === END INFO === {% endcomment %}
+    {%- comment %} =================== END PRODUCT INFO =================== {%- endcomment %}
 
   </div>
 </div>
 
-{% comment %} Fake Orders Toast {% endcomment %}
-{% render 'rb-fake-orders', product: product %}
+{%- comment %} Fake Orders Toast {%- endcomment %}
+{%- render 'rb-fake-orders', product: product -%}
 
-{% comment %} Sticky ATC Bar {% endcomment %}
-{% render 'rb-sticky-atc', product: product %}
+{%- comment %} Sticky ATC Bar {%- endcomment %}
+{%- render 'rb-sticky-atc', product: product, current_variant: current_variant, section: section -%}
 
 <script src="{{ 'rb-product.js' | asset_url }}" defer></script>
 
@@ -281,7 +475,7 @@
   "settings": [
     {
       "type": "header",
-      "content": "General"
+      "content": "General Display"
     },
     {
       "type": "checkbox",
@@ -292,7 +486,7 @@
     {
       "type": "checkbox",
       "id": "show_save_badge",
-      "label": "Show save % badge",
+      "label": "Show discount % badge",
       "default": true
     },
     {
@@ -310,8 +504,36 @@
     {
       "type": "text",
       "id": "sold_text",
-      "label": "Sold counter suffix text",
+      "label": "Sold counter suffix",
       "default": "sold in last 20 hours"
+    },
+    {
+      "type": "header",
+      "content": "Reviews"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reviews",
+      "label": "Show reviews (requires review app metafields)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reviews_placeholder",
+      "label": "Show placeholder if no reviews",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "reviews_label",
+      "label": "Reviews label",
+      "default": "reviews"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_reviews_text",
+      "label": "Placeholder review text",
+      "default": "Be the first to review"
     }
   ],
   "blocks": [
@@ -322,32 +544,50 @@
       "settings": [
         {
           "type": "header",
-          "content": "Row 1 — Delivery Time"
+          "content": "Row 1"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_row1",
+          "label": "Show row 1",
+          "default": true
         },
         {
           "type": "richtext",
           "id": "row1_text",
-          "label": "Delivery row text",
+          "label": "Row 1 text",
           "default": "<p><strong>Estimate delivery time:</strong> Delivery within <strong>3–7 working days.</strong> You'll be updated along the way.</p>"
         },
         {
           "type": "header",
-          "content": "Row 2 — Payment Method"
+          "content": "Row 2"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_row2",
+          "label": "Show row 2",
+          "default": true
         },
         {
           "type": "richtext",
           "id": "row2_text",
-          "label": "Payment row text",
+          "label": "Row 2 text",
           "default": "<p><strong>Cash on Delivery (COD) only.</strong> Please <strong>check your parcel before payment.</strong></p>"
         },
         {
           "type": "header",
-          "content": "Row 3 — Shipping Charges"
+          "content": "Row 3"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_row3",
+          "label": "Show row 3",
+          "default": true
         },
         {
           "type": "richtext",
           "id": "row3_text",
-          "label": "Shipping row text",
+          "label": "Row 3 text",
           "default": "<p><strong>Shipping charges:</strong> Flat <strong>Rs.199</strong> on all orders — <strong>FREE shipping above Rs.10,000.</strong></p>"
         }
       ]
@@ -360,13 +600,13 @@
         {
           "type": "number",
           "id": "min_count",
-          "label": "Minimum visitor count",
+          "label": "Minimum visitors",
           "default": 8
         },
         {
           "type": "number",
           "id": "max_count",
-          "label": "Maximum visitor count",
+          "label": "Maximum visitors",
           "default": 40
         },
         {
@@ -395,10 +635,21 @@
           "default": "Ask a question"
         },
         {
+          "type": "select",
+          "id": "contact_type",
+          "label": "Contact via",
+          "options": [
+            { "value": "email", "label": "Email" },
+            { "value": "whatsapp", "label": "WhatsApp" },
+            { "value": "none", "label": "None (scroll to form)" }
+          ],
+          "default": "whatsapp"
+        },
+        {
           "type": "text",
           "id": "contact_value",
-          "label": "Email or WhatsApp number",
-          "default": ""
+          "label": "Email address or WhatsApp number",
+          "info": "For WhatsApp, enter number with country code e.g. +923001234567"
         }
       ]
     },
@@ -408,6 +659,20 @@
       "limit": 1,
       "settings": [
         {
+          "type": "checkbox",
+          "id": "use_real_inventory",
+          "label": "Use real Shopify inventory",
+          "default": true,
+          "info": "When ON, reads actual inventory quantity from Shopify"
+        },
+        {
+          "type": "number",
+          "id": "low_stock_threshold",
+          "label": "Show only when qty is below",
+          "default": 10,
+          "info": "Only shows when real inventory is below this number"
+        },
+        {
           "type": "text",
           "id": "prefix_text",
           "label": "Prefix text",
@@ -415,8 +680,8 @@
         },
         {
           "type": "number",
-          "id": "stock_qty",
-          "label": "Stock quantity to display",
+          "id": "display_qty",
+          "label": "Display qty (if not using real inventory)",
           "default": 1
         },
         {
@@ -428,11 +693,17 @@
         {
           "type": "range",
           "id": "bar_percent",
-          "label": "Stock bar fill %",
+          "label": "Stock bar fill % (if not using real inventory)",
           "min": 1,
           "max": 100,
           "step": 1,
           "default": 8
+        },
+        {
+          "type": "text",
+          "id": "sold_out_text",
+          "label": "Sold out message",
+          "default": "This product is currently sold out"
         }
       ]
     },
@@ -444,19 +715,25 @@
         {
           "type": "text",
           "id": "atc_text",
-          "label": "Add to Cart button text",
+          "label": "Add to Cart text",
           "default": "Add to Cart"
+        },
+        {
+          "type": "text",
+          "id": "sold_out_text",
+          "label": "Sold out button text",
+          "default": "Sold Out"
         },
         {
           "type": "checkbox",
           "id": "show_buy_now",
-          "label": "Show Buy it now button",
+          "label": "Show Buy it now",
           "default": true
         },
         {
           "type": "text",
           "id": "buy_now_text",
-          "label": "Buy now button text",
+          "label": "Buy it now text",
           "default": "Buy it now"
         },
         {
@@ -484,10 +761,27 @@
           "default": "Description"
         },
         {
+          "type": "select",
+          "id": "content_source",
+          "label": "Content source",
+          "options": [
+            { "value": "custom", "label": "Custom text (below)" },
+            { "value": "description", "label": "Product description" },
+            { "value": "metafield", "label": "Product metafield" }
+          ],
+          "default": "custom"
+        },
+        {
+          "type": "text",
+          "id": "metafield_key",
+          "label": "Metafield key (namespace.key)",
+          "info": "Example: custom.how_to_use"
+        },
+        {
           "type": "richtext",
           "id": "content",
-          "label": "Tab content",
-          "default": "<p>Add your product description here.</p>"
+          "label": "Custom content (if source = custom)",
+          "default": "<p>Add your content here.</p>"
         }
       ]
     },
@@ -503,10 +797,46 @@
           "default": true
         },
         {
+          "type": "text",
+          "id": "sku_label",
+          "label": "SKU label",
+          "default": "Sku"
+        },
+        {
           "type": "checkbox",
           "id": "show_availability",
           "label": "Show availability",
           "default": true
+        },
+        {
+          "type": "text",
+          "id": "avail_label",
+          "label": "Availability label",
+          "default": "Available"
+        },
+        {
+          "type": "text",
+          "id": "in_stock_label",
+          "label": "In stock text",
+          "default": "Instock"
+        },
+        {
+          "type": "text",
+          "id": "out_of_stock_label",
+          "label": "Out of stock text",
+          "default": "Out of Stock"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_barcode",
+          "label": "Show barcode",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "barcode_label",
+          "label": "Barcode label",
+          "default": "Barcode"
         },
         {
           "type": "checkbox",
@@ -515,10 +845,34 @@
           "default": true
         },
         {
+          "type": "text",
+          "id": "collections_label",
+          "label": "Collections label",
+          "default": "Collections"
+        },
+        {
           "type": "checkbox",
           "id": "show_type",
           "label": "Show product type",
           "default": true
+        },
+        {
+          "type": "text",
+          "id": "type_label",
+          "label": "Type label",
+          "default": "Type"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_tags",
+          "label": "Show product tags",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "tags_label",
+          "label": "Tags label",
+          "default": "Tags"
         }
       ]
     },
@@ -530,8 +884,19 @@
         {
           "type": "text",
           "id": "badge_text",
-          "label": "Badge label",
+          "label": "Heading text",
           "default": "Guaranteed Safe Checkout"
+        },
+        {
+          "type": "image_picker",
+          "id": "badge_image_1",
+          "label": "Custom badge image (optional)",
+          "info": "Leave blank to show default SVG icons"
+        },
+        {
+          "type": "text",
+          "id": "badge_1_alt",
+          "label": "Badge image alt text"
         }
       ]
     },
@@ -557,6 +922,26 @@
           "id": "cycle_interval",
           "label": "Cycle interval (seconds)",
           "default": 10
+        },
+        {
+          "type": "textarea",
+          "id": "custom_names",
+          "label": "Custom buyer names (one per line)",
+          "info": "Leave blank to use defaults",
+          "default": "Hina\nSara\nAmna\nZara\nNida\nRabia\nMaryam\nFatima"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_cities",
+          "label": "Custom cities (one per line)",
+          "info": "Leave blank to use defaults",
+          "default": "Multan\nLahore\nKarachi\nIslamabad\nFaisalabad\nPeshawar\nSialkot\nRawalpindi"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_products",
+          "label": "Custom product names (one per line)",
+          "info": "Leave blank to use current product title"
         }
       ]
     }
@@ -573,24 +958,15 @@
         { "type": "buy_buttons" },
         {
           "type": "accordion",
-          "settings": {
-            "heading": "How to Use & Care",
-            "content": "<p>Apply a small amount to clean skin. Massage gently in circular motions until absorbed. Use morning and night.</p>"
-          }
+          "settings": { "heading": "How to Use & Care", "content_source": "custom", "content": "<p>Apply a small amount to clean skin. Massage gently in circular motions until absorbed.</p>" }
         },
         {
           "type": "accordion",
-          "settings": {
-            "heading": "Description",
-            "content": "<p>Crafted with the finest natural ingredients to nourish and restore your skin's natural radiance.</p>"
-          }
+          "settings": { "heading": "Description", "content_source": "description" }
         },
         {
           "type": "accordion",
-          "settings": {
-            "heading": "Shipping and Returns",
-            "content": "<p>Orders dispatched within 1–2 business days. Delivery in 3–7 working days. Free shipping above Rs.10,000. Returns within 7 days.</p>"
-          }
+          "settings": { "heading": "Shipping and Returns", "content_source": "custom", "content": "<p>Orders dispatched in 1–2 business days. Delivery in 3–7 working days. Free shipping above Rs.10,000. Returns within 7 days.</p>" }
         },
         { "type": "product_meta" },
         { "type": "trust_badge" },
