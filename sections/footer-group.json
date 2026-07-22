@@ -11,69 +11,6 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
-    "custom_cta_7TRWHC": {
-      "type": "custom-cta",
-      "blocks": {
-        "feature_hj97PD": {
-          "type": "feature",
-          "settings": {
-            "enabled": true,
-            "text": "Made in USA"
-          }
-        },
-        "feature_4CzVeL": {
-          "type": "feature",
-          "settings": {
-            "enabled": true,
-            "text": "100% Natural Ingredients"
-          }
-        },
-        "feature_kYeRpz": {
-          "type": "feature",
-          "settings": {
-            "enabled": true,
-            "text": "30-Day Money-Back Guarantee"
-          }
-        }
-      },
-      "block_order": [
-        "feature_hj97PD",
-        "feature_4CzVeL",
-        "feature_kYeRpz"
-      ],
-      "name": "Custom CTA",
-      "settings": {
-        "bg_color": "#000000",
-        "show_overlay": false,
-        "overlay_color": "#000000",
-        "overlay_opacity": 50,
-        "left_image_1": "shopify://shop_images/3qr.webp",
-        "left_image_2": "shopify://shop_images/b672b8d7-0973-4e1f-be60-bab89177a5e2.webp",
-        "left_image_3": "shopify://shop_images/bbbe.webp",
-        "right_image_1": "shopify://shop_images/cta_image.webp",
-        "right_image_2": "shopify://shop_images/3qr.webp",
-        "avatar_1": "shopify://shop_images/3qr.webp",
-        "avatar_2": "shopify://shop_images/b672b8d7-0973-4e1f-be60-bab89177a5e2.webp",
-        "avatar_3": "shopify://shop_images/cta_image.webp",
-        "customer_count": "5k+",
-        "customer_label": "Trusted Customer",
-        "title_highlight": "Experience Naturally",
-        "title_main": "Experience Naturally",
-        "description": "<p>We believe in our balm because it actually works. If your skin isn't looking better in 30 days, we'll give you your money back — no drama, no hoops. Subscribe now and save 30% on your first order!</p>",
-        "btn_text": "Subscribe & Save 30% Today",
-        "btn_url": "/",
-        "btn_new_tab": false,
-        "max_width": 850,
-        "padding_top": 120,
-        "padding_bottom": 120,
-        "text_color": "#ffffff",
-        "accent_color": "#ffffff",
-        "button_color": "#E79F29",
-        "button_hover_color": "#FE9D01",
-        "button_text_color": "#ffffff",
-        "border_radius": 14
-      }
-    },
     "custom_footer_aWBBQb": {
       "type": "custom-footer",
       "name": "Custom Footer",
@@ -115,7 +52,6 @@
     }
   },
   "order": [
-    "custom_cta_7TRWHC",
     "custom_footer_aWBBQb",
     "footer"
   ]
