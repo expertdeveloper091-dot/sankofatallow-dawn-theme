@@ -28,13 +28,13 @@
           "type": "title",
           "settings": {}
         },
-        "review_and_sold_AAbJC9": {
+        "review_and_sold_YJVKi6": {
           "type": "review_and_sold",
           "settings": {
             "show_review": true,
             "show_sold_products": true,
-            "sold": "8,10,12,15,17,22",
-            "hours": "10,12,15,16,18,20,24"
+            "sold": "10,12,15,16,18,20,24",
+            "hours": "8,10,12,15,17,22"
           }
         },
         "price_VJ4N8m": {
@@ -166,7 +166,7 @@
       "block_order": [
         "badges_RwfTMp",
         "title_VLY8Xk",
-        "review_and_sold_AAbJC9",
+        "review_and_sold_YJVKi6",
         "price_VJ4N8m",
         "short_description_9BGxVm",
         "live_view_rzDP6G",
