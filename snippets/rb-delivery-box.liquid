@@ -1,0 +1,45 @@
+{% comment %}
+  rb-delivery-box.liquid — Customizable Delivery Box Snippet
+{% endcomment %}
+{%- if block.settings.show_row1 or block.settings.show_row2 or block.settings.show_row3 -%}
+  <div class="rb-delivery-box" {{ block.shopify_attributes }}>
+    {%- if block.settings.show_row1 and block.settings.row1_text != blank -%}
+      <div class="rb-delivery-row">
+        <div class="rb-d-icon">
+          {%- if block.settings.row1_icon_image != blank -%}
+            <img src="{{ block.settings.row1_icon_image | img_url: '40x40' }}" alt="Delivery icon" loading="lazy" width="20" height="20">
+          {%- else -%}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          {%- endif -%}
+        </div>
+        <div class="rb-d-text">{{ block.settings.row1_text }}</div>
+      </div>
+    {%- endif -%}
+
+    {%- if block.settings.show_row2 and block.settings.row2_text != blank -%}
+      <div class="rb-delivery-row">
+        <div class="rb-d-icon">
+          {%- if block.settings.row2_icon_image != blank -%}
+            <img src="{{ block.settings.row2_icon_image | img_url: '40x40' }}" alt="COD icon" loading="lazy" width="20" height="20">
+          {%- else -%}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          {%- endif -%}
+        </div>
+        <div class="rb-d-text">{{ block.settings.row2_text }}</div>
+      </div>
+    {%- endif -%}
+
+    {%- if block.settings.show_row3 and block.settings.row3_text != blank -%}
+      <div class="rb-delivery-row">
+        <div class="rb-d-icon">
+          {%- if block.settings.row3_icon_image != blank -%}
+            <img src="{{ block.settings.row3_icon_image | img_url: '40x40' }}" alt="Shipping icon" loading="lazy" width="20" height="20">
+          {%- else -%}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          {%- endif -%}
+        </div>
+        <div class="rb-d-text">{{ block.settings.row3_text }}</div>
+      </div>
+    {%- endif -%}
+  </div>
+{%- endif -%}

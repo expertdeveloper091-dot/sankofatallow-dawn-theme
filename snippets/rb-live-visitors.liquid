@@ -1,0 +1,12 @@
+{% comment %}
+  rb-live-visitors.liquid — Dynamic Live Visitors Snippet
+{% endcomment %}
+<div class="rb-live-pill" {{ block.shopify_attributes }}>
+  <span class="rb-live-dot"></span>
+  <span id="RBLiveCount"
+        data-min="{{ block.settings.min_count | default: 8 }}"
+        data-max="{{ block.settings.max_count | default: 40 }}">
+    {{ block.settings.min_count | default: 8 }}
+  </span>
+  {{ block.settings.suffix_text | default: 'peoples are viewing this right now' }}
+</div>

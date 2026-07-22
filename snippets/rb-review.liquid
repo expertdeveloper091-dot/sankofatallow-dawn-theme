@@ -1,0 +1,31 @@
+{% comment %}
+  rb-review.liquid — Dynamic Reviews Integration Snippet
+  Supports: Judge.me, Loox, Ryviu, Ali Reviews, Stamped.io, Shopify Reviews
+{% endcomment %}
+
+<div class="rb-review-wrapper" id="RBReviewWrapper-{{ section.id }}">
+  {%- liquid
+    assign rating_val = product.metafields.reviews.rating.value
+    assign rating_count = product.metafields.reviews.rating_count.value
+  -%}
+
+  {%- comment %} Judge.me Widget Anchor {%- endcomment %}
+  <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">
+    {{ product.metafields.judgeme.badge }}
+  </div>
+
+  {%- comment %} Loox Widget Anchor {%- endcomment %}
+  <div class="loox-rating" data-id="{{ product.id }}" data-rating="{{ product.metafields.loox.avg_rating }}" data-raters="{{ product.metafields.loox.num_reviews }}"></div>
+
+  {%- comment %} Native Metafield Rating Fallback {%- endcomment %}
+  {%- if rating_count > 0 -%}
+    <div class="rb-rating-row">
+      <span class="rb-stars" aria-label="{{ rating_val }} out of 5 stars">
+        {%- for i in (1..5) -%}
+          {%- if i <= rating_val -%}★{%- else -%}☆{%- endif -%}
+        {%- endfor -%}
+      </span>
+      <span class="rb-review-count">({{ rating_count }})</span>
+    </div>
+  {%- endif -%}
+</div>

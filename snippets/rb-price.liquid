@@ -1,0 +1,19 @@
+{% comment %}
+  rb-price.liquid — Dynamic Price Snippet
+{% endcomment %}
+{%- liquid
+  assign target = variant | default: product.selected_or_first_available_variant
+  assign compare_at_price = target.compare_at_price
+  assign price = target.price | default: 1999
+  assign available = target.available | default: false
+  assign money_price = price | money
+-%}
+
+<div class="rb-price-container" id="RBPriceContainer-{{ section.id }}">
+  <div class="rb-price-sale" id="RBPriceSale">{{ money_price }}</div>
+  {%- if compare_at_price > price -%}
+    <div class="rb-price-compare" id="RBPriceCompare">{{ compare_at_price | money }}</div>
+  {%- else -%}
+    <div class="rb-price-compare" id="RBPriceCompare" style="display:none;"></div>
+  {%- endif -%}
+</div>

@@ -1,0 +1,19 @@
+{% comment %}
+  rb-trust-badges.liquid — Dynamic Trust Badges Snippet
+{% endcomment %}
+<div class="rb-trust-box" {{ block.shopify_attributes }}>
+  {%- if block.settings.badge_text != blank -%}
+    <p class="rb-trust-label">{{ block.settings.badge_text }}</p>
+  {%- endif -%}
+  <div class="rb-trust-icons">
+    {%- if block.settings.badge_image_1 != blank -%}
+      <img src="{{ block.settings.badge_image_1 | img_url: '80x50' }}" alt="{{ block.settings.badge_1_alt | default: 'Payment badge' }}" loading="lazy" width="46" height="28">
+    {%- else -%}
+      <svg width="46" height="28" viewBox="0 0 46 28" fill="none"><rect width="46" height="28" rx="4" fill="#F4F5F7"/><text x="23" y="19" font-size="9" fill="#374151" text-anchor="middle" font-family="sans-serif" font-weight="bold">VISA</text></svg>
+      <svg width="46" height="28" viewBox="0 0 46 28" fill="none"><rect width="46" height="28" rx="4" fill="#F4F5F7"/><circle cx="17" cy="14" r="8" fill="#EB001B" opacity=".8"/><circle cx="29" cy="14" r="8" fill="#F79E1B" opacity=".8"/></svg>
+      <svg width="46" height="28" viewBox="0 0 46 28" fill="none"><rect width="46" height="28" rx="4" fill="#F4F5F7"/><text x="23" y="19" font-size="8" fill="#374151" text-anchor="middle" font-family="sans-serif" font-weight="bold">COD</text></svg>
+      <svg width="46" height="28" viewBox="0 0 46 28" fill="none"><rect width="46" height="28" rx="4" fill="#F4F5F7"/><text x="23" y="19" font-size="7" fill="#374151" text-anchor="middle" font-family="sans-serif" font-weight="bold">PayFast</text></svg>
+      <svg width="46" height="28" viewBox="0 0 46 28" fill="none"><rect width="46" height="28" rx="4" fill="#F4F5F7"/><text x="23" y="19" font-size="8" fill="#374151" text-anchor="middle" font-family="sans-serif" font-weight="bold">JazzCash</text></svg>
+    {%- endif -%}
+  </div>
+</div>

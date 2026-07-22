@@ -1,0 +1,11 @@
+{% comment %}
+  rb-ask-question.liquid — Ask a Question Snippet
+{% endcomment %}
+<div {{ block.shopify_attributes }}>
+  <a href="{% if block.settings.contact_type == 'email' %}mailto:{{ block.settings.contact_value }}{% elsif block.settings.contact_type == 'whatsapp' %}https://wa.me/{{ block.settings.contact_value | remove: '+' | remove: ' ' }}?text={{ 'Hi, I have a question about: ' | append: product.title | url_encode }}{% else %}#ask-question{% endif %}"
+     class="rb-ask-link"
+     {% if block.settings.contact_type == 'whatsapp' %}target="_blank" rel="noopener"{% endif %}>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    {{ block.settings.link_text | default: 'Ask a question' }}
+  </a>
+</div>

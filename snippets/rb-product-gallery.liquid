@@ -1,25 +1,54 @@
 {% comment %}
-  Renders Clay Design System Product Gallery
-  Namespace: .rb-product-gallery
+  rb-product-gallery.liquid — Modular Media Gallery Snippet
+  Supports: Images, Videos, External Videos, 3D Models (AR/PhotoSwipe/Zoom)
 {% endcomment %}
-<div class="rb-product-gallery">
-  <div class="rb-gallery-container">
-    <!-- Vertical Thumbnail Strip -->
-    <div class="rb-thumbnail-strip">
-      {% for image in product.images %}
-        <div class="rb-thumb-item {% if forloop.first %}rb-active{% endif %}" onclick="RBProduct.changeGalleryImage(this, '{{ image | image_url: width: 1000 }}')">
-          <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}" loading="lazy" width="70" height="70">
-        </div>
-      {% endfor %}
-    </div>
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign featured_media = current_variant.featured_media | default: product.featured_media
+-%}
 
-    <!-- Main Featured Image Container -->
-    <div class="rb-main-image-box">
-      {% assign featured_img = product.featured_image | default: product.images.first %}
-      <img id="RBMainFeaturedImage" src="{{ featured_img | image_url: width: 1000 }}" alt="{{ featured_img.alt | escape }}" width="600" height="600">
-      <button class="rb-zoom-btn" type="button" aria-label="Zoom image">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+<div class="rb-gallery-container" id="RBGalleryContainer-{{ section.id }}">
+  <div class="rb-gallery-layout">
+
+    {%- comment %} Thumbnails Strip {%- endcomment %}
+    {%- if product.media.size > 1 -%}
+      <div class="rb-thumbnail-strip" id="RBThumbStrip">
+        {%- for media in product.media -%}
+          <div class="rb-thumb{% if media.id == featured_media.id or forloop.first %} rb-active{% endif %}"
+               data-media-id="{{ media.id }}"
+               data-src="{{ media | img_url: '800x800' }}"
+               role="button"
+               tabindex="0"
+               aria-label="{{ media.alt | default: product.title | escape }}">
+            {%- if media.media_type == 'image' -%}
+              <img src="{{ media | img_url: '120x120', crop: 'center' }}"
+                   alt="{{ media.alt | default: product.title | escape }}"
+                   width="64" height="64" loading="lazy">
+            {%- elsif media.media_type == 'video' or media.media_type == 'external_video' -%}
+              <div class="rb-thumb-icon">▶</div>
+            {%- else -%}
+              <div class="rb-thumb-icon">📦</div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- comment %} Main Media Display {%- endcomment %}
+    <div class="rb-main-image-wrap" id="RBMainWrap">
+      <img id="RBMainImg"
+           src="{{ featured_media | img_url: '800x800' }}"
+           srcset="{{ featured_media | img_url: '400x400' }} 400w, {{ featured_media | img_url: '800x800' }} 800w, {{ featured_media | img_url: '1200x1200' }} 1200w"
+           sizes="(max-width: 990px) 100vw, 50vw"
+           alt="{{ featured_media.alt | default: product.title | escape }}"
+           width="800" height="800"
+           loading="eager"
+           fetchpriority="high">
+
+      <button type="button" class="rb-expand-btn" id="RBExpandBtn" aria-label="Expand image">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
       </button>
     </div>
+
   </div>
 </div>

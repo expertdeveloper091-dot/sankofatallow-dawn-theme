@@ -1,39 +1,66 @@
 {% comment %}
-  rb-buy-buttons.liquid
-  Clay Theme Design — ATC + Buy Now + Icon Buttons
+  rb-buy-buttons.liquid — Modular Buy Buttons Snippet
+  Supports: ATC, Buy Now, Gift Card Recipient, Selling Plans, Subscriptions, AJAX Cart
 {% endcomment %}
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_form_id = 'rb-product-form-' | append: section.id
+-%}
 
-<div class="rb-buy-buttons">
-  {% form 'product', product, class: 'rb-product-form', id: 'rb-product-form' %}
-    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+<div class="rb-buy-buttons-wrapper" id="RBBuyButtons-{{ section.id }}" {{ block.shopify_attributes }}>
+  {%- form 'product', product, id: product_form_id, class: 'rb-form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+    <input type="hidden" name="id" id="RBVariantId" value="{{ current_variant.id }}">
+    <input type="hidden" name="quantity" id="RBFormQty" value="1">
 
-    <!-- ATC Row: Qty + Add to Cart + Icons -->
+    {%- comment %} Gift Card Recipient Form Support {%- endcomment %}
+    {%- if product.gift_card? -%}
+      {% render 'gift-card-recipient-form', product: product, form: form, section: section %}
+    {%- endif -%}
+
     <div class="rb-atc-row">
-      <!-- Quantity -->
-      <div class="rb-qty-pill">
-        <button type="button" class="rb-qty-btn" id="RBQtyMinus">−</button>
-        <input class="rb-qty-input" type="number" name="quantity" value="1" min="1" id="RBQtyInput" />
-        <button type="button" class="rb-qty-btn" id="RBQtyPlus">+</button>
+      <div class="rb-qty" id="RBQtyWrap">
+        <button type="button" class="rb-qty-btn" id="RBQtyMinus" aria-label="Decrease quantity">−</button>
+        <input type="number" class="rb-qty-input" id="RBQtyInput" value="1" min="1"
+               max="{{ current_variant.inventory_quantity | default: 999 }}"
+               aria-label="Quantity">
+        <button type="button" class="rb-qty-btn" id="RBQtyPlus" aria-label="Increase quantity">+</button>
       </div>
 
-      <!-- Add to Cart -->
-      <button type="submit" class="rb-atc-button" id="RBAtcButton">
-        {%- if product.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
+      <button type="submit"
+              name="add"
+              class="rb-atc-btn"
+              id="RBAtcBtn"
+              {%- unless current_variant.available -%}disabled{%- endunless -%}>
+        <span class="rb-atc-text">
+          {%- if current_variant.available -%}
+            {{ block.settings.atc_text | default: 'Add to Cart' }}
+          {%- else -%}
+            {{ block.settings.sold_out_text | default: 'Sold Out' }}
+          {%- endif -%}
+        </span>
       </button>
 
-      <!-- Wishlist Icon -->
-      <button type="button" class="rb-icon-btn" title="Add to Wishlist">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-      </button>
+      {%- if block.settings.show_wishlist -%}
+        <button type="button" class="rb-icon-action" aria-label="Add to wishlist">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      {%- endif -%}
 
-      <!-- Compare Icon -->
-      <button type="button" class="rb-icon-btn" title="Compare">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-      </button>
+      {%- if block.settings.show_compare -%}
+        <button type="button" class="rb-icon-action" aria-label="Compare">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </button>
+      {%- endif -%}
     </div>
 
-    <!-- Buy Now Button -->
-    <button type="button" class="rb-buy-now-button" id="RBBuyNow">Buy it now</button>
+    {%- if block.settings.show_buy_now -%}
+      <button type="button"
+              class="rb-buy-btn"
+              id="RBBuyNow"
+              {%- unless current_variant.available -%}disabled{%- endunless -%}>
+        {{ block.settings.buy_now_text | default: 'Buy it now' }}
+      </button>
+    {%- endif -%}
 
-  {% endform %}
+  {%- endform -%}
 </div>

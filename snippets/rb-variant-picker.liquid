@@ -1,0 +1,35 @@
+{% comment %}
+  rb-variant-picker.liquid — Dynamic Variant Picker Snippet
+  Supports: Buttons, Dropdown, Color Swatches
+{% endcomment %}
+{%- unless product.has_only_default_variant -%}
+  <div class="rb-variant-section" id="RBVariantSection-{{ section.id }}">
+    {%- for option in product.options_with_values -%}
+      <div class="rb-option-group" data-option-index="{{ forloop.index0 }}">
+        <div class="rb-variant-label-row">
+          {{ option.name }}:
+          <strong class="rb-option-selected-val" id="RBOptVal{{ forloop.index }}">{{ option.selected_value }}</strong>
+        </div>
+        <div class="rb-pills">
+          {%- for value in option.values -%}
+            {%- liquid
+              assign is_selected = false
+              if option.selected_value == value
+                assign is_selected = true
+              endif
+            -%}
+            <button type="button"
+                    class="rb-pill{% if is_selected %} rb-selected{% endif %}"
+                    data-option-index="{{ forloop.parentloop.index0 }}"
+                    data-option-position="{{ forloop.parentloop.index }}"
+                    data-value="{{ value | escape }}"
+                    aria-label="{{ option.name }}: {{ value }}"
+                    {% if is_selected %}aria-pressed="true"{% else %}aria-pressed="false"{% endif %}>
+              {{ value }}
+            </button>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+{%- endunless -%}

@@ -1,162 +1,60 @@
 {% comment %}
-  rb-product-info.liquid
-  Exact Clay theme design — all fields pixel-matched
+  rb-product-info.liquid — Product Info Wrapper Snippet
 {% endcomment %}
-<div class="rb-product-info">
+{%- assign current_variant = product.selected_or_first_available_variant -%}
 
-  {% comment %} Save Badge {% endcomment %}
-  {% if product.compare_at_price_max > product.price %}
-    {% assign save_pct = product.compare_at_price_max | minus: product.price | times: 100 | divided_by: product.compare_at_price_max %}
-    <div class="rb-save-badge">-{{ save_pct }}%</div>
-  {% endif %}
+<div class="rb-product-info" id="RBProductInfo">
 
-  {% comment %} Vendor {% endcomment %}
-  {% if product.vendor != blank %}
+  {%- comment %} Badges Snippet {%- endcomment %}
+  {% render 'rb-product-badges', product: product, variant: current_variant %}
+
+  {%- comment %} Vendor {%- endcomment %}
+  {%- if section.settings.show_vendor and product.vendor != blank -%}
     <p class="rb-vendor">{{ product.vendor }}</p>
-  {% endif %}
+  {%- endif -%}
 
-  {% comment %} Title {% endcomment %}
+  {%- comment %} Title {%- endcomment %}
   <h1 class="rb-title">{{ product.title }}</h1>
 
-  {% comment %} Price {% endcomment %}
-  <div class="rb-price-row">
-    <span class="rb-price-sale">{{ product.selected_or_first_available_variant.price | money }}</span>
-    {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
-      <span class="rb-price-original">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
-    {% endif %}
-  </div>
+  {%- comment %} Reviews Snippet {%- endcomment %}
+  {% render 'rb-review', product: product %}
 
-  {% comment %} Delivery Box {% endcomment %}
-  <div class="rb-delivery-box">
-    <div class="rb-delivery-row">
-      <div class="rb-d-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-      </div>
-      <div class="rb-d-text">
-        <strong>Estimate delivery time:</strong> Delivery within <strong>3–7 working days.</strong> You'll be updated along the way.
-      </div>
-    </div>
-    <div class="rb-delivery-row">
-      <div class="rb-d-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      </div>
-      <div class="rb-d-text">
-        <strong>Cash on Delivery (COD) only.</strong> Please <strong>check your parcel before payment.</strong>
-      </div>
-    </div>
-    <div class="rb-delivery-row">
-      <div class="rb-d-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-      </div>
-      <div class="rb-d-text">
-        <strong>Shipping charges:</strong> Flat <strong>Rs.199</strong> on all orders — <strong>FREE shipping above Rs.10,000.</strong>
-      </div>
-    </div>
-  </div>
+  {%- comment %} Price Snippet {%- endcomment %}
+  {% render 'rb-price', product: product, variant: current_variant %}
 
-  {% comment %} Live View {% endcomment %}
-  <div class="rb-live-pill">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-    <span id="RBLiveCount">10</span> peoples are viewing this right now
-  </div>
+  {%- comment %} Sold Count {%- endcomment %}
+  {%- if section.settings.show_sold_count -%}
+    <div class="rb-sold-row">
+      🔥 <span>{{ section.settings.sold_count }}</span> {{ section.settings.sold_text }}
+    </div>
+  {%- endif -%}
 
-  {% comment %} Variant Picker {% endcomment %}
-  {% unless product.has_only_default_variant %}
-    {% for option in product.options_with_values %}
-      <div class="rb-option-group">
-        <div class="rb-variant-label-row">{{ option.name }}: <strong>{{ option.selected_value }}</strong></div>
-        <div class="rb-pills">
-          {% for value in option.values %}
-            <button type="button" class="rb-pill{% if option.selected_value == value %} rb-selected{% endif %}" data-option="{{ option.position }}" data-value="{{ value }}">{{ value }}</button>
-          {% endfor %}
+  {%- comment %} OS 2.0 Block Loop {%- endcomment %}
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'delivery_box' -%}
+        {% render 'rb-delivery-box', block: block %}
+      {%- when 'live_visitors' -%}
+        {% render 'rb-live-visitors', block: block %}
+      {%- when 'variant_picker' -%}
+        {% render 'rb-variant-picker', product: product, block: block %}
+      {%- when 'ask_question' -%}
+        {% render 'rb-ask-question', product: product, block: block %}
+      {%- when 'stock_countdown' -%}
+        {% render 'rb-stock-countdown', product: product, block: block %}
+      {%- when 'buy_buttons' -%}
+        {% render 'rb-buy-buttons', product: product, block: block, section: section %}
+      {%- when 'accordion' -%}
+        {% render 'rb-accordions', product: product, block: block %}
+      {%- when 'product_meta' -%}
+        {% render 'rb-product-meta', product: product, block: block %}
+      {%- when 'trust_badge' -%}
+        {% render 'rb-trust-badges', block: block %}
+      {%- when '@app' -%}
+        <div class="rb-app-block-wrap" {{ block.shopify_attributes }}>
+          {% render block %}
         </div>
-      </div>
-    {% endfor %}
-  {% endunless %}
-
-  {% comment %} Ask Question {% endcomment %}
-  <button type="button" class="rb-ask-link" id="RBAskBtn">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-    Ask a question
-  </button>
-
-  {% comment %} Stock Countdown {% endcomment %}
-  <div class="rb-stock-row">
-    <div class="rb-stock-text">Hurry up! Only <span>1</span> items left in stock</div>
-    <div class="rb-stock-bar"><div class="rb-stock-fill" style="width: 8%;"></div></div>
-  </div>
-
-  {% comment %} ATC + Qty + Icons {% endcomment %}
-  {% form 'product', product, class: 'rb-form', id: 'rb-product-form' %}
-    <input type="hidden" name="id" id="RBVariantId" value="{{ product.selected_or_first_available_variant.id }}">
-
-    <div class="rb-atc-row">
-      <div class="rb-qty">
-        <button type="button" class="rb-qty-btn" id="RBQtyMinus">−</button>
-        <input type="number" class="rb-qty-input" name="quantity" id="RBQtyInput" value="1" min="1">
-        <button type="button" class="rb-qty-btn" id="RBQtyPlus">+</button>
-      </div>
-
-      <button type="submit" class="rb-atc-btn" id="RBAtcBtn">
-        {%- if product.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
-      </button>
-
-      <button type="button" class="rb-icon-action" title="Wishlist" aria-label="Add to Wishlist">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-      </button>
-
-      <button type="button" class="rb-icon-action" title="Compare" aria-label="Compare">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-      </button>
-    </div>
-
-    <button type="button" class="rb-buy-btn" id="RBBuyNow">Buy it now</button>
-
-  {% endform %}
-
-  {% comment %} Accordions {% endcomment %}
-  <div class="rb-accordions">
-    <details class="rb-acc">
-      <summary class="rb-acc-summary">How to Use &amp; Care <span class="rb-acc-icon">+</span></summary>
-      <div class="rb-acc-body">{% if product.metafields.custom.how_to_use != blank %}{{ product.metafields.custom.how_to_use }}{% else %}<p>Apply a small amount to clean skin. Massage gently in circular motions until absorbed. For best results, use morning and night. Avoid contact with eyes.</p>{% endif %}</div>
-    </details>
-    <details class="rb-acc">
-      <summary class="rb-acc-summary">Description <span class="rb-acc-icon">+</span></summary>
-      <div class="rb-acc-body">{% if product.description != blank %}{{ product.description }}{% else %}<p>{{ product.title }} — crafted with natural ingredients to nourish and restore your skin's radiance.</p>{% endif %}</div>
-    </details>
-    <details class="rb-acc">
-      <summary class="rb-acc-summary">Shipping and Returns <span class="rb-acc-icon">+</span></summary>
-      <div class="rb-acc-body"><p>Orders dispatched within 1–2 business days. Delivery in 3–7 working days across Pakistan. Free shipping on orders above Rs.10,000. Returns accepted within 7 days of delivery.</p></div>
-    </details>
-  </div>
-
-  {% comment %} Meta Table {% endcomment %}
-  <div class="rb-meta">
-    {% if product.selected_or_first_available_variant.sku != blank %}
-      <div class="rb-meta-r">
-        <div class="rb-meta-key">Sku:</div>
-        <div class="rb-meta-val">{{ product.selected_or_first_available_variant.sku }}</div>
-      </div>
-    {% else %}
-      <div class="rb-meta-r">
-        <div class="rb-meta-key">Sku:</div>
-        <div class="rb-meta-val">N/A</div>
-      </div>
-    {% endif %}
-    <div class="rb-meta-r">
-      <div class="rb-meta-key">Available:</div>
-      <div class="rb-meta-val">{% if product.available %}<span style="color:#16a34a;font-weight:700;">Instock</span>{% else %}<span style="color:#dc2626;font-weight:700;">Out of Stock</span>{% endif %}</div>
-    </div>
-    <div class="rb-meta-r">
-      <div class="rb-meta-key">Collections:</div>
-      <div class="rb-meta-val">{% if product.collections.size > 0 %}{% for c in product.collections %}{{ c.title }}{% unless forloop.last %}, {% endunless %}{% endfor %}{% else %}N/A{% endif %}</div>
-    </div>
-    {% if product.type != blank %}
-      <div class="rb-meta-r">
-        <div class="rb-meta-key">Type:</div>
-        <div class="rb-meta-val">{{ product.type }}</div>
-      </div>
-    {% endif %}
-  </div>
+    {%- endcase -%}
+  {%- endfor -%}
 
 </div>
