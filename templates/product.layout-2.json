@@ -286,7 +286,7 @@
     "products_recently_viewed_GdCNUL": {
       "type": "products-recently-viewed",
       "settings": {
-        "section_width": "container",
+        "section_width": "full_width",
         "color_scheme": "",
         "heading": "Recently Viewed",
         "description": "Explore your recently viewed items, blending quality and style for a refined living experience.",
