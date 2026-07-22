@@ -196,17 +196,31 @@
     .ml-collection-toolbar {
       padding: 0 16px !important;
       min-height: 56px !important;
-      height: auto !important;
-      justify-content: flex-start !important;
+      height: 56px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
       margin-bottom: 1.5rem !important;
-      border-bottom: none !important;
+      border-bottom: 1px solid #e5e7eb !important;
+    }
+    .ml-toolbar__left {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      width: 100% !important;
+    }
+    .ml-results-count {
+      display: inline-block !important;
+      font-size: 14px !important;
+      font-weight: 600 !important;
+      color: #333333 !important;
+      white-space: nowrap !important;
     }
     .ml-toolbar__center,
     .ml-grid-switcher,
     .ml-toolbar__right,
     .ml-sort-label,
-    .ml-desktop-sort-form,
-    .ml-results-count {
+    .ml-desktop-sort-form {
       display: none !important;
     }
   }
