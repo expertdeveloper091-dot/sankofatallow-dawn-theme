@@ -6,13 +6,28 @@
     <!-- LEFT: PRODUCT GALLERY -->
     <div class="clay-gallery-wrapper">
       <div class="clay-gallery-container">
-        <!-- Thumbnail Strip -->
-        <div class="clay-thumbnails-strip">
-          {% for image in product.images %}
-            <div class="clay-thumb-item {% if forloop.first %}active{% endif %}" onclick="changeClayMainImage(this, '{{ image | image_url: width: 1000 }}', {{ forloop.index }})">
-              <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}" loading="lazy" width="70" height="70">
-            </div>
-          {% endfor %}
+        <!-- Thumbnail Column with Up/Down & Left/Right Arrows (Image 4 & 5) -->
+        <div class="clay-thumbnails-column">
+          <button type="button" class="clay-thumb-scroll-btn up" onclick="scrollClayThumbnails('up')" aria-label="Scroll thumbnails up">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"></polyline></svg>
+          </button>
+
+          <div class="clay-thumbnails-strip">
+            {% for image in product.images %}
+              <div class="clay-thumb-item {% if forloop.first %}active{% endif %}" onclick="changeClayMainImage(this, '{{ image | image_url: width: 1000 }}', {{ forloop.index }})">
+                <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}" loading="lazy" width="70" height="70">
+              </div>
+            {% endfor %}
+          </div>
+
+          <button type="button" class="clay-thumb-scroll-btn down" onclick="scrollClayThumbnails('down')" aria-label="Scroll thumbnails down">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="clay-thumb-indicators">
+            <button type="button" onclick="prevClayImage()" aria-label="Previous thumbnail">&lt;</button>
+            <button type="button" onclick="nextClayImage()" aria-label="Next thumbnail">&gt;</button>
+          </div>
         </div>
 
         <!-- Main Featured Image -->
@@ -20,7 +35,7 @@
           {% assign featured_img = product.featured_image | default: product.images.first %}
           <img id="ClayMainFeaturedImage" src="{{ featured_img | image_url: width: 1000 }}" alt="{{ featured_img.alt | escape }}" width="600" height="600">
           
-          <!-- Prev / Next Slider Arrows (Image 3) -->
+          <!-- Prev / Next Slider Arrows (Image 4) -->
           <button type="button" class="clay-gallery-nav-btn prev" onclick="prevClayImage()" aria-label="Previous image">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
           </button>
@@ -28,7 +43,7 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
 
-          <!-- Zoom / Fullscreen Button (Image 1 & 3) -->
+          <!-- Zoom / Fullscreen Button (Image 4 & 5) -->
           <button type="button" class="clay-zoom-btn" onclick="openClayImageModal()" aria-label="Zoom image">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path></svg>
           </button>
@@ -384,29 +399,58 @@
   gap: 16px;
 }
 
+.clay-thumbnails-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 72px;
+  flex-shrink: 0;
+}
+
+.clay-thumb-scroll-btn {
+  background: transparent;
+  border: none;
+  color: #666666;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clay-thumb-scroll-btn:hover {
+  color: #111111;
+}
+
 .clay-thumbnails-strip {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  max-height: 540px;
+  gap: 10px;
+  max-height: 480px;
   overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.clay-thumbnails-strip::-webkit-scrollbar {
+  display: none;
 }
 
 .clay-thumb-item {
   width: 68px;
   height: 68px;
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  border: 1.5px solid transparent;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
   flex-shrink: 0;
-  background: #ffffff;
+  background: #f5f5f7;
 }
 
-.clay-thumb-item.active, .clay-thumb-item:hover {
+.clay-thumb-item.active {
   border-color: #111111;
-  box-shadow: 0 0 0 1px #111111;
+  background: #ffffff;
 }
 
 .clay-thumb-item img {
@@ -415,9 +459,28 @@
   object-fit: cover;
 }
 
+.clay-thumb-indicators {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.clay-thumb-indicators button {
+  background: none;
+  border: none;
+  font-size: 11px;
+  color: #666666;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.clay-thumb-indicators button:hover {
+  color: #111111;
+}
+
 .clay-main-image-box {
   flex: 1;
-  border-radius: 12px;
+  border-radius: 16px;
   border: 1px solid #eaecf0;
   overflow: hidden;
   background: #f5f5f7;
@@ -429,10 +492,18 @@
   justify-content: center;
 }
 
-.clay-main-image-box img {
+#ClayMainFeaturedImage {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  opacity: 1;
+  transform: scale(1);
+}
+
+#ClayMainFeaturedImage.sliding-out {
+  opacity: 0;
+  transform: scale(0.96);
 }
 
 /* Nav Slider Arrows (Image 3) */
@@ -640,86 +711,128 @@
   color: #d15b47;
 }
 
-/* Quantity & ATC Row */
+/* Quantity & ATC Row - Image 2 Match */
 .clay-atc-row {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   margin-bottom: 12px;
 }
 
 .clay-qty-pill {
   display: flex;
   align-items: center;
-  border: 1.5px solid #1d211e;
-  border-radius: 30px;
-  height: 48px;
-  width: 120px;
-  overflow: hidden;
+  justify-content: space-between;
   background: #ffffff;
+  border: 1.5px solid #111111;
+  border-radius: 9999px;
+  height: 48px;
+  width: 115px;
+  padding: 0 6px;
+  flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 .clay-qty-btn {
-  width: 36px;
-  height: 100%;
+  width: 30px;
+  height: 30px;
   border: none;
-  background: none;
-  font-size: 18px;
-  font-weight: 700;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111111;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.15s ease;
+}
+
+.clay-qty-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .clay-qty-pill input {
-  width: 48px;
+  width: 32px;
   border: none;
+  background: transparent;
   text-align: center;
   font-size: 15px;
   font-weight: 700;
+  color: #111111;
+  outline: none;
 }
 
 .clay-atc-btn {
   flex: 1;
   height: 48px;
-  border-radius: 30px;
-  background: #1d211e;
+  border-radius: 9999px;
+  background: #111111;
   color: #ffffff;
   border: none;
   font-size: 14px;
   font-weight: 800;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   cursor: pointer;
   transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .clay-atc-btn:hover {
-  background: #344054;
+  background: #222222;
+}
+
+.clay-atc-btn:disabled {
+  background: #222222;
+  opacity: 0.9;
 }
 
 .clay-icon-btn {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 1.5px solid #eaecf0;
+  border: 1px solid #e5e7eb;
   background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  color: #111111;
+  flex-shrink: 0;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.clay-icon-btn:hover {
+  border-color: #111111;
+  background: #fafafa;
 }
 
 .clay-buy-now-btn {
   width: 100%;
   height: 48px;
-  border-radius: 30px;
-  background: #d15b47;
+  border-radius: 9999px;
+  background: #e8a99d;
   color: #ffffff;
   border: none;
   font-size: 15px;
   font-weight: 800;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   cursor: pointer;
+  transition: background 0.2s ease;
+  box-shadow: none;
   margin-bottom: 25px;
-  box-shadow: 0 4px 12px rgba(209, 91, 71, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clay-buy-now-btn:hover {
+  background: #de9689;
 }
 
 .clay-product-meta-list {
@@ -1084,7 +1197,15 @@ var clayCurrentImgIndex = 0;
 
 function changeClayMainImage(element, newSrc, index) {
   var mainImg = document.getElementById('ClayMainFeaturedImage');
-  if (mainImg) mainImg.src = newSrc;
+  if (mainImg && mainImg.src !== newSrc) {
+    mainImg.classList.add('sliding-out');
+    setTimeout(function() {
+      mainImg.src = newSrc;
+      mainImg.classList.remove('sliding-out');
+    }, 120);
+  } else if (mainImg) {
+    mainImg.src = newSrc;
+  }
   
   if (index !== undefined) {
     clayCurrentImgIndex = index - 1;
@@ -1102,6 +1223,14 @@ function changeClayMainImage(element, newSrc, index) {
   if (zoomImg) zoomImg.src = newSrc;
   var zoomCounter = document.getElementById('ClayZoomCounterText');
   if (zoomCounter) zoomCounter.textContent = (clayCurrentImgIndex + 1) + ' / ' + (clayImagesList.length || 1);
+}
+
+function scrollClayThumbnails(direction) {
+  var strip = document.querySelector('.clay-thumbnails-strip');
+  if (strip) {
+    var scrollAmt = direction === 'up' ? -90 : 90;
+    strip.scrollBy({ top: scrollAmt, behavior: 'smooth' });
+  }
 }
 
 function prevClayImage() {
@@ -1230,14 +1359,24 @@ document.addEventListener('DOMContentLoaded', function() {
     askBtn.addEventListener('click', function() { askModal.style.display = 'flex'; });
   }
 
-  // AJAX Form Add to Cart
+  // AJAX Form Add to Cart & Direct Checkout
   var form = document.getElementById('ClayProductForm');
   if (form) {
     form.addEventListener('submit', function(e) {
-      // If clicking BUY IT NOW, submit normally to checkout
-      if (e.submitter && e.submitter.name === 'checkout') {
-        return true;
+      var isBuyNow = e.submitter && (e.submitter.name === 'checkout' || e.submitter.id === 'ClayBuyNowBtn');
+      
+      if (isBuyNow) {
+        e.preventDefault();
+        var formData = new FormData(form);
+        fetch('/cart/add.js', {
+          method: 'POST',
+          body: formData
+        })
+        .then(function() { window.location.href = '/checkout'; })
+        .catch(function() { window.location.href = '/checkout'; });
+        return;
       }
+
       e.preventDefault();
       var atcText = document.getElementById('ClayAddToCartText');
       if (atcText) atcText.textContent = 'ADDING...';
@@ -1250,16 +1389,28 @@ document.addEventListener('DOMContentLoaded', function() {
       .then(response => response.json())
       .then(data => {
         if (atcText) atcText.textContent = 'ADDED TO CART!';
-        setTimeout(function() { if (atcText) atcText.textContent = 'ADD TO CART'; }, 2000);
+        setTimeout(function() {
+          var isAvailable = !document.getElementById('ClayAddToCartBtn').hasAttribute('disabled');
+          if (atcText) atcText.textContent = isAvailable ? 'ADD TO CART' : 'SOLD OUT';
+        }, 2000);
         
         fetch('/cart.js').then(r => r.json()).then(cart => {
-          var cartCountEl = document.querySelector('.cart-count-bubble span');
+          var cartCountEl = document.querySelector('.cart-count-bubble span, .cart-count-bubble');
           if (cartCountEl) cartCountEl.textContent = cart.item_count;
         });
         
+        // Open Side Cart Drawer
         var cartDrawer = document.querySelector('cart-drawer');
-        if (cartDrawer && typeof cartDrawer.open === 'function') {
-          cartDrawer.open();
+        if (cartDrawer) {
+          if (typeof cartDrawer.open === 'function') {
+            cartDrawer.open();
+          } else {
+            cartDrawer.classList.add('active');
+            document.body.classList.add('overflow-hidden');
+          }
+        } else {
+          var cartBubble = document.querySelector('#cart-icon-bubble, .header__icon--cart, [aria-controls="CartDrawer"]');
+          if (cartBubble) cartBubble.click();
         }
       })
       .catch(error => {
