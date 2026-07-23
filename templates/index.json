@@ -210,11 +210,11 @@
       "settings": {
         "collection": "frontpage",
         "products_to_show": 4,
-        "default_feature_1": "Skin Barrier Support",
+        "default_feature_1": "",
         "default_feature_1_icon": "star",
-        "default_feature_2": "Fast Absorption",
+        "default_feature_2": "",
         "default_feature_2_icon": "check",
-        "default_feature_3": "Zero Toxins",
+        "default_feature_3": "",
         "default_feature_3_icon": "shield",
         "default_learn_text": "Learn More",
         "default_cart_text": "Add To Cart",
@@ -224,17 +224,17 @@
         "show_trust_badges": true,
         "badge_1_text": "Made in USA",
         "badge_2_text": "100% Natural Ingredients",
-        "badge_3_text": "30-Day Money-Back Guarantee",
-        "bg_color": "#FFF8ED",
+        "badge_3_text": "15-Day Money-Back Guarantee",
+        "bg_color": "#FFFFFF",
         "subtitle_color": "#FE9D01",
         "heading_color": "#111111",
         "text_color": "#333333",
-        "card_bg": "#fffdf5",
+        "card_bg": "#FFF8ED",
         "card_border_color": "#000000",
         "btn_cart_bg": "#FE9D01",
         "btn_cart_text_color": "#111111",
-        "padding_top": 60,
-        "padding_bottom": 60
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "custom_skincare_tabs_GDR3NH": {
