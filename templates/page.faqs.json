@@ -46,22 +46,6 @@
     "custom_faq_QBirR9": {
       "type": "custom-faq",
       "blocks": {
-        "faq_item_D9pyRQ": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "product-usage",
-            "question": "12345",
-            "answer": "<p>zdfgazjmzr</p>"
-          }
-        },
-        "faq_item_bKV8Xp": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "product-ingredients",
-            "question": "What ingredients are in your Tallow Balm?",
-            "answer": "<p>Our Tallow Balm contains only 4 natural ingredients...</p>"
-          }
-        },
         "category_MqHCCj": {
           "type": "category",
           "settings": {
@@ -82,90 +66,176 @@
             "open_first_faq": true
           }
         },
-        "category_EGaQJa": {
+        "category_DiFggA": {
           "type": "category",
           "settings": {
-            "category_id": "product-usage",
-            "title": "Product Usage",
+            "category_id": "shipping-delivery",
+            "title": "Shipping & Delivery",
             "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"21\" viewbox=\"0 0 20 21\" fill=\"none\"><g clip-path=\"url(#clip0_4243_17201)\"><path d=\"M4.20491 19.1233L0.713867 16.2141V11.2141H4.5304C5.28817 11.2141 6.01488 11.5151 6.55071 12.0509L8.21387 13.7141C8.8056 14.3058 8.8056 15.2653 8.21387 15.857C8.04861 16.0223 7.8546 16.1411 7.648 16.2141H14.0472C15.3622 16.2141 16.4282 17.2801 16.4282 18.595C16.4282 19.2526 15.8952 19.7856 15.2377 19.7856H6.03401C5.36562 19.7856 4.71838 19.5511 4.20491 19.1233Z\" fill=\"#FEDB36\"></path><path d=\"M0.713867 16.2141L4.20491 19.1233C4.71838 19.5511 5.36562 19.7855 6.03401 19.7855H15.2377C15.8952 19.7855 16.4282 19.2525 16.4282 18.595C16.4282 17.2801 15.3622 16.2141 14.0472 16.2141H7.64857\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M4.99958 14.7855L6.07101 15.857C6.66274 16.4487 7.62214 16.4487 8.21387 15.857C8.8056 15.2653 8.8056 14.3058 8.21387 13.7141L6.55071 12.0509C6.01488 11.5151 5.28817 11.2141 4.5304 11.2141H0.713867\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M13.9215 10.2717L9.38836 6.07858C6.91782 3.59671 10.5216 -1.20837 13.9215 2.67877C17.3213 -1.19703 20.9591 3.60806 18.4546 6.07858L13.9215 10.2717Z\" fill=\"#FEF6CF\"></path><path d=\"M13.9215 10.2717L9.38836 6.07858C6.91782 3.59671 10.5216 -1.20837 13.9215 2.67877C17.3213 -1.19703 20.9591 3.60806 18.4546 6.07858L13.9215 10.2717Z\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></g><defs><clippath id=\"clip0_4243_17201\"><rect width=\"20\" height=\"20\" fill=\"white\" transform=\"translate(0 0.5)\"></rect></clippath></defs></svg>",
             "icon_class": "",
             "open_first_faq": true
           }
         },
-        "category_LzxUN3": {
-          "type": "category",
-          "settings": {
-            "category_id": "shipping-delivery",
-            "title": "Shipping & Delivery",
-            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"17\" viewbox=\"0 0 16 17\" fill=\"none\"><path d=\"M0.571289 3.35721V11.9286C0.571289 12.5598 1.08296 13.0715 1.71415 13.0715H14.2856C14.9168 13.0715 15.4284 12.5598 15.4284 11.9286V8.50007H10.857V3.35721C10.857 2.72604 10.3453 2.21436 9.71415 2.21436H1.71415C1.08296 2.21436 0.571289 2.72604 0.571289 3.35721Z\" fill=\"#FEDB36\"></path><path d=\"M15.4289 8.5001L14.0305 5.70329C13.8369 5.3161 13.4411 5.07153 13.0083 5.07153H10.8574V8.5001H15.4289Z\" fill=\"#FEF6CF\"></path><path d=\"M11.4274 14.7858C10.48 14.7858 9.71191 14.0176 9.71191 13.0702C9.71191 12.1228 10.48 11.3547 11.4274 11.3547C12.3749 11.3547 13.1429 12.1228 13.1429 13.0702C13.1429 14.0176 12.3749 14.7858 11.4274 14.7858Z\" fill=\"#FEF6CF\"></path><path d=\"M3.9987 14.7858C3.05126 14.7858 2.2832 14.0176 2.2832 13.0702C2.2832 12.1228 3.05126 11.3547 3.9987 11.3547C4.94614 11.3547 5.7142 12.1228 5.7142 13.0702C5.7142 14.0176 4.94614 14.7858 3.9987 14.7858Z\" fill=\"#FEF6CF\"></path><path d=\"M2.28557 13.0715H1.71415C1.08296 13.0715 0.571289 12.5598 0.571289 11.9286V3.35721C0.571289 2.72604 1.08296 2.21436 1.71415 2.21436H9.71415C10.3453 2.21436 10.857 2.72604 10.857 3.35721V8.50007H15.4284V11.9286C15.4284 12.5598 14.9168 13.0715 14.2856 13.0715H13.1427\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M15.4289 8.5001L14.0305 5.70329C13.8369 5.3161 13.4411 5.07153 13.0083 5.07153H10.8574\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M11.4274 14.7858C10.48 14.7858 9.71191 14.0176 9.71191 13.0702C9.71191 12.1228 10.48 11.3547 11.4274 11.3547C12.3749 11.3547 13.1429 12.1228 13.1429 13.0702C13.1429 14.0176 12.3749 14.7858 11.4274 14.7858Z\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M3.9987 14.7858C3.05126 14.7858 2.2832 14.0176 2.2832 13.0702C2.2832 12.1228 3.05126 11.3547 3.9987 11.3547C4.94614 11.3547 5.7142 12.1228 5.7142 13.0702C5.7142 14.0176 4.94614 14.7858 3.9987 14.7858Z\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M5.71387 13.0715H9.71387\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M10.8574 8.5V11.4517\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>",
-            "icon_class": "",
-            "open_first_faq": true
-          }
-        },
-        "category_7WhUCx": {
+        "category_PEj3aP": {
           "type": "category",
           "settings": {
             "category_id": "returns-guarantees",
             "title": "Returns & Guarantees",
-            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"17\" viewbox=\"0 0 16 17\" fill=\"none\"><path d=\"M1.14258 5.86255H14.8569V14.3021C14.8569 14.582 14.7457 14.8502 14.5478 15.0481C14.35 15.246 14.0817 15.357 13.8019 15.357H2.19753C1.91773 15.357 1.6494 15.246 1.45156 15.0481C1.25372 14.8502 1.14258 14.582 1.14258 14.3021V5.86255Z\" fill=\"#FEDB36\"></path><path d=\"M2.8329 2.29621C3.02202 1.89719 3.42408 1.64282 3.86563 1.64282H12.1338C12.5754 1.64282 12.9774 1.89719 13.1666 2.29621L14.8569 5.86261H1.14258L2.8329 2.29621Z\" fill=\"#FEF6CF\"></path><path d=\"M8 1.64282V5.86261\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M1.14258 5.86255H14.8569V14.3021C14.8569 14.582 14.7457 14.8502 14.5478 15.0481C14.35 15.246 14.0817 15.357 13.8019 15.357H2.19753C1.91773 15.357 1.6494 15.246 1.45156 15.0481C1.25372 14.8502 1.14258 14.582 1.14258 14.3021V5.86255Z\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M2.8329 2.29621C3.02202 1.89719 3.42408 1.64282 3.86563 1.64282H12.1338C12.5754 1.64282 12.9774 1.89719 13.1666 2.29621L14.8569 5.86261H1.14258L2.8329 2.29621Z\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M4.7998 9.30005H9.23057C10.3182 9.30005 11.1998 10.1954 11.1998 11.3C11.1998 12.4046 10.3182 13.3 9.23057 13.3H7.26134\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M6.3998 10.9L4.7998 9.2998L6.3998 7.69995\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>",
+            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"21\" viewbox=\"0 0 20 21\" fill=\"none\"><g clip-path=\"url(#clip0_4243_17201)\"><path d=\"M4.20491 19.1233L0.713867 16.2141V11.2141H4.5304C5.28817 11.2141 6.01488 11.5151 6.55071 12.0509L8.21387 13.7141C8.8056 14.3058 8.8056 15.2653 8.21387 15.857C8.04861 16.0223 7.8546 16.1411 7.648 16.2141H14.0472C15.3622 16.2141 16.4282 17.2801 16.4282 18.595C16.4282 19.2526 15.8952 19.7856 15.2377 19.7856H6.03401C5.36562 19.7856 4.71838 19.5511 4.20491 19.1233Z\" fill=\"#FEDB36\"></path><path d=\"M0.713867 16.2141L4.20491 19.1233C4.71838 19.5511 5.36562 19.7855 6.03401 19.7855H15.2377C15.8952 19.7855 16.4282 19.2525 16.4282 18.595C16.4282 17.2801 15.3622 16.2141 14.0472 16.2141H7.64857\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M4.99958 14.7855L6.07101 15.857C6.66274 16.4487 7.62214 16.4487 8.21387 15.857C8.8056 15.2653 8.8056 14.3058 8.21387 13.7141L6.55071 12.0509C6.01488 11.5151 5.28817 11.2141 4.5304 11.2141H0.713867\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M13.9215 10.2717L9.38836 6.07858C6.91782 3.59671 10.5216 -1.20837 13.9215 2.67877C17.3213 -1.19703 20.9591 3.60806 18.4546 6.07858L13.9215 10.2717Z\" fill=\"#FEF6CF\"></path><path d=\"M13.9215 10.2717L9.38836 6.07858C6.91782 3.59671 10.5216 -1.20837 13.9215 2.67877C17.3213 -1.19703 20.9591 3.60806 18.4546 6.07858L13.9215 10.2717Z\" stroke=\"#2C2609\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></g><defs><clippath id=\"clip0_4243_17201\"><rect width=\"20\" height=\"20\" fill=\"white\" transform=\"translate(0 0.5)\"></rect></clippath></defs></svg>",
             "icon_class": "",
             "open_first_faq": true
-          }
-        },
-        "faq_item_7XDzx4": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "product-ingredients",
-            "question": "What ingredients are in your Tallow Balm?",
-            "answer": "<p><br/>Our Tallow Balm is made with just five carefully selected, non-toxic ingredients that deeply nourish and protect your skin. Every ingredient is chosen for its purpose—nothing unnecessary, just clean and effective skincare.<br/><br/></p>"
           }
         },
         "faq_item_mXAzmT": {
           "type": "faq_item",
           "settings": {
             "category_id": "product-ingredients",
-            "question": "Is your tallow grass-fed and grass-finished?",
-            "answer": "<p>Yes. We source premium-quality grass-fed, grass-finished beef tallow from trusted farms to ensure maximum purity and skin-loving nutrients.<br/><br/></p>"
+            "question": "What ingredients are in your Tallow Balm?",
+            "answer": "<p>Our Tallow Balm is made with just five carefully selected, non-toxic ingredients that deeply nourish and protect your skin. Every ingredient is chosen for its purpose—nothing unnecessary, just clean and effective skincare.</p>"
           }
         },
         "faq_item_hzh8jH": {
           "type": "faq_item",
           "settings": {
             "category_id": "product-ingredients",
-            "question": "Do your products contain parabens or sulfates?",
-            "answer": "<p>No. Our formulas are completely free from parabens, sulfates, mineral oils, and other harsh chemicals.<br/><br/></p>"
+            "question": "Is your tallow grass-fed and grass-finished?",
+            "answer": "<p>Yes. We source premium-quality grass-fed, grass-finished beef tallow from trusted farms to ensure maximum purity and skin-loving nutrients.</p>"
           }
         },
         "faq_item_M8LgNx": {
           "type": "faq_item",
           "settings": {
             "category_id": "product-ingredients",
-            "question": "Are artificial fragrances used?",
-            "answer": "<p>No. We avoid synthetic fragrances in our skincare formulas and focus on clean, skin-friendly ingredients.<br/><br/></p>"
+            "question": "Do your products contain parabens or sulfates?",
+            "answer": "<p>No. Our formulas are completely free from parabens, sulfates, mineral oils, and other harsh chemicals.</p>"
           }
         },
         "faq_item_KGF4BR": {
           "type": "faq_item",
           "settings": {
             "category_id": "product-ingredients",
+            "question": "Are artificial fragrances used?",
+            "answer": "<p>No. We avoid synthetic fragrances in our skincare formulas and focus on clean, skin-friendly ingredients.</p>"
+          }
+        },
+        "faq_item_AYrF9U": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-ingredients",
             "question": "Are your ingredients ethically sourced?",
-            "answer": "<p>Absolutely. We carefully select suppliers who meet our standards for quality, sustainability, and responsible sourcing.<br/><br/></p>"
+            "answer": "<p>Absolutely. We carefully select suppliers who meet our standards for quality, sustainability, and responsible sourcing.</p>"
+          }
+        },
+        "faq_item_UWbcGh": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-usage",
+            "question": "How do I apply the Tallow Balm?",
+            "answer": "<p>Apply a small amount to clean, dry skin and gently massage until fully absorbed. Use daily for best results.</p>"
+          }
+        },
+        "faq_item_c6Bz3M": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-usage",
+            "question": "Can I use it on my face?",
+            "answer": "<p>Yes. Our balm is gentle enough for facial use while also providing deep hydration for the body.</p>"
+          }
+        },
+        "faq_item_MjCDVW": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-usage",
+            "question": "How often should I use it?",
+            "answer": "<p>For optimal results, apply once or twice daily depending on your skin's needs.</p>"
+          }
+        },
+        "faq_item_FB3K7N": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-usage",
+            "question": "Does a little go a long way?",
+            "answer": "<p>Absolutely. Our rich formula is highly concentrated, so only a small amount is needed.</p>"
+          }
+        },
+        "faq_item_Hn74cn": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "shipping-delivery",
+            "question": "How long does shipping take?",
+            "answer": "<p>Orders are processed within 1–2 business days and typically arrive within 3–7 business days.</p>"
+          }
+        },
+        "faq_item_JbtMj6": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "shipping-delivery",
+            "question": "Do you provide tracking?",
+            "answer": "<p>Yes. A tracking email is sent as soon as your order ships.</p>"
+          }
+        },
+        "faq_item_dzaXdh": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "shipping-delivery",
+            "question": "Do you ship internationally?",
+            "answer": "<p>Currently, we primarily ship within the United States. International shipping options may expand in the future.</p>"
+          }
+        },
+        "faq_item_dqnDbD": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "shipping-delivery",
+            "question": "What if my package is delayed?",
+            "answer": "<p>If your order is delayed, please contact our support team and we'll gladly assist you.</p>"
+          }
+        },
+        "faq_item_6WGjLC": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "returns-guarantees",
+            "question": "Do you offer a money-back guarantee?",
+            "answer": "<p>Yes. We proudly offer a 15-Day Money-Back Guarantee on eligible purchases.<br/></p>"
+          }
+        },
+        "faq_item_E4pize": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "returns-guarantees",
+            "question": "Do you offer a money-back guarantee?",
+            "answer": "<p>Simply contact our customer support team with your order number to begin the return process.</p>"
+          }
+        },
+        "faq_item_NYaXHn": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "returns-guarantees",
+            "question": "Do you offer a money-back guarantee?",
+            "answer": "<p>Please contact us within 48 hours of delivery with photos, and we'll resolve the issue promptly.</p>"
           }
         }
       },
       "block_order": [
-        "faq_item_D9pyRQ",
-        "faq_item_bKV8Xp",
         "category_MqHCCj",
         "category_MJTBFc",
-        "category_EGaQJa",
-        "category_LzxUN3",
-        "category_7WhUCx",
-        "faq_item_7XDzx4",
+        "category_DiFggA",
+        "category_PEj3aP",
         "faq_item_mXAzmT",
         "faq_item_hzh8jH",
         "faq_item_M8LgNx",
-        "faq_item_KGF4BR"
+        "faq_item_KGF4BR",
+        "faq_item_AYrF9U",
+        "faq_item_UWbcGh",
+        "faq_item_c6Bz3M",
+        "faq_item_MjCDVW",
+        "faq_item_FB3K7N",
+        "faq_item_Hn74cn",
+        "faq_item_JbtMj6",
+        "faq_item_dzaXdh",
+        "faq_item_dqnDbD",
+        "faq_item_6WGjLC",
+        "faq_item_E4pize",
+        "faq_item_NYaXHn"
       ],
       "name": "Custom FAQ with Tabs",
       "settings": {
@@ -176,7 +246,10 @@
         "accent_color": "#fe9d01",
         "border_color": "#000000",
         "active_tab_bg": "#ffffff",
+        "closed_tab_bg": "#ffffff",
         "active_faq_bg": "#fe9d01",
+        "active_faq_text_color": "#000000",
+        "closed_faq_bg": "#ffffff",
         "red_text": "GOT QUESTIONS? WE'VE GOT ANSWERS",
         "heading": "FREQUENTLY ASKED QUESTIONS",
         "description": "Everything you need to know about our natural products, straight from nature to your skin.",
