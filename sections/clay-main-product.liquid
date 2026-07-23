@@ -3,39 +3,16 @@
 <div class="clay-product-section page-width section-{{ section.id }}-padding" id="ClayProduct-{{ section.id }}">
   <div class="clay-product-grid">
     
-    <!-- LEFT: PRODUCT GALLERY -->
+    <!-- LEFT: PRODUCT GALLERY (EXACT REFERENCE IMAGE MATCH) -->
     <div class="clay-gallery-wrapper">
-      <div class="clay-gallery-container">
-        <!-- Thumbnail Column with Up/Down & Left/Right Arrows (Image 4 & 5) -->
-        <div class="clay-thumbnails-column">
-          <button type="button" class="clay-thumb-scroll-btn up" onclick="scrollClayThumbnails('up')" aria-label="Scroll thumbnails up">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"></polyline></svg>
-          </button>
-
-          <div class="clay-thumbnails-strip">
-            {% for image in product.images %}
-              <div class="clay-thumb-item {% if forloop.first %}active{% endif %}" onclick="changeClayMainImage(this, '{{ image | image_url: width: 1000 }}', {{ forloop.index }})">
-                <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}" loading="lazy" width="70" height="70">
-              </div>
-            {% endfor %}
-          </div>
-
-          <button type="button" class="clay-thumb-scroll-btn down" onclick="scrollClayThumbnails('down')" aria-label="Scroll thumbnails down">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-
-          <div class="clay-thumb-indicators">
-            <button type="button" onclick="prevClayImage()" aria-label="Previous thumbnail">&lt;</button>
-            <button type="button" onclick="nextClayImage()" aria-label="Next thumbnail">&gt;</button>
-          </div>
-        </div>
-
+      <div class="clay-gallery-container" style="display: flex; flex-direction: column; gap: 14px;">
+        
         <!-- Main Featured Image -->
         <div class="clay-main-image-box">
           {% assign featured_img = product.featured_image | default: product.images.first %}
           <img id="ClayMainFeaturedImage" src="{{ featured_img | image_url: width: 1000 }}" alt="{{ featured_img.alt | escape }}" width="600" height="600">
           
-          <!-- Prev / Next Slider Arrows (Image 4) -->
+          <!-- Prev / Next Slider Arrows -->
           <button type="button" class="clay-gallery-nav-btn prev" onclick="prevClayImage()" aria-label="Previous image">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
           </button>
@@ -43,11 +20,33 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
 
-          <!-- Zoom / Fullscreen Button (Image 4 & 5) -->
+          <!-- Zoom / Fullscreen Button -->
           <button type="button" class="clay-zoom-btn" onclick="openClayImageModal()" aria-label="Zoom image">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path></svg>
           </button>
         </div>
+
+        <!-- Horizontal Thumbnails Strip below Main Image (Matching Image) -->
+        {% if product.images.size > 1 %}
+          <div class="clay-horizontal-thumbnails" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+            <button type="button" class="clay-thumb-scroll-btn" onclick="prevClayImage()" aria-label="Previous thumbnail" style="width:32px;height:32px;border-radius:50%;border:1.5px solid #111111;background:#ffffff;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 0 0 #111111;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+
+            <div class="clay-thumbnails-strip-h" style="display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none;">
+              {% for image in product.images %}
+                <div class="clay-thumb-item {% if forloop.first %}active{% endif %}" onclick="changeClayMainImage(this, '{{ image | image_url: width: 1000 }}', {{ forloop.index }})" style="width:64px;height:64px;border-radius:10px;border:1.5px solid #111111;overflow:hidden;cursor:pointer;flex-shrink:0;box-shadow:0 2px 0 0 #111111;">
+                  <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}" loading="lazy" width="64" height="64" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+              {% endfor %}
+            </div>
+
+            <button type="button" class="clay-thumb-scroll-btn" onclick="nextClayImage()" aria-label="Next thumbnail" style="width:32px;height:32px;border-radius:50%;border:1.5px solid #111111;background:#ffffff;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 0 0 #111111;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        {% endif %}
+
       </div>
     </div>
 
@@ -223,43 +222,34 @@
               {% form 'product', product, id: 'ClayProductForm', class: 'clay-product-form' %}
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" id="ClayVariantIdInput">
                 
-                <div class="clay-atc-row">
-                  <div class="clay-qty-pill">
-                    <button type="button" class="clay-qty-btn" onclick="updateClayQty(-1)">-</button>
-                    <input type="number" name="quantity" id="ClayQtyInput" value="1" min="1" readonly>
-                    <button type="button" class="clay-qty-btn" onclick="updateClayQty(1)">+</button>
-                  </div>
-
+                <div class="clay-atc-row" style="display: flex; gap: 10px; width: 100%;">
                   <button type="submit" name="add" class="clay-atc-btn" id="ClayAddToCartBtn" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
                     <span id="ClayAddToCartText">
                       {% if product.selected_or_first_available_variant.available %}
-                        {{ block.settings.atc_text | default: 'Add to Cart' }}
+                        + CLICK TO ADD TO CART
                       {% else %}
-                        {{ block.settings.sold_out_text | default: 'Sold Out' }}
+                        {{ block.settings.sold_out_text | default: 'SOLD OUT' }}
                       {% endif %}
                     </span>
-                    <i class="fa-solid fa-cart-shopping" style="margin-left: 6px;"></i>
                   </button>
-
-                  {% if block.settings.show_wishlist != false %}
-                    <button type="button" class="clay-icon-btn" title="Add to Wishlist" onclick="alert('Added to Wishlist!')">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                    </button>
-                  {% endif %}
-
-                  {% if block.settings.show_compare != false %}
-                    <button type="button" class="clay-icon-btn" title="Compare" onclick="alert('Added to Compare!')">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17l10 5 10-5M2 12l10 5 10-5M12 2L2 7l10 5 10-5-10-5z"></path></svg>
-                    </button>
-                  {% endif %}
                 </div>
-
-                {% if block.settings.show_buy_now or block.settings.show_dynamic_checkout %}
-                  <button type="submit" name="checkout" class="clay-buy-now-btn" id="ClayBuyNowBtn" {% unless product.selected_or_first_available_variant.available %}disabled style="opacity:0.5;cursor:not-allowed;"{% endunless %}>
-                    {{ block.settings.buy_now_text | default: 'Buy it now' }}
-                  </button>
-                {% endif %}
               {% endform %}
+
+              <!-- Sub Trust Pills (Matching Reference Image) -->
+              <div class="clay-sub-trust-row">
+                <span class="clay-trust-pill"><i class="fa-solid fa-shield-halved"></i> 30-Day Guarantee</span>
+                <span class="clay-trust-pill"><i class="fa-solid fa-truck-fast"></i> Free Shipping</span>
+              </div>
+
+              <!-- Featured Review Box (Exact Reference Image Match) -->
+              <div class="clay-featured-review-card">
+                <div class="clay-review-stars">★★★★★</div>
+                <p class="clay-review-quote">"Schmidt's literally burned me. Went back to Secret for 8 months out of desperation. Tried this as a last resort. Week 3, no smell after hot yoga. I'm done searching."</p>
+                <div class="clay-review-author">
+                  <strong>Brenda K.</strong>
+                  <span class="clay-verified-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="#22c55e"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> Verified Customer</span>
+                </div>
+              </div>
             </div>
 
           {%- when 'yellow_cta_button' or 'custom_yellow_cta' -%}
@@ -503,11 +493,12 @@
 .clay-main-image-box {
   flex: 1;
   border-radius: 16px;
-  border: 1px solid #eaecf0;
+  border: 2px solid #111111;
+  box-shadow: 0 4px 0 0 #111111;
   overflow: hidden;
-  background: #f5f5f7;
+  background: #ffffff;
   position: relative;
-  min-height: 500px;
+  min-height: 480px;
   max-height: 560px;
   display: flex;
   align-items: center;
@@ -614,15 +605,28 @@
   margin-bottom: 15px;
 }
 
+.clay-stars-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fffbeb;
+  border: 1.5px solid #111111;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  box-shadow: 0 2px 0 0 #111111;
+  font-family: 'Poppins', sans-serif;
+}
+
 .clay-stars {
-  color: #f59e0b;
-  font-size: 16px;
+  color: #eab308;
+  font-size: 15px;
+  letter-spacing: 1px;
 }
 
 .clay-rating-text {
-  font-size: 13px;
-  font-weight: 600;
-  color: #475467;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #111111;
 }
 
 .clay-sold-badge {
@@ -794,91 +798,84 @@
   color: #555555;
 }
 
-/* Fragrance Card Buttons - Image 3 Match */
+/* Fragrance & Option Pill Buttons - Reference Image Match */
 .clay-fragrance-cards-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
-  margin-top: 6px;
+  margin-top: 8px;
 }
 
 .clay-fragrance-card-btn {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 84px;
-  min-height: 84px;
-  padding: 8px 6px;
-  border-radius: 8px;
-  border: 1.5px solid #d0d5dd;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 30px;
+  border: 1.5px solid #111111;
   background: #ffffff;
   cursor: pointer;
   transition: all 0.2s ease;
   box-sizing: border-box;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #111111;
+  box-shadow: 0 2px 0 0 #111111;
+  font-family: 'Poppins', sans-serif;
 }
 
 .clay-fragrance-card-btn:hover {
-  border-color: #f59e0b;
-  background: #fffdf0;
+  background: #fffbeb;
 }
 
 .clay-fragrance-card-btn.active {
-  border: 2px solid #ffd633;
-  background: #fffbeb;
-  box-shadow: 0 0 0 1px #ffd633;
-}
-
-.clay-fragrance-card-img {
-  width: 42px;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 4px;
-}
-
-.clay-fragrance-card-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  border: 2px solid #111111;
+  background: #fe9d01;
+  box-shadow: 0 3px 0 0 #111111;
 }
 
 .clay-fragrance-card-title {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 12.5px;
+  font-weight: 800;
   color: #111111;
   text-align: center;
   line-height: 1.2;
 }
 
-/* Generic Pill Buttons with 8px radius */
+/* Generic Pill Buttons */
 .clay-option-pills {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 6px;
+  gap: 10px;
+  margin-top: 8px;
 }
 
 .clay-pill-btn {
-  padding: 8px 16px;
-  border-radius: 8px;
-  border: 1.5px solid #d0d5dd;
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 30px;
+  border: 1.5px solid #111111;
   background: #ffffff;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 800;
+  text-transform: uppercase;
   color: #111111;
   cursor: pointer;
   transition: all 0.2s ease;
+  box-shadow: 0 2px 0 0 #111111;
+  font-family: 'Poppins', sans-serif;
 }
 
 .clay-pill-btn:hover {
-  border-color: #111111;
+  background: #fffbeb;
 }
 
 .clay-pill-btn.active {
   border: 2px solid #111111;
-  background: #f9fafb;
+  background: #fe9d01;
+  box-shadow: 0 3px 0 0 #111111;
 }
 
 /* Quantity & ATC Row - Image 2 Match */
@@ -936,15 +933,16 @@
 
 .clay-atc-btn {
   flex: 1;
-  height: 52px;
+  width: 100%;
+  height: 54px;
   border-radius: 9999px;
   background: #fe9d01;
   color: #111111;
   border: 2px solid #111111;
   box-shadow: 0 4px 0 #111111;
   font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
+  font-weight: 900;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
@@ -960,9 +958,76 @@
   box-shadow: 0 6px 0 #111111;
 }
 
+.clay-atc-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #111111;
+}
+
 .clay-atc-btn:disabled {
   background: #222222;
   opacity: 0.9;
+}
+
+/* Sub-CTA Trust Pills (Matching Reference Image) */
+.clay-sub-trust-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin: 14px 0 20px 0;
+}
+
+.clay-trust-pill {
+  font-size: 13px;
+  font-weight: 800;
+  color: #111111;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Featured Customer Review Box (Exact Reference Image Match) */
+.clay-featured-review-card {
+  background: #ffffff;
+  border: 1.5px solid #111111;
+  border-radius: 14px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 0 0 #111111;
+  margin-top: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.clay-review-stars {
+  color: #eab308;
+  font-size: 16px;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.clay-review-quote {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #222222;
+  font-style: italic;
+  margin: 0 0 14px 0;
+}
+
+.clay-review-author {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #111111;
+}
+
+.clay-verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #22c55e;
 }
 
 .clay-icon-btn {
