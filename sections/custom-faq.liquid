@@ -149,6 +149,7 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    color: {{ section.settings.tab_icon_color | default: '#111111' }};
   }
 
   #maison-faq-{{ section.id }} .faq__tab-icon svg,
@@ -158,10 +159,29 @@
     height: 100%;
     object-fit: contain;
     font-size: 24px;
-    color: {{ section.settings.heading_color | default: '#111111' }};
+    color: {{ section.settings.tab_icon_color | default: '#111111' }};
     display: inline-flex;
     align-items: center;
     justify-content: center;
+  }
+
+  #maison-faq-{{ section.id }} .faq__tab-icon svg path {
+    fill: {{ section.settings.tab_icon_color | default: '#111111' }};
+    stroke: {{ section.settings.tab_icon_color | default: '#111111' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__tab-btn.active .faq__tab-icon {
+    color: {{ section.settings.active_tab_icon_color | default: '#111111' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__tab-btn.active .faq__tab-icon svg,
+  #maison-faq-{{ section.id }} .faq__tab-btn.active .faq__tab-icon i {
+    color: {{ section.settings.active_tab_icon_color | default: '#111111' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__tab-btn.active .faq__tab-icon svg path {
+    fill: {{ section.settings.active_tab_icon_color | default: '#111111' }};
+    stroke: {{ section.settings.active_tab_icon_color | default: '#111111' }};
   }
 
   #maison-faq-{{ section.id }} .faq__tab-text-group {
@@ -573,6 +593,18 @@
       "id": "closed_tab_bg",
       "label": "Closed Tab Background Color",
       "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tab_icon_color",
+      "label": "Tab Icon Color (Closed)",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "active_tab_icon_color",
+      "label": "Tab Icon Color (Active)",
+      "default": "#111111"
     },
     {
       "type": "color",
