@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "custom-shipping-returns",
+      "settings": {
+        "bg_color": "#FAF7EF"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

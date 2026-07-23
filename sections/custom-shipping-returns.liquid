@@ -1,0 +1,277 @@
+<!-- sections/custom-shipping-returns.liquid -->
+{{ 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css' | stylesheet_tag }}
+
+{%- style -%}
+  .custom-policy-page-{{ section.id }} {
+    background-color: {{ section.settings.bg_color | default: '#FAF7EF' }};
+    padding-top: {{ section.settings.padding_top | default: 50 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 70 }}px;
+    font-family: 'Poppins', sans-serif;
+    color: #111111;
+  }
+
+  .cp-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  .cp-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .cp-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #e63946;
+    margin-bottom: 8px;
+  }
+
+  .cp-title {
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111111;
+    margin: 0 0 12px 0;
+    line-height: 1.1;
+  }
+
+  .cp-subtitle {
+    font-size: 15px;
+    color: #555555;
+    margin: 0;
+  }
+
+  /* Grid Highlights */
+  .cp-highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .cp-highlight-card {
+    background: #ffffff;
+    border: 2px solid #111111;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 4px 0 0 #111111;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cp-highlight-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fe9d01;
+    color: #111111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .cp-highlight-title {
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #111111;
+    margin: 0;
+  }
+
+  .cp-highlight-desc {
+    font-size: 13.5px;
+    color: #555555;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Main Body Card */
+  .cp-body-card {
+    background: #ffffff;
+    border: 2px solid #111111;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 6px 0 0 #111111;
+    box-sizing: border-box;
+  }
+
+  .cp-section-block {
+    margin-bottom: 32px;
+  }
+
+  .cp-section-block:last-child {
+    margin-bottom: 0;
+  }
+
+  .cp-block-heading {
+    font-size: 20px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #111111;
+    margin: 0 0 14px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cp-block-heading i {
+    color: #fe9d01;
+  }
+
+  .cp-block-text {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: #444444;
+  }
+
+  .cp-block-text p {
+    margin: 0 0 1em 0;
+  }
+  .cp-block-text p:last-child {
+    margin: 0;
+  }
+
+  .cp-block-list {
+    margin: 12px 0 16px 20px;
+    padding: 0;
+  }
+
+  .cp-block-list li {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #444444;
+    margin-bottom: 6px;
+  }
+
+  @media (max-width: 768px) {
+    .cp-body-card {
+      padding: 24px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="custom-policy-page-{{ section.id }}">
+  <div class="cp-container">
+    
+    <div class="cp-header">
+      <span class="cp-tag">House of Sankofa</span>
+      <h1 class="cp-title">Shipping & Return Policy</h1>
+      <p class="cp-subtitle">Fast delivery, 30-day risk-free satisfaction guarantee for all natural skincare products.</p>
+    </div>
+
+    <!-- Quick Highlights -->
+    <div class="cp-highlights-grid">
+      <div class="cp-highlight-card">
+        <div class="cp-highlight-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <h3 class="cp-highlight-title">Fast Processing</h3>
+        <p class="cp-highlight-desc">Orders dispatched within 1–2 business days. Tracked shipping delivered to your doorstep.</p>
+      </div>
+
+      <div class="cp-highlight-card">
+        <div class="cp-highlight-icon"><i class="fa-solid fa-shield-heart"></i></div>
+        <h3 class="cp-highlight-title">30-Day Guarantee</h3>
+        <p class="cp-highlight-desc">Not in love with your tallow balm? Return it within 30 days for a 100% full product refund.</p>
+      </div>
+
+      <div class="cp-highlight-card">
+        <div class="cp-highlight-icon"><i class="fa-solid fa-box-open"></i></div>
+        <h3 class="cp-highlight-title">Free US Shipping</h3>
+        <p class="cp-highlight-desc">Enjoy free standard shipping on all US domestic orders over $50.</p>
+      </div>
+    </div>
+
+    <!-- Main Content Card -->
+    <div class="cp-body-card">
+      
+      <div class="cp-section-block">
+        <h2 class="cp-block-heading"><i class="fa-solid fa-box"></i> Shipping Information</h2>
+        <div class="cp-block-text">
+          <p>At <strong>House of Sankofa</strong>, every batch of our grass-fed tallow balm is carefully handcrafted and packaged to maintain peak freshness and potency.</p>
+          <ul class="cp-block-list">
+            <li><strong>Processing Time:</strong> Orders are processed and packed within 1 to 2 business days (excluding weekends and holidays).</li>
+            <li><strong>Standard Domestic Shipping (US):</strong> 3 to 5 business days post-processing. Free on orders $50+.</li>
+            <li><strong>International Shipping:</strong> 7 to 14 business days depending on destination country and customs clearing.</li>
+          </ul>
+          <p>You will receive a shipping confirmation email containing your tracking number as soon as your package leaves our facility.</p>
+        </div>
+      </div>
+
+      <div class="cp-section-block">
+        <h2 class="cp-block-heading"><i class="fa-solid fa-rotate-left"></i> 30-Day Satisfaction & Return Policy</h2>
+        <div class="cp-block-text">
+          <p>We want you to experience the transformative power of 100% grass-fed tallow skincare risk-free. If for any reason you are not completely satisfied with your purchase, you may return it within <strong>30 days of delivery</strong> for a full refund of the product purchase price.</p>
+          <p><strong>Return Guidelines:</strong></p>
+          <ul class="cp-block-list">
+            <li>Items must be returned within 30 days from the delivery date.</li>
+            <li>Original packaging or proof of purchase is required.</li>
+            <li>Return shipping costs are the responsibility of the customer unless the product arrived damaged or defective.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cp-section-block">
+        <h2 class="cp-block-heading"><i class="fa-solid fa-hand-holding-heart"></i> Damaged or Incorrect Orders</h2>
+        <div class="cp-block-text">
+          <p>In the rare event that your jar arrives damaged or you receive an incorrect item, please email us immediately at <strong>support@houseofsankofa.com</strong> within 48 hours of delivery with your order number and a photo of the damaged item. We will ship a replacement to you free of charge right away.</p>
+        </div>
+      </div>
+
+      <div class="cp-section-block">
+        <h2 class="cp-block-heading"><i class="fa-solid fa-envelope"></i> How to Initiate a Return</h2>
+        <div class="cp-block-text">
+          <p>To start a return or exchange, simply contact our support team at <strong>support@houseofsankofa.com</strong> with your order number and reason for return. Our team will guide you through the return address and processing steps.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shipping & Return Policy",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FAF7EF"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 70
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shipping & Return Policy"
+    }
+  ]
+}
+{% endschema %}

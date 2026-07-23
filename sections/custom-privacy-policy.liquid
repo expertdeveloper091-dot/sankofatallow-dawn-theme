@@ -1,0 +1,226 @@
+<!-- sections/custom-privacy-policy.liquid -->
+{{ 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css' | stylesheet_tag }}
+
+{%- style -%}
+  .custom-policy-page-{{ section.id }} {
+    background-color: {{ section.settings.bg_color | default: '#FAF7EF' }};
+    padding-top: {{ section.settings.padding_top | default: 50 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 70 }}px;
+    font-family: 'Poppins', sans-serif;
+    color: #111111;
+  }
+
+  .cp-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  .cp-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .cp-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #e63946;
+    margin-bottom: 8px;
+  }
+
+  .cp-title {
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111111;
+    margin: 0 0 12px 0;
+    line-height: 1.1;
+  }
+
+  .cp-subtitle {
+    font-size: 15px;
+    color: #555555;
+    margin: 0;
+  }
+
+  /* Main Body Card */
+  .cp-body-card {
+    background: #ffffff;
+    border: 2px solid #111111;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 6px 0 0 #111111;
+    box-sizing: border-box;
+  }
+
+  .cp-section-block {
+    margin-bottom: 32px;
+  }
+
+  .cp-section-block:last-child {
+    margin-bottom: 0;
+  }
+
+  .cp-block-heading {
+    font-size: 19px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #111111;
+    margin: 0 0 14px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cp-block-heading i {
+    color: #fe9d01;
+  }
+
+  .cp-block-text {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: #444444;
+  }
+
+  .cp-block-text p {
+    margin: 0 0 1em 0;
+  }
+  .cp-block-text p:last-child {
+    margin: 0;
+  }
+
+  .cp-block-list {
+    margin: 12px 0 16px 20px;
+    padding: 0;
+  }
+
+  .cp-block-list li {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #444444;
+    margin-bottom: 6px;
+  }
+
+  @media (max-width: 768px) {
+    .cp-body-card {
+      padding: 24px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="custom-policy-page-{{ section.id }}">
+  <div class="cp-container">
+    
+    <div class="cp-header">
+      <span class="cp-tag">House of Sankofa</span>
+      <h1 class="cp-title">Privacy Policy</h1>
+      <p class="cp-subtitle">How we collect, use, and protect your personal information when you shop with us.</p>
+    </div>
+
+    <!-- Main Content Card -->
+    <div class="cp-body-card">
+      
+      <div class="cp-section-block">
+        <h2 class="cp-block-heading"><i class="fa-solid fa-user-shield"></i> 1. Introduction</h2>
+        <div class="cp-block-text">
+          <p>At <strong>House of Sankofa</strong> ("we," "our," or "us"), we are committed to respecting your privacy and protecting your personal data. This Privacy Policy describes how your personal information is collected, used, and shared when you visit or make a purchase from our website (<strong>0gnjqw-m3.myshopify.com / houseofsankofa.com</strong>).</p>
+        </div>
+      </div>
+
+      <div class="cp-section-block">
+        <h2 class="cp-block-heading"><i class="fa-solid fa-database"></i> 2. Information We Collect</h2>
+        <div class="cp-block-text">
+          <p>When you visit our store, we collect certain information about your device, your interaction with the store, and information necessary to process your purchases:</p>
+          <ul class="cp-block-list">
+            <li><strong>Order Information:</strong> Name, billing address, shipping address, payment information (credit card numbers via SSL encryption), email address, and phone number.</li>
+            <li><strong>Device Information:</strong> Web browser version, IP address, time zone, cookie information, and how you interact with our website.</li>
+            <li><strong>Customer Support Data:</strong> Any information you provide to our support team during inquiries.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cp-section-block">
+        <h2 class="cp-block-heading"><i class="fa-solid fa-gear"></i> 3. How We Use Your Information</h2>
+        <div class="cp-block-text">
+          <p>We use the order information we collect to fulfill any orders placed through the site (including processing your payment, arranging for shipping, and providing you with invoices and order confirmations). Additionally, we use this information to:</p>
+          <ul class="cp-block-list">
+            <li>Communicate with you regarding your order status and updates.</li>
+            <li>Screen orders for potential risk or fraud.</li>
+            <li>Provide you with news, promotional offers, and skincare tips related to our products (when in line with your preferences).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cp-section-block">
+        <h2 class="cp-block-heading"><i class="fa-solid fa-lock"></i> 4. Sharing Your Personal Information</h2>
+        <div class="cp-block-text">
+          <p>We share your personal information with trusted third parties to help us use your personal information as described above. For example:</p>
+          <ul class="cp-block-list">
+            <li>We use <strong>Shopify</strong> to power our online store—you can read more about how Shopify uses your personal information on their privacy portal.</li>
+            <li>We use secure payment gateways (PayPal, Shop Pay, Google Pay) for encrypted checkout processing.</li>
+          </ul>
+          <p>We do not sell, rent, or trade your personal information to third-party marketers.</p>
+        </div>
+      </div>
+
+      <div class="cp-section-block">
+        <h2 class="cp-block-heading"><i class="fa-solid fa-scale-balanced"></i> 5. Your Data Rights</h2>
+        <div class="cp-block-text">
+          <p>Depending on your residency (e.g., GDPR in Europe or CCPA in California), you have the right to access personal information we hold about you and to ask that your personal information be corrected, updated, or deleted. If you would like to exercise this right, please contact us at <strong>privacy@houseofsankofa.com</strong>.</p>
+        </div>
+      </div>
+
+      <div class="cp-section-block">
+        <h2 class="cp-block-heading"><i class="fa-solid fa-envelope"></i> 6. Contact Us</h2>
+        <div class="cp-block-text">
+          <p>For more information about our privacy practices or if you have questions, please contact us by email at <strong>privacy@houseofsankofa.com</strong>.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Privacy Policy Page",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FAF7EF"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 70
+    }
+  ],
+  "presets": [
+    {
+      "name": "Privacy Policy Page"
+    }
+  ]
+}
+{% endschema %}

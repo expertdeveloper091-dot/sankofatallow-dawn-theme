@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "custom-terms-conditions",
+      "settings": {
+        "bg_color": "#FAF7EF"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
