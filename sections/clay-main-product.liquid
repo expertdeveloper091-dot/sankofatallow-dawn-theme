@@ -406,8 +406,14 @@
 .clay-gallery-wrapper {
   flex: 1 1 500px;
   max-width: 50%;
-  position: sticky;
-  top: 90px;
+  position: static;
+}
+
+@media screen and (min-width: 992px) {
+  .clay-gallery-wrapper {
+    position: sticky;
+    top: 90px;
+  }
 }
 
 .clay-gallery-container {

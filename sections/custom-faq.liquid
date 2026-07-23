@@ -3,11 +3,11 @@
 
 {%- style -%}
   #maison-faq-{{ section.id }} {
-    background-color: {{ section.settings.bg_color | default: '#ffffff' }};
+    background-color: {{ section.settings.bg_color | default: '#faf7ef' }};
     padding-top: {{ section.settings.padding_top | default: 60 }}px;
     padding-bottom: {{ section.settings.padding_bottom | default: 60 }}px;
     font-family: var(--font-body-family), "Poppins", sans-serif;
-    color: {{ section.settings.text_color | default: '#2c2609' }};
+    color: {{ section.settings.text_color | default: '#111111' }};
   }
   
   #maison-faq-{{ section.id }} .faq__container {
@@ -34,12 +34,18 @@
   #maison-faq-{{ section.id }} .faq__left-col {
     display: flex;
     flex-direction: column;
-    position: sticky;
-    top: 20px;
+    position: static;
+  }
+
+  @media screen and (min-width: 992px) {
+    #maison-faq-{{ section.id }} .faq__left-col {
+      position: sticky;
+      top: 20px;
+    }
   }
 
   #maison-faq-{{ section.id }} .faq__red-text {
-    color: {{ section.settings.accent_color | default: '#ffa004' }};
+    color: {{ section.settings.accent_color | default: '#e63946' }};
     font-size: 13px;
     font-weight: 700;
     text-transform: uppercase;
@@ -52,7 +58,7 @@
     font-size: clamp(28px, 4vw, 42px);
     font-weight: 900;
     line-height: 1.1;
-    color: {{ section.settings.heading_color | default: '#2c2609' }};
+    color: {{ section.settings.heading_color | default: '#111111' }};
     margin: 0 0 16px 0;
     text-transform: uppercase;
     font-family: var(--font-heading-family), inherit;
@@ -85,25 +91,25 @@
     text-align: left;
     width: 100%;
     padding: 16px 20px;
-    border-radius: 12px;
-    border: 1.5px solid {{ section.settings.border_color | default: '#2C2609' }};
-    background-color: #ffffff;
+    border-radius: 14px;
+    border: 2px solid {{ section.settings.border_color | default: '#111111' }};
+    background-color: {{ section.settings.closed_tab_bg | default: '#ffffff' }};
     cursor: pointer;
     transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
-    box-shadow: 0px 4px 0px 0px {{ section.settings.border_color | default: '#2C2609' }};
+    box-shadow: 0px 4px 0px 0px {{ section.settings.border_color | default: '#111111' }};
     position: relative;
     top: 0;
   }
 
   #maison-faq-{{ section.id }} .faq__tab-btn:hover {
     transform: translateY(2px);
-    box-shadow: 0px 2px 0px 0px {{ section.settings.border_color | default: '#2C2609' }};
+    box-shadow: 0px 2px 0px 0px {{ section.settings.border_color | default: '#111111' }};
   }
 
   #maison-faq-{{ section.id }} .faq__tab-btn.active {
-    background-color: {{ section.settings.active_tab_bg | default: '#FEDB36' }};
+    background-color: {{ section.settings.active_tab_bg | default: '#fe9d01' }};
     transform: translateY(4px);
-    box-shadow: 0px 0px 0px 0px {{ section.settings.border_color | default: '#2C2609' }};
+    box-shadow: 0px 0px 0px 0px {{ section.settings.border_color | default: '#111111' }};
   }
 
   #maison-faq-{{ section.id }} .faq__tab-content {
@@ -129,7 +135,7 @@
     height: 100%;
     object-fit: contain;
     font-size: 24px;
-    color: {{ section.settings.heading_color | default: '#2C2609' }};
+    color: {{ section.settings.heading_color | default: '#111111' }};
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -144,7 +150,7 @@
   #maison-faq-{{ section.id }} .faq__tab-title {
     font-size: 15px;
     font-weight: 700;
-    color: {{ section.settings.heading_color | default: '#2C2609' }};
+    color: {{ section.settings.heading_color | default: '#111111' }};
   }
 
   #maison-faq-{{ section.id }} .faq__tab-count {
@@ -172,20 +178,25 @@
   }
 
   #maison-faq-{{ section.id }} .faq__item-card {
-    border: 1.5px solid {{ section.settings.border_color | default: '#2C2609' }};
-    border-radius: 12px;
-    background-color: #ffffff;
+    border: 2px solid {{ section.settings.border_color | default: '#111111' }};
+    border-radius: 14px;
+    background-color: {{ section.settings.closed_faq_bg | default: '#ffffff' }};
     overflow: hidden;
     transition: background-color 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0px 4px 0px 0px {{ section.settings.border_color | default: '#2C2609' }};
+    box-shadow: 0px 4px 0px 0px {{ section.settings.border_color | default: '#111111' }};
     position: relative;
     top: 0;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
   }
 
   #maison-faq-{{ section.id }} .faq__item-card.active {
-    background-color: {{ section.settings.active_faq_bg | default: '#FEF6CF' }};
-    box-shadow: 0px 4px 0px 0px {{ section.settings.border_color | default: '#2C2609' }};
+    background-color: {{ section.settings.active_faq_bg | default: '#fe9d01' }};
+    box-shadow: 0px 4px 0px 0px {{ section.settings.border_color | default: '#111111' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__item-card.active .faq__question-text,
+  #maison-faq-{{ section.id }} .faq__item-card.active .faq__answer-content {
+    color: {{ section.settings.active_faq_text_color | default: '#000000' }};
   }
 
   #maison-faq-{{ section.id }} .faq__question-bar {
@@ -502,43 +513,61 @@
       "type": "color",
       "id": "bg_color",
       "label": "Section Background",
-      "default": "#ffffff"
+      "default": "#faf7ef"
     },
     {
       "type": "color",
       "id": "heading_color",
       "label": "Heading Text Color",
-      "default": "#2c2609"
+      "default": "#111111"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Body Text Color",
-      "default": "#2c2609"
+      "default": "#555555"
     },
     {
       "type": "color",
       "id": "accent_color",
-      "label": "Accent Red/Orange Label Color",
-      "default": "#ffa004"
+      "label": "Accent Sub-label Text Color",
+      "default": "#e63946"
     },
     {
       "type": "color",
       "id": "border_color",
       "label": "Border & Shadow Color",
-      "default": "#2c2609"
+      "default": "#111111"
     },
     {
       "type": "color",
       "id": "active_tab_bg",
       "label": "Active Tab Background Color",
-      "default": "#FEDB36"
+      "default": "#fe9d01"
+    },
+    {
+      "type": "color",
+      "id": "closed_tab_bg",
+      "label": "Closed Tab Background Color",
+      "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "active_faq_bg",
       "label": "Active FAQ Card Background Color",
-      "default": "#FEF6CF"
+      "default": "#fe9d01"
+    },
+    {
+      "type": "color",
+      "id": "active_faq_text_color",
+      "label": "Active FAQ Card Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "closed_faq_bg",
+      "label": "Closed FAQ Card Background Color",
+      "default": "#ffffff"
     },
     {
       "type": "header",
