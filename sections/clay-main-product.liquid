@@ -178,12 +178,7 @@
                       </div>
 
                     {% elsif opt_name_down contains 'fragrance' or opt_name_down contains 'scent' or opt_name_down contains 'flavour' or opt_name_down contains 'flavor' %}
-                      <!-- SELECT YOUR SCENT - VERTICAL IMAGE+TEXT CARD BUTTONS (EXACT IMAGE #2 MATCH) -->
-                      <div class="clay-scent-picker-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                        <span style="font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #111111; font-family: 'Poppins', sans-serif;">SELECT YOUR SCENT</span>
-                        <span class="clay-option-val" id="ClayOptVal-{{ forloop.index0 }}" style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: #2563eb; letter-spacing: 0.05em;">{{ option.selected_value }}</span>
-                      </div>
-
+                      <!-- VERTICAL IMAGE+TEXT CARD BUTTONS -->
                       <div class="clay-scent-cards-grid">
                         {% for value in option.values %}
                           {% assign value_variant = null %}
