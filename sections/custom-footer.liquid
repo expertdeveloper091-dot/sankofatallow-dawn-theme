@@ -43,6 +43,35 @@
   .custom-footer-{{ section.id }} .disclaimer p {
     color: {{ section.settings.mission_text_color | default: '#111111' }};
   }
+  .back-to-top-btn-{{ section.id }} {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: {{ section.settings.btt_bg | default: '#111111' }};
+    color: {{ section.settings.btt_icon_color | default: '#fe9d01' }};
+    border: 2px solid {{ section.settings.btt_border_color | default: '#fe9d01' }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
+  .back-to-top-btn-{{ section.id }}.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .back-to-top-btn-{{ section.id }}:hover {
+    transform: translateY(-4px);
+  }
 {% endstyle %}
 
 <footer class="custom-footer custom-footer-{{ section.id }}">
@@ -292,6 +321,37 @@
     {%- endif -%}
 
 </footer>
+
+{%- if section.settings.show_back_to_top -%}
+  <button id="BackToTop-{{ section.id }}" 
+          class="back-to-top-btn-{{ section.id }}" 
+          aria-label="Back to Top"
+          type="button">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg>
+  </button>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var btt = document.getElementById('BackToTop-{{ section.id }}');
+    if (!btt) return;
+
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 300) {
+        btt.classList.add('is-visible');
+      } else {
+        btt.classList.remove('is-visible');
+      }
+    }, { passive: true });
+
+    btt.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+  </script>
+{%- endif -%}
 
 {% schema %}
 {
@@ -600,6 +660,35 @@
       "id": "copyright_additional_text",
       "label": "Additional Copyright Text",
       "default": "All rights reserved."
+    },
+
+    {
+      "type": "header",
+      "content": "Back to Top Button Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_back_to_top",
+      "label": "Show Back to Top Floating Button",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "btt_bg",
+      "label": "Button Background Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "btt_icon_color",
+      "label": "Arrow Icon Color",
+      "default": "#fe9d01"
+    },
+    {
+      "type": "color",
+      "id": "btt_border_color",
+      "label": "Button Border Color",
+      "default": "#fe9d01"
     }
   ],
   "presets": [
