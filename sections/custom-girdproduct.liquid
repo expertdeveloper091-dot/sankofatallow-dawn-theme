@@ -11,10 +11,29 @@
   }
 
   .custom-gridproduct-container {
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 40px;
     box-sizing: border-box;
+  }
+
+  @media (max-width: 768px) {
+    .custom-gridproduct-container {
+      padding: 0 20px;
+    }
+  }
+
+  .custom-gridproduct-{{ section.id }} .ml-product-card {
+    background-color: rgb(255 248 237) !important;
+  }
+
+  .custom-gridproduct-{{ section.id }} .ml-card-btn--atc {
+    width: 100%;
+    height: 100%;
+    background: #fe9d01 !important;
+    color: #000000 !important;
+    border: none !important;
+    cursor: pointer;
   }
 
   /* Header */
