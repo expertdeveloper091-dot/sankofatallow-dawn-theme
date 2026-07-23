@@ -46,6 +46,22 @@
     "custom_faq_QBirR9": {
       "type": "custom-faq",
       "blocks": {
+        "faq_item_D9pyRQ": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-usage",
+            "question": "12345",
+            "answer": "<p>zdfgazjmzr</p>"
+          }
+        },
+        "faq_item_bKV8Xp": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-ingredients",
+            "question": "What ingredients are in your Tallow Balm?",
+            "answer": "<p>Our Tallow Balm contains only 4 natural ingredients...</p>"
+          }
+        },
         "category_MqHCCj": {
           "type": "category",
           "settings": {
@@ -101,171 +117,45 @@
           "settings": {
             "category_id": "product-ingredients",
             "question": "What ingredients are in your Tallow Balm?",
-            "answer": "<p>Our Tallow Balm contains only 4 natural ingredients: grass-fed, grass-finished beef tallow, cold-pressed organic olive oil, pot marigold extract, and organic vitamin E. We use manuka honey in some variations for its additional healing properties. No fillers, no chemicals, just raw, unadulterated skin nutrition that lets your skin thrive naturally.</p>"
+            "answer": "<p><br/>Our Tallow Balm is made with just five carefully selected, non-toxic ingredients that deeply nourish and protect your skin. Every ingredient is chosen for its purpose—nothing unnecessary, just clean and effective skincare.<br/><br/></p>"
           }
         },
         "faq_item_mXAzmT": {
           "type": "faq_item",
           "settings": {
             "category_id": "product-ingredients",
-            "question": "Is your tallow from grass-fed, grass-finished cows?",
-            "answer": "<p>Yes, we only source tallow from 100% grass-fed and grass-finished cows. These animals are raised on pasture their entire lives, resulting in tallow that's rich in nutrients like vitamins A, D, E, K, and minerals that are beneficial for skin health.</p>"
+            "question": "Is your tallow grass-fed and grass-finished?",
+            "answer": "<p>Yes. We source premium-quality grass-fed, grass-finished beef tallow from trusted farms to ensure maximum purity and skin-loving nutrients.<br/><br/></p>"
           }
         },
         "faq_item_hzh8jH": {
           "type": "faq_item",
           "settings": {
             "category_id": "product-ingredients",
-            "question": "Do your products contain any artificial fragrances?",
-            "answer": "<p>No, our products are completely free from artificial fragrances. Any scent you experience comes naturally from the ingredients themselves. This makes our products ideal for those with sensitivities to synthetic fragrances or those seeking truly natural skincare.</p>"
+            "question": "Do your products contain parabens or sulfates?",
+            "answer": "<p>No. Our formulas are completely free from parabens, sulfates, mineral oils, and other harsh chemicals.<br/><br/></p>"
           }
         },
         "faq_item_M8LgNx": {
           "type": "faq_item",
           "settings": {
             "category_id": "product-ingredients",
-            "question": "Are your products suitable for sensitive skin?",
-            "answer": "<p>Yes, our tallow-based products are particularly well-suited for sensitive skin. The natural fat profile in grass-fed tallow closely resembles human skin cells, making it highly compatible and gentle. Many customers with eczema, rosacea, and other skin sensitivities report significant improvements when using our products.</p>"
+            "question": "Are artificial fragrances used?",
+            "answer": "<p>No. We avoid synthetic fragrances in our skincare formulas and focus on clean, skin-friendly ingredients.<br/><br/></p>"
           }
         },
         "faq_item_KGF4BR": {
           "type": "faq_item",
           "settings": {
             "category_id": "product-ingredients",
-            "question": "What is Manuka honey and why do you use it?",
-            "answer": "<p>Manuka honey is a special type of honey produced in New Zealand from bees that pollinate the Manuka bush. It's prized for its powerful antibacterial, anti-inflammatory, and healing properties. We include it in select formulations to enhance the skin-healing benefits of our tallow balms, particularly for conditions like acne, eczema, and minor wounds.</p>"
-          }
-        },
-        "faq_item_LffAig": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "product-ingredients",
-            "question": "Are your products non-comedogenic?",
-            "answer": "<p>Yes, despite being oil-based, our tallow balms are surprisingly non-comedogenic for most skin types. The molecular structure of tallow is similar to our skin's natural sebum, allowing it to absorb without clogging pores. Many customers with acne-prone skin report improvements rather than breakouts when using our products.</p>"
-          }
-        },
-        "faq_item_YaFWCG": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "product-usage",
-            "question": "Is your tallow from grass-fed, grass-finished cows?",
-            "answer": "<p>Yes, we only source tallow from 100% grass-fed and grass-finished cows. These animals are raised on pasture their entire lives, resulting in tallow that's rich in nutrients like vitamins A, D, E, K, and minerals that are beneficial for skin health.</p>"
-          }
-        },
-        "faq_item_89Jk4k": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "product-usage",
-            "question": "How do I apply the tallow balm?",
-            "answer": "<p>For best results, take a small amount (about the size of a pea for facial application) and warm it between your fingertips. The balm will melt slightly with your body heat, making it easier to apply. Gently massage into clean skin using upward, circular motions until fully absorbed. A little goes a long way!</p>"
-          }
-        },
-        "faq_item_ef6FTb": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "product-usage",
-            "question": "Can I use your tallow balm on my face?",
-            "answer": "<p>Absolutely! Our tallow balm is excellent for facial use. Its natural composition is similar to human skin cells, making it ideal for facial application. It's deeply moisturizing without clogging pores and can help balance oil production, reduce fine lines, and soothe irritation.</p>"
-          }
-        },
-        "faq_item_zFJkPC": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "product-usage",
-            "question": "How often should I use the product?",
-            "answer": "<p>For optimal results, we recommend using our tallow balm 1-2 times daily on clean skin. Many customers incorporate it into both morning and evening skincare routines. Those with very dry skin may benefit from more frequent application, while those with oilier skin might prefer using it just once daily, typically in the evening.</p>"
-          }
-        },
-        "faq_item_UhF48B": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "product-usage",
-            "question": "Will the tallow balm make my skin greasy?",
-            "answer": "<p>No, when applied correctly, our tallow balm absorbs beautifully and leaves no greasy residue. Remember that a little goes a long way—start with a small amount and add more if needed. The balm penetrates deeply rather than sitting on top of the skin, providing lasting hydration without a heavy or oily feel.</p>"
-          }
-        },
-        "faq_item_gdrYqR": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "shipping-delivery",
-            "question": "How long does shipping take?",
-            "answer": "<p>We typically process orders within 1-2 business days. Standard shipping within the continental US takes 3-5 business days after processing. Expedited shipping options are available at checkout. International shipping times vary by location but generally take 7-14 business days once shipped.</p>"
-          }
-        },
-        "faq_item_qDNaDn": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "shipping-delivery",
-            "question": "Do you offer free shipping?",
-            "answer": "<p>Free standard shipping on all US orders over $50 only. International orders and US orders under $50 will have a flat-rate shipping fee calculated at checkout. Subscribers to our recurring delivery program receive free shipping on all orders regardless of order value.</p>"
-          }
-        },
-        "faq_item_Ujb6Vx": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "shipping-delivery",
-            "question": "Do you ship internationally?",
-            "answer": "<p>Yes, we ship to most countries worldwide. International shipping rates are calculated at checkout based on destination and package weight. Please note that customers are responsible for any import duties or taxes imposed by their country. Delivery times for international orders typically range from 7-14 business days after shipping.</p>"
-          }
-        },
-        "faq_item_8x3efa": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "shipping-delivery",
-            "question": "How can I track my order?",
-            "answer": "<p>Once your order ships, you'll receive a confirmation email with tracking information. You can also log into your account on our website to view real-time tracking updates. If you created your order as a guest, you can use the order tracking tool on our website by entering your order number and email address. For any tracking issues, please contact our customer support team.</p>"
-          }
-        },
-        "faq_item_DeMQqt": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "returns-guarantees",
-            "question": "What is your return policy?",
-            "answer": "<p>We stand behind the quality of our products with a 30-day satisfaction guarantee. If you're not completely satisfied with your purchase, you can return it within 30 days of delivery for a full refund of the product price. Products must be returned in their original packaging, and we recommend saving your receipt and tracking information until your return is processed.</p>"
-          }
-        },
-        "faq_item_qKhw7P": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "returns-guarantees",
-            "question": "How do I return a product?",
-            "answer": "<p>To initiate a return, please email help@evilgoods.org with your order number and reason for return. We'll provide a return shipping label and instructions. Once we receive your return, we'll process your refund within 5-7 business days. The refund will be issued to your original payment method. Please note that shipping costs are non-refundable unless the return is due to our error.</p>"
-          }
-        },
-        "faq_item_kwd4zF": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "returns-guarantees",
-            "question": "Do you offer a satisfaction guarantee?",
-            "answer": "<p>Yes! We offer a 100% satisfaction guarantee on all our products. If you're not completely satisfied with your purchase for any reason, you can return it within 30 days for a full refund. We're confident in the quality and effectiveness of our products and want you to experience the benefits risk-free.</p>"
-          }
-        },
-        "faq_item_64VJxV": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "returns-guarantees",
-            "question": "What if my product arrives damaged?",
-            "answer": "<p>In the rare event that your product arrives damaged, please contact our customer service team at help@evilgoods.org within 48 hours of delivery. Include your order number and photos of the damaged product and packaging. We'll promptly send a replacement at no additional cost to you. We take quality control seriously and appreciate your feedback to help us improve our packaging and shipping processes.</p>"
-          }
-        },
-        "faq_item_b7UpB7": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "subscription-billing",
-            "question": "How does the subscription service work?",
-            "answer": "<p>Our subscription service allows you to receive your favorite products automatically at regular intervals. You choose the frequency (every 1, 2, or 3 months), and we'll ship your products automatically. Subscribers enjoy a 15% discount on every order, free shipping, and early access to new products. You can easily manage, pause, or cancel your subscription anytime through your account.</p>"
-          }
-        },
-        "faq_item_EFgNJB": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "subscription-billing",
-            "question": "Can I change or cancel my subscription?",
-            "answer": "<p>Absolutely! You have complete control over your subscription. Through your account dashboard, you can easily modify your delivery frequency, change products in your subscription, update shipping or billing information, skip a delivery, or cancel altogether with no penalties. Changes must be made at least 48 hours before your next scheduled shipment.</p>"
+            "question": "Are your ingredients ethically sourced?",
+            "answer": "<p>Absolutely. We carefully select suppliers who meet our standards for quality, sustainability, and responsible sourcing.<br/><br/></p>"
           }
         }
       },
       "block_order": [
+        "faq_item_D9pyRQ",
+        "faq_item_bKV8Xp",
         "category_MqHCCj",
         "category_MJTBFc",
         "category_EGaQJa",
@@ -275,34 +165,18 @@
         "faq_item_mXAzmT",
         "faq_item_hzh8jH",
         "faq_item_M8LgNx",
-        "faq_item_KGF4BR",
-        "faq_item_LffAig",
-        "faq_item_YaFWCG",
-        "faq_item_89Jk4k",
-        "faq_item_ef6FTb",
-        "faq_item_zFJkPC",
-        "faq_item_UhF48B",
-        "faq_item_gdrYqR",
-        "faq_item_qDNaDn",
-        "faq_item_Ujb6Vx",
-        "faq_item_8x3efa",
-        "faq_item_DeMQqt",
-        "faq_item_qKhw7P",
-        "faq_item_kwd4zF",
-        "faq_item_64VJxV",
-        "faq_item_b7UpB7",
-        "faq_item_EFgNJB"
+        "faq_item_KGF4BR"
       ],
       "name": "Custom FAQ with Tabs",
       "settings": {
-        "max_width": 1200,
-        "bg_color": "#ffffff",
+        "max_width": 1450,
+        "bg_color": "#fff8ed",
         "heading_color": "#000000",
         "text_color": "#2c2609",
-        "accent_color": "#ffa004",
+        "accent_color": "#fe9d01",
         "border_color": "#000000",
         "active_tab_bg": "#ffffff",
-        "active_faq_bg": "#ffa004",
+        "active_faq_bg": "#fe9d01",
         "red_text": "GOT QUESTIONS? WE'VE GOT ANSWERS",
         "heading": "FREQUENTLY ASKED QUESTIONS",
         "description": "Everything you need to know about our natural products, straight from nature to your skin.",
