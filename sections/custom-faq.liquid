@@ -20,7 +20,7 @@
   #maison-faq-{{ section.id }} .faq__grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 36px;
     align-items: start;
   }
 
@@ -35,12 +35,14 @@
     display: flex;
     flex-direction: column;
     position: static;
+    margin-bottom: 10px;
   }
 
   @media screen and (min-width: 992px) {
     #maison-faq-{{ section.id }} .faq__left-col {
       position: sticky;
       top: 20px;
+      margin-bottom: 0;
     }
   }
 
@@ -77,6 +79,13 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     width: 100%;
+    margin-bottom: 20px;
+  }
+
+  @media screen and (min-width: 992px) {
+    #maison-faq-{{ section.id }} .faq__tabs-list {
+      margin-bottom: 0;
+    }
   }
 
   @media screen and (max-width: 768px) {
