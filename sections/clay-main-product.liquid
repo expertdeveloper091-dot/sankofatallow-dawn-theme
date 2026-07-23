@@ -238,6 +238,7 @@
                         {{ block.settings.sold_out_text | default: 'Sold Out' }}
                       {% endif %}
                     </span>
+                    <i class="fa-solid fa-cart-shopping" style="margin-left: 6px;"></i>
                   </button>
 
                   {% if block.settings.show_wishlist != false %}
@@ -341,30 +342,17 @@
   </div>
 
   <!-- BELOW PRODUCT SECTION: PEOPLE ALSO BOUGHT -->
-  <div class="clay-related-section">
-    <h2 class="clay-related-heading">People Also Bought</h2>
-    <p class="clay-related-subheading">Hand-picked selections that complement your daily routine.</p>
+  <div class="clay-related-section" style="margin-top: 60px; padding-top: 40px; border-top: 1px solid #eaecf0;">
+    <h2 class="clay-related-heading" style="text-align: center; font-size: 30px; font-weight: 900; font-family: 'Poppins', sans-serif; text-transform: uppercase; margin-bottom: 8px;">People Also Bought</h2>
+    <p class="clay-related-subheading" style="text-align: center; font-size: 15px; color: #555555; margin-bottom: 32px; font-family: 'Poppins', sans-serif;">Hand-picked selections that complement your daily routine.</p>
     
-    <div class="clay-related-grid">
+    <div class="custom-gridproduct-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
       {% for rel_product in collections.all.products limit: 4 %}
-        <div class="clay-product-card">
-          <div class="clay-card-img-box">
-            <span class="clay-card-badge">-20%</span>
-            <a href="{{ rel_product.url }}">
-              <img src="{{ rel_product.featured_image | image_url: width: 400 }}" alt="{{ rel_product.title | escape }}" loading="lazy" width="200" height="200">
-            </a>
-          </div>
-          <div class="clay-card-info">
-            <h3 class="clay-card-title"><a href="{{ rel_product.url }}">{{ rel_product.title }}</a></h3>
-            <div class="clay-card-stars">★★★★★</div>
-            <div class="clay-card-price">
-              <span class="clay-card-sale-price">{{ rel_product.price | money }}</span>
-              {% if rel_product.compare_at_price > rel_product.price %}
-                <span class="clay-card-compare-price">{{ rel_product.compare_at_price | money }}</span>
-              {% endif %}
-            </div>
-          </div>
-        </div>
+        {% render 'card-product',
+          card_product: rel_product,
+          section_id: section.id,
+          product_view_context: 'recommendation'
+        %}
       {% endfor %}
     </div>
   </div>
@@ -956,24 +944,28 @@
 
 .clay-atc-btn {
   flex: 1;
-  height: 48px;
+  height: 52px;
   border-radius: 9999px;
-  background: #111111;
-  color: #ffffff;
-  border: none;
-  font-size: 14px;
+  background: #fe9d01;
+  color: #111111;
+  border: 2px solid #111111;
+  box-shadow: 0 4px 0 #111111;
+  font-size: 15px;
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
 }
 
 .clay-atc-btn:hover {
-  background: #222222;
+  background: #e58d00;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #111111;
 }
 
 .clay-atc-btn:disabled {

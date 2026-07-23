@@ -3,21 +3,22 @@
   Dynamic Product Recommendations powered by Shopify Recommendations API
 {% endcomment %}
 
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+
 <div class="rb-recommendations-section" id="RBRecommendationsSection-{{ section.id }}" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=4">
   {% if recommendations.performed and recommendations.products_count > 0 %}
-    <div class="page-width">
+    <div class="page-width" style="max-width: 1440px; margin: 0 auto; padding: 40px 20px;">
       {% if section.settings.heading != blank %}
-        <h2 class="rb-section-title">{{ section.settings.heading }}</h2>
+        <h2 class="rb-section-title" style="text-align: center; font-size: 30px; font-weight: 900; font-family: 'Poppins', sans-serif; text-transform: uppercase; margin-bottom: 32px;">{{ section.settings.heading }}</h2>
       {% endif %}
-      <div class="rb-recommendations-grid">
+      <div class="custom-gridproduct-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
         {% for recommendation in recommendations.products %}
-          <div class="rb-rec-card">
-            <a href="{{ recommendation.url }}" class="rb-rec-link">
-              <img src="{{ recommendation.featured_image | img_url: '400x400' }}" alt="{{ recommendation.title | escape }}" loading="lazy" width="200" height="200">
-              <div class="rb-rec-title">{{ recommendation.title }}</div>
-              <div class="rb-rec-price">{{ recommendation.price | money }}</div>
-            </a>
-          </div>
+          {% render 'card-product',
+            card_product: recommendation,
+            section_id: section.id,
+            product_view_context: 'recommendation'
+          %}
         {% endfor %}
       </div>
     </div>
