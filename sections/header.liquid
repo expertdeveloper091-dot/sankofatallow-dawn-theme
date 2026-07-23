@@ -1509,6 +1509,7 @@
       fetchCart();
     }
   };
+  window.fetchCustomCart = fetchCart;
   if (cartBtnD) cartBtnD.addEventListener('click', function() { openCustomCartDrawer(); });
   if (cartBtnM) cartBtnM.addEventListener('click', function() { openCustomCartDrawer(); });
   if (cartCloseBtn) cartCloseBtn.addEventListener('click', closeAll);
