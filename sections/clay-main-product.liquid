@@ -178,8 +178,13 @@
                       </div>
 
                     {% elsif opt_name_down contains 'fragrance' or opt_name_down contains 'scent' or opt_name_down contains 'flavour' or opt_name_down contains 'flavor' %}
-                      <!-- FRAGRANCE SCENT PILLS WITH VARIANT IMAGE + TITLE (EXACT IMAGE #1 & #2 MATCH) -->
-                      <div class="clay-fragrance-cards-grid">
+                      <!-- SELECT YOUR SCENT - VERTICAL IMAGE+TEXT CARD BUTTONS (EXACT IMAGE #2 MATCH) -->
+                      <div class="clay-scent-picker-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <span style="font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #111111; font-family: 'Poppins', sans-serif;">SELECT YOUR SCENT</span>
+                        <span class="clay-option-val" id="ClayOptVal-{{ forloop.index0 }}" style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: #2563eb; letter-spacing: 0.05em;">{{ option.selected_value }}</span>
+                      </div>
+
+                      <div class="clay-scent-cards-grid">
                         {% for value in option.values %}
                           {% assign value_variant = null %}
                           {% for v in product.variants %}
@@ -190,13 +195,13 @@
                           {% endfor %}
                           {% assign sw_img = value_variant.featured_image | default: product.featured_image %}
                           
-                          <button type="button" class="clay-fragrance-card-btn {% if option.selected_value == value %}active{% endif %}" data-option-name="{{ option.name }}" data-option-value="{{ value | escape }}" onclick="selectClayVariant(this, '{{ option.name }}', '{{ value | escape }}', {{ forloop.parentloop.index0 }})">
+                          <button type="button" class="clay-scent-card-box {% if option.selected_value == value %}active{% endif %}" data-option-name="{{ option.name }}" data-option-value="{{ value | escape }}" onclick="selectClayVariant(this, '{{ option.name }}', '{{ value | escape }}', {{ forloop.parentloop.index0 }})">
                             {% if sw_img != blank %}
-                              <div class="clay-fragrance-card-img">
-                                <img src="{{ sw_img | image_url: width: 120 }}" alt="{{ value | escape }}" width="36" height="36" loading="lazy">
+                              <div class="clay-scent-card-img-wrap">
+                                <img src="{{ sw_img | image_url: width: 140 }}" alt="{{ value | escape }}" width="48" height="48" loading="lazy">
                               </div>
                             {% endif %}
-                            <span class="clay-fragrance-card-title">{{ value }}</span>
+                            <span class="clay-scent-card-label">{{ value }}</span>
                           </button>
                         {% endfor %}
                       </div>
@@ -875,42 +880,85 @@
   margin-top: 8px;
 }
 
-.clay-fragrance-card-btn {
+/* SELECT YOUR SCENT SQUARE CARDS (EXACT IMAGE #2 MATCH) */
+.clay-scent-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+@media screen and (max-width: 768px) {
+  .clay-scent-cards-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .clay-scent-cards-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6px !important;
+  }
+}
+
+.clay-scent-card-box {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 44px;
-  padding: 0 16px;
-  border-radius: 30px;
-  border: 1.5px solid #111111;
+  gap: 8px;
+  padding: 10px 4px;
+  border-radius: 14px;
+  border: 1.5px solid #e2e8f0;
   background: #ffffff;
   cursor: pointer;
   transition: all 0.2s ease;
   box-sizing: border-box;
-  font-size: 13px;
-  font-weight: 800;
-  text-transform: uppercase;
-  color: #111111;
-  box-shadow: 0 2px 0 0 #111111;
-  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  width: 100%;
 }
 
-.clay-fragrance-card-btn:hover {
+.clay-scent-card-box:hover {
+  border-color: #fe9d01;
   background: #fffbeb;
 }
 
-.clay-fragrance-card-btn.active {
-  border: 2px solid #111111;
-  background: #fe9d01;
-  box-shadow: 0 3px 0 0 #111111;
+.clay-scent-card-box.active {
+  border: 2px solid #fe9d01;
+  background: #fffbeb;
+  box-shadow: 0 0 0 1px #fe9d01;
 }
 
-.clay-fragrance-card-title {
-  font-size: 12.5px;
-  font-weight: 800;
-  color: #111111;
-  text-align: center;
+.clay-scent-card-img-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clay-scent-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.clay-scent-card-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #1e293b;
   line-height: 1.2;
+  word-break: break-word;
+}
+
+.clay-scent-card-box.active .clay-scent-card-label {
+  color: #0f172a;
+  font-weight: 800;
 }
 
 /* Generic Pill Buttons */
@@ -1602,7 +1650,7 @@ function selectClayVariant(element, optionName, optionVal, optionIndex) {
   var group = element.closest('.clay-option-group');
   if (group) {
     if (element.tagName !== 'SELECT') {
-      group.querySelectorAll('.clay-pill-btn, .clay-fragrance-card-btn').forEach(btn => btn.classList.remove('active'));
+      group.querySelectorAll('.clay-pill-btn, .clay-fragrance-card-btn, .clay-scent-card-box').forEach(btn => btn.classList.remove('active'));
       element.classList.add('active');
     }
     var labelVal = document.getElementById('ClayOptVal-' + optionIndex);
@@ -1616,7 +1664,7 @@ function selectClayVariant(element, optionName, optionVal, optionIndex) {
     if (selectEl) {
       selectedOptions.push(selectEl.value);
     } else {
-      var activeBtn = g.querySelector('.clay-pill-btn.active, .clay-fragrance-card-btn.active');
+      var activeBtn = g.querySelector('.clay-pill-btn.active, .clay-fragrance-card-btn.active, .clay-scent-card-box.active');
       if (activeBtn) selectedOptions.push(activeBtn.getAttribute('data-option-value') || activeBtn.textContent.trim());
     }
   });
