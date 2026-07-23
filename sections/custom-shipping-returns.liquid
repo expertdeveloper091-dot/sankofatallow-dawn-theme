@@ -1,6 +1,4 @@
 <!-- sections/custom-shipping-returns.liquid -->
-{{ 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css' | stylesheet_tag }}
-
 {%- style -%}
   .custom-policy-page-{{ section.id }} {
     background-color: {{ section.settings.bg_color | default: '#FAF7EF' }};
@@ -63,20 +61,7 @@
     box-shadow: 0 4px 0 0 #111111;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-  }
-
-  .cp-highlight-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: #fe9d01;
-    color: #111111;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: 700;
+    gap: 8px;
   }
 
   .cp-highlight-title {
@@ -118,13 +103,6 @@
     text-transform: uppercase;
     color: #111111;
     margin: 0 0 14px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .cp-block-heading i {
-    color: #fe9d01;
   }
 
   .cp-block-text {
@@ -140,12 +118,12 @@
     margin: 0;
   }
 
-  .cp-block-list {
+  .cp-block-text ul {
     margin: 12px 0 16px 20px;
     padding: 0;
   }
 
-  .cp-block-list li {
+  .cp-block-text li {
     font-size: 14px;
     line-height: 1.7;
     color: #444444;
@@ -163,75 +141,57 @@
   <div class="cp-container">
     
     <div class="cp-header">
-      <span class="cp-tag">House of Sankofa</span>
-      <h1 class="cp-title">Shipping & Return Policy</h1>
-      <p class="cp-subtitle">Fast delivery, 30-day risk-free satisfaction guarantee for all natural skincare products.</p>
+      {%- if section.settings.tag_text != blank -%}
+        <span class="cp-tag">{{ section.settings.tag_text }}</span>
+      {%- endif -%}
+      
+      {%- if section.settings.title != blank -%}
+        <h1 class="cp-title">{{ section.settings.title }}</h1>
+      {%- endif -%}
+      
+      {%- if section.settings.subtitle != blank -%}
+        <p class="cp-subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
     </div>
 
-    <!-- Quick Highlights -->
-    <div class="cp-highlights-grid">
-      <div class="cp-highlight-card">
-        <div class="cp-highlight-icon"><i class="fa-solid fa-truck-fast"></i></div>
-        <h3 class="cp-highlight-title">Fast Processing</h3>
-        <p class="cp-highlight-desc">Orders dispatched within 1–2 business days. Tracked shipping delivered to your doorstep.</p>
+    <!-- Highlights Grid -->
+    {%- assign highlight_blocks = section.blocks | where: "type", "highlight" -%}
+    {%- if highlight_blocks.size > 0 -%}
+      <div class="cp-highlights-grid">
+        {%- for block in highlight_blocks -%}
+          <div class="cp-highlight-card" {{ block.shopify_attributes }}>
+            <h3 class="cp-highlight-title">{{ block.settings.title }}</h3>
+            <p class="cp-highlight-desc">{{ block.settings.description }}</p>
+          </div>
+        {%- endfor -%}
       </div>
-
-      <div class="cp-highlight-card">
-        <div class="cp-highlight-icon"><i class="fa-solid fa-shield-heart"></i></div>
-        <h3 class="cp-highlight-title">30-Day Guarantee</h3>
-        <p class="cp-highlight-desc">Not in love with your tallow balm? Return it within 30 days for a 100% full product refund.</p>
-      </div>
-
-      <div class="cp-highlight-card">
-        <div class="cp-highlight-icon"><i class="fa-solid fa-box-open"></i></div>
-        <h3 class="cp-highlight-title">Free US Shipping</h3>
-        <p class="cp-highlight-desc">Enjoy free standard shipping on all US domestic orders over $50.</p>
-      </div>
-    </div>
+    {%- endif -%}
 
     <!-- Main Content Card -->
     <div class="cp-body-card">
-      
-      <div class="cp-section-block">
-        <h2 class="cp-block-heading"><i class="fa-solid fa-box"></i> Shipping Information</h2>
-        <div class="cp-block-text">
-          <p>At <strong>House of Sankofa</strong>, every batch of our grass-fed tallow balm is carefully handcrafted and packaged to maintain peak freshness and potency.</p>
-          <ul class="cp-block-list">
-            <li><strong>Processing Time:</strong> Orders are processed and packed within 1 to 2 business days (excluding weekends and holidays).</li>
-            <li><strong>Standard Domestic Shipping (US):</strong> 3 to 5 business days post-processing. Free on orders $50+.</li>
-            <li><strong>International Shipping:</strong> 7 to 14 business days depending on destination country and customs clearing.</li>
-          </ul>
-          <p>You will receive a shipping confirmation email containing your tracking number as soon as your package leaves our facility.</p>
+      {%- assign policy_blocks = section.blocks | where: "type", "policy_section" -%}
+      {%- if policy_blocks.size > 0 -%}
+        {%- for block in policy_blocks -%}
+          <div class="cp-section-block" {{ block.shopify_attributes }}>
+            {%- if block.settings.heading != blank -%}
+              <h2 class="cp-block-heading">{{ block.settings.heading }}</h2>
+            {%- endif -%}
+            
+            {%- if block.settings.content != blank -%}
+              <div class="cp-block-text">
+                {{ block.settings.content }}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <div class="cp-section-block">
+          <h2 class="cp-block-heading">Shipping & Return Details</h2>
+          <div class="cp-block-text">
+            <p>Please add policy section blocks in Theme Customizer.</p>
+          </div>
         </div>
-      </div>
-
-      <div class="cp-section-block">
-        <h2 class="cp-block-heading"><i class="fa-solid fa-rotate-left"></i> 30-Day Satisfaction & Return Policy</h2>
-        <div class="cp-block-text">
-          <p>We want you to experience the transformative power of 100% grass-fed tallow skincare risk-free. If for any reason you are not completely satisfied with your purchase, you may return it within <strong>30 days of delivery</strong> for a full refund of the product purchase price.</p>
-          <p><strong>Return Guidelines:</strong></p>
-          <ul class="cp-block-list">
-            <li>Items must be returned within 30 days from the delivery date.</li>
-            <li>Original packaging or proof of purchase is required.</li>
-            <li>Return shipping costs are the responsibility of the customer unless the product arrived damaged or defective.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="cp-section-block">
-        <h2 class="cp-block-heading"><i class="fa-solid fa-hand-holding-heart"></i> Damaged or Incorrect Orders</h2>
-        <div class="cp-block-text">
-          <p>In the rare event that your jar arrives damaged or you receive an incorrect item, please email us immediately at <strong>support@houseofsankofa.com</strong> within 48 hours of delivery with your order number and a photo of the damaged item. We will ship a replacement to you free of charge right away.</p>
-        </div>
-      </div>
-
-      <div class="cp-section-block">
-        <h2 class="cp-block-heading"><i class="fa-solid fa-envelope"></i> How to Initiate a Return</h2>
-        <div class="cp-block-text">
-          <p>To start a return or exchange, simply contact our support team at <strong>support@houseofsankofa.com</strong> with your order number and reason for return. Our team will guide you through the return address and processing steps.</p>
-        </div>
-      </div>
-
+      {%- endif -%}
     </div>
 
   </div>
@@ -241,6 +201,24 @@
 {
   "name": "Shipping & Return Policy",
   "settings": [
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Sub-tag Text",
+      "default": "Sankofa Tallow"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Main Title",
+      "default": "Shipping & Return Policy"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Fast delivery, 30-day risk-free satisfaction guarantee for all natural skincare products."
+    },
     {
       "type": "color",
       "id": "bg_color",
@@ -266,6 +244,44 @@
       "unit": "px",
       "label": "Padding Bottom",
       "default": 70
+    }
+  ],
+  "blocks": [
+    {
+      "type": "highlight",
+      "name": "Highlight Box",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Highlight Title",
+          "default": "Fast Processing"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Highlight Description",
+          "default": "Orders dispatched within 1–2 business days. Tracked shipping delivered to your doorstep."
+        }
+      ]
+    },
+    {
+      "type": "policy_section",
+      "name": "Policy Section Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Section Heading",
+          "default": "Shipping Information"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Section Content",
+          "default": "<p>Content goes here.</p>"
+        }
+      ]
     }
   ],
   "presets": [

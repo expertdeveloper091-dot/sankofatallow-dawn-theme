@@ -3,8 +3,71 @@
     "main": {
       "type": "custom-shipping-returns",
       "settings": {
+        "tag_text": "Sankofa Tallow",
+        "title": "Shipping & Return Policy",
+        "subtitle": "Fast delivery, 30-day risk-free satisfaction guarantee for all natural skincare products.",
         "bg_color": "#FAF7EF"
-      }
+      },
+      "blocks": {
+        "hl_1": {
+          "type": "highlight",
+          "settings": {
+            "title": "Fast Processing",
+            "description": "Orders dispatched within 1–2 business days. Tracked shipping delivered to your doorstep."
+          }
+        },
+        "hl_2": {
+          "type": "highlight",
+          "settings": {
+            "title": "30-Day Guarantee",
+            "description": "Not in love with your tallow balm? Return it within 30 days for a 100% full product refund."
+          }
+        },
+        "hl_3": {
+          "type": "highlight",
+          "settings": {
+            "title": "Free US Shipping",
+            "description": "Enjoy free standard shipping on all US domestic orders over $50."
+          }
+        },
+        "sec_1": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "Shipping Information",
+            "content": "<p>At <strong>Sankofa Tallow</strong>, every batch of our grass-fed tallow balm is carefully handcrafted and packaged to maintain peak freshness and potency.</p><ul><li><strong>Processing Time:</strong> Orders are processed and packed within 1 to 2 business days (excluding weekends and holidays).</li><li><strong>Standard Domestic Shipping (US):</strong> 3 to 5 business days post-processing. Free on orders $50+.</li><li><strong>International Shipping:</strong> 7 to 14 business days depending on destination country and customs clearing.</li></ul><p>You will receive a shipping confirmation email containing your tracking number as soon as your package leaves our facility.</p>"
+          }
+        },
+        "sec_2": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "30-Day Satisfaction & Return Policy",
+            "content": "<p>We want you to experience the transformative power of 100% grass-fed tallow skincare risk-free. If for any reason you are not completely satisfied with your purchase, you may return it within <strong>30 days of delivery</strong> for a full refund of the product purchase price.</p><p><strong>Return Guidelines:</strong></p><ul><li>Items must be returned within 30 days from the delivery date.</li><li>Original packaging or proof of purchase is required.</li><li>Return shipping costs are the responsibility of the customer unless the product arrived damaged or defective.</li></ul>"
+          }
+        },
+        "sec_3": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "Damaged or Incorrect Orders",
+            "content": "<p>In the rare event that your jar arrives damaged or you receive an incorrect item, please email us immediately at <strong>Sankofatallow@gmail.com</strong> within 48 hours of delivery with your order number and a photo of the damaged item. We will ship a replacement to you free of charge right away.</p>"
+          }
+        },
+        "sec_4": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "How to Initiate a Return",
+            "content": "<p>To start a return or exchange, simply contact our support team at <strong>Sankofatallow@gmail.com</strong> with your order number and reason for return. Our team will guide you through the return address and processing steps.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "hl_1",
+        "hl_2",
+        "hl_3",
+        "sec_1",
+        "sec_2",
+        "sec_3",
+        "sec_4"
+      ]
     }
   },
   "order": [

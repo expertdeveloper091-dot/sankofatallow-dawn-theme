@@ -1,6 +1,4 @@
 <!-- sections/custom-terms-conditions.liquid -->
-{{ 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css' | stylesheet_tag }}
-
 {%- style -%}
   .custom-policy-page-{{ section.id }} {
     background-color: {{ section.settings.bg_color | default: '#FAF7EF' }};
@@ -71,13 +69,6 @@
     text-transform: uppercase;
     color: #111111;
     margin: 0 0 14px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .cp-block-heading i {
-    color: #fe9d01;
   }
 
   .cp-block-text {
@@ -93,12 +84,12 @@
     margin: 0;
   }
 
-  .cp-block-list {
+  .cp-block-text ul {
     margin: 12px 0 16px 20px;
     padding: 0;
   }
 
-  .cp-block-list li {
+  .cp-block-text li {
     font-size: 14px;
     line-height: 1.7;
     color: #444444;
@@ -116,60 +107,44 @@
   <div class="cp-container">
     
     <div class="cp-header">
-      <span class="cp-tag">House of Sankofa</span>
-      <h1 class="cp-title">Terms & Conditions</h1>
-      <p class="cp-subtitle">Rules and guidelines governing the use of our store and purchase of our skincare products.</p>
+      {%- if section.settings.tag_text != blank -%}
+        <span class="cp-tag">{{ section.settings.tag_text }}</span>
+      {%- endif -%}
+      
+      {%- if section.settings.title != blank -%}
+        <h1 class="cp-title">{{ section.settings.title }}</h1>
+      {%- endif -%}
+      
+      {%- if section.settings.subtitle != blank -%}
+        <p class="cp-subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
     </div>
 
     <!-- Main Content Card -->
     <div class="cp-body-card">
-      
-      <div class="cp-section-block">
-        <h2 class="cp-block-heading"><i class="fa-solid fa-file-contract"></i> 1. Overview</h2>
-        <div class="cp-block-text">
-          <p>This website is operated by <strong>House of Sankofa</strong>. Throughout the site, the terms "we", "us" and "our" refer to House of Sankofa. House of Sankofa offers this website, including all information, tools and services available from this site to you, the user, conditioned upon your acceptance of all terms, conditions, policies and notices stated here.</p>
-          <p>By visiting our site and/or purchasing something from us, you engage in our "Service" and agree to be bound by the following Terms & Conditions.</p>
+      {%- assign policy_blocks = section.blocks | where: "type", "policy_section" -%}
+      {%- if policy_blocks.size > 0 -%}
+        {%- for block in policy_blocks -%}
+          <div class="cp-section-block" {{ block.shopify_attributes }}>
+            {%- if block.settings.heading != blank -%}
+              <h2 class="cp-block-heading">{{ block.settings.heading }}</h2>
+            {%- endif -%}
+            
+            {%- if block.settings.content != blank -%}
+              <div class="cp-block-text">
+                {{ block.settings.content }}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <div class="cp-section-block">
+          <h2 class="cp-block-heading">Terms & Conditions Details</h2>
+          <div class="cp-block-text">
+            <p>Please add policy section blocks in Theme Customizer.</p>
+          </div>
         </div>
-      </div>
-
-      <div class="cp-section-block">
-        <h2 class="cp-block-heading"><i class="fa-solid fa-store"></i> 2. Online Store Terms</h2>
-        <div class="cp-block-text">
-          <p>By agreeing to these Terms & Conditions, you represent that you are at least the age of majority in your state or province of residence. You may not use our products for any illegal or unauthorized purpose nor may you, in the use of the Service, violate any laws in your jurisdiction.</p>
-        </div>
-      </div>
-
-      <div class="cp-section-block">
-        <h2 class="cp-block-heading"><i class="fa-solid fa-jar"></i> 3. Skincare Product Information</h2>
-        <div class="cp-block-text">
-          <p>All <strong>House of Sankofa</strong> products are handcrafted using 100% natural, grass-fed tallow and organic botanicals. Because our products are made from natural raw ingredients, natural variations in scent, color, and texture may occur between batches.</p>
-          <p>Our skincare products are for external cosmetic use only. If irritation occurs, discontinue use immediately and consult a physician.</p>
-        </div>
-      </div>
-
-      <div class="cp-section-block">
-        <h2 class="cp-block-heading"><i class="fa-solid fa-credit-card"></i> 4. Modifications to Prices and Services</h2>
-        <div class="cp-block-text">
-          <p>Prices for our products are subject to change without notice. We reserve the right at any time to modify or discontinue the Service (or any part or content thereof) without notice at any time.</p>
-          <p>We reserve the right to refuse any order you place with us. We may, in our sole discretion, limit or cancel quantities purchased per person, per household or per order.</p>
-        </div>
-      </div>
-
-      <div class="cp-section-block">
-        <h2 class="cp-block-heading"><i class="fa-solid fa-copyright"></i> 5. Intellectual Property</h2>
-        <div class="cp-block-text">
-          <p>All content included on this site, such as text, graphics, logos, images, digital downloads, and product designs, is the property of House of Sankofa and protected by international copyright and trademark laws.</p>
-        </div>
-      </div>
-
-      <div class="cp-section-block">
-        <h2 class="cp-block-heading"><i class="fa-solid fa-gavel"></i> 6. Governing Law & Contact</h2>
-        <div class="cp-block-text">
-          <p>These Terms & Conditions and any separate agreements shall be governed by and construed in accordance with applicable laws.</p>
-          <p>Questions about the Terms & Conditions should be sent to us at <strong>legal@houseofsankofa.com</strong>.</p>
-        </div>
-      </div>
-
+      {%- endif -%}
     </div>
 
   </div>
@@ -179,6 +154,24 @@
 {
   "name": "Terms & Conditions Page",
   "settings": [
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Sub-tag Text",
+      "default": "Sankofa Tallow"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Main Title",
+      "default": "Terms & Conditions"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Rules and guidelines governing the use of our store and purchase of our skincare products."
+    },
     {
       "type": "color",
       "id": "bg_color",
@@ -204,6 +197,26 @@
       "unit": "px",
       "label": "Padding Bottom",
       "default": 70
+    }
+  ],
+  "blocks": [
+    {
+      "type": "policy_section",
+      "name": "Policy Section Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Section Heading",
+          "default": "1. Overview"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Section Content",
+          "default": "<p>Content goes here.</p>"
+        }
+      ]
     }
   ],
   "presets": [

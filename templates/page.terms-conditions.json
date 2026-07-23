@@ -3,8 +3,63 @@
     "main": {
       "type": "custom-terms-conditions",
       "settings": {
+        "tag_text": "Sankofa Tallow",
+        "title": "Terms & Conditions",
+        "subtitle": "Rules and guidelines governing the use of our store and purchase of our skincare products.",
         "bg_color": "#FAF7EF"
-      }
+      },
+      "blocks": {
+        "sec_1": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "1. Overview",
+            "content": "<p>This website is operated by <strong>Sankofa Tallow</strong>. Throughout the site, the terms \"we\", \"us\" and \"our\" refer to Sankofa Tallow. Sankofa Tallow offers this website, including all information, tools and services available from this site to you, the user, conditioned upon your acceptance of all terms, conditions, policies and notices stated here.</p><p>By visiting our site and/or purchasing something from us, you engage in our \"Service\" and agree to be bound by the following Terms & Conditions.</p>"
+          }
+        },
+        "sec_2": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "2. Online Store Terms",
+            "content": "<p>By agreeing to these Terms & Conditions, you represent that you are at least the age of majority in your state or province of residence. You may not use our products for any illegal or unauthorized purpose nor may you, in the use of the Service, violate any laws in your jurisdiction.</p>"
+          }
+        },
+        "sec_3": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "3. Skincare Product Information",
+            "content": "<p>All <strong>Sankofa Tallow</strong> products are handcrafted using 100% natural, grass-fed tallow and organic botanicals. Because our products are made from natural raw ingredients, natural variations in scent, color, and texture may occur between batches.</p><p>Our skincare products are for external cosmetic use only. If irritation occurs, discontinue use immediately and consult a physician.</p>"
+          }
+        },
+        "sec_4": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "4. Modifications to Prices and Services",
+            "content": "<p>Prices for our products are subject to change without notice. We reserve the right at any time to modify or discontinue the Service (or any part or content thereof) without notice at any time.</p><p>We reserve the right to refuse any order you place with us. We may, in our sole discretion, limit or cancel quantities purchased per person, per household or per order.</p>"
+          }
+        },
+        "sec_5": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "5. Intellectual Property",
+            "content": "<p>All content included on this site (Sankofatallow.com), such as text, graphics, logos, images, digital downloads, and product designs, is the property of Sankofa Tallow and protected by international copyright and trademark laws.</p>"
+          }
+        },
+        "sec_6": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "6. Governing Law & Contact",
+            "content": "<p>These Terms & Conditions and any separate agreements shall be governed by and construed in accordance with applicable laws.</p><p>Questions about the Terms & Conditions should be sent to us at <strong>Sankofatallow@gmail.com</strong>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "sec_1",
+        "sec_2",
+        "sec_3",
+        "sec_4",
+        "sec_5",
+        "sec_6"
+      ]
     }
   },
   "order": [

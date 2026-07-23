@@ -3,8 +3,63 @@
     "main": {
       "type": "custom-privacy-policy",
       "settings": {
+        "tag_text": "Sankofa Tallow",
+        "title": "Privacy Policy",
+        "subtitle": "How we collect, use, and protect your personal information when you shop with us.",
         "bg_color": "#FAF7EF"
-      }
+      },
+      "blocks": {
+        "sec_1": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "1. Introduction",
+            "content": "<p>At <strong>Sankofa Tallow</strong> (\"we,\" \"our,\" or \"us\"), we are committed to respecting your privacy and protecting your personal data. This Privacy Policy describes how your personal information is collected, used, and shared when you visit or make a purchase from our website (<strong>Sankofatallow.com</strong>).</p>"
+          }
+        },
+        "sec_2": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "2. Information We Collect",
+            "content": "<p>When you visit our store, we collect certain information about your device, your interaction with the store, and information necessary to process your purchases:</p><ul><li><strong>Order Information:</strong> Name, billing address, shipping address, payment information (credit card numbers via SSL encryption), email address, and phone number.</li><li><strong>Device Information:</strong> Web browser version, IP address, time zone, cookie information, and how you interact with our website.</li><li><strong>Customer Support Data:</strong> Any information you provide to our support team during inquiries.</li></ul>"
+          }
+        },
+        "sec_3": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "3. How We Use Your Information",
+            "content": "<p>We use the order information we collect to fulfill any orders placed through the site (including processing your payment, arranging for shipping, and providing you with invoices and order confirmations). Additionally, we use this information to:</p><ul><li>Communicate with you regarding your order status and updates.</li><li>Screen orders for potential risk or fraud.</li><li>Provide you with news, promotional offers, and skincare tips related to our products.</li></ul>"
+          }
+        },
+        "sec_4": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "4. Sharing Your Personal Information",
+            "content": "<p>We share your personal information with trusted third parties to help us use your personal information as described above. For example:</p><ul><li>We use <strong>Shopify</strong> to power our online store.</li><li>We use secure payment gateways (PayPal, Shop Pay, Google Pay) for encrypted checkout processing.</li></ul><p>We do not sell, rent, or trade your personal information to third-party marketers.</p>"
+          }
+        },
+        "sec_5": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "5. Your Data Rights",
+            "content": "<p>Depending on your residency (e.g., GDPR in Europe or CCPA in California), you have the right to access personal information we hold about you and to ask that your personal information be corrected, updated, or deleted. If you would like to exercise this right, please contact us at <strong>Sankofatallow@gmail.com</strong>.</p>"
+          }
+        },
+        "sec_6": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "6. Contact Us",
+            "content": "<p>For more information about our privacy practices or if you have questions, please contact us by email at <strong>Sankofatallow@gmail.com</strong>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "sec_1",
+        "sec_2",
+        "sec_3",
+        "sec_4",
+        "sec_5",
+        "sec_6"
+      ]
     }
   },
   "order": [
