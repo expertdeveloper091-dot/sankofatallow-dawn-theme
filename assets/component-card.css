@@ -618,13 +618,12 @@
   grid-template-columns: minmax(0, 1fr) !important;
 }
 
-@media screen and (max-width: 749px) {
-  .ml-product-grid.grid--2-col-tablet-down {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 16px !important;
-  }
-  .ml-product-grid.grid--1-col-tablet-down {
+@media screen and (max-width: 768px) {
+  .ml-product-grid.grid--2-col-tablet-down,
+  .ml-product-grid.grid--1-col-tablet-down,
+  .ml-product-grid {
     grid-template-columns: minmax(0, 1fr) !important;
+    gap: 20px !important;
   }
 }
 
