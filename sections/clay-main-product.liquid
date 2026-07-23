@@ -341,21 +341,7 @@
     </div>
   </div>
 
-  <!-- BELOW PRODUCT SECTION: PEOPLE ALSO BOUGHT -->
-  <div class="clay-related-section" style="margin-top: 60px; padding-top: 40px; border-top: 1px solid #eaecf0;">
-    <h2 class="clay-related-heading" style="text-align: center; font-size: 30px; font-weight: 900; font-family: 'Poppins', sans-serif; text-transform: uppercase; margin-bottom: 8px;">People Also Bought</h2>
-    <p class="clay-related-subheading" style="text-align: center; font-size: 15px; color: #555555; margin-bottom: 32px; font-family: 'Poppins', sans-serif;">Hand-picked selections that complement your daily routine.</p>
-    
-    <div class="custom-gridproduct-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
-      {% for rel_product in collections.all.products limit: 4 %}
-        {% render 'card-product',
-          card_product: rel_product,
-          section_id: section.id,
-          product_view_context: 'recommendation'
-        %}
-      {% endfor %}
-    </div>
-  </div>
+
 
 </div>
 

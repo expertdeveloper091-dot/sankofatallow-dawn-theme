@@ -12,7 +12,7 @@
         "enable_video_looping": false,
         "enable_video_autoplay": true,
         "enable_sticky_atc": true,
-        "enable_fbt": true,
+        "enable_fbt": false,
         "show_vendor": true,
         "show_save_badge": true,
         "show_sold_count": true,
@@ -153,23 +153,9 @@
         "collapsible_desc",
         "collapsible_shipping"
       ]
-    },
-    "related-products": {
-      "type": "rb-product-recommendations",
-      "settings": {
-        "heading": "You May Also Like"
-      }
-    },
-    "recently-viewed": {
-      "type": "rb-recently-viewed",
-      "settings": {
-        "heading": "Recently Viewed Products"
-      }
     }
   },
   "order": [
-    "main",
-    "related-products",
-    "recently-viewed"
+    "main"
   ]
 }
