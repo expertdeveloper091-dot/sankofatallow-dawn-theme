@@ -46,8 +46,10 @@ LOGO
 }
 
 .custom-footer-logo img {
-    width:220px;
-    margin:auto;
+    max-width: 100%;
+    height: auto !important;
+    object-fit: contain !important;
+    margin: auto;
 }
 
 .custom-footer-logo-fallback {

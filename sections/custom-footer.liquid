@@ -21,6 +21,14 @@
   .custom-footer-{{ section.id }} .custom-footer-logo {
     border-bottom: 1px solid {{ section.settings.footer_border_color | default: '#222222' }};
   }
+  .custom-footer-{{ section.id }} .custom-footer-logo img {
+    width: {{ section.settings.logo_width | default: 220 }}px !important;
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block;
+    margin: 0 auto;
+  }
   .custom-footer-{{ section.id }} .newsletter-form button {
     background-color: {{ section.settings.btn_bg | default: '#fe9d01' }};
     color: {{ section.settings.btn_text_color | default: '#ffffff' }};
