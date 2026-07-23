@@ -1,5 +1,7 @@
 <!-- sections/custom-girdproduct.liquid -->
 {{ 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css' | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .custom-gridproduct-{{ section.id }} {
@@ -76,11 +78,12 @@
     flex-shrink: 0;
   }
 
-  /* Grid Layout */
+  /* Grid Layout - Matching Shop Page 2-Column Grid */
   .custom-gridproduct-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
+    align-items: stretch;
   }
 
   @media (max-width: 900px) {
@@ -88,265 +91,6 @@
       grid-template-columns: 1fr;
       gap: 24px;
     }
-  }
-
-  /* Card Container */
-  .c-prod-card {
-    border: 1.5px solid {{ section.settings.card_border_color | default: '#111111' }};
-    border-radius: 12px;
-    background-color: {{ section.settings.card_bg | default: '#fff8ed' }};
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .c-prod-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
-  }
-
-  .c-prod-card-body {
-    padding: 24px;
-    display: flex;
-    gap: 20px;
-    align-items: stretch;
-    flex: 1;
-  }
-
-  @media (max-width: 576px) {
-    .c-prod-card-body {
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-      padding: 18px;
-    }
-  }
-
-  /* Card Image */
-  .c-prod-card-img-wrap {
-    flex: 0 0 45%;
-    max-width: 45%;
-    background-color: #faf8f5;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    aspect-ratio: 1 / 1;
-    text-decoration: none;
-    box-sizing: border-box;
-    padding: 12px;
-  }
-
-  @media (max-width: 576px) {
-    .c-prod-card-img-wrap {
-      flex: 0 0 100%;
-      max-width: 100%;
-      width: 100%;
-      aspect-ratio: 1 / 1;
-    }
-  }
-
-  .c-prod-card-img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-  }
-
-  .c-prod-card-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .c-prod-card-title {
-    font-size: 20px;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: {{ section.settings.heading_color | default: '#111111' }};
-    margin: 0 0 10px 0;
-    line-height: 1.2;
-    font-family: 'Poppins', sans-serif;
-  }
-
-  .c-prod-card-title a {
-    color: inherit;
-    text-decoration: none;
-    transition: opacity 0.2s;
-  }
-
-  .c-prod-card-title a:hover {
-    opacity: 0.8;
-  }
-
-  .c-prod-card-description {
-    font-size: 13.5px;
-    line-height: 1.5;
-    color: #444444;
-    margin-bottom: 14px;
-    font-family: 'Poppins', sans-serif;
-  }
-
-  .c-prod-card-description strong,
-  .c-prod-card-description b {
-    font-weight: 700;
-    color: #111111;
-  }
-
-  /* Variant selectors styling */
-  .c-prod-variants-wrapper {
-    margin-bottom: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .c-variant-label {
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    color: #555555;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-    display: block;
-    font-family: 'Poppins', sans-serif;
-  }
-
-  .c-variant-select {
-    width: 100%;
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: 1px solid #d0d5dd;
-    background-color: #ffffff;
-    font-size: 13px;
-    font-weight: 600;
-    color: #111111;
-    font-family: 'Poppins', sans-serif;
-    outline: none;
-    cursor: pointer;
-  }
-
-  .c-pill-group {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .c-pill-btn {
-    padding: 6px 16px;
-    border-radius: 20px;
-    border: 1px solid #d0d5dd;
-    background-color: #ffffff;
-    font-size: 12px;
-    font-weight: 700;
-    color: #111111;
-    cursor: pointer;
-    font-family: 'Poppins', sans-serif;
-    transition: all 0.2s ease;
-  }
-
-  .c-pill-btn.active,
-  .c-pill-btn:hover {
-    background-color: #111111;
-    color: #ffffff;
-    border-color: #111111;
-  }
-
-  /* Feature Bullets */
-  .c-prod-card-features {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 16px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .c-prod-card-feature-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    font-weight: 700;
-    color: {{ section.settings.heading_color | default: '#111111' }};
-    font-family: 'Poppins', sans-serif;
-  }
-
-  .c-prod-card-feature-icon {
-    width: 16px;
-    height: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: currentColor;
-    flex-shrink: 0;
-  }
-
-  .c-prod-card-price {
-    font-size: 18px;
-    font-weight: 800;
-    color: {{ section.settings.heading_color | default: '#111111' }};
-    margin-top: auto;
-    font-family: 'Poppins', sans-serif;
-  }
-
-  /* Card Bottom Action Bar */
-  .c-prod-card-actions {
-    display: flex;
-    border-top: 1.5px solid {{ section.settings.card_border_color | default: '#111111' }};
-  }
-
-  .c-prod-btn-learn {
-    width: 50%;
-    background-color: #ffffff;
-    color: #111111;
-    border: none;
-    border-right: 1.5px solid {{ section.settings.card_border_color | default: '#111111' }};
-    font-size: 14px;
-    font-weight: 700;
-    font-family: 'Poppins', sans-serif;
-    padding: 14px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    transition: background 0.2s;
-  }
-
-  .c-prod-btn-learn:hover {
-    background-color: #f2f2f2;
-    color: #000;
-  }
-
-  .c-prod-btn-cart {
-    width: 50%;
-    background-color: {{ section.settings.btn_cart_bg | default: '#F3AD12' }};
-    color: {{ section.settings.btn_cart_text_color | default: '#111111' }};
-    border: none;
-    font-size: 14px;
-    font-weight: 700;
-    font-family: 'Poppins', sans-serif;
-    padding: 14px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    cursor: pointer;
-    transition: filter 0.2s;
-  }
-
-  .c-prod-btn-cart:hover {
-    filter: brightness(0.95);
   }
 {%- endstyle -%}
 
@@ -393,7 +137,7 @@
       {%- endif -%}
     </div>
 
-    <!-- Product Grid (Pure Collection Driven) -->
+    <!-- Product Grid (Renders Exact Shop Page 'card-product' Component) -->
     <div class="custom-gridproduct-grid">
       {%- assign selected_collection = section.settings.collection -%}
       {%- if selected_collection == blank -%}
@@ -402,303 +146,21 @@
 
       {%- if selected_collection != blank and selected_collection.products_count > 0 -%}
         {%- for product in selected_collection.products limit: section.settings.products_to_show -%}
-          <div class="c-prod-card" data-product-id="{{ product.id }}">
-            <div class="c-prod-card-body">
-              
-              <!-- Image (Clickable Link to Product Page) -->
-              <a href="{{ product.url }}" class="c-prod-card-img-wrap" aria-label="{{ product.title | escape }}">
-                {%- if product.featured_media != blank -%}
-                  <img src="{{ product.featured_media | image_url: width: 600 }}"
-                       alt="{{ product.title | escape }}"
-                       class="c-prod-img-element"
-                       loading="lazy">
-                {%- else -%}
-                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                {%- endif -%}
-              </a>
-
-              <!-- Content -->
-              <div class="c-prod-card-content">
-                <!-- Title (Clickable Link to Product Page) -->
-                <h3 class="c-prod-card-title">
-                  <a href="{{ product.url }}">
-                    {{ product.title | escape }}
-                  </a>
-                </h3>
-
-                <div class="c-prod-card-description">
-                  {%- if product.description != blank -%}
-                    {{ product.description | strip_html | truncatewords: 22 }}
-                  {%- else -%}
-                    Organic multipurpose balm that <strong>deeply moisturizes</strong> and nourishes skin.
-                  {%- endif -%}
-                </div>
-
-                <!-- Product Variant Selectors (Fragrance & Size) -->
-                {%- unless product.has_only_default_variant -%}
-                  <div class="c-prod-variants-wrapper" data-url="{{ product.url }}">
-                    {%- for option in product.options_with_values -%}
-                      {%- assign option_name_downcase = option.name | downcase -%}
-                      
-                      {%- if option_name_downcase contains 'size' -%}
-                        <!-- Size Pill Buttons -->
-                        <div class="c-variant-option c-variant-pills" data-option-index="{{ forloop.index0 }}">
-                          <label class="c-variant-label">SELECT {{ option.name | uppercase }}</label>
-                          <div class="c-pill-group">
-                            {%- for value in option.values -%}
-                              <button type="button" 
-                                      class="c-pill-btn{% if option.selected_value == value %} active{% endif %}" 
-                                      data-value="{{ value | escape }}">
-                                {{ value }}
-                              </button>
-                            {%- endfor -%}
-                          </div>
-                        </div>
-
-                      {%- else -%}
-                        <!-- Fragrance / Dropdown Select -->
-                        <div class="c-variant-option c-variant-dropdown" data-option-index="{{ forloop.index0 }}">
-                          <label class="c-variant-label">SELECT {{ option.name | uppercase }}</label>
-                          <select class="c-variant-select">
-                            {%- for value in option.values -%}
-                              <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>
-                                {{ value }}
-                              </option>
-                            {%- endfor -%}
-                          </select>
-                        </div>
-                      {%- endif -%}
-                    {%- endfor -%}
-
-                    <script type="application/json" class="c-product-variants-json">
-                      {{ product.variants | json }}
-                    </script>
-                  </div>
-                {%- endunless -%}
-
-                <!-- Feature Bullets -->
-                <ul class="c-prod-card-features">
-                  {%- if section.settings.default_feature_1 != blank -%}
-                    <li class="c-prod-card-feature-item">
-                      <span class="c-prod-card-feature-icon">
-                        {%- if section.settings.default_feature_1_icon == 'star' -%}
-                          <i class="fa-regular fa-star"></i>
-                        {%- elsif section.settings.default_feature_1_icon == 'leaf' -%}
-                          <i class="fa-solid fa-leaf"></i>
-                        {%- elsif section.settings.default_feature_1_icon == 'shield' -%}
-                          <i class="fa-solid fa-shield-halved"></i>
-                        {%- else -%}
-                          <i class="fa-solid fa-check"></i>
-                        {%- endif -%}
-                      </span>
-                      <span>{{ section.settings.default_feature_1 | escape }}</span>
-                    </li>
-                  {%- endif -%}
-
-                  {%- if section.settings.default_feature_2 != blank -%}
-                    <li class="c-prod-card-feature-item">
-                      <span class="c-prod-card-feature-icon">
-                        {%- if section.settings.default_feature_2_icon == 'star' -%}
-                          <i class="fa-regular fa-star"></i>
-                        {%- elsif section.settings.default_feature_2_icon == 'leaf' -%}
-                          <i class="fa-solid fa-leaf"></i>
-                        {%- elsif section.settings.default_feature_2_icon == 'shield' -%}
-                          <i class="fa-solid fa-shield-halved"></i>
-                        {%- else -%}
-                          <i class="fa-solid fa-check"></i>
-                        {%- endif -%}
-                      </span>
-                      <span>{{ section.settings.default_feature_2 | escape }}</span>
-                    </li>
-                  {%- endif -%}
-
-                  {%- if section.settings.default_feature_3 != blank -%}
-                    <li class="c-prod-card-feature-item">
-                      <span class="c-prod-card-feature-icon">
-                        {%- if section.settings.default_feature_3_icon == 'star' -%}
-                          <i class="fa-regular fa-star"></i>
-                        {%- elsif section.settings.default_feature_3_icon == 'leaf' -%}
-                          <i class="fa-solid fa-leaf"></i>
-                        {%- elsif section.settings.default_feature_3_icon == 'shield' -%}
-                          <i class="fa-solid fa-shield-halved"></i>
-                        {%- else -%}
-                          <i class="fa-solid fa-check"></i>
-                        {%- endif -%}
-                      </span>
-                      <span>{{ section.settings.default_feature_3 | escape }}</span>
-                    </li>
-                  {%- endif -%}
-                </ul>
-
-                <!-- Dynamic Price -->
-                <div class="c-prod-card-price" data-price-display>
-                  {{ product.selected_or_first_available_variant.price | money }}
-                </div>
-              </div>
-
-            </div>
-
-            <!-- Bottom Actions Bar -->
-            <div class="c-prod-card-actions">
-              <a href="{{ product.url }}" class="c-prod-btn-learn">
-                <span>{{ section.settings.default_learn_text | default: 'Learn More' | escape }}</span>
-                <span>&rarr;</span>
-              </a>
-
-              {%- if product.available -%}
-                <button type="button" 
-                        class="c-prod-btn-cart js-ajax-add-cart" 
-                        data-variant-id="{{ product.selected_or_first_available_variant.id }}">
-                  <span>{{ section.settings.default_cart_text | default: 'Add To Cart' | escape }}</span>
-                  <i class="fa-solid fa-cart-shopping"></i>
-                </button>
-              {%- else -%}
-                <button type="button" class="c-prod-btn-cart" disabled style="opacity:0.6; cursor:not-allowed;">
-                  <span>Sold Out</span>
-                </button>
-              {%- endif -%}
-            </div>
-          </div>
+          {% render 'card-product',
+            card_product: product,
+            section_id: section.id,
+            product_view_context: 'collection'
+          %}
         {%- endfor -%}
       {%- else -%}
         {%- for i in (1..2) -%}
-          <div class="c-prod-card">
-            <div class="c-prod-card-body">
-              <div class="c-prod-card-img-wrap">
-                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-              </div>
-              <div class="c-prod-card-content">
-                <h3 class="c-prod-card-title"><a href="#">Sample Product {{ i }}</a></h3>
-                <div class="c-prod-card-description">
-                  Organic multipurpose balm that <strong>deeply moisturizes</strong> and nourishes skin.
-                </div>
-                <div class="c-prod-card-price">$49.99</div>
-              </div>
-            </div>
-            <div class="c-prod-card-actions">
-              <a href="#" class="c-prod-btn-learn"><span>Learn More</span> <span>&rarr;</span></a>
-              <button type="button" class="c-prod-btn-cart"><span>Add To Cart</span> <i class="fa-solid fa-cart-shopping"></i></button>
-            </div>
-          </div>
+          {% render 'card-product', section_id: section.id %}
         {%- endfor -%}
       {%- endif -%}
     </div>
 
   </div>
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const gridContainer = document.querySelector('.custom-gridproduct-{{ section.id }}');
-  if (!gridContainer) return;
-
-  function formatMoney(cents) {
-    if (typeof cents === 'string') cents = cents.replace('.', '');
-    cents = parseInt(cents, 10) || 0;
-    const val = (cents / 100).toFixed(2);
-    return '$' + val.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  }
-
-  /* Handle Variant Selection (Dropdowns & Size Pills) */
-  gridContainer.querySelectorAll('.c-prod-card').forEach(card => {
-    const jsonScript = card.querySelector('.c-product-variants-json');
-    if (!jsonScript) return;
-
-    let variants = [];
-    try { variants = JSON.parse(jsonScript.textContent); } catch (e) {}
-    if (!variants || !variants.length) return;
-
-    const priceDisplay = card.querySelector('[data-price-display]');
-    const cartBtn = card.querySelector('.js-ajax-add-cart');
-    const mainImg = card.querySelector('.c-prod-img-element');
-
-    function updateVariant() {
-      const selectedOptions = [];
-      card.querySelectorAll('.c-variant-option').forEach(optGroup => {
-        const dropdown = optGroup.querySelector('.c-variant-select');
-        const activePill = optGroup.querySelector('.c-pill-btn.active');
-        if (dropdown) {
-          selectedOptions.push(dropdown.value);
-        } else if (activePill) {
-          selectedOptions.push(activePill.getAttribute('data-value'));
-        }
-      });
-
-      const matchedVariant = variants.find(variant => {
-        return variant.options.every((opt, idx) => opt === selectedOptions[idx]);
-      });
-
-      if (matchedVariant) {
-        if (priceDisplay) priceDisplay.textContent = formatMoney(matchedVariant.price);
-        
-        if (cartBtn) {
-          cartBtn.setAttribute('data-variant-id', matchedVariant.id);
-          cartBtn.disabled = !matchedVariant.available;
-          const cartTextSpan = cartBtn.querySelector('span');
-          if (cartTextSpan) {
-            cartTextSpan.textContent = matchedVariant.available ? '{{ section.settings.default_cart_text | default: "Add To Cart" | escape }}' : 'Sold Out';
-          }
-        }
-
-        if (matchedVariant.featured_image && matchedVariant.featured_image.src && mainImg) {
-          mainImg.src = matchedVariant.featured_image.src;
-        }
-      }
-    }
-
-    card.querySelectorAll('.c-pill-btn').forEach(btn => {
-      btn.addEventListener('click', function () {
-        const group = btn.closest('.c-pill-group');
-        group.querySelectorAll('.c-pill-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        updateVariant();
-      });
-    });
-
-    card.querySelectorAll('.c-variant-select').forEach(select => {
-      select.addEventListener('change', updateVariant);
-    });
-  });
-
-  /* Handle AJAX Add To Cart & Open Side Drawer */
-  gridContainer.addEventListener('click', function (e) {
-    const btn = e.target.closest('.js-ajax-add-cart');
-    if (!btn) return;
-
-    const variantId = btn.getAttribute('data-variant-id');
-    if (!variantId) return;
-
-    const originalHtml = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = '<span>Adding...</span>';
-
-    fetch('/cart/add.js', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ id: parseInt(variantId, 10), quantity: 1 })
-    })
-    .then(r => r.json())
-    .then(data => {
-      btn.innerHTML = '<span>Added ✓</span>';
-      setTimeout(() => {
-        btn.disabled = false;
-        btn.innerHTML = originalHtml;
-      }, 1500);
-
-      // Open Custom Side Cart Drawer and refresh cart content
-      if (typeof window.openCustomCartDrawer === 'function') {
-        window.openCustomCartDrawer();
-      } else if (typeof window.fetchCustomCart === 'function') {
-        window.fetchCustomCart();
-      }
-    })
-    .catch(err => {
-      btn.disabled = false;
-      btn.innerHTML = originalHtml;
-    });
-  });
-});
-</script>
 
 {% schema %}
 {
@@ -721,76 +183,6 @@ document.addEventListener('DOMContentLoaded', function () {
       "step": 1,
       "default": 8,
       "label": "Maximum Products to Show"
-    },
-    {
-      "type": "header",
-      "content": "Product Card Bullet Features"
-    },
-    {
-      "type": "text",
-      "id": "default_feature_1",
-      "label": "Feature 1 Bullet Text",
-      "default": "Skin Barrier Support"
-    },
-    {
-      "type": "select",
-      "id": "default_feature_1_icon",
-      "label": "Feature 1 Icon",
-      "options": [
-        { "value": "star", "label": "Star" },
-        { "value": "check", "label": "Checkmark" },
-        { "value": "leaf", "label": "Leaf" },
-        { "value": "shield", "label": "Shield" }
-      ],
-      "default": "star"
-    },
-    {
-      "type": "text",
-      "id": "default_feature_2",
-      "label": "Feature 2 Bullet Text",
-      "default": "Fast Absorption"
-    },
-    {
-      "type": "select",
-      "id": "default_feature_2_icon",
-      "label": "Feature 2 Icon",
-      "options": [
-        { "value": "star", "label": "Star" },
-        { "value": "check", "label": "Checkmark" },
-        { "value": "leaf", "label": "Leaf" },
-        { "value": "shield", "label": "Shield" }
-      ],
-      "default": "check"
-    },
-    {
-      "type": "text",
-      "id": "default_feature_3",
-      "label": "Feature 3 Bullet Text",
-      "default": "Zero Toxins"
-    },
-    {
-      "type": "select",
-      "id": "default_feature_3_icon",
-      "label": "Feature 3 Icon",
-      "options": [
-        { "value": "star", "label": "Star" },
-        { "value": "check", "label": "Checkmark" },
-        { "value": "leaf", "label": "Leaf" },
-        { "value": "shield", "label": "Shield" }
-      ],
-      "default": "shield"
-    },
-    {
-      "type": "text",
-      "id": "default_learn_text",
-      "label": "Learn More Button Text",
-      "default": "Learn More"
-    },
-    {
-      "type": "text",
-      "id": "default_cart_text",
-      "label": "Add to Cart Button Text",
-      "default": "Add To Cart"
     },
 
     {
@@ -867,30 +259,6 @@ document.addEventListener('DOMContentLoaded', function () {
       "id": "text_color",
       "label": "Description Text Color",
       "default": "#333333"
-    },
-    {
-      "type": "color",
-      "id": "card_bg",
-      "label": "Card Background",
-      "default": "#fff8ed"
-    },
-    {
-      "type": "color",
-      "id": "card_border_color",
-      "label": "Card Border Color",
-      "default": "#111111"
-    },
-    {
-      "type": "color",
-      "id": "btn_cart_bg",
-      "label": "Add to Cart Button Background",
-      "default": "#fe9d01"
-    },
-    {
-      "type": "color",
-      "id": "btn_cart_text_color",
-      "label": "Add to Cart Button Text Color",
-      "default": "#ffffff"
     },
     {
       "type": "header",
