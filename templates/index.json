@@ -67,7 +67,7 @@
       "settings": {
         "layout_desktop": "left_content",
         "max_width": 1200,
-        "bg_color": "#fff8ed",
+        "bg_color": "#F6E2C3",
         "text_color": "#000000",
         "accent_color": "#000000",
         "show_rating": true,
@@ -124,7 +124,7 @@
       ],
       "name": "Industry Statistics",
       "settings": {
-        "bg_color": "#fff8ed",
+        "bg_color": "#F6E2C3",
         "text_color": "#000000",
         "accent_color": "#e7a621",
         "card_bg": "#ffffff",
