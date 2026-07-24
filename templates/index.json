@@ -416,7 +416,7 @@
         "review_UGyMTQ": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/second_1.webp",
+            "image": "shopify://shop_images/03.webp",
             "show_tags": true,
             "problem": "PROBLEM: DRY SKIN",
             "review_text": "I've struggled with dry, itchy skin for years, and nothing seemed to last. Sankofatallow leaves my skin feeling soft, deeply moisturized, and comfortable all day. It's become a daily essential for my family",
@@ -442,7 +442,7 @@
         "review_JGb8E4": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/Jul_7_2026_01_52_55_AM.webp",
+            "image": "shopify://shop_images/02.webp",
             "show_tags": true,
             "problem": "PROBLEM: SENSITIVE SKIN",
             "review_text": "Finally, a product I can trust on my sensitive skin. It's gentle, nourishing, and keeps my skin hydrated throughout the day. I even use it on my kids because I know exactly what's in it",
@@ -455,7 +455,7 @@
         "review_kry6rj": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/second.webp",
+            "image": "shopify://shop_images/01.webp",
             "show_tags": true,
             "problem": "PROBLEM: ACNE",
             "review_text": "\"I’ve tried all the overpriced skincare junk — nothing worked long-term. EVIL GOODS changed that. After 30 days, my skin isn’t just clearer — it’s stronger.\"",
@@ -465,27 +465,14 @@
             "verified_text": "Verified Buyer"
           }
         },
-        "review_KV7zE3": {
+        "review_8P8fRc": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/third.webp",
+            "image": "shopify://shop_images/03.webp",
             "show_tags": true,
-            "problem": "PROBLEM: DRYNESS",
-            "review_text": "\"Within the first week, my skin stopped freaking out. By week four, the bumps were gone, and the flakiness too. My skin barrier finally feels calm again.\"",
-            "name": "Olivia, 28",
-            "country_code": "us",
-            "country_flag": "🇺🇸",
-            "verified_text": "Verified Buyer"
-          }
-        },
-        "review_icrNgf": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/second.webp",
-            "show_tags": true,
-            "problem": "PROBLEM: ACCELERATED AGING",
-            "review_text": "\"I wasn’t expecting much, but this balm goes hard. My breakouts are rare now, my skin isn’t oily by noon, and the redness is gone.\"",
-            "name": "Angela, 26",
+            "problem": "PROBLEM: DRY SKIN",
+            "review_text": "I've struggled with dry, itchy skin for years, and nothing seemed to last. Sankofatallow leaves my skin feeling soft, deeply moisturized, and comfortable all day. It's become a daily essential for my family",
+            "name": "Sarah, 36",
             "country_code": "us",
             "country_flag": "🇺🇸",
             "verified_text": "Verified Buyer"
@@ -497,8 +484,7 @@
         "review_4MK8HU",
         "review_JGb8E4",
         "review_kry6rj",
-        "review_KV7zE3",
-        "review_icrNgf"
+        "review_8P8fRc"
       ],
       "name": "Customer Reviews Carousel",
       "settings": {
@@ -510,7 +496,7 @@
         "footer_bg": "#fe9d01",
         "trust_badge_image_1": "shopify://shop_images/cta_image.webp",
         "trust_badge_image_2": "shopify://shop_images/bbbe.webp",
-        "trust_badge_image_3": "shopify://shop_images/bbbe.webp",
+        "trust_badge_image_3": "shopify://shop_images/3qr.webp",
         "trust_badge_count": "5K+",
         "trust_badge_text": "Happy Customers",
         "heading": "REAL FAMILIES. REAL RESULTS.",
