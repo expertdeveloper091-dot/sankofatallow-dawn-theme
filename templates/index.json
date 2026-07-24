@@ -33,7 +33,7 @@
         "slide_QBTD4p": {
           "type": "slide",
           "settings": {
-            "slide_image": "shopify://shop_images/Jul_7_2026_01_52_55_AM.webp",
+            "slide_image": "shopify://shop_images/01.webp",
             "label_left": "DAY 01",
             "label_right": "DAY 22"
           }
@@ -41,7 +41,7 @@
         "slide_BGi6UT": {
           "type": "slide",
           "settings": {
-            "slide_image": "shopify://shop_images/third.webp",
+            "slide_image": "shopify://shop_images/02.webp",
             "label_left": "DAY 01",
             "label_right": "DAY 22"
           }
@@ -49,7 +49,7 @@
         "slide_3HV4pR": {
           "type": "slide",
           "settings": {
-            "slide_image": "shopify://shop_images/second.webp",
+            "slide_image": "shopify://shop_images/03.webp",
             "label_left": "DAY 01",
             "label_right": "DAY 22"
           }
