@@ -155,19 +155,18 @@
     z-index: 2;
   }
 
-  /* Image 3 Vector Stamp Seal Badge */
+  /* Clean Smooth Circle Badge (Without spiky teeth) */
   .custom-compare-cards-{{ section.id }} .ccc-badge-seal-graphic {
     position: absolute;
-    top: -28px;
+    top: -24px;
     right: 20px;
     z-index: 10;
-    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.16));
+    filter: drop-shadow(0 6px 16px rgba(201, 110, 61, 0.25));
     transition: transform 0.3s ease;
-    transform: rotate(4deg);
   }
 
   .custom-compare-cards-{{ section.id }} .ccc-card--new:hover .ccc-badge-seal-graphic {
-    transform: rotate(0deg) scale(1.06);
+    transform: scale(1.08);
   }
 
   /* Header style without icon */
@@ -380,41 +379,34 @@
         {%- if section.settings.show_right_badge and section.settings.right_badge_text != blank -%}
           {%- if section.settings.badge_style == 'seal' -%}
             <div class="ccc-badge-seal-graphic">
-              <svg width="105" height="105" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Outer Scalloped Teeth Circle -->
-                <path d="M60 5 L64 12 L71 7 L73 15 L82 13 L82 21 L90 21 L88 29 L96 32 L92 40 L99 45 L93 52 L99 59 L91 64 L96 72 L87 75 L90 84 L80 85 L80 94 L71 93 L68 101 L60 98 L56 105 L49 98 L46 106 L39 99 L36 106 L28 100 L27 92 L18 92 L20 84 L11 81 L15 73 L7 70 L13 62 L6 56 L14 51 L8 43 L16 39 L12 31 L20 28 L18 20 L27 20 L27 11 L36 13 L38 5 L46 10 Z" fill="#222831"/>
-                
-                <!-- Inner Copper Circle -->
-                <circle cx="60" cy="60" r="44" fill="{{ section.settings.right_badge_bg | default: '#C96E3D' }}"/>
-                <circle cx="60" cy="60" r="41" stroke="white" stroke-width="1" stroke-dasharray="3 2" opacity="0.6"/>
-                <circle cx="60" cy="60" r="39" stroke="white" stroke-width="0.8" opacity="0.4"/>
+              <svg width="96" height="96" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Smooth Outer Circle Gold/White Border -->
+                <circle cx="50" cy="50" r="47" fill="{{ section.settings.right_badge_bg | default: '#C96E3D' }}" stroke="white" stroke-width="2.5"/>
+                <circle cx="50" cy="50" r="43" stroke="white" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.75"/>
+                <circle cx="50" cy="50" r="41" stroke="white" stroke-width="0.8" opacity="0.5"/>
 
-                <!-- Top Text Arc -->
-                <path id="topArcPath" d="M 26 60 A 34 34 0 0 1 94 60" fill="none"/>
-                <text font-family="Poppins, sans-serif" font-size="8.5" font-weight="900" fill="white" letter-spacing="1.5">
-                  <textPath href="#topArcPath" startOffset="50%" text-anchor="middle">{{ section.settings.seal_top_text | default: 'TOP-RATED' }}</textPath>
+                <!-- Top Arc Text -->
+                <path id="topArcPathClean" d="M 18 50 A 32 32 0 0 1 82 50" fill="none"/>
+                <text font-family="Poppins, sans-serif" font-size="8" font-weight="900" fill="white" letter-spacing="1.2">
+                  <textPath href="#topArcPathClean" startOffset="50%" text-anchor="middle">{{ section.settings.seal_top_text | default: 'TOP RATED' }}</textPath>
                 </text>
-                <polygon points="60,36 61.5,39 65,39 62,41.5 63,45 60,43 57,45 58,41.5 55,39 58.5,39" fill="white"/>
+                <polygon points="50,29 51.2,31.5 54,31.5 51.8,33.2 52.5,36 50,34.2 47.5,36 48.2,33.2 46,31.5 48.8,31.5" fill="white"/>
 
-                <!-- Bottom Text Arc -->
-                <path id="bottomArcPath" d="M 94 60 A 34 34 0 0 1 26 60" fill="none"/>
-                <text font-family="Poppins, sans-serif" font-size="7.5" font-weight="800" fill="white" letter-spacing="1.5">
-                  <textPath href="#bottomArcPath" startOffset="50%" text-anchor="middle">{{ section.settings.seal_bottom_text | default: '★ PRODUCT ★' }}</textPath>
+                <!-- Bottom Arc Text -->
+                <path id="bottomArcPathClean" d="M 82 50 A 32 32 0 0 1 18 50" fill="none"/>
+                <text font-family="Poppins, sans-serif" font-size="7" font-weight="800" fill="white" letter-spacing="1.2">
+                  <textPath href="#bottomArcPathClean" startOffset="50%" text-anchor="middle">{{ section.settings.seal_bottom_text | default: '★ PRODUCT ★' }}</textPath>
                 </text>
 
-                <!-- Center Ribbon Banner -->
-                <polygon points="6,50 18,50 14,60 18,70 6,70 10,60" fill="#161B22"/>
-                <polygon points="114,50 102,50 106,60 102,70 114,70 110,60" fill="#161B22"/>
-                <rect x="12" y="49" width="96" height="22" rx="2" fill="#222831" stroke="white" stroke-width="1.2"/>
-                <rect x="14" y="51" width="92" height="18" rx="1" fill="none" stroke="white" stroke-width="0.6" opacity="0.6"/>
-
-                <text x="34" y="64" font-family="Poppins, sans-serif" font-size="10.5" font-weight="900" fill="white" letter-spacing="1" text-anchor="middle">BEST</text>
+                <!-- Center Banner Box -->
+                <rect x="7" y="41" width="86" height="18" rx="3" fill="#1C232B" stroke="white" stroke-width="1"/>
+                <text x="26" y="53.5" font-family="Poppins, sans-serif" font-size="8.5" font-weight="900" fill="white" letter-spacing="0.8" text-anchor="middle">BEST</text>
                 
-                <g transform="translate(54, 53) scale(0.65)">
-                  <path d="M7 19h-4v-10h4v10zm14-9c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06l-1.06-1.05-6.59 6.59c-.36.36-.58.86-.58 1.41v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2.03z" fill="white"/>
+                <g transform="translate(45.5, 45) scale(0.5)">
+                  <path d="M7 19h-4v-10h4v10zm14-9c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06l-1.06-1.05-6.59 6.59c-.36.36-.58.86-.58 1.41v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2.03z" fill="{{ section.settings.right_badge_bg | default: '#C96E3D' }}"/>
                 </g>
                 
-                <text x="86" y="64" font-family="Poppins, sans-serif" font-size="10.5" font-weight="900" fill="white" letter-spacing="1" text-anchor="middle">CHOICE</text>
+                <text x="74" y="53.5" font-family="Poppins, sans-serif" font-size="8.5" font-weight="900" fill="white" letter-spacing="0.8" text-anchor="middle">CHOICE</text>
               </svg>
             </div>
           {%- else -%}
@@ -624,7 +616,7 @@
       "options": [
         {
           "value": "seal",
-          "label": "Top-Rated Stamp Seal Badge (Image 3 Graphic)"
+          "label": "Top-Rated Clean Circle Stamp Badge"
         },
         {
           "value": "pill",
@@ -643,7 +635,7 @@
       "type": "text",
       "id": "seal_top_text",
       "label": "Seal top text",
-      "default": "TOP-RATED"
+      "default": "TOP RATED"
     },
     {
       "type": "text",
