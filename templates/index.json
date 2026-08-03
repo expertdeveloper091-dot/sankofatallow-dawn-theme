@@ -15,19 +15,31 @@
         "trust_badge_Vx8jfQ": {
           "type": "trust_badge",
           "settings": {
-            "badge_text": "Handcrafted in USA"
+            "badge_text": "Handcrafted in the USA."
           }
         },
         "trust_badge_tnA6Ui": {
           "type": "trust_badge",
           "settings": {
-            "badge_text": "Only 5 Natural Ingredients"
+            "badge_text": "5 ingredients you can actually recognize. Zero water. Maximum nourishment."
           }
         },
         "trust_badge_WDVhKC": {
           "type": "trust_badge",
           "settings": {
+            "badge_text": "Luxury skincare without the 30+ ingredient label."
+          }
+        },
+        "trust_badge_CJfxPx": {
+          "type": "trust_badge",
+          "settings": {
             "badge_text": "Family Safe Formula"
+          }
+        },
+        "trust_badge_HkFN4i": {
+          "type": "trust_badge",
+          "settings": {
+            "badge_text": "Nature perfected the formula, we simply bottled it."
           }
         },
         "slide_QBTD4p": {
@@ -59,6 +71,8 @@
         "trust_badge_Vx8jfQ",
         "trust_badge_tnA6Ui",
         "trust_badge_WDVhKC",
+        "trust_badge_CJfxPx",
+        "trust_badge_HkFN4i",
         "slide_QBTD4p",
         "slide_BGi6UT",
         "slide_3HV4pR"
@@ -229,32 +243,50 @@
         "statistic_yn6T8z": {
           "type": "statistic",
           "settings": {
-            "percentage": "100%",
-            "label": "100% Natural Ingredients",
-            "description": "Made with simple ingredients your skin understands."
-          }
-        },
-        "statistic_ne6LdE": {
-          "type": "statistic",
-          "settings": {
-            "percentage": "5%",
-            "label": "CAREFULLY SELECTED INGREDIENTS",
-            "description": "Every ingredient serves a purpose—nothing more, nothing less."
+            "percentage": "70%",
+            "label": "70%+ of cosmetic products contain at least one suspected endocrine-disrupting ingredient.",
+            "description": ""
           }
         },
         "statistic_bchaRA": {
           "type": "statistic",
           "settings": {
-            "percentage": "0%",
-            "label": "HARSH CHEMICALS",
-            "description": "No parabens, sulphates, mineral oil, or artificial fillers."
+            "percentage": "90%",
+            "label": "90%+ of people have measurable levels of cosmetic-related chemicals in their bodies from everyday exposure.",
+            "description": ""
+          }
+        },
+        "statistic_eitRR7": {
+          "type": "statistic",
+          "settings": {
+            "percentage": "55+",
+            "label": "55 potentially concerning chemicals have been identified in common personal care products.",
+            "description": ""
+          }
+        },
+        "statistic_hTeQQe": {
+          "type": "statistic",
+          "settings": {
+            "percentage": "42+",
+            "label": "42 everyday consumer products in one landmark study showed widespread chemical exposure.",
+            "description": ""
+          }
+        },
+        "statistic_3fiprq": {
+          "type": "statistic",
+          "settings": {
+            "percentage": "11+",
+            "label": "11 PFAS (\"forever chemicals\") were detected in cosmetic products tested.",
+            "description": ""
           }
         }
       },
       "block_order": [
         "statistic_yn6T8z",
-        "statistic_ne6LdE",
-        "statistic_bchaRA"
+        "statistic_bchaRA",
+        "statistic_eitRR7",
+        "statistic_hTeQQe",
+        "statistic_3fiprq"
       ],
       "name": "Industry Statistics",
       "settings": {
@@ -272,7 +304,7 @@
         "heading_margin_bottom": 20,
         "subheading_font_size": 18,
         "column_gap": 60,
-        "image": "shopify://shop_images/05.jpg",
+        "image": "shopify://shop_images/About_Sonkafa.jpg",
         "heading": "WHY SIMPLE INGREDIENTS MAKE ALL THE DIFFERENCE",
         "subheading": "<p>Every jar of Sankofa Tallow Body Butter is crafted with carefully selected ingredients that work together to deeply hydrate, protect, and restore dry skin—without unnecessary fillers or harsh chemicals.</p>",
         "card_title": "SHOCKING INDUSTRY STATISTICS:",
@@ -286,22 +318,22 @@
         "feature_MH9JRH": {
           "type": "feature",
           "settings": {
-            "title": "Deep Hydration",
-            "description": "Helps replenish moisture for dry hands, elbows, knees, legs, and rough skin."
+            "title": "Deep, Lasting Hydration",
+            "description": "Provides rich, long-lasting moisture for dry hands, elbows, knees, legs, and rough skin—without frequent reapplication."
           }
         },
         "feature_cTwr9E": {
           "type": "feature",
           "settings": {
-            "title": "Rich Skin Barrier Support",
-            "description": "Creates a protective layer that locks in moisture all day."
+            "title": "Only 5 Ingredients You Can Recognize",
+            "description": "Made with grass-fed tallow, organic marula oil, organic beeswax, vitamin E, and premium fragrance (or fragrance-free Safi)."
           }
         },
         "feature_fBwxFM": {
           "type": "feature",
           "settings": {
-            "title": "Family Safe",
-            "description": "Suitable for adults and children with dry,<br>sensitive skin."
+            "title": "Family Safe Formula",
+            "description": "Gentle enough for adults and children, making daily skincare simple for the entire family."
           }
         },
         "review_Lq3tLU": {
@@ -309,8 +341,8 @@
           "settings": {
             "position": "top_left",
             "stars_count": 5,
-            "problem": "ACNE",
-            "text": "This balm saved my skin. Zero breakouts in weeks.",
+            "problem": "DRY SKIN",
+            "text": "My skin finally stays soft all day. No more dry elbows or ashy knees.",
             "author": "Sarah, 36",
             "badge_text": "Verified Buyer"
           }
@@ -320,8 +352,8 @@
           "settings": {
             "position": "bottom_right",
             "stars_count": 5,
-            "problem": "ACNE",
-            "text": "Better than any $100 serum I've tried. I'm glowing.",
+            "problem": "LASTING MOISTURE",
+            "text": "Better than expensive creams I've tried. Rich, clean, and incredibly nourishing",
             "author": "Max, 42",
             "badge_text": "Verified Buyer"
           }
@@ -351,7 +383,7 @@
         "image": "shopify://shop_images/06.jpg",
         "subtitle": "",
         "heading": "WHY FAMILIES CHOOSE SANKOFA TALLOW",
-        "subheading": "<p>Created for dry skin of every age, our body butter delivers lasting hydration while remaining gentle enough for the whole family.</p>",
+        "subheading": "<p>Our grass-fed tallow body butter is made with only five purposeful ingredients that deeply nourish dry skin without unnecessary fillers. Inspired by time-tested African traditions and crafted for modern families, it delivers lasting hydration your skin can feel every day.</p>",
         "padding_top": 100,
         "padding_bottom": 100
       }
@@ -437,75 +469,65 @@
         "padding_bottom": 100
       }
     },
-    "custom_compare_r3FjHq": {
+    "custom_compare_cards_4ewwj7": {
       "type": "custom-compare-cards",
       "blocks": {
-        "point_1": {
+        "comparison_point_DjNWrJ": {
           "type": "comparison_point",
           "settings": {
-            "left_icon": "ri-close-line",
             "left_title": "Water-Based Formula",
             "left_text": "Water is the first ingredient, creating a diluted formula.",
-            "right_icon": "ri-check-line",
             "right_title": "100% Concentrated",
-            "right_text": "0% water. A concentrated formula where every ingredient serves a purpose."
+            "right_text": "0% water. Every ingredient serves a purpose to nourish your skin."
           }
         },
-        "point_2": {
+        "comparison_point_VeVcCT": {
           "type": "comparison_point",
           "settings": {
-            "left_icon": "ri-close-line",
             "left_title": "Long Ingredient Lists",
             "left_text": "Typically 15–30+ ingredients including emulsifiers, stabilizers, thickeners and preservatives.",
-            "right_icon": "ri-check-line",
             "right_title": "Only 5 Natural Ingredients",
-            "right_text": "Made with only 5 purposeful all natural ingredients: grass-fed tallow, organic marula oil, organic beeswax, vitamin E, and fragrance."
+            "right_text": "Grass-fed tallow, organic marula oil, organic beeswax, vitamin E and fragrance."
           }
         },
-        "point_3": {
+        "comparison_point_wUtNe8": {
           "type": "comparison_point",
           "settings": {
-            "left_icon": "ri-close-line",
             "left_title": "Short-Term Moisture",
             "left_text": "Lightweight hydration that requires frequent reapplication throughout the day.",
-            "right_icon": "ri-check-line",
             "right_title": "Deep Hydration",
-            "right_text": "Rich, long-lasting moisture designed to support the skin barrier."
+            "right_text": "Rich, long-lasting moisture designed to support your skin barrier all day."
           }
         },
-        "point_4": {
+        "comparison_point_nL33yU": {
           "type": "comparison_point",
           "settings": {
-            "left_icon": "ri-close-line",
             "left_title": "Extra Fillers",
             "left_text": "May include silicones, colorants, texture enhancers and unnecessary additives.",
-            "right_icon": "ri-check-line",
             "right_title": "Minimalist Formula",
-            "right_text": "Minimalist formulation with no added colors or unnecessary fillers."
+            "right_text": "No added colors, unnecessary fillers or harsh chemicals."
           }
         },
-        "point_5": {
+        "comparison_point_KfJDjp": {
           "type": "comparison_point",
           "settings": {
-            "left_icon": "ri-close-line",
             "left_title": "Artificial Fragrance",
             "left_text": "May contain low-quality fragrances with hormone-disrupting toxins.",
-            "right_icon": "ri-check-line",
             "right_title": "Skin-Safe Luxury",
-            "right_text": "Skin-safe luxury fragrance blends, plus a fragrance-free option (Safi)."
+            "right_text": "Premium fragrance blends plus a fragrance-free option (Safi)."
           }
         }
       },
       "block_order": [
-        "point_1",
-        "point_2",
-        "point_3",
-        "point_4",
-        "point_5"
+        "comparison_point_DjNWrJ",
+        "comparison_point_VeVcCT",
+        "comparison_point_wUtNe8",
+        "comparison_point_nL33yU",
+        "comparison_point_KfJDjp"
       ],
       "name": "Comparison Cards",
       "settings": {
-        "show_tag": true,
+        "show_tag": false,
         "tag_icon": "ri-award-line",
         "tag_label": "Honest Comparison",
         "heading": "Why Sankofa Tallow Body Butter is Different",
@@ -513,40 +535,33 @@
         "subheading": "<p>Most lotions rely on water, fillers, and long ingredient lists that provide temporary hydration. Sankofa Tallow takes a different approach—every ingredient is carefully selected to deeply nourish, protect, and support healthy skin naturally.</p>",
         "subheading_font_size": 17,
         "left_title": "Conventional Lotions",
-        "left_icon": "ri-close-circle-fill",
-        "left_card_bg": "#ffffff",
-        "left_card_border": "#ececec",
-        "left_title_color": "#1f1f1f",
-        "left_header_icon_color": "#d9534f",
-        "left_item_icon_bg": "#fff1f0",
-        "left_item_icon_color": "#d9534f",
-        "left_item_title_color": "#222222",
+        "left_card_bg": "#FFFFFF",
+        "left_card_border": "#2A231E",
+        "left_title_color": "#1F1F1F",
+        "left_item_icon_bg": "#FFF9F2",
+        "left_item_icon_color": "#D9534F",
+        "left_item_title_color": "#2A231E",
         "left_item_text_color": "#555555",
         "right_title": "Sankofa Tallow Body Butter",
-        "right_icon": "ri-checkbox-circle-fill",
         "show_right_badge": true,
-        "badge_style": "seal",
         "right_badge_text": "BEST CHOICE",
-        "seal_top_text": "TOP RATED",
-        "seal_bottom_text": "★ PRODUCT ★",
-        "right_badge_bg": "#c96e3d",
-        "right_badge_text_color": "#ffffff",
-        "right_card_bg_start": "#ffffff",
-        "right_card_bg_end": "#fff7f0",
-        "right_card_border": "#c96e3d",
-        "right_title_color": "#1f1f1f",
-        "right_header_icon_color": "#2fa86d",
-        "right_item_icon_bg": "#eaf9f1",
-        "right_item_icon_color": "#2fa86d",
+        "right_badge_bg": "#C96E3D",
+        "right_badge_text_color": "#FFFFFF",
+        "right_card_bg_start": "#FFFFFF",
+        "right_card_bg_end": "#FFF7F0",
+        "right_card_border": "#C96E3D",
+        "right_title_color": "#1F1F1F",
+        "right_item_icon_bg": "#EAF9F1",
+        "right_item_icon_color": "#2FA86D",
         "right_item_title_color": "#222222",
         "right_item_text_color": "#555555",
-        "bg_color": "#fff9f2",
-        "heading_color": "#1f1f1f",
+        "bg_color": "#F8F2EB",
+        "heading_color": "#1F1F1F",
         "subheading_color": "#666666",
-        "accent_color": "#c96e3d",
-        "tag_bg": "#ffffff",
-        "tag_border": "#ead9c8",
-        "tag_text": "#c96e3d",
+        "accent_color": "#C96E3D",
+        "tag_bg": "#FFFFFF",
+        "tag_border": "#EAD9C8",
+        "tag_text": "#C96E3D",
         "container_width": 1320,
         "show_trust_bar": true,
         "trust_1_text": "100% Water-Free Formula",
@@ -641,7 +656,7 @@
         "card_bg": "#fff9f2",
         "card_border": "#2a231e",
         "footer_bg": "#c96e3d",
-        "footer_text_color": "#171717",
+        "footer_text_color": "#ffffff",
         "tag_bg": "#c96e3d",
         "tag_text_color": "#ffffff",
         "card_media_height": 300,
@@ -675,7 +690,7 @@
     "custom_why_switch_PqTMCU",
     "custom_girdproduct_TW3fg9",
     "custom_how_it_works_8QrXwL",
-    "custom_compare_r3FjHq",
+    "custom_compare_cards_4ewwj7",
     "custom_reviews_CVy7MQ"
   ]
 }
