@@ -1,0 +1,818 @@
+{{ 'custom-footer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom-footer.js' | asset_url }}" defer="defer"></script>
+
+{% style %}
+  .custom-footer-{{ section.id }} {
+    background-color: {{ section.settings.footer_bg | default: '#f8f5ea' }};
+    color: {{ section.settings.footer_text_color | default: '#111111' }};
+    border-top: 1px solid {{ section.settings.footer_border_color | default: '#222222' }};
+  }
+  .custom-footer-{{ section.id }} a,
+  .custom-footer-{{ section.id }} p,
+  .custom-footer-{{ section.id }} li,
+  .custom-footer-{{ section.id }} .custom-footer-contact-list .contact-item {
+    color: {{ section.settings.footer_text_color | default: '#111111' }};
+  }
+  .custom-footer-{{ section.id }} .custom-footer-column h3,
+  .custom-footer-{{ section.id }} .disclaimer h4,
+  .custom-footer-{{ section.id }} .custom-footer-logo-fallback {
+    color: {{ section.settings.footer_heading_color | default: '#111111' }};
+  }
+  .custom-footer-{{ section.id }} .custom-footer-logo {
+    border-bottom: 1px solid {{ section.settings.footer_border_color | default: '#222222' }};
+  }
+  .custom-footer-{{ section.id }} .custom-footer-logo img {
+    width: {{ section.settings.logo_width | default: 220 }}px !important;
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block;
+    margin: 0 auto;
+  }
+  .custom-footer-{{ section.id }} .newsletter-form button {
+    background-color: {{ section.settings.btn_bg | default: '#fe9d01' }};
+    color: {{ section.settings.btn_text_color | default: '#ffffff' }};
+  }
+  .custom-footer-{{ section.id }} .custom-footer-copyright {
+    background-color: {{ section.settings.copyright_bg | default: '#f8f5ea' }};
+    color: {{ section.settings.copyright_text_color | default: '#111111' }};
+    border-top: 1px solid {{ section.settings.footer_border_color | default: '#222222' }};
+  }
+  .custom-footer-{{ section.id }} .custom-footer-copyright p {
+    color: {{ section.settings.copyright_text_color | default: '#111111' }};
+  }
+  .custom-footer-{{ section.id }} .disclaimer {
+    background-color: {{ section.settings.mission_bg | default: '#FE9D01' }};
+    border-top: 1px solid {{ section.settings.mission_border_color | default: '#222222' }};
+    border-bottom: 1px solid {{ section.settings.mission_border_color | default: '#222222' }};
+    text-align: center;
+    padding: 35px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .custom-footer-{{ section.id }} .disclaimer h4 {
+    color: {{ section.settings.mission_heading_color | default: '#111111' }};
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .custom-footer-{{ section.id }} .disclaimer p {
+    color: {{ section.settings.mission_text_color | default: '#111111' }};
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+  }
+  .custom-footer-{{ section.id }} .custom-footer-story-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: none;
+    color: {{ section.settings.story_btn_color | default: '#ffffff' }};
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 8px;
+  }
+  .custom-footer-{{ section.id }} .custom-footer-story-btn:hover {
+    color: {{ section.settings.story_btn_hover_color | default: '#ffffff' }};
+    opacity: 0.8;
+    background: none;
+    box-shadow: none;
+    transform: none;
+  }
+  .custom-footer-{{ section.id }} .custom-footer-story-btn svg {
+    transition: transform 0.25s ease;
+  }
+  .custom-footer-{{ section.id }} .custom-footer-story-btn:hover svg {
+    transform: translateX(5px);
+  }
+  .back-to-top-btn-{{ section.id }} {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: {{ section.settings.btt_bg | default: '#111111' }};
+    color: {{ section.settings.btt_icon_color | default: '#fe9d01' }};
+    border: 2px solid {{ section.settings.btt_border_color | default: '#fe9d01' }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
+  .back-to-top-btn-{{ section.id }}.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .back-to-top-btn-{{ section.id }}:hover {
+    transform: translateY(-4px);
+  }
+{% endstyle %}
+
+<footer class="custom-footer custom-footer-{{ section.id }}">
+
+    <!-- Logo -->
+    {%- if section.settings.show_logo -%}
+      <div class="custom-footer-logo">
+          {%- if section.settings.logo != blank -%}
+              <img src="{{ section.settings.logo | image_url: width: section.settings.logo_width }}"
+                   alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+                   width="{{ section.settings.logo_width }}"
+                   height="{{ section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio | round }}"
+                   loading="lazy">
+          {%- else -%}
+              <h2 class="custom-footer-logo-fallback">{{ shop.name }}</h2>
+          {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="custom-footer-container">
+
+        <!-- Newsletter Column -->
+        {%- if section.settings.show_newsletter -%}
+          <div class="custom-footer-column newsletter">
+
+              <div class="accordion-title">
+                  <h3>{{ section.settings.newsletter_heading | escape }}</h3>
+                  <span class="plus">+</span>
+              </div>
+
+              <div class="accordion-content">
+
+                  {%- if section.settings.newsletter_text != blank -%}
+                    <p>{{ section.settings.newsletter_text | escape }}</p>
+                  {%- endif -%}
+
+                  {%- form 'customer', class: 'newsletter-form' -%}
+                      <input type="hidden" name="contact[tags]" value="newsletter">
+
+                      <input
+                          id="NewsletterForm-{{ section.id }}"
+                          type="email"
+                          name="contact[email]"
+                          value="{{ form.email }}"
+                          aria-required="true"
+                          autocorrect="off"
+                          autocapitalize="off"
+                          autocomplete="email"
+                          placeholder="{{ section.settings.newsletter_placeholder | default: 'Enter your email' | escape }}"
+                          required
+                      >
+
+                      <button type="submit" aria-label="Subscribe" name="commit" id="Subscribe-{{ section.id }}">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                      </button>
+
+                      {%- if form.errors -%}
+                          <small class="newsletter-form__message form__message" style="display: block; width: 100%; margin-top: 10px; color: red;" id="Newsletter-error-{{ section.id }}">
+                              {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+                          </small>
+                      {%- endif -%}
+                      {%- if form.posted_successfully? -%}
+                          <small class="newsletter-form__message newsletter-form__message--success form__message" style="display: block; width: 100%; margin-top: 10px; color: green;" id="Newsletter-success-{{ section.id }}">
+                              {{ 'general.newsletter.success' | t | default: 'Thanks for subscribing!' }}
+                          </small>
+                      {%- endif -%}
+                  {%- endform -%}
+
+                  {%- if section.settings.show_social -%}
+                      {%- assign fb_link = section.settings.social_facebook | default: settings.social_facebook_link -%}
+                      {%- assign ig_link = section.settings.social_instagram | default: settings.social_instagram_link -%}
+                      {%- assign tt_link = section.settings.social_tiktok | default: settings.social_tiktok_link -%}
+                      {%- assign x_link = section.settings.social_x | default: settings.social_x_link | default: settings.social_twitter_link -%}
+                      {%- assign yt_link = section.settings.social_youtube | default: settings.social_youtube_link -%}
+
+                      <div class="social-icons">
+                          {%- if section.settings.show_facebook and fb_link != blank -%}
+                              <a href="{{ fb_link }}" target="_blank" rel="noopener" aria-label="Facebook">
+                                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                              </a>
+                          {%- endif -%}
+
+                          {%- if section.settings.show_instagram and ig_link != blank -%}
+                              <a href="{{ ig_link }}" target="_blank" rel="noopener" aria-label="Instagram">
+                                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                              </a>
+                          {%- endif -%}
+
+                          {%- if section.settings.show_tiktok and tt_link != blank -%}
+                              <a href="{{ tt_link }}" target="_blank" rel="noopener" aria-label="TikTok">
+                                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-4.64V5.79a6.34 6.34 0 0 0-6.14 6.34 6.34 6.34 0 0 0 10.78 4.54V9.65a8.28 8.28 0 0 0 5.47 2.05V8.25a4.85 4.85 0 0 1-2.87-1.56z"></path></svg>
+                              </a>
+                          {%- endif -%}
+
+                          {%- if section.settings.show_x and x_link != blank -%}
+                              <a href="{{ x_link }}" target="_blank" rel="noopener" aria-label="X (Twitter)">
+                                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+                              </a>
+                          {%- endif -%}
+
+                          {%- if section.settings.show_youtube and yt_link != blank -%}
+                              <a href="{{ yt_link }}" target="_blank" rel="noopener" aria-label="YouTube">
+                                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#fff"></polygon></svg>
+                              </a>
+                          {%- endif -%}
+                      </div>
+                  {%- endif -%}
+
+              </div>
+
+          </div>
+        {%- endif -%}
+
+        <!-- Menu 1 Column -->
+        <div class="custom-footer-column">
+
+            <div class="accordion-title">
+                <h3>{{ section.settings.menu_1_heading | escape }}</h3>
+                <span class="plus">+</span>
+            </div>
+
+            <div class="accordion-content">
+                {%- assign menu_1 = linklists[section.settings.menu_1] -%}
+                {%- if menu_1 != blank -%}
+                    <ul>
+                        {%- for link in menu_1.links -%}
+                            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                        {%- endfor -%}
+                    </ul>
+                {%- else -%}
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">All Products</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                {%- endif -%}
+            </div>
+
+        </div>
+
+        <!-- Menu 2 Column -->
+        <div class="custom-footer-column">
+
+            <div class="accordion-title">
+                <h3>{{ section.settings.menu_2_heading | escape }}</h3>
+                <span class="plus">+</span>
+            </div>
+
+            <div class="accordion-content">
+                {%- assign menu_2 = linklists[section.settings.menu_2] -%}
+                {%- if menu_2 != blank -%}
+                    <ul>
+                        {%- for link in menu_2.links -%}
+                            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                        {%- endfor -%}
+                    </ul>
+                {%- else -%}
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Condition</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">FAQ's</a></li>
+                    </ul>
+                {%- endif -%}
+            </div>
+
+        </div>
+
+        <!-- Contact Info Column -->
+        <div class="custom-footer-column contact-info-column">
+
+            <div class="accordion-title">
+                <h3>{{ section.settings.menu_3_heading | default: 'Contact Information' | escape }}</h3>
+                <span class="plus">+</span>
+            </div>
+
+            <div class="accordion-content">
+                <ul class="custom-footer-contact-list">
+                    {%- if section.settings.contact_phone != blank -%}
+                      <li class="contact-item">
+                        <span class="contact-icon">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        </span>
+                        <a href="tel:{{ section.settings.contact_phone | replace: ' ', '' | replace: '-', '' }}">{{ section.settings.contact_phone }}</a>
+                      </li>
+                    {%- endif -%}
+
+                    {%- if section.settings.contact_email != blank -%}
+                      <li class="contact-item">
+                        <span class="contact-icon">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+                        </span>
+                        <a href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a>
+                      </li>
+                    {%- endif -%}
+
+                    {%- if section.settings.contact_hours != blank -%}
+                      <li class="contact-item">
+                        <span class="contact-icon">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        </span>
+                        <span>{{ section.settings.contact_hours }}</span>
+                      </li>
+                    {%- endif -%}
+
+                    {%- if section.settings.contact_address != blank -%}
+                      <li class="contact-item">
+                        <span class="contact-icon">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        </span>
+                        <span>{{ section.settings.contact_address }}</span>
+                      </li>
+                    {%- endif -%}
+
+                    {%- assign menu_3 = linklists[section.settings.menu_3] -%}
+                    {%- if menu_3 != blank -%}
+                        {%- for link in menu_3.links -%}
+                            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                        {%- endfor -%}
+                    {%- endif -%}
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Disclaimer / Our Story -->
+    {%- if section.settings.show_disclaimer -%}
+      <div class="disclaimer">
+          {%- if section.settings.disclaimer_heading != blank -%}
+            <h4>{{ section.settings.disclaimer_heading | escape }}</h4>
+          {%- endif -%}
+
+          {%- if section.settings.disclaimer_text != blank -%}
+            <p>{{ section.settings.disclaimer_text | escape }}</p>
+          {%- endif -%}
+
+          {%- assign button_text = section.settings.story_button_text | default: 'View Our Story' -%}
+          {%- if button_text != blank -%}
+            <a href="{{ section.settings.story_button_link | default: '/pages/our-story' }}" class="custom-footer-story-btn">
+              <span>{{ button_text }}</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <!-- Copyright -->
+    {%- if section.settings.show_copyright -%}
+        <div class="custom-footer-copyright">
+            <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ section.settings.copyright_additional_text | escape }}</p>
+        </div>
+    {%- endif -%}
+
+</footer>
+
+{%- if section.settings.show_back_to_top -%}
+  <button id="BackToTop-{{ section.id }}" 
+          class="back-to-top-btn-{{ section.id }}" 
+          aria-label="Back to Top"
+          type="button">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg>
+  </button>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var btt = document.getElementById('BackToTop-{{ section.id }}');
+    if (!btt) return;
+
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 300) {
+        btt.classList.add('is-visible');
+      } else {
+        btt.classList.remove('is-visible');
+      }
+    }, { passive: true });
+
+    btt.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Custom Footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Color Scheme Settings"
+    },
+    {
+      "type": "color",
+      "id": "footer_bg",
+      "label": "Footer Background",
+      "default": "#f8f5ea"
+    },
+    {
+      "type": "color",
+      "id": "footer_text_color",
+      "label": "Text Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "footer_heading_color",
+      "label": "Heading Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "footer_border_color",
+      "label": "Border Color",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button Background",
+      "default": "#fe9d01"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button Icon/Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "copyright_bg",
+      "label": "Copyright Background",
+      "default": "#f8f5ea"
+    },
+    {
+      "type": "color",
+      "id": "copyright_text_color",
+      "label": "Copyright Text Color",
+      "default": "#111111"
+    },
+
+    {
+      "type": "header",
+      "content": "Logo Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_logo",
+      "label": "Show Logo",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 400,
+      "step": 10,
+      "default": 220,
+      "unit": "px",
+      "label": "Logo Width"
+    },
+
+    {
+      "type": "header",
+      "content": "Newsletter Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Show Newsletter Column",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter Heading",
+      "default": "Join the Movement & Get 10% Off"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_text",
+      "label": "Newsletter Text",
+      "default": "Sign up for updates and exclusive offers"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Email Input Placeholder",
+      "default": "Enter your email"
+    },
+
+    {
+      "type": "header",
+      "content": "Social Media Links"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "label": "Show Social Media Section",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_facebook",
+      "label": "Enable Facebook Icon",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "social_facebook",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_instagram",
+      "label": "Enable Instagram Icon",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "social_instagram",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tiktok",
+      "label": "Enable TikTok Icon",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "social_tiktok",
+      "label": "TikTok URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_x",
+      "label": "Enable X / Twitter Icon",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "social_x",
+      "label": "X / Twitter URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_youtube",
+      "label": "Enable YouTube Icon",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "social_youtube",
+      "label": "YouTube URL"
+    },
+
+    {
+      "type": "header",
+      "content": "Menu Columns"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_heading",
+      "label": "Menu 1 Heading",
+      "default": "Quick Links"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Menu 1 Linklist"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_heading",
+      "label": "Menu 2 Heading",
+      "default": "Customer Service"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Menu 2 Linklist"
+    },
+    {
+      "type": "text",
+      "id": "menu_3_heading",
+      "label": "Contact Column Heading",
+      "default": "Contact Information"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_3",
+      "label": "Menu 3 Optional Links"
+    },
+
+    {
+      "type": "header",
+      "content": "Contact Information Settings"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Phone Number",
+      "default": "+1 (800) 123-4567"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Email Address",
+      "default": "support@sankofatallow.com"
+    },
+    {
+      "type": "text",
+      "id": "contact_hours",
+      "label": "Working Hours",
+      "default": "Mon - Fri: 9:00 AM - 6:00 PM EST"
+    },
+    {
+      "type": "text",
+      "id": "contact_address",
+      "label": "Address / Location",
+      "default": "United States"
+    },
+
+    {
+      "type": "header",
+      "content": "Our Story Section Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_disclaimer",
+      "label": "Show Our Story Section",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "mission_bg",
+      "label": "Mission Box Background",
+      "default": "#FE9D01"
+    },
+    {
+      "type": "color",
+      "id": "mission_heading_color",
+      "label": "Mission Heading Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "mission_text_color",
+      "label": "Mission Text Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "mission_border_color",
+      "label": "Mission Border Color",
+      "default": "#222222"
+    },
+    {
+      "type": "text",
+      "id": "disclaimer_heading",
+      "label": "Story Heading",
+      "default": "Our Story"
+    },
+    {
+      "type": "textarea",
+      "id": "disclaimer_text",
+      "label": "Story Text",
+      "default": "At Sankofa Tallow, we believe skincare should be simple, safe, and nourishing. Inspired by African traditions and created from a mother's search for healthier skincare, our handcrafted body butter is made with only five carefully selected ingredients to help protect, hydrate, and care for your family's skin—naturally"
+    },
+    {
+      "type": "text",
+      "id": "story_button_text",
+      "label": "Story Button Text",
+      "default": "View Our Story"
+    },
+    {
+      "type": "url",
+      "id": "story_button_link",
+      "label": "Story Button Link"
+    },
+    {
+      "type": "color",
+      "id": "story_btn_bg",
+      "label": "Story Button Background",
+      "default": "#C1663D"
+    },
+    {
+      "type": "color",
+      "id": "story_btn_color",
+      "label": "Story Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "story_btn_border",
+      "label": "Story Button Border Color",
+      "default": "#C1663D"
+    },
+    {
+      "type": "color",
+      "id": "story_btn_shadow",
+      "label": "Story Button Shadow Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "story_btn_hover_bg",
+      "label": "Story Button Hover Background",
+      "default": "#a5522d"
+    },
+    {
+      "type": "color",
+      "id": "story_btn_hover_color",
+      "label": "Story Button Hover Text Color",
+      "default": "#ffffff"
+    },
+
+    {
+      "type": "header",
+      "content": "Copyright Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_copyright",
+      "label": "Show Copyright Bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "copyright_additional_text",
+      "label": "Additional Copyright Text",
+      "default": "All rights reserved."
+    },
+
+    {
+      "type": "header",
+      "content": "Back to Top Button Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_back_to_top",
+      "label": "Show Back to Top Floating Button",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "btt_bg",
+      "label": "Button Background Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "btt_icon_color",
+      "label": "Arrow Icon Color",
+      "default": "#fe9d01"
+    },
+    {
+      "type": "color",
+      "id": "btt_border_color",
+      "label": "Button Border Color",
+      "default": "#fe9d01"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Footer"
+    }
+  ]
+}
+{% endschema %}

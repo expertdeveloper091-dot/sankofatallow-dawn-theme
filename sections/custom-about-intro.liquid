@@ -1,0 +1,576 @@
+{%- assign image_count = 0 -%}
+{%- for block in section.blocks -%}
+  {%- if block.type == 'image' -%}
+    {%- assign image_count = image_count | plus: 1 -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- style -%}
+  #custom-about-intro-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    {%- if section.settings.show_border_bottom -%}
+      border-bottom: 1px solid {{ section.settings.border_bottom_color }};
+    {%- endif -%}
+  }
+
+  @media screen and (min-width: 768px) {
+    #custom-about-intro-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  #custom-about-intro-{{ section.id }} .about-intro__container {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 24px;
+    font-family: var(--font-body-family), "system_ui", -apple-system, sans-serif;
+  }
+
+  #custom-about-intro-{{ section.id }} .about-intro__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  #custom-about-intro-{{ section.id }} .about-intro__text-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  #custom-about-intro-{{ section.id }} .about-intro__label {
+    color: {{ section.settings.label_color }};
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.5;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  #custom-about-intro-{{ section.id }} .about-intro__heading {
+    color: {{ section.settings.heading_color }};
+    font-family: var(--font-heading-family), inherit;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+
+  #custom-about-intro-{{ section.id }} .about-intro__paragraph {
+    color: {{ section.settings.paragraph_color }};
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: 640px;
+    margin: 0;
+  }
+
+  #custom-about-intro-{{ section.id }} .about-intro__cta {
+    display: inline-block;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: {{ section.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: 12px;
+    border: 1.5px solid {{ section.settings.button_border_color }};
+    background-color: {{ section.settings.button_bg_color }};
+    box-shadow: 0px 4px 0px 0px {{ section.settings.button_shadow_color }};
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    margin-top: 8px;
+    cursor: pointer;
+    position: relative;
+    top: 0;
+  }
+
+  #custom-about-intro-{{ section.id }} .about-intro__cta:hover {
+    transform: translateY(2px);
+    box-shadow: 0px 2px 0px 0px {{ section.settings.button_shadow_color }};
+  }
+
+  #custom-about-intro-{{ section.id }} .about-intro__cta:active {
+    transform: translateY(4px);
+    box-shadow: 0px 0px 0px 0px {{ section.settings.button_shadow_color }};
+  }
+
+  #custom-about-intro-{{ section.id }} .about-intro__gallery {
+    width: 100%;
+  }
+
+  #custom-about-intro-{{ section.id }} .about-intro__gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    align-items: center;
+    position: relative;
+  }
+
+  /* Offset the second column of the grid downward on desktop */
+  @media screen and (min-width: 768px) {
+    #custom-about-intro-{{ section.id }} .about-intro__gallery-grid {
+      column-gap: 24px;
+      row-gap: 28px;
+      padding-bottom: 30px;
+    }
+    #custom-about-intro-{{ section.id }} .about-intro__gallery-item:nth-child(even) {
+      transform: translateY(30px);
+    }
+  }
+
+  /* Image card styles */
+  #custom-about-intro-{{ section.id }} .about-intro__gallery-item {
+    background-color: #ffffff;
+    padding: 8px 8px 8px 8px;
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+  }
+
+  #custom-about-intro-{{ section.id }} .about-intro__gallery-item:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.06);
+    z-index: 10;
+  }
+
+  #custom-about-intro-{{ section.id }} .about-intro__gallery-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    border-radius: 2px;
+  }
+
+  /* Set block-specific rotations from settings */
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'image' -%}
+      #custom-about-intro-{{ section.id }} .item-{{ block.id }} {
+        transform: rotate({{ block.settings.rotation_desktop }}deg);
+      }
+      
+      @media screen and (min-width: 768px) {
+        #custom-about-intro-{{ section.id }} .about-intro__gallery-item:nth-child(even).item-{{ block.id }} {
+          transform: translateY(30px) rotate({{ block.settings.rotation_desktop }}deg);
+        }
+        #custom-about-intro-{{ section.id }} .item-{{ block.id }}:hover {
+          transform: translateY(-5px) rotate({{ block.settings.rotation_desktop }}deg) scale(1.02);
+        }
+        #custom-about-intro-{{ section.id }} .about-intro__gallery-item:nth-child(even).item-{{ block.id }}:hover {
+          transform: translateY(25px) rotate({{ block.settings.rotation_desktop }}deg) scale(1.02);
+        }
+      }
+
+      @media screen and (max-width: 767px) {
+        #custom-about-intro-{{ section.id }} .item-{{ block.id }} {
+          transform: rotate({{ block.settings.rotation_mobile }}deg);
+        }
+        #custom-about-intro-{{ section.id }} .item-{{ block.id }}:hover {
+          transform: translateY(-3px) rotate({{ block.settings.rotation_mobile }}deg) scale(1.02);
+        }
+      }
+    {%- endif -%}
+  {%- endfor -%}
+
+  /* Desktop layout */
+  @media screen and (min-width: 768px) {
+    #custom-about-intro-{{ section.id }} .about-intro__wrapper {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    #custom-about-intro-{{ section.id }} .about-intro__text-content {
+      flex: 1;
+      padding-right: 48px;
+    }
+
+    #custom-about-intro-{{ section.id }} .about-intro__gallery {
+      flex: 1.1;
+    }
+  }
+
+  /* Mobile layout */
+  @media screen and (max-width: 767px) {
+    #custom-about-intro-{{ section.id }} {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    #custom-about-intro-{{ section.id }} .about-intro__container {
+      padding: 0;
+    }
+
+    #custom-about-intro-{{ section.id }} .about-intro__text-content {
+      text-align: center;
+      align-items: center;
+      gap: 12px;
+    }
+
+    #custom-about-intro-{{ section.id }} .about-intro__cta {
+      width: 100%;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    #custom-about-intro-{{ section.id }} .about-intro__gallery-grid {
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    /* Grid layout variations for 5 images on mobile */
+    #custom-about-intro-{{ section.id }} .grid--5-images .about-intro__gallery-item:nth-child(1),
+    #custom-about-intro-{{ section.id }} .grid--5-images .about-intro__gallery-item:nth-child(2) {
+      grid-column: span 3;
+    }
+
+    #custom-about-intro-{{ section.id }} .grid--5-images .about-intro__gallery-item:nth-child(3),
+    #custom-about-intro-{{ section.id }} .grid--5-images .about-intro__gallery-item:nth-child(4),
+    #custom-about-intro-{{ section.id }} .grid--5-images .about-intro__gallery-item:nth-child(5) {
+      grid-column: span 2;
+    }
+
+    /* Default behavior: if 6 blocks exist, we hide the 6th on mobile to achieve the 2-top, 3-bottom layout */
+    #custom-about-intro-{{ section.id }} .grid--6-images .about-intro__gallery-item:nth-child(1),
+    #custom-about-intro-{{ section.id }} .grid--6-images .about-intro__gallery-item:nth-child(2) {
+      grid-column: span 3;
+    }
+
+    #custom-about-intro-{{ section.id }} .grid--6-images .about-intro__gallery-item:nth-child(3),
+    #custom-about-intro-{{ section.id }} .grid--6-images .about-intro__gallery-item:nth-child(4),
+    #custom-about-intro-{{ section.id }} .grid--6-images .about-intro__gallery-item:nth-child(5) {
+      grid-column: span 2;
+    }
+
+    #custom-about-intro-{{ section.id }} .grid--6-images .about-intro__gallery-item:nth-child(6) {
+      display: none;
+    }
+
+    /* If other counts are used, default fallback to simple 2-column flow */
+    #custom-about-intro-{{ section.id }} .about-intro__gallery-grid:not(.grid--5-images):not(.grid--6-images) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+{%- endstyle -%}
+
+<section id="custom-about-intro-{{ section.id }}" class="custom-about-intro">
+  <div class="about-intro__container">
+    <div class="about-intro__wrapper">
+      
+      <!-- Text content -->
+      <div class="about-intro__text-content">
+        {%- if section.settings.label_text != blank -%}
+          <span class="about-intro__label">{{ section.settings.label_text }}</span>
+        {%- endif -%}
+        
+        {%- if section.settings.heading_text != blank -%}
+          <h2 class="about-intro__heading">{{ section.settings.heading_text }}</h2>
+        {%- endif -%}
+        
+        {%- if section.settings.paragraph_text != blank -%}
+          <div class="about-intro__paragraph">
+            {{ section.settings.paragraph_text }}
+          </div>
+        {%- endif -%}
+        
+        {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+          <a href="{{ section.settings.cta_link }}" class="about-intro__cta js-smooth-scroll">
+            {{ section.settings.cta_label }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      <!-- Image Collage Gallery -->
+      <div class="about-intro__gallery">
+        <div class="about-intro__gallery-grid grid--{{ image_count }}-images">
+          {%- assign fallbacks_str = "https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=600&auto=format&fit=crop,https://images.unsplash.com/photo-1612817288484-6f916006741a?q=80&w=600&auto=format&fit=crop,https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?q=80&w=600&auto=format&fit=crop,https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=600&auto=format&fit=crop,https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=600&auto=format&fit=crop,https://images.unsplash.com/photo-1590156221122-c7b3cd685ee2?q=80&w=600&auto=format&fit=crop" -%}
+          {%- assign fallbacks = fallbacks_str | split: "," -%}
+
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'image' -%}
+              <div class="about-intro__gallery-item item-{{ block.id }}" {{ block.shopify_attributes }}>
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image | image_url: width: 600 | image_tag: 
+                    class: 'about-intro__gallery-img', 
+                    loading: 'lazy', 
+                    alt: block.settings.image.alt | default: 'Skincare Gallery Image' 
+                  }}
+                {%- else -%}
+                  {%- assign fallback_index = forloop.index0 | modulo: 6 -%}
+                  <img 
+                    src="{{ fallbacks[fallback_index] }}" 
+                    class="about-intro__gallery-img" 
+                    loading="lazy" 
+                    alt="Skincare Gallery Image {{ forloop.index }}" 
+                    width="400" 
+                    height="400"
+                  >
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const smoothScrollLinks = document.querySelectorAll('.js-smooth-scroll');
+
+    smoothScrollLinks.forEach((link) => {
+      link.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const targetId = href.substring(1);
+          const targetElement = document.getElementById(targetId);
+
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop,
+              behavior: 'smooth',
+            });
+          }
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Custom About Intro",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 800,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "label": "Max Container Width",
+      "default": 1200
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background Color",
+      "default": "#fefcf3"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_border_bottom",
+      "label": "Show Border Bottom",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "border_bottom_color",
+      "label": "Border Bottom Color",
+      "default": "#2c2609"
+    },
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "label_text",
+      "label": "Subheading / Label",
+      "default": "ABOUT US"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label Color",
+      "default": "#f63208"
+    },
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading Text",
+      "default": "THE NATURAL SKINCARE REBELLION"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1d211e"
+    },
+    {
+      "type": "richtext",
+      "id": "paragraph_text",
+      "label": "Paragraph Text",
+      "default": "<p>Our mission began with a radical idea: what if the purest skincare solution wasn't in a laboratory, but on America's ethical farms? We challenged the synthetic status quo to create something genuinely revolutionary—skincare that's as honest as nature itself.</p>"
+    },
+    {
+      "type": "color",
+      "id": "paragraph_color",
+      "label": "Paragraph Color",
+      "default": "#121212"
+    },
+    {
+      "type": "header",
+      "content": "CTA Button Settings"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button Label",
+      "default": "Discover Our Story"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#fcfcfd"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#2c2609"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button Border Color",
+      "default": "#2c2609"
+    },
+    {
+      "type": "color",
+      "id": "button_shadow_color",
+      "label": "Button Shadow Color",
+      "default": "#2c2609"
+    },
+    {
+      "type": "header",
+      "content": "Spacing Settings"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Photo Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Select Card Image"
+        },
+        {
+          "type": "range",
+          "id": "rotation_desktop",
+          "min": -15,
+          "max": 15,
+          "step": 1,
+          "unit": "deg",
+          "label": "Desktop Rotation",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "rotation_mobile",
+          "min": -15,
+          "max": 15,
+          "step": 1,
+          "unit": "deg",
+          "label": "Mobile Rotation",
+          "default": 0
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom About Intro",
+      "blocks": [
+        {
+          "type": "image",
+          "settings": {
+            "rotation_desktop": -3,
+            "rotation_mobile": -3
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+            "rotation_desktop": 4,
+            "rotation_mobile": 4
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+            "rotation_desktop": -4,
+            "rotation_mobile": -4
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+            "rotation_desktop": 3,
+            "rotation_mobile": 3
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+            "rotation_desktop": 3,
+            "rotation_mobile": 3
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+            "rotation_desktop": -2,
+            "rotation_mobile": -2
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

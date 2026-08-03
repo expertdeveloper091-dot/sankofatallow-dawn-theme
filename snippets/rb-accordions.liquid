@@ -1,0 +1,26 @@
+{% comment %}
+  rb-accordions.liquid — Dynamic Accordions Snippet
+{% endcomment %}
+{%- liquid
+  assign acc_content = block.settings.content
+  if block.settings.content_source == 'description'
+    assign acc_content = product.description
+  elsif block.settings.content_source == 'metafield' and block.settings.metafield_key != blank
+    assign mf_parts = block.settings.metafield_key | split: '.'
+    if mf_parts.size == 2
+      assign acc_content = product.metafields[mf_parts[0]][mf_parts[1]].value
+    endif
+  endif
+-%}
+
+{%- if block.settings.heading != blank and acc_content != blank -%}
+  <div class="rb-accordions" {{ block.shopify_attributes }}>
+    <details class="rb-acc">
+      <summary class="rb-acc-summary">
+        {{ block.settings.heading }}
+        <span class="rb-acc-icon">+</span>
+      </summary>
+      <div class="rb-acc-body">{{ acc_content }}</div>
+    </details>
+  </div>
+{%- endif -%}

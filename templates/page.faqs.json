@@ -1,0 +1,268 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "custom_bread_hero_LeECMB": {
+      "type": "custom-bread-hero",
+      "name": "Custom Breadcrumbs Hero",
+      "settings": {
+        "bg_image": "shopify://shop_images/869a684c4c1d4d1ff360d7d40650739f.png",
+        "overlay_color": "#000000",
+        "overlay_opacity": 80,
+        "max_width": 1300,
+        "min_height": 250,
+        "show_breadcrumbs": true,
+        "breadcrumbs_color": "#c96e3d",
+        "breadcrumbs_active_color": "#ffffff",
+        "title": "FREQUENTLY ASKED QUESTIONS",
+        "title_color": "#ffffff",
+        "description": "",
+        "description_color": "#ffffff",
+        "button_text": "",
+        "button_link": "/",
+        "button_bg_color": "#000000",
+        "button_text_color": "#ffffff",
+        "button_border_color": "#ffffff",
+        "button_shadow_color": "#2c2609",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "custom_faq_QBirR9": {
+      "type": "custom-faq",
+      "blocks": {
+        "category_MqHCCj": {
+          "type": "category",
+          "settings": {
+            "category_id": "product-ingredients",
+            "title": "Product Ingredients",
+            "icon_svg": "",
+            "icon_class": "ri-leaf-line",
+            "open_first_faq": true
+          }
+        },
+        "category_MJTBFc": {
+          "type": "category",
+          "settings": {
+            "category_id": "product-usage",
+            "title": "Product Usage",
+            "icon_svg": "",
+            "icon_class": "ri-hand-heart-line",
+            "open_first_faq": true
+          }
+        },
+        "category_DiFggA": {
+          "type": "category",
+          "settings": {
+            "category_id": "shipping-delivery",
+            "title": "Shipping & Delivery",
+            "icon_svg": "",
+            "icon_class": "ri-truck-line",
+            "open_first_faq": true
+          }
+        },
+        "category_PEj3aP": {
+          "type": "category",
+          "settings": {
+            "category_id": "returns-guarantees",
+            "title": "Returns & Guarantees",
+            "icon_svg": "",
+            "icon_class": "ri-arrow-go-back-line",
+            "open_first_faq": true
+          }
+        },
+        "faq_item_mXAzmT": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-ingredients",
+            "question": "What ingredients are in your Tallow Balm?",
+            "answer": "<p>Our Tallow Balm is made with just five carefully selected, non-toxic ingredients that deeply nourish and protect your skin. Every ingredient is chosen for its purpose—nothing unnecessary, just clean and effective skincare.</p>"
+          }
+        },
+        "faq_item_hzh8jH": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-ingredients",
+            "question": "Is your tallow grass-fed and grass-finished?",
+            "answer": "<p>Yes. We source premium-quality grass-fed, grass-finished beef tallow from trusted farms to ensure maximum purity and skin-loving nutrients.</p>"
+          }
+        },
+        "faq_item_M8LgNx": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-ingredients",
+            "question": "Do your products contain parabens or sulfates?",
+            "answer": "<p>No. Our formulas are completely free from parabens, sulfates, mineral oils, and other harsh chemicals.</p>"
+          }
+        },
+        "faq_item_KGF4BR": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-ingredients",
+            "question": "Are artificial fragrances used?",
+            "answer": "<p>No. We avoid synthetic fragrances in our skincare formulas and focus on clean, skin-friendly ingredients.</p>"
+          }
+        },
+        "faq_item_AYrF9U": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-ingredients",
+            "question": "Are your ingredients ethically sourced?",
+            "answer": "<p>Absolutely. We carefully select suppliers who meet our standards for quality, sustainability, and responsible sourcing.</p>"
+          }
+        },
+        "faq_item_UWbcGh": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-usage",
+            "question": "How do I apply the Tallow Balm?",
+            "answer": "<p>Apply a small amount to clean, dry skin and gently massage until fully absorbed. Use daily for best results.</p>"
+          }
+        },
+        "faq_item_c6Bz3M": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-usage",
+            "question": "Can I use it on my face?",
+            "answer": "<p>Yes. Our balm is gentle enough for facial use while also providing deep hydration for the body.</p>"
+          }
+        },
+        "faq_item_MjCDVW": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-usage",
+            "question": "How often should I use it?",
+            "answer": "<p>For optimal results, apply once or twice daily depending on your skin's needs.</p>"
+          }
+        },
+        "faq_item_FB3K7N": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "product-usage",
+            "question": "Does a little go a long way?",
+            "answer": "<p>Absolutely. Our rich formula is highly concentrated, so only a small amount is needed.</p>"
+          }
+        },
+        "faq_item_Hn74cn": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "shipping-delivery",
+            "question": "How long does shipping take?",
+            "answer": "<p>Orders are processed within 1–2 business days and typically arrive within 3–7 business days.</p>"
+          }
+        },
+        "faq_item_JbtMj6": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "shipping-delivery",
+            "question": "Do you provide tracking?",
+            "answer": "<p>Yes. A tracking email is sent as soon as your order ships.</p>"
+          }
+        },
+        "faq_item_dzaXdh": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "shipping-delivery",
+            "question": "Do you ship internationally?",
+            "answer": "<p>Currently, we primarily ship within the United States. International shipping options may expand in the future.</p>"
+          }
+        },
+        "faq_item_dqnDbD": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "shipping-delivery",
+            "question": "What if my package is delayed?",
+            "answer": "<p>If your order is delayed, please contact our support team and we'll gladly assist you.</p>"
+          }
+        },
+        "faq_item_6WGjLC": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "returns-guarantees",
+            "question": "Do you offer a money-back guarantee?",
+            "answer": "<p>Yes. We proudly offer a 15-Day Money-Back Guarantee on eligible purchases.<br/></p>"
+          }
+        },
+        "faq_item_E4pize": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "returns-guarantees",
+            "question": "Do you offer a money-back guarantee?",
+            "answer": "<p>Simply contact our customer support team with your order number to begin the return process.</p>"
+          }
+        },
+        "faq_item_NYaXHn": {
+          "type": "faq_item",
+          "settings": {
+            "category_id": "returns-guarantees",
+            "question": "Do you offer a money-back guarantee?",
+            "answer": "<p>Please contact us within 48 hours of delivery with photos, and we'll resolve the issue promptly.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "category_MqHCCj",
+        "category_MJTBFc",
+        "category_DiFggA",
+        "category_PEj3aP",
+        "faq_item_mXAzmT",
+        "faq_item_hzh8jH",
+        "faq_item_M8LgNx",
+        "faq_item_KGF4BR",
+        "faq_item_AYrF9U",
+        "faq_item_UWbcGh",
+        "faq_item_c6Bz3M",
+        "faq_item_MjCDVW",
+        "faq_item_FB3K7N",
+        "faq_item_Hn74cn",
+        "faq_item_JbtMj6",
+        "faq_item_dzaXdh",
+        "faq_item_dqnDbD",
+        "faq_item_6WGjLC",
+        "faq_item_E4pize",
+        "faq_item_NYaXHn"
+      ],
+      "name": "Custom FAQ with Tabs",
+      "settings": {
+        "max_width": 1300,
+        "bg_color": "#FFF9F2",
+        "heading_color": "#2A231E",
+        "text_color": "#2A231E",
+        "accent_color": "#c1663d",
+        "border_color": "#2A231E",
+        "active_tab_bg": "#c1663d",
+        "closed_tab_bg": "#ffffff",
+        "tab_icon_color": "#2A231E",
+        "active_tab_icon_color": "#ffffff",
+        "active_faq_bg": "#c1663d",
+        "active_faq_text_color": "#ffffff",
+        "closed_faq_bg": "#ffffff",
+        "red_text": "GOT QUESTIONS? WE'VE GOT ANSWERS",
+        "heading": "FREQUENTLY ASKED QUESTIONS",
+        "description": "Everything you need to know about our natural products, straight from nature to your skin.",
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_bread_hero_LeECMB",
+    "custom_faq_QBirR9"
+  ]
+}

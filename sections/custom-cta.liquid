@@ -1,0 +1,572 @@
+{%- comment -%}
+  Custom CTA Section (Infinite Loop Vertical Sliding Image Tracks + 3-Column Grid)
+  Left/Right side images are 100% dynamic via "Sliding Image Card" blocks (side: left/right).
+  Slide columns are completely hidden on mobile (<=900px).
+{%- endcomment -%}
+
+{%- liquid
+  assign photo_blocks = section.blocks | where: 'type', 'photo'
+  assign slide_blocks = section.blocks | where: 'type', 'slide'
+  assign all_photos = photo_blocks | concat: slide_blocks
+  assign avatar_blocks = section.blocks | where: 'type', 'avatar'
+
+  assign left_photos = all_photos | where: 'side', 'left'
+  assign right_photos = all_photos | where: 'side', 'right'
+-%}
+
+<div class="maison-cta_wrapper-{{ section.id }} maison-cta_wrapper">
+  <div class="maison-cta_section-{{ section.id }} maison-cta_section">
+
+  {%- if section.settings.enable_marquee -%}
+    <!-- LEFT sliding column (slides UP) -->
+    <div class="slide-col left-col">
+      <div class="slide-track up">
+        {%- liquid
+          assign left_count = left_photos.size
+          assign repeat_times = 2
+          if left_count > 0 and left_count < 3
+            assign repeat_times = 6
+          elsif left_count >= 3 and left_count < 5
+            assign repeat_times = 4
+          endif
+        -%}
+        {%- if left_count > 0 -%}
+          {%- for i in (1..repeat_times) -%}
+            {%- for block in left_photos -%}
+              <div class="cta-photo-card" {{ block.shopify_attributes }}>
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ block.settings.title | default: 'Product photo' | escape }}" loading="lazy" width="200" height="200">
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+                {%- if block.settings.title != blank -%}
+                  <span>{{ block.settings.title | escape }}</span>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          {%- endfor -%}
+        {%- elsif all_photos.size > 0 -%}
+          {%- for i in (1..3) -%}
+            {%- for block in all_photos -%}
+              <div class="cta-photo-card" {{ block.shopify_attributes }}>
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ block.settings.title | default: 'Product photo' | escape }}" loading="lazy" width="200" height="200">
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+                {%- if block.settings.title != blank -%}
+                  <span>{{ block.settings.title | escape }}</span>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..4) -%}
+            <div class="cta-photo-card"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&auto=format&fit=crop&q=80" alt="Whipped Tallow Balm" loading="lazy" width="200" height="200"><span>Whipped Tallow Balm</span></div>
+            <div class="cta-photo-card"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80" alt="Herbal Face Cream" loading="lazy" width="200" height="200"><span>Herbal Face Cream</span></div>
+            <div class="cta-photo-card"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&auto=format&fit=crop&q=80" alt="Honey Glow Serum" loading="lazy" width="200" height="200"><span>Honey Glow Serum</span></div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  <!-- CENTER Content -->
+  <div class="maison-cta_content">
+
+    {%- if section.settings.show_badge -%}
+      <div class="maison-cta_badge">
+        <div class="maison-cta_avatars">
+          {%- for block in avatar_blocks -%}
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 80 }}" alt="Customer" class="maison-cta_avatar" width="40" height="40" {{ block.shopify_attributes }}>
+            {%- else -%}
+              <div class="maison-cta_avatar maison-cta_avatar-placeholder" {{ block.shopify_attributes }}>👤</div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <span class="maison-cta_badge-text">
+          <b>{{ section.settings.badge_count | default: '5,000+' }}</b>
+          <em>{{ section.settings.badge_text | default: 'Happy Customers' }}</em>
+        </span>
+      </div>
+    {%- endif -%}
+
+    <h1 class="maison-cta_heading">
+      <span class="maison-cta_highlight">{{ section.settings.heading_highlight | default: 'DISCOVER YOUR' }}</span>
+      <span class="accent">{{ section.settings.heading_rest | default: 'HEALTHIEST SKIN NATURALLY' }}</span>
+    </h1>
+
+    {%- if section.settings.description != blank -%}
+      <p class="maison-cta_description">{{ section.settings.description }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.button_text != blank -%}
+      <a href="{{ section.settings.button_link | default: '#' }}" class="maison-cta_button">
+        {{ section.settings.button_text }}
+      </a>
+    {%- endif -%}
+
+    <div class="maison-cta_benefits">
+      {%- for i in (1..3) -%}
+        {%- assign benefit_key = 'benefit_' | append: i -%}
+        {%- assign benefit_text = section.settings[benefit_key] -%}
+        {%- if benefit_text != blank -%}
+          <div class="maison-cta_benefit">
+            <span class="tick">✓</span>
+            <span class="maison-cta_text">{{ benefit_text }}</span>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- if section.settings.enable_marquee -%}
+    <!-- RIGHT sliding column (slides DOWN) -->
+    <div class="slide-col right-col">
+      <div class="slide-track down">
+        {%- liquid
+          assign right_count = right_photos.size
+          assign repeat_times = 2
+          if right_count > 0 and right_count < 3
+            assign repeat_times = 6
+          elsif right_count >= 3 and right_count < 5
+            assign repeat_times = 4
+          endif
+        -%}
+        {%- if right_count > 0 -%}
+          {%- for i in (1..repeat_times) -%}
+            {%- for block in right_photos -%}
+              <div class="cta-photo-card" {{ block.shopify_attributes }}>
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ block.settings.title | default: 'Product photo' | escape }}" loading="lazy" width="200" height="200">
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+                {%- if block.settings.title != blank -%}
+                  <span>{{ block.settings.title | escape }}</span>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          {%- endfor -%}
+        {%- elsif all_photos.size > 0 -%}
+          {%- for i in (1..3) -%}
+            {%- for block in all_photos -%}
+              <div class="cta-photo-card" {{ block.shopify_attributes }}>
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ block.settings.title | default: 'Product photo' | escape }}" loading="lazy" width="200" height="200">
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+                {%- if block.settings.title != blank -%}
+                  <span>{{ block.settings.title | escape }}</span>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..4) -%}
+            <div class="cta-photo-card"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80" alt="Coconut Body Butter" loading="lazy" width="200" height="200"><span>Coconut Body Butter</span></div>
+            <div class="cta-photo-card"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&auto=format&fit=crop&q=80" alt="Grass-Fed Tallow" loading="lazy" width="200" height="200"><span>Grass-Fed Tallow</span></div>
+            <div class="cta-photo-card"><img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&auto=format&fit=crop&q=80" alt="Chamomile Soothe" loading="lazy" width="200" height="200"><span>Chamomile Soothe</span></div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  </div>
+</div>
+
+{% style %}
+  .maison-cta_wrapper-{{ section.id }} {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(circle at 50% 30%, #CF7549 0%, {{ section.settings.background_color | default: '#C1663D' }} 60%, #A8542F 100%);
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .maison-cta_section-{{ section.id }} {
+    --bg: {{ section.settings.background_color | default: '#C1663D' }};
+    --border-color: {{ section.settings.border_color | default: 'rgba(255,255,255,0.2)' }};
+    --heading-color: {{ section.settings.heading_color | default: '#2B1B12' }};
+    --highlight-color: {{ section.settings.highlight_color | default: '#ffffff' }};
+    --accent-color: {{ section.settings.accent_text_color | default: '#FDF3E7' }};
+    --desc-color: {{ section.settings.description_color | default: '#F6E2C9' }};
+    --badge-bg: {{ section.settings.badge_bg | default: '#ffffff' }};
+    --badge-text: {{ section.settings.badge_text_color | default: '#2B1B12' }};
+    --btn-bg: {{ section.settings.button_bg | default: '#C1663D' }};
+    --btn-text: {{ section.settings.button_text_color | default: '#ffffff' }};
+    --btn-border: {{ section.settings.button_border | default: '#000000' }};
+    --btn-shadow: {{ section.settings.button_shadow_color | default: '#000000' }};
+    --btn-hover-bg: {{ section.settings.button_hover_bg | default: '#a5522d' }};
+    --btn-hover-text: {{ section.settings.button_hover_text_color | default: '#ffffff' }};
+    --btn-hover-border: {{ section.settings.button_hover_border | default: section.settings.button_border | default: '#000000' }};
+    --btn-hover-shadow: {{ section.settings.button_hover_shadow | default: section.settings.button_shadow_color | default: '#000000' }};
+    --icon-bg: {{ section.settings.icon_bg | default: '#2B1B12' }};
+    --icon-border: {{ section.settings.icon_border | default: '#2B1B12' }};
+    --icon-text: {{ section.settings.icon_text_color | default: '#ffffff' }};
+    --benefit-text: {{ section.settings.benefit_text_color | default: '#2B1B12' }};
+    --container-width: {{ section.settings.container_width | default: 1200 }}px;
+    --content-width: {{ section.settings.content_width | default: 600 }}px;
+
+    max-width: var(--container-width);
+    width: 100%;
+    margin: 0 auto;
+    padding-top: {{ section.settings.padding_top | default: 28 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 28 }}px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family: inherit;
+    display: grid;
+    grid-template-columns: minmax(170px, 190px) 1fr minmax(170px, 190px);
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    box-sizing: border-box;
+    min-height: auto;
+  }
+
+  .maison-cta_section-{{ section.id }} .maison-cta_content {
+    text-align: center;
+    max-width: var(--content-width);
+    margin: 0 auto;
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+  }
+
+  /* Badge */
+  .maison-cta_section-{{ section.id }} .maison-cta_badge {
+    background: var(--badge-bg);
+    border-radius: 999px;
+    padding: 5px 16px 5px 5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  }
+
+  .maison-cta_section-{{ section.id }} .maison-cta_avatars { display: flex; align-items: center; }
+
+  .maison-cta_section-{{ section.id }} .maison-cta_avatar {
+    width: 26px; height: 26px; border-radius: 50%;
+    border: 2px solid var(--badge-bg);
+    margin-left: -8px; object-fit: cover;
+  }
+  .maison-cta_section-{{ section.id }} .maison-cta_avatar:first-child { margin-left: 0; }
+
+  .maison-cta_section-{{ section.id }} .maison-cta_avatar-placeholder {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: #e2e8f0; display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--badge-bg); font-size: 12px; margin-left: -8px;
+  }
+
+  .maison-cta_section-{{ section.id }} .maison-cta_badge-text b {
+    font-size: 13px; color: var(--badge-text); font-weight: 800;
+  }
+  .maison-cta_section-{{ section.id }} .maison-cta_badge-text em {
+    font-style: normal; color: var(--bg); font-weight: 600; font-size: 13px; margin-left: 4px;
+  }
+
+  /* Heading */
+  .maison-cta_section-{{ section.id }} .maison-cta_heading {
+    font-size: {{ section.settings.heading_font_size | default: 34 }}px;
+    line-height: 1.12;
+    color: var(--heading-color);
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    margin-bottom: {{ section.settings.heading_margin_bottom | default: 10 }}px;
+    text-transform: uppercase;
+  }
+
+  .maison-cta_section-{{ section.id }} .maison-cta_highlight {
+    display: block;
+    color: var(--highlight-color);
+  }
+  .maison-cta_section-{{ section.id }} .maison-cta_heading .accent {
+    color: var(--accent-color);
+    display: block;
+  }
+
+  .maison-cta_section-{{ section.id }} .maison-cta_description {
+    max-width: 540px;
+    color: var(--desc-color);
+    font-size: 14.5px;
+    line-height: 1.5;
+    opacity: 0.95;
+    margin: 0 auto;
+  }
+
+  /* Button (Exact Hero Short Button Design as shown in image: dark chocolate background, white uppercase text, rounded corners, soft shadow) */
+  .maison-cta_section-{{ section.id }} .maison-cta_button {
+    background-color: {{ section.settings.button_bg | default: '#231712' }} !important;
+    color: {{ section.settings.button_text_color | default: '#ffffff' }} !important;
+    font-weight: 800 !important;
+    font-size: {{ section.settings.button_font_size | default: 16 }}px !important;
+    padding: {{ section.settings.button_padding_v | default: 16 }}px {{ section.settings.button_padding_h | default: 36 }}px !important;
+    border-radius: {{ section.settings.button_border_radius | default: 16 }}px !important;
+    border: 2px solid {{ section.settings.button_border | default: '#231712' }} !important;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.35) !important;
+    text-decoration: none !important;
+    text-align: center !important;
+    transition: all 0.2s ease-in-out !important;
+    cursor: pointer !important;
+    letter-spacing: 0.04em !important;
+    display: inline-block !important;
+    width: auto !important;
+    max-width: max-content !important;
+    margin: 12px auto !important;
+    align-self: center !important;
+    text-transform: uppercase !important;
+  }
+  .maison-cta_section-{{ section.id }} .maison-cta_button:hover {
+    background-color: {{ section.settings.button_hover_bg | default: '#3d281f' }} !important;
+    color: {{ section.settings.button_hover_text_color | default: '#ffffff' }} !important;
+    border-color: {{ section.settings.button_hover_border | default: '#3d281f' }} !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0px 14px 30px rgba(0, 0, 0, 0.45) !important;
+  }
+  .maison-cta_section-{{ section.id }} .maison-cta_button:active {
+    transform: translateY(1px) !important;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  /* Benefits Row */
+  .maison-cta_section-{{ section.id }} .maison-cta_benefits {
+    display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; margin-top: 2px;
+  }
+  .maison-cta_section-{{ section.id }} .maison-cta_benefit {
+    display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--benefit-text);
+  }
+  .maison-cta_section-{{ section.id }} .tick {
+    width: 17px; height: 17px;
+    border: 2px solid var(--icon-border);
+    background-color: var(--icon-bg);
+    color: var(--icon-text);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; flex-shrink: 0;
+  }
+
+  /* ---------- SIDE SLIDING COLUMNS ---------- */
+  .maison-cta_section-{{ section.id }} .slide-col {
+    position: relative;
+    height: 320px;
+    width: 100%;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+  }
+
+  .maison-cta_section-{{ section.id }} .slide-track {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .maison-cta_section-{{ section.id }} .slide-track.up {
+    animation: maisonScrollUp {{ section.settings.marquee_speed | default: 22 }}s linear infinite;
+  }
+
+  .maison-cta_section-{{ section.id }} .slide-track.down {
+    animation: maisonScrollDown {{ section.settings.marquee_speed | default: 22 }}s linear infinite;
+  }
+
+  @keyframes maisonScrollUp {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50%); }
+  }
+
+  @keyframes maisonScrollDown {
+    from { transform: translateY(-50%); }
+    to { transform: translateY(0); }
+  }
+
+  .maison-cta_section-{{ section.id }} .cta-photo-card {
+    background: {{ section.settings.card_bg | default: '#F1DABF' }};
+    border-radius: 16px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+    border: 1.5px solid {{ section.settings.card_border | default: 'rgba(255,255,255,0.25)' }};
+    flex-shrink: 0;
+    width: 100%;
+  }
+
+  .maison-cta_section-{{ section.id }} .cta-photo-card img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+  }
+
+  .maison-cta_section-{{ section.id }} .cta-photo-card span {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--heading-color);
+    text-align: center;
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .maison-cta_section-{{ section.id }} .slide-track.up,
+    .maison-cta_section-{{ section.id }} .slide-track.down {
+      animation: none !important;
+    }
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 900px) {
+    .maison-cta_section-{{ section.id }} {
+      grid-template-columns: 1fr !important;
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+    .maison-cta_section-{{ section.id }} .slide-col {
+      display: none !important;
+    }
+    .maison-cta_section-{{ section.id }} .maison-cta_heading {
+      font-size: 24px !important;
+    }
+    .maison-cta_section-{{ section.id }} .maison-cta_description {
+      font-size: 14px;
+      padding: 0 8px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Custom CTA",
+  "settings": [
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Background Color", "default": "#C1663D" },
+    { "type": "color", "id": "border_color", "label": "Border Color", "default": "rgba(255,255,255,0.2)" },
+    { "type": "color", "id": "heading_color", "label": "Heading Main Color", "default": "#2B1B12" },
+    { "type": "color", "id": "accent_text_color", "label": "Heading Accent Text Color", "default": "#FDF3E7" },
+    { "type": "color", "id": "highlight_color", "label": "Heading Highlight Color", "default": "#2B1B12" },
+    { "type": "color", "id": "description_color", "label": "Description Color", "default": "#3d2a1c" },
+    { "type": "color", "id": "badge_bg", "label": "Badge Background", "default": "#ffffff" },
+    { "type": "color", "id": "badge_text_color", "label": "Badge Text", "default": "#2B1B12" },
+    { "type": "header", "content": "Button Styling & Customization" },
+    { "type": "text", "id": "button_text", "label": "Button Text", "default": "Shop Best Sellers →" },
+    { "type": "url", "id": "button_link", "label": "Button Link" },
+    { "type": "color", "id": "button_bg", "label": "Button Background Color", "default": "#231712" },
+    { "type": "color", "id": "button_text_color", "label": "Button Text Color", "default": "#ffffff" },
+    { "type": "color", "id": "button_border", "label": "Button Border Color", "default": "#231712" },
+    { "type": "color", "id": "button_shadow_color", "label": "Button Shadow Color", "default": "rgba(0,0,0,0.35)" },
+    { "type": "color", "id": "button_hover_bg", "label": "Button Hover Background Color", "default": "#3d281f" },
+    { "type": "color", "id": "button_hover_text_color", "label": "Button Hover Text Color", "default": "#ffffff" },
+    { "type": "color", "id": "button_hover_border", "label": "Button Hover Border Color", "default": "#3d281f" },
+    { "type": "color", "id": "button_hover_shadow", "label": "Button Hover Shadow Color", "default": "rgba(0,0,0,0.45)" },
+    { "type": "range", "id": "button_font_size", "label": "Button Font Size (px)", "min": 12, "max": 24, "step": 1, "default": 16 },
+    { "type": "range", "id": "button_border_radius", "label": "Button Border Radius (px)", "min": 0, "max": 40, "step": 2, "default": 16 },
+    { "type": "range", "id": "button_padding_v", "label": "Button Vertical Padding (px)", "min": 6, "max": 30, "step": 1, "default": 16 },
+    { "type": "range", "id": "button_padding_h", "label": "Button Horizontal Padding (px)", "min": 16, "max": 80, "step": 2, "default": 36 },
+    { "type": "color", "id": "card_bg", "label": "Sliding Card Background", "default": "#F1DABF" },
+    { "type": "color", "id": "card_border", "label": "Sliding Card Border Color", "default": "rgba(255,255,255,0.25)" },
+    { "type": "color", "id": "icon_bg", "label": "Checkmark Icon Background", "default": "#2B1B12" },
+    { "type": "color", "id": "icon_border", "label": "Checkmark Icon Border", "default": "#2B1B12" },
+    { "type": "color", "id": "icon_text_color", "label": "Checkmark Icon Color", "default": "#ffffff" },
+    { "type": "color", "id": "benefit_text_color", "label": "Benefit Text Color", "default": "#2B1B12" },
+
+    { "type": "header", "content": "Container & Spacing" },
+    { "type": "range", "id": "container_width", "label": "Section Container Max Width (px)", "min": 800, "max": 1600, "step": 10, "default": 1300 },
+    { "type": "range", "id": "content_width", "label": "Text Content Max Width (px)", "min": 400, "max": 900, "step": 10, "default": 640 },
+    { "type": "range", "id": "padding_top", "label": "Padding Top (px)", "min": 0, "max": 150, "step": 2, "default": 64 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding Bottom (px)", "min": 0, "max": 150, "step": 2, "default": 64 },
+
+    { "type": "header", "content": "Infinite Sliding Tracks" },
+    { "type": "checkbox", "id": "enable_marquee", "label": "Enable Sliding Image Columns (Desktop only, auto-hidden on mobile)", "default": true },
+    { "type": "range", "id": "marquee_speed", "label": "Sliding Speed (Seconds)", "min": 5, "max": 60, "step": 1, "default": 22 },
+
+    { "type": "header", "content": "Typography" },
+    { "type": "range", "id": "heading_font_size", "label": "Heading Font Size (px)", "min": 20, "max": 60, "step": 1, "default": 36 },
+    { "type": "range", "id": "heading_margin_bottom", "label": "Heading Bottom Space / Margin (px)", "min": 0, "max": 60, "step": 1, "default": 15 },
+
+    { "type": "header", "content": "Trust Badge" },
+    { "type": "checkbox", "id": "show_badge", "label": "Show Trust Badge", "default": true },
+    { "type": "text", "id": "badge_count", "label": "Bold Count Text", "default": "5,000+" },
+    { "type": "text", "id": "badge_text", "label": "Badge Label Text", "default": "Happy Customers" },
+
+    { "type": "header", "content": "Heading Content" },
+    { "type": "text", "id": "heading_highlight", "label": "First Heading Line", "default": "DISCOVER YOUR" },
+    { "type": "text", "id": "heading_rest", "label": "Second Heading Line", "default": "HEALTHIEST SKIN NATURALLY" },
+
+    { "type": "header", "content": "Description" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Bring the power of African-inspired skincare into your daily routine. Our rich body butter deeply hydrates dry skin, restores softness, and helps your skin feel healthy every day." },
+
+    { "type": "header", "content": "Benefits Row" },
+    { "type": "text", "id": "benefit_1", "label": "Benefit 1", "default": "100% Guarantee" },
+    { "type": "text", "id": "benefit_2", "label": "Benefit 2", "default": "Free Shipping (US Only)" },
+    { "type": "text", "id": "benefit_3", "label": "Benefit 3", "default": "Easy Returns" }
+  ],
+  "blocks": [
+    {
+      "type": "avatar",
+      "name": "Badge Avatar",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Avatar Image" }
+      ]
+    },
+    {
+      "type": "photo",
+      "name": "Sliding Image Card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Card Image" },
+        { "type": "text", "id": "title", "label": "Image Title / Label (Optional)" },
+        { "type": "select", "id": "side", "label": "Column Position (Desktop)", "options": [
+          { "value": "left", "label": "Left Column (Slides Up)" },
+          { "value": "right", "label": "Right Column (Slides Down)" }
+        ], "default": "left" }
+      ]
+    },
+    {
+      "type": "slide",
+      "name": "Slide Image Card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Card Image" },
+        { "type": "text", "id": "title", "label": "Image Title / Label (Optional)" },
+        { "type": "select", "id": "side", "label": "Column Position (Desktop)", "options": [
+          { "value": "left", "label": "Left Column (Slides Up)" },
+          { "value": "right", "label": "Right Column (Slides Down)" }
+        ], "default": "left" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom CTA",
+      "blocks": [
+        { "type": "avatar" },
+        { "type": "avatar" },
+        { "type": "avatar" },
+        { "type": "photo", "settings": { "side": "left", "title": "Whipped Tallow Balm" } },
+        { "type": "photo", "settings": { "side": "left", "title": "Herbal Face Cream" } },
+        { "type": "photo", "settings": { "side": "left", "title": "Honey Glow Serum" } },
+        { "type": "photo", "settings": { "side": "right", "title": "Coconut Body Butter" } },
+        { "type": "photo", "settings": { "side": "right", "title": "Grass-Fed Tallow" } },
+        { "type": "photo", "settings": { "side": "right", "title": "Chamomile Soothe" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

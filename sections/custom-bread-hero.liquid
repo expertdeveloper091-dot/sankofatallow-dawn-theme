@@ -1,0 +1,399 @@
+{%- style -%}
+  #custom-bread-hero-{{ section.id }} {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    min-height: {{ section.settings.min_height | times: 0.85 | round: 0 }}px;
+    {%- if section.settings.bg_image != blank -%}
+      background-image: url('{{ section.settings.bg_image | image_url: width: 1600 }}');
+    {%- else -%}
+      background-image: url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=1600&auto=format&fit=crop');
+    {%- endif -%}
+  }
+
+  @media screen and (min-width: 768px) {
+    #custom-bread-hero-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+      min-height: {{ section.settings.min_height }}px;
+    }
+  }
+
+  /* Image background overlay */
+  #custom-bread-hero-{{ section.id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: {{ section.settings.overlay_color }};
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    z-index: 1;
+  }
+
+  #custom-bread-hero-{{ section.id }} .bread-hero__container {
+    max-width: {{ section.settings.max_width }}px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* Breadcrumbs styles */
+  #custom-bread-hero-{{ section.id }} .breadcrumbs {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: {{ section.settings.breadcrumbs_color }};
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  #custom-bread-hero-{{ section.id }} .breadcrumbs a {
+    color: {{ section.settings.breadcrumbs_color }};
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  #custom-bread-hero-{{ section.id }} .breadcrumbs a:hover {
+    opacity: 0.8;
+  }
+
+  #custom-bread-hero-{{ section.id }} .breadcrumbs span {
+    color: {{ section.settings.breadcrumbs_active_color }};
+  }
+
+  #custom-bread-hero-{{ section.id }} .breadcrumbs__separator {
+    opacity: 0.6;
+  }
+
+  /* Heading & Description styles */
+  #custom-bread-hero-{{ section.id }} .bread-hero__title {
+    color: {{ section.settings.title_color }};
+    font-family: var(--font-heading-family), inherit;
+    font-size: clamp(32px, 6vw, 56px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+
+  #custom-bread-hero-{{ section.id }} .bread-hero__description {
+    color: {{ section.settings.description_color }};
+    font-size: clamp(15px, 2.5vw, 17px);
+    line-height: 1.6;
+    max-width: 680px;
+    margin: 0;
+  }
+
+  #custom-bread-hero-{{ section.id }} .bread-hero__description p {
+    margin: 0;
+  }
+
+  /* Tactile Button style - Styled Black by default */
+  #custom-bread-hero-{{ section.id }} .bread-hero__cta {
+    display: inline-block;
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: {{ section.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: 12px;
+    border: 1.5px solid {{ section.settings.button_border_color }};
+    background-color: {{ section.settings.button_bg_color }};
+    box-shadow: 0px 4px 0px 0px {{ section.settings.button_shadow_color }};
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    margin-top: 12px;
+    cursor: pointer;
+    position: relative;
+    top: 0;
+  }
+
+  #custom-bread-hero-{{ section.id }} .bread-hero__cta:hover {
+    transform: translateY(2px);
+    box-shadow: 0px 2px 0px 0px {{ section.settings.button_shadow_color }};
+  }
+
+  #custom-bread-hero-{{ section.id }} .bread-hero__cta:active {
+    transform: translateY(4px);
+    box-shadow: 0px 0px 0px 0px {{ section.settings.button_shadow_color }};
+  }
+{%- endstyle -%}
+
+<section id="custom-bread-hero-{{ section.id }}" class="bread-hero">
+  <div class="bread-hero__container">
+    
+    <!-- Breadcrumbs -->
+    {%- if section.settings.show_breadcrumbs -%}
+      {%- if template == 'index' or template.name == 'index' -%}
+        <!-- Mock Breadcrumb on homepage preview -->
+        <nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs">
+          <a href="/" title="Home">Home</a>
+          <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+          <span>{{ section.settings.title | default: 'Our Story' }}</span>
+        </nav>
+      {%- else -%}
+        <!-- Dynamic Breadcrumb logic -->
+        {%- unless template == 'index' or template == 'cart' or template == 'list-collections' or template == '404' -%}
+          {%- assign t = template | split: '.' | first -%}
+          <nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs">
+            <a href="/" title="Home">Home</a>
+            {%- case t -%}
+              {%- when 'page' -%}
+                <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+                <span>{{ page.title }}</span>
+              {%- when 'product' -%}
+                {%- if collection.url -%}
+                  <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+                  {{ collection.title | link_to: collection.url }}
+                {%- endif -%}
+                <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+                <span>{{ product.title }}</span>
+              {%- when 'collection' and collection.handle -%}
+                <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+                {%- if current_tags -%}
+                  {%- capture url -%}/collections/{{ collection.handle }}{%- endcapture -%}
+                  {{ collection.title | link_to: url }}
+                  <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+                  <span>{{ current_tags | join: " + " }}</span>
+                {%- else -%}
+                  <span>{{ collection.title }}</span>
+                {%- endif -%}
+              {%- when 'blog' -%}
+                <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+                {%- if current_tags -%}
+                  {{ blog.title | link_to: blog.url }}
+                  <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+                  <span>{{ current_tags | join: " + " }}</span>
+                {%- else -%}
+                  <span>{{ blog.title }}</span>
+                {%- endif -%}
+              {%- when 'article' -%}
+                <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+                {{ blog.title | link_to: blog.url }}
+                <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+                <span>{{ article.title }}</span>
+              {%- else -%}
+                <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+                <span>{{ page_title }}</span>
+            {%- endcase -%}
+          </nav>
+        {%- endunless -%}
+      {%- endif -%}
+    {%- endif -%}
+
+    <!-- Title -->
+    {%- if section.settings.title != blank -%}
+      <h1 class="bread-hero__title">{{ section.settings.title }}</h1>
+    {%- endif -%}
+
+    <!-- Description -->
+    {%- if section.settings.description != blank -%}
+      <div class="bread-hero__description">
+        {{ section.settings.description }}
+      </div>
+    {%- endif -%}
+
+    <!-- Tactile Button -->
+    {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
+      <a href="{{ section.settings.button_link }}" class="bread-hero__cta">
+        {{ section.settings.button_text }}
+      </a>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Breadcrumbs Hero",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Hero Background Image"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Image Overlay Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Image Overlay Opacity",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 800,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "label": "Max Container Width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 250,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "label": "Minimum Section Height",
+      "default": 350
+    },
+    {
+      "type": "header",
+      "content": "Breadcrumbs Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumbs",
+      "label": "Show Breadcrumbs",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "breadcrumbs_color",
+      "label": "Breadcrumb Links Color",
+      "default": "#f63208"
+    },
+    {
+      "type": "color",
+      "id": "breadcrumbs_active_color",
+      "label": "Active Page Link Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Hero Heading Title",
+      "default": "OUR STORY"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Heading Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description Text",
+      "default": "<p>We challenge the synthetic status quo to create something genuinely revolutionary—skincare that's as honest as nature itself.</p>"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "CTA Button settings"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Label",
+      "default": "Discover More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "default": "/"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button Border Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_shadow_color",
+      "label": "Button Shadow Color",
+      "default": "#2c2609"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 120
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Breadcrumbs Hero"
+    }
+  ]
+}
+{% endschema %}

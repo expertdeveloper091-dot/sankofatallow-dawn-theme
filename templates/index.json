@@ -1,0 +1,660 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_hero_reviews_Qa7QcQ": {
+      "type": "custom-hero-reviews",
+      "blocks": {
+        "trust_badge_Vx8jfQ": {
+          "type": "trust_badge",
+          "settings": {
+            "badge_text": "Handcrafted in USA"
+          }
+        },
+        "trust_badge_tnA6Ui": {
+          "type": "trust_badge",
+          "settings": {
+            "badge_text": "Only 5 Natural Ingredients"
+          }
+        },
+        "trust_badge_WDVhKC": {
+          "type": "trust_badge",
+          "settings": {
+            "badge_text": "Family Safe Formula"
+          }
+        },
+        "slide_QBTD4p": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/Before_after_Skincare.webp",
+            "label_left": "Before",
+            "label_right": "After"
+          }
+        },
+        "slide_BGi6UT": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/Before_after.webp",
+            "label_left": "Before",
+            "label_right": "After"
+          }
+        },
+        "slide_3HV4pR": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/Skincare_Product.webp",
+            "label_left": "Before",
+            "label_right": "After"
+          }
+        }
+      },
+      "block_order": [
+        "trust_badge_Vx8jfQ",
+        "trust_badge_tnA6Ui",
+        "trust_badge_WDVhKC",
+        "slide_QBTD4p",
+        "slide_BGi6UT",
+        "slide_3HV4pR"
+      ],
+      "name": "Hero Reviews & Slider",
+      "settings": {
+        "short_hero_mode": true,
+        "hero_max_height": 550,
+        "grid_gap": 80,
+        "layout_desktop": "left_content",
+        "max_width": 1300,
+        "heading_font_size": 45,
+        "heading_margin_bottom": 15,
+        "subheading_font_size": 15,
+        "bg_color": "#fff9f2",
+        "text_color": "#2a231e",
+        "accent_color": "#ea5d11",
+        "button_bg_color": "#c96e3d",
+        "button_text_color": "#ffffff",
+        "button_border_color": "#2a231e",
+        "button_hover_bg_color": "#ea5d11",
+        "badge_bg_color": "#ffffff",
+        "badge_text_color": "#000000",
+        "badge_border_color": "#000000",
+        "trust_item_bg": "#f8ecda",
+        "trust_item_text_color": "#000000",
+        "trust_item_border_color": "#00000026",
+        "show_rating": true,
+        "stars_count": 5,
+        "rating_text": "80+ reviews",
+        "show_badge": true,
+        "badge_image_1": "shopify://shop_images/covert_this_size_2K_202607272340.webp",
+        "badge_image_2": "shopify://shop_images/b672b8d7-0973-4e1f-be60-bab89177a5e2.webp",
+        "badge_image_3": "shopify://shop_images/cta_image.webp",
+        "badge_text_bold": "",
+        "badge_text": "Trusted by Families",
+        "heading": "Simple, Natural Skincare Inspired by African Tradition",
+        "subheading": "<p>Give your skin the nourishment it deserves with our handcrafted body butter. Made with grass-fed tallow, Marula oil, beeswax, Vitamin E, and natural fragrance to deeply moisturize dry skin, restore softness, and protect your skin every day.</p>",
+        "mobile_top_image": "shopify://shop_images/Sankofa-Tallow.webp",
+        "button_text": "Shop Tallow Body Butter →",
+        "button_link": "https://0gnjqw-m3.myshopify.com/collections/all",
+        "autoplay": true,
+        "autoplay_speed": 5,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "custom_classic_ingredients_cjfTrf": {
+      "type": "custom-classic-ingredients",
+      "blocks": {
+        "ingredient_4bxfqF": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Grass-Fed Tallow",
+            "subtitle": "Rich in Vitamins A, D, E & K",
+            "image": "shopify://shop_images/Grass-Fed_Tallow_-_Copy.jpg",
+            "badge_text": "",
+            "description": "Deep nourishment rich in vitamins A, D, E & K that support soft, healthy skin."
+          }
+        },
+        "ingredient_rktTeG": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Marula Oil",
+            "subtitle": "(Sclerocarya Birrea Seed Oil)",
+            "image": "shopify://shop_images/Marula_Oil_2_-_Copy.jpg",
+            "badge_text": "",
+            "description": "Lightweight hydration that smooths skin and enhances natural radiance."
+          }
+        },
+        "ingredient_nyqi36": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Beeswax",
+            "subtitle": "(Cera Alba)",
+            "image": "shopify://shop_images/Beeswax_-_Copy.jpg",
+            "badge_text": "",
+            "description": "Locks in moisture while forming a natural protective barrier."
+          }
+        },
+        "ingredient_w8MNi4": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Vitamin E",
+            "subtitle": "(Tocopherol)",
+            "image": "shopify://shop_images/Vitamin_E_-_Copy.jpg",
+            "badge_text": "",
+            "description": "Antioxidant support that conditions and helps protect the skin."
+          }
+        },
+        "ingredient_C3Uq8R": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Fragrance",
+            "subtitle": "(Custom Light Scent)",
+            "image": "shopify://shop_images/Essential_Oils_-_Copy.jpg",
+            "badge_text": "",
+            "description": "Light custom scent that gently elevates the senses."
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_4bxfqF",
+        "ingredient_rktTeG",
+        "ingredient_nyqi36",
+        "ingredient_w8MNi4",
+        "ingredient_C3Uq8R"
+      ],
+      "name": "Classic Ingredients",
+      "settings": {
+        "full_width": false,
+        "max_width": 1300,
+        "slides_per_view_desktop": 4,
+        "card_text_alignment": "left",
+        "heading": "Classic Ingredients",
+        "heading_font_size_desktop": 36,
+        "heading_font_size_mobile": 24,
+        "title_color": "#2a231e",
+        "subheading": "Clean, potent ingredients crafted for maximum skin nourishment and lasting radiance.",
+        "subheading_font_size": 14,
+        "subtitle_color": "#2a231e",
+        "show_button": true,
+        "button_text": "SHOP NOW",
+        "button_link": "shopify://collections/all",
+        "btn_bg_color": "#c86e38",
+        "btn_text_color": "#ffffff",
+        "btn_shadow_color": "#2a231e",
+        "btn_shadow_offset": 4,
+        "btn_border_radius": 14,
+        "btn_font_size": 16,
+        "btn_text_transform": "capitalize",
+        "btn_hover_bg": "#2a231e",
+        "btn_hover_color": "#ffffff",
+        "show_top_dotted_line": true,
+        "show_vertical_dotted_lines": true,
+        "dotted_color": "#2a231e",
+        "dotted_dash_pattern": "1 4",
+        "dotted_width": 2,
+        "bg_color": "#fff9f2",
+        "card_bg_color": "rgba(0,0,0,0)",
+        "card_border_radius": 30,
+        "card_title_color": "#2a231e",
+        "card_title_size": 22,
+        "card_subtitle_color": "#e28743",
+        "card_subtitle_size": 14,
+        "card_desc_color": "#333333",
+        "card_desc_size": 15,
+        "img_bg_color": "rgba(0,0,0,0)",
+        "img_border_radius": 0,
+        "btn_bg": "#c96e3d",
+        "btn_color": "#ffffff",
+        "btn_hover_bg_nav": "#000000",
+        "btn_hover_color_nav": "#ffffff",
+        "badge_bg": "#ff69b4",
+        "badge_color": "#000000",
+        "show_directions": true,
+        "directions_text": "Directions: Massage a small amount between your hands, then apply to slightly damp skin allowing it to melt in for a soft nourished finish.",
+        "directions_bg": "#ffffff",
+        "directions_border_color": "#e8ba62",
+        "directions_text_color": "#d97724",
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "custom_industry_stats_MADKUX": {
+      "type": "custom-industry-stats",
+      "blocks": {
+        "statistic_yn6T8z": {
+          "type": "statistic",
+          "settings": {
+            "percentage": "100%",
+            "label": "100% Natural Ingredients",
+            "description": "Made with simple ingredients your skin understands."
+          }
+        },
+        "statistic_ne6LdE": {
+          "type": "statistic",
+          "settings": {
+            "percentage": "5%",
+            "label": "CAREFULLY SELECTED INGREDIENTS",
+            "description": "Every ingredient serves a purpose—nothing more, nothing less."
+          }
+        },
+        "statistic_bchaRA": {
+          "type": "statistic",
+          "settings": {
+            "percentage": "0%",
+            "label": "HARSH CHEMICALS",
+            "description": "No parabens, sulphates, mineral oil, or artificial fillers."
+          }
+        }
+      },
+      "block_order": [
+        "statistic_yn6T8z",
+        "statistic_ne6LdE",
+        "statistic_bchaRA"
+      ],
+      "name": "Industry Statistics",
+      "settings": {
+        "bg_color": "#fff9f2",
+        "text_color": "#2a231e",
+        "accent_color": "#c96e3d",
+        "card_bg": "#ffffff",
+        "card_border": "#2a231e",
+        "card_header_bg": "#c96e3d",
+        "card_title_color": "#ffffff",
+        "stat_number_color": "#2a231e",
+        "stat_circle_bg": "#fff9f2",
+        "container_width": 1300,
+        "heading_font_size": 45,
+        "heading_margin_bottom": 20,
+        "subheading_font_size": 18,
+        "column_gap": 60,
+        "image": "shopify://shop_images/05.jpg",
+        "heading": "WHY SIMPLE INGREDIENTS MAKE ALL THE DIFFERENCE",
+        "subheading": "<p>Every jar of Sankofa Tallow Body Butter is crafted with carefully selected ingredients that work together to deeply hydrate, protect, and restore dry skin—without unnecessary fillers or harsh chemicals.</p>",
+        "card_title": "SHOCKING INDUSTRY STATISTICS:",
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "custom_why_switch_PqTMCU": {
+      "type": "custom-why-switch",
+      "blocks": {
+        "feature_MH9JRH": {
+          "type": "feature",
+          "settings": {
+            "title": "Deep Hydration",
+            "description": "Helps replenish moisture for dry hands, elbows, knees, legs, and rough skin."
+          }
+        },
+        "feature_cTwr9E": {
+          "type": "feature",
+          "settings": {
+            "title": "Rich Skin Barrier Support",
+            "description": "Creates a protective layer that locks in moisture all day."
+          }
+        },
+        "feature_fBwxFM": {
+          "type": "feature",
+          "settings": {
+            "title": "Family Safe",
+            "description": "Suitable for adults and children with dry,<br>sensitive skin."
+          }
+        },
+        "review_Lq3tLU": {
+          "type": "review",
+          "settings": {
+            "position": "top_left",
+            "stars_count": 5,
+            "problem": "ACNE",
+            "text": "This balm saved my skin. Zero breakouts in weeks.",
+            "author": "Sarah, 36",
+            "badge_text": "Verified Buyer"
+          }
+        },
+        "review_AQ8tPk": {
+          "type": "review",
+          "settings": {
+            "position": "bottom_right",
+            "stars_count": 5,
+            "problem": "ACNE",
+            "text": "Better than any $100 serum I've tried. I'm glowing.",
+            "author": "Max, 42",
+            "badge_text": "Verified Buyer"
+          }
+        }
+      },
+      "block_order": [
+        "feature_MH9JRH",
+        "feature_cTwr9E",
+        "feature_fBwxFM",
+        "review_Lq3tLU",
+        "review_AQ8tPk"
+      ],
+      "name": "Why Switch",
+      "settings": {
+        "bg_color": "#fff9f2",
+        "text_color": "#2a231e",
+        "accent_color": "#c96e3d",
+        "card_bg": "#ffffff",
+        "card_border": "#2c2609",
+        "feature_title_color": "#2c2609",
+        "feature_desc_color": "#2c2609",
+        "container_width": 1300,
+        "content_width": 540,
+        "heading_font_size": 45,
+        "heading_margin_bottom": 15,
+        "grid_gap": 60,
+        "image": "shopify://shop_images/06.jpg",
+        "subtitle": "",
+        "heading": "WHY FAMILIES CHOOSE SANKOFA TALLOW",
+        "subheading": "<p>Created for dry skin of every age, our body butter delivers lasting hydration while remaining gentle enough for the whole family.</p>",
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "custom_girdproduct_TW3fg9": {
+      "type": "custom-girdproduct",
+      "name": "Custom Product Grid",
+      "settings": {
+        "collection": "frontpage",
+        "products_to_show": 4,
+        "subtitle": "House Of Sankofa Products",
+        "heading": "NO FLUFF — JUST REAL RESULTS!",
+        "description": "Experience rich hydration with a body butter made from ingredients trusted for generations.",
+        "show_trust_badges": true,
+        "badge_1_text": "Made in USA",
+        "badge_2_text": "100% Natural Ingredients",
+        "badge_3_text": "15-Day Money-Back Guarantee",
+        "bg_color": "#ffffff",
+        "subtitle_color": "#c96e3d",
+        "heading_color": "#2a231e",
+        "text_color": "#2a231e",
+        "card_bg": "#fff9f2",
+        "card_border": "#0000001a",
+        "button_bg": "#c96e3d",
+        "button_text_color": "#ffffff",
+        "button_hover_bg": "#c96e3d",
+        "container_width": 1300,
+        "content_width": 750,
+        "heading_font_size": 45,
+        "heading_margin_bottom": 14,
+        "subtitle_font_size": 16,
+        "products_per_row": 2,
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "custom_how_it_works_8QrXwL": {
+      "type": "custom-how-it-works",
+      "blocks": {
+        "step1": {
+          "type": "step",
+          "settings": {
+            "title": "Carefully Selected Ingredients",
+            "description": "<p>We carefully source premium ingredients to create body care you can trust every day.</p>",
+            "image": "shopify://shop_images/step_03.webp"
+          }
+        },
+        "step2": {
+          "type": "step",
+          "settings": {
+            "title": "Handcrafted In Small Batches",
+            "description": "<p>Each batch is made with care to ensure exceptional quality and freshness.</p>",
+            "image": "shopify://shop_images/image.jpg"
+          }
+        },
+        "step3": {
+          "type": "step",
+          "settings": {
+            "title": "Daily Skin Nourishment",
+            "description": "<p>Use daily after bathing for soft, hydrated, healthy-looking skin from head to toe.</p>",
+            "image": "shopify://shop_images/step_01.webp"
+          }
+        }
+      },
+      "block_order": [
+        "step1",
+        "step2",
+        "step3"
+      ],
+      "name": "How It Works",
+      "settings": {
+        "bg_color": "#ffffff",
+        "text_color": "#2a231e",
+        "accent_color": "#c96e3d",
+        "tag_text_color": "#ffffff",
+        "card_bg": "#fff9f2",
+        "card_border": "#2a231e",
+        "container_width": 1300,
+        "heading": "FROM NATURE TO YOUR SKIN",
+        "heading_font_size": 45,
+        "heading_margin_bottom": 32,
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "custom_compare_r3FjHq": {
+      "type": "custom-compare",
+      "blocks": {
+        "row_RzdzFJ": {
+          "type": "row",
+          "settings": {
+            "feature": "Only Simple Ingredients",
+            "brand_icon": "check",
+            "competitor_icon": "minus",
+            "other_val": "-"
+          }
+        },
+        "row_T4UgbD": {
+          "type": "row",
+          "settings": {
+            "feature": "Grass-Fed Tallow",
+            "brand_icon": "check",
+            "competitor_icon": "minus",
+            "other_val": "−"
+          }
+        },
+        "row_BA4niM": {
+          "type": "row",
+          "settings": {
+            "feature": "Deep Moisturization",
+            "brand_icon": "check",
+            "competitor_icon": "minus",
+            "other_val": "−"
+          }
+        },
+        "row_FenYT9": {
+          "type": "row",
+          "settings": {
+            "feature": "Free From Harsh Chemicals",
+            "brand_icon": "check",
+            "competitor_icon": "minus",
+            "other_val": "−"
+          }
+        },
+        "row_td7Jri": {
+          "type": "row",
+          "settings": {
+            "feature": "Family Safe Formula",
+            "brand_icon": "check",
+            "competitor_icon": "minus",
+            "other_val": "−"
+          }
+        },
+        "row_PVqXaR": {
+          "type": "row",
+          "settings": {
+            "feature": "Family-friendly skincare",
+            "brand_icon": "check",
+            "competitor_icon": "minus",
+            "other_val": "−"
+          }
+        },
+        "row_QawmQB": {
+          "type": "row",
+          "settings": {
+            "feature": "100% Natural Ingredients",
+            "brand_icon": "check",
+            "competitor_icon": "minus",
+            "other_val": "−"
+          }
+        }
+      },
+      "block_order": [
+        "row_RzdzFJ",
+        "row_T4UgbD",
+        "row_BA4niM",
+        "row_FenYT9",
+        "row_td7Jri",
+        "row_PVqXaR",
+        "row_QawmQB"
+      ],
+      "name": "Brand Comparison Table",
+      "settings": {
+        "bg_color": "#fff9f2",
+        "heading_color": "#2a231e",
+        "table_bg": "#ffffff",
+        "table_border": "#2a231e",
+        "feature_text_color": "#2a231e",
+        "brand_column_bg": "#c96e3d",
+        "brand_title_color": "#ffffff",
+        "brand_check_bg": "#2a231e",
+        "brand_check_color": "#c96e3d",
+        "competitor_circle_bg": "#2a231e",
+        "competitor_mark_color": "#2a231e",
+        "competitor_circle_border": "#c96e3d",
+        "heading": "WHY SANKOFA tallow STANDS APART",
+        "heading_font_size": 45,
+        "heading_margin_bottom": 20,
+        "brand_name": "SANKOFA TALLOW",
+        "others_name": "OTHERS",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "custom_reviews_CVy7MQ": {
+      "type": "custom-reviews",
+      "blocks": {
+        "review_UGyMTQ": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/01_4dacfe39-5bbd-4172-80f4-4ae10d05acbf.webp",
+            "show_tags": true,
+            "problem": "PROBLEM: Dry Hands & Rough Skin",
+            "review_text": "My hands were constantly dry and rough from daily washing. After using Sankofa Tallow every day, the dryness disappeared and my skin feels soft, nourished, and healthy. My hands finally look moisturized without feeling greasy",
+            "name": "Sarah M.",
+            "country_code": "us",
+            "country_flag": "🇺🇸",
+            "verified_text": "Verified Buyer"
+          }
+        },
+        "review_4MK8HU": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/02_5b54dfa4-f7e9-42c0-8fff-8dda6957056e.webp",
+            "show_tags": true,
+            "problem": "PROBLEM: Dry Elbows",
+            "review_text": "My elbows always looked dry and darker than the rest of my skin. After using Sankofa Tallow consistently, they're noticeably softer, smoother, and much more even in tone.",
+            "name": "Olivia",
+            "country_code": "us",
+            "country_flag": "🇺🇸",
+            "verified_text": "Verified Buyer"
+          }
+        },
+        "review_JGb8E4": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/03_a0c87e5d-abf6-4e6b-bcd1-51aa74c98352.webp",
+            "show_tags": true,
+            "problem": "PROBLEM: Ashy Knees",
+            "review_text": "My knees always looked dry and dull. After making Sankofa Tallow part of my routine, they became softer, healthier, and much more even in appearance.",
+            "name": "Danielle K.",
+            "country_code": "us",
+            "country_flag": "🇺🇸",
+            "verified_text": "Verified Buyer"
+          }
+        },
+        "review_kry6rj": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/04.webp",
+            "show_tags": true,
+            "problem": "PROBLEM: Dry Legs",
+            "review_text": "My legs used to feel dry after every shower. Sankofa Tallow keeps them moisturized all day, leaving my skin silky smooth, comfortable, and naturally radiant.",
+            "name": "Jessica T.",
+            "country_code": "us",
+            "country_flag": "🇺🇸",
+            "verified_text": "Verified Buyer"
+          }
+        },
+        "review_8P8fRc": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/03.webp",
+            "show_tags": true,
+            "problem": "PROBLEM: DRY SKIN",
+            "review_text": "I've struggled with dry, itchy skin for years, and nothing seemed to last. Sankofatallow leaves my skin feeling soft, deeply moisturized, and comfortable all day. It's become a daily essential for my family",
+            "name": "Sarah, 36",
+            "country_code": "us",
+            "country_flag": "🇺🇸",
+            "verified_text": "Verified Buyer"
+          }
+        }
+      },
+      "block_order": [
+        "review_UGyMTQ",
+        "review_4MK8HU",
+        "review_JGb8E4",
+        "review_kry6rj",
+        "review_8P8fRc"
+      ],
+      "name": "Customer Reviews Carousel",
+      "settings": {
+        "bg_color": "#ffffff",
+        "text_color": "#2a231e",
+        "accent_color": "#c96e3d",
+        "card_bg": "#fff9f2",
+        "card_border": "#2a231e",
+        "footer_bg": "#c96e3d",
+        "footer_text_color": "#171717",
+        "tag_bg": "#c96e3d",
+        "tag_text_color": "#ffffff",
+        "card_media_height": 300,
+        "problem_badge_bg": "#171717",
+        "problem_badge_text": "#ffffff",
+        "trust_badge_bg": "#ffffff",
+        "trust_badge_text_color": "#171717",
+        "trust_badge_border_color": "#171717",
+        "arrow_bg": "#ffffff",
+        "arrow_color": "#171717",
+        "arrow_hover_bg": "#c96e3d",
+        "arrow_hover_color": "#ffffff",
+        "trust_badge_image_1": "shopify://shop_images/cta_image.webp",
+        "trust_badge_image_2": "shopify://shop_images/bbbe.webp",
+        "trust_badge_image_3": "shopify://shop_images/3qr.webp",
+        "trust_badge_count": "80+",
+        "trust_badge_text": "Happy Customers",
+        "container_width": 1300,
+        "heading": "REAL FAMILIES. REAL RESULTS.",
+        "heading_font_size": 45,
+        "heading_margin_bottom": 35,
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    }
+  },
+  "order": [
+    "custom_hero_reviews_Qa7QcQ",
+    "custom_classic_ingredients_cjfTrf",
+    "custom_industry_stats_MADKUX",
+    "custom_why_switch_PqTMCU",
+    "custom_girdproduct_TW3fg9",
+    "custom_how_it_works_8QrXwL",
+    "custom_compare_r3FjHq",
+    "custom_reviews_CVy7MQ"
+  ]
+}

@@ -1,0 +1,54 @@
+{% comment %}
+  rb-product-gallery.liquid — Modular Media Gallery Snippet
+  Supports: Images, Videos, External Videos, 3D Models (AR/PhotoSwipe/Zoom)
+{% endcomment %}
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign featured_media = current_variant.featured_media | default: product.featured_media
+-%}
+
+<div class="rb-gallery-container" id="RBGalleryContainer-{{ section.id }}">
+  <div class="rb-gallery-layout">
+
+    {%- comment %} Thumbnails Strip {%- endcomment %}
+    {%- if product.media.size > 1 -%}
+      <div class="rb-thumbnail-strip" id="RBThumbStrip">
+        {%- for media in product.media -%}
+          <div class="rb-thumb{% if media.id == featured_media.id or forloop.first %} rb-active{% endif %}"
+               data-media-id="{{ media.id }}"
+               data-src="{{ media | img_url: '800x800' }}"
+               role="button"
+               tabindex="0"
+               aria-label="{{ media.alt | default: product.title | escape }}">
+            {%- if media.media_type == 'image' -%}
+              <img src="{{ media | img_url: '120x120', crop: 'center' }}"
+                   alt="{{ media.alt | default: product.title | escape }}"
+                   width="64" height="64" loading="lazy">
+            {%- elsif media.media_type == 'video' or media.media_type == 'external_video' -%}
+              <div class="rb-thumb-icon">▶</div>
+            {%- else -%}
+              <div class="rb-thumb-icon">📦</div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- comment %} Main Media Display {%- endcomment %}
+    <div class="rb-main-image-wrap" id="RBMainWrap">
+      <img id="RBMainImg"
+           src="{{ featured_media | img_url: '800x800' }}"
+           srcset="{{ featured_media | img_url: '400x400' }} 400w, {{ featured_media | img_url: '800x800' }} 800w, {{ featured_media | img_url: '1200x1200' }} 1200w"
+           sizes="(max-width: 990px) 100vw, 50vw"
+           alt="{{ featured_media.alt | default: product.title | escape }}"
+           width="800" height="800"
+           loading="eager"
+           fetchpriority="high">
+
+      <button type="button" class="rb-expand-btn" id="RBExpandBtn" aria-label="Expand image">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+      </button>
+    </div>
+
+  </div>
+</div>

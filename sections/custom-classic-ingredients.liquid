@@ -1,0 +1,1081 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+
+{%- liquid
+  assign bg_color = section.settings.bg_color | default: '#FFFFFF'
+  assign title_color = section.settings.title_color | default: '#000000'
+  assign subtitle_color = section.settings.subtitle_color | default: '#555555'
+  assign card_bg_color = section.settings.card_bg_color | default: 'transparent'
+  assign card_border_radius = section.settings.card_border_radius | default: 12
+  assign card_title_color = section.settings.card_title_color | default: '#000000'
+  assign card_title_size = section.settings.card_title_size | default: 22
+  assign card_subtitle_color = section.settings.card_subtitle_color | default: '#e28743'
+  assign card_subtitle_size = section.settings.card_subtitle_size | default: 14
+  assign card_desc_color = section.settings.card_desc_color | default: '#333333'
+  assign card_desc_size = section.settings.card_desc_size | default: 15
+  assign img_bg_color = section.settings.img_bg_color | default: 'transparent'
+  assign img_border_radius = section.settings.img_border_radius | default: 12
+
+  assign btn_bg_color = section.settings.btn_bg_color | default: '#c86e38'
+  assign btn_text_color = section.settings.btn_text_color | default: '#ffffff'
+  assign btn_shadow_color = section.settings.btn_shadow_color | default: '#000000'
+  assign btn_shadow_offset = section.settings.btn_shadow_offset | default: 4
+  assign btn_border_radius = section.settings.btn_border_radius | default: 14
+  assign btn_font_size = section.settings.btn_font_size | default: 16
+  assign btn_text_transform = section.settings.btn_text_transform | default: 'capitalize'
+  assign btn_hover_bg = section.settings.btn_hover_bg | default: '#b05d2c'
+  assign btn_hover_color = section.settings.btn_hover_color | default: '#ffffff'
+
+  assign btn_nav_bg = section.settings.btn_bg | default: '#ff4500'
+  assign btn_nav_color = section.settings.btn_color | default: '#ffffff'
+  assign btn_nav_hover_bg = section.settings.btn_hover_bg_nav | default: section.settings.btn_hover_bg | default: '#000000'
+  assign btn_nav_hover_color = section.settings.btn_hover_color_nav | default: section.settings.btn_hover_color | default: '#ffffff'
+
+  assign dotted_color = section.settings.dotted_color | default: '#000000'
+  assign dotted_width = section.settings.dotted_width | default: 2
+  assign dotted_dash_pattern = section.settings.dotted_dash_pattern | default: '1 4'
+-%}
+
+{%- style -%}
+  .ingredients-sec-{{ section.id }} {
+    position: relative;
+    background-color: {{ bg_color }};
+    padding-top: {{ section.settings.padding_top | default: 48 | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 48 | times: 0.75 | round: 0 }}px;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ingredients-sec-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | default: 48 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | default: 48 }}px;
+    }
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredients-container {
+    max-width: {% if section.settings.full_width %}100%{% else %}{{ section.settings.max_width | default: 1200 }}px{% endif %};
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+  }
+
+  /* =====================
+     HEADER: LEFT HEADING & RIGHT SUBHEADING
+  ===================== */
+  .ingredients-sec-{{ section.id }} .ingredients-header-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    .ingredients-sec-{{ section.id }} .ingredients-header-wrapper {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredients-header-left {
+    flex: 1;
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredients-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: {{ section.settings.heading_font_size_mobile | default: 24 }}px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: {{ title_color }};
+    margin: 0;
+    text-align: left;
+    line-height: 1.2;
+  }
+
+  @media screen and (min-width: 768px) {
+    .ingredients-sec-{{ section.id }} .ingredients-title {
+      font-size: {{ section.settings.heading_font_size_desktop | default: 36 }}px;
+    }
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredients-header-right {
+    max-width: 480px;
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredients-subheading {
+    font-family: 'Poppins', sans-serif;
+    font-size: {{ section.settings.subheading_font_size | default: 14 }}px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: {{ subtitle_color }};
+    margin: 0;
+    text-align: left;
+  }
+
+  @media screen and (min-width: 768px) {
+    .ingredients-sec-{{ section.id }} .ingredients-subheading {
+      text-align: right;
+    }
+  }
+
+  /* =====================
+     TOP DOTTED LINE
+  ===================== */
+  .ingredients-sec-{{ section.id }} .dotted-line-horizontal {
+    display: block;
+    width: 100%;
+    height: {{ dotted_width }}px;
+    margin: 1.2rem 0;
+  }
+
+  /* =====================
+     SLIDER TRACK & SINGLE CARD DESIGN
+  ===================== */
+  .ingredients-sec-{{ section.id }} .ingredients-slider-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 1rem 0;
+    margin: 0;
+    list-style: none;
+  }
+  .ingredients-sec-{{ section.id }} .ingredients-slider-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredient-slide {
+    flex: 0 0 85%;
+    min-width: 85%;
+    scroll-snap-align: start;
+    position: relative;
+    box-sizing: border-box;
+    padding: 0 1.2rem;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ingredients-sec-{{ section.id }} .ingredient-slide {
+      flex: 0 0 50%;
+      min-width: 50%;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ingredients-sec-{{ section.id }} .ingredient-slide {
+      flex: 0 0 calc(100% / {{ section.settings.slides_per_view_desktop | default: 4 }});
+      min-width: calc(100% / {{ section.settings.slides_per_view_desktop | default: 4 }});
+    }
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredient-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    padding: 1.2rem 0.8rem;
+    box-sizing: border-box;
+    background-color: {{ card_bg_color }};
+    border-radius: {{ card_border_radius }}px;
+    text-align: {{ section.settings.card_text_alignment | default: 'left' }};
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredient-card:hover {
+    transform: translateY(-4px);
+  }
+
+  /* VERTICAL DOTTED LINE */
+  .ingredients-sec-{{ section.id }} .dotted-line-vertical {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: {{ dotted_width }}px;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredient-item-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px !important;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: {{ card_title_color }};
+    margin: 0 0 0.25rem 0;
+    min-height: 40px;
+    line-height: 1.2;
+    display: flex;
+    align-items: flex-end;
+    {% if section.settings.card_text_alignment == 'center' %}
+      justify-content: center;
+    {% endif %}
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredient-item-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: {{ card_subtitle_size }}px;
+    font-style: italic;
+    font-weight: 500;
+    color: {{ card_subtitle_color }};
+    margin-bottom: 1.2rem;
+    display: block;
+    line-height: 1.35;
+    opacity: 0.9;
+  }
+
+  /* IMAGE CONTAINER & BADGE */
+  .ingredients-sec-{{ section.id }} .ingredient-img-wrapper {
+    position: relative !important;
+    width: 100% !important;
+    aspect-ratio: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-bottom: 1.5rem !important;
+    background-color: {{ img_bg_color }} !important;
+    border-radius: {{ img_border_radius | default: 12 }}px !important;
+    overflow: hidden !important;
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredient-card:hover .ingredient-img-wrapper img {
+    transform: scale(1.05) !important;
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredient-img-wrapper img,
+  .ingredients-sec-{{ section.id }} .ingredient-img-placeholder {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    display: block !important;
+    transition: transform 0.3s ease !important;
+    border-radius: {{ img_border_radius | default: 12 }}px !important;
+    overflow: hidden !important;
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredient-badge {
+    position: absolute;
+    top: 45%;
+    right: 5%;
+    transform: translateY(-50%) rotate(14deg);
+    background-color: {{ section.settings.badge_bg | default: '#ff69b4' }};
+    color: {{ section.settings.badge_color | default: '#000000' }};
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    padding: 7px 16px;
+    border-radius: 999px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 3;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredient-desc,
+  .ingredient-desc {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: {{ card_desc_size | default: 15 }}px !important;
+    font-weight: 400 !important;
+    line-height: 1.55 !important;
+    color: {{ card_desc_color | default: '#333333' }} !important;
+    margin-top: auto !important;
+    margin-bottom: 0 !important;
+    display: block !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    -webkit-line-clamp: none !important;
+    -webkit-box-orient: unset !important;
+  }
+
+  /* =====================
+     BOTTOM DIRECTIONS BANNER
+  ===================== */
+  .ingredients-sec-{{ section.id }} .ingredients-directions-banner {
+    margin-top: 2rem;
+    padding: 1.4rem 1.8rem;
+    border: 2px solid {{ section.settings.directions_border_color | default: '#E8BA62' }};
+    border-radius: 10px;
+    background-color: {{ section.settings.directions_bg | default: '#FFFDF7' }};
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    font-weight: 500;
+    color: {{ section.settings.directions_text_color | default: '#D97724' }};
+    line-height: 1.6;
+  }
+
+  /* =====================
+     3D NEO-BRUTALIST BUTTON (EXACT MATCH TO IMAGE 2)
+  ===================== */
+  .ingredients-sec-{{ section.id }} .ingredients-bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredients-shop-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: {{ btn_font_size }}px !important;
+    font-weight: 700 !important;
+    text-transform: {{ btn_text_transform }} !important;
+    letter-spacing: 0.02em !important;
+    padding: 14px 38px !important;
+    border-radius: {{ btn_border_radius }}px !important;
+    background-color: {{ btn_bg_color }} !important;
+    color: {{ btn_text_color }} !important;
+    text-decoration: none !important;
+    border: 2px solid {{ btn_shadow_color }} !important;
+    box-shadow: {{ btn_shadow_offset }}px {{ btn_shadow_offset }}px 0px 0px {{ btn_shadow_color }} !important;
+    transition: all 0.2s ease-in-out !important;
+    cursor: pointer !important;
+    line-height: 1.2 !important;
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredients-shop-btn:hover {
+    background-color: {{ btn_hover_bg }} !important;
+    color: {{ btn_hover_color }} !important;
+    transform: translate(2px, 2px) !important;
+    box-shadow: 1px 1px 0px 0px {{ btn_shadow_color }} !important;
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredients-shop-btn:active {
+    transform: translate({{ btn_shadow_offset }}px, {{ btn_shadow_offset }}px) !important;
+    box-shadow: 0px 0px 0px 0px {{ btn_shadow_color }} !important;
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredients-bottom-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-left: auto;
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredients-nav-btn {
+    position: relative;
+    top: auto;
+    transform: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: {{ btn_nav_bg }};
+    color: {{ btn_nav_color }};
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredients-nav-btn:hover {
+    background-color: {{ btn_nav_hover_bg }};
+    color: {{ btn_nav_hover_color }};
+    transform: scale(1.08);
+  }
+
+  .ingredients-sec-{{ section.id }} .ingredients-nav-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+{%- endstyle -%}
+
+<div class="ingredients-sec-{{ section.id }}">
+  <div class="ingredients-container">
+
+    <!-- HEADER: LEFT HEADING & RIGHT SUBHEADING -->
+    <div class="ingredients-header-wrapper">
+      <div class="ingredients-header-left">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="ingredients-title">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.subheading != blank -%}
+        <div class="ingredients-header-right">
+          <p class="ingredients-subheading">{{ section.settings.subheading }}</p>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- TOP DOTTED LINE -->
+    {%- if section.settings.show_top_dotted_line != false -%}
+      <span class="dotted-line-horizontal" aria-hidden="true">
+        <svg width="100%" height="{{ dotted_width }}" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="1" x2="100%" y2="1" stroke-linecap="round" stroke="{{ dotted_color }}" stroke-width="{{ dotted_width }}" stroke-dasharray="{{ dotted_dash_pattern }}"></line>
+        </svg>
+      </span>
+    {%- endif -%}
+
+    <!-- SLIDER TRACK -->
+    <div class="ingredients-slider-track" id="IngTrack-{{ section.id }}">
+      {%- for block in section.blocks -%}
+        <div class="ingredient-slide" {{ block.shopify_attributes }}>
+          <div class="ingredient-card">
+
+            <!-- TITLE & SUBTITLE -->
+            {%- if block.settings.title != blank -%}
+              <h3 class="ingredient-item-title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+            {%- if block.settings.subtitle != blank -%}
+              <span class="ingredient-item-subtitle">{{ block.settings.subtitle }}</span>
+            {%- endif -%}
+
+            <!-- IMAGE & BADGE -->
+            <div class="ingredient-img-wrapper">
+              {%- if block.settings.badge_text != blank -%}
+                <div class="ingredient-badge">{{ block.settings.badge_text }}</div>
+              {%- endif -%}
+
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.title }}
+              {%- else -%}
+                <!-- EXACT MATCH TO SCREENSHOT (+) PLACEHOLDER ICON -->
+                <div class="ingredient-img-placeholder">
+                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="24" cy="24" r="22" stroke="{{ dotted_color }}" stroke-width="2.5"/>
+                    <path d="M24 14V34M14 24H34" stroke="{{ dotted_color }}" stroke-width="2.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+              {%- endif -%}
+            </div>
+
+            <!-- DESCRIPTION -->
+            {%- if block.settings.description != blank -%}
+              <p class="ingredient-desc">{{ block.settings.description }}</p>
+            {%- endif -%}
+
+          </div>
+
+          <!-- VERTICAL DOTTED LINE BETWEEN SLIDES -->
+          {%- if section.settings.show_vertical_dotted_lines != false -%}
+            <span class="dotted-line-vertical" aria-hidden="true">
+              <svg width="{{ dotted_width }}" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <line x1="1" y1="0" x2="1" y2="100%" stroke-linecap="round" stroke="{{ dotted_color }}" stroke-width="{{ dotted_width }}" stroke-dasharray="{{ dotted_dash_pattern }}"></line>
+              </svg>
+            </span>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <!-- BOTTOM DIRECTIONS BANNER -->
+    {%- if section.settings.show_directions and section.settings.directions_text != blank -%}
+      <div class="ingredients-directions-banner">
+        {{ section.settings.directions_text }}
+      </div>
+    {%- endif -%}
+
+    <!-- BOTTOM ROW: EXACT MATCH TO IMAGE 2 BUTTON (LEFT) + NAVIGATION ARROWS (RIGHT) -->
+    <div class="ingredients-bottom-row">
+      {%- if section.settings.show_button != false -%}
+        <a href="{{ section.settings.button_link | default: '#' }}" class="ingredients-shop-btn">
+          {%- if section.settings.button_text != blank -%}
+            {{ section.settings.button_text }}
+          {%- else -%}
+            Shop Now
+          {%- endif -%}
+        </a>
+      {%- else -%}
+        <div></div>
+      {%- endif -%}
+
+      <div class="ingredients-bottom-nav">
+        <button
+          type="button"
+          class="ingredients-nav-btn prev"
+          aria-label="Previous Slide"
+          data-ing-prev="{{ section.id }}"
+        >
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+
+        <button
+          type="button"
+          class="ingredients-nav-btn next"
+          aria-label="Next Slide"
+          data-ing-next="{{ section.id }}"
+        >
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function() {
+    function initIngredientsSlider(secId) {
+      var track = document.getElementById('IngTrack-' + secId);
+      var prevBtn = document.querySelector('[data-ing-prev="' + secId + '"]');
+      var nextBtn = document.querySelector('[data-ing-next="' + secId + '"]');
+
+      if (!track) return;
+
+      if (prevBtn) {
+        prevBtn.onclick = function() {
+          var firstCard = track.querySelector('.ingredient-slide');
+          var step = firstCard ? firstCard.offsetWidth : 300;
+          track.scrollBy({ left: -step, behavior: 'smooth' });
+        };
+      }
+
+      if (nextBtn) {
+        nextBtn.onclick = function() {
+          var firstCard = track.querySelector('.ingredient-slide');
+          var step = firstCard ? firstCard.offsetWidth : 300;
+          track.scrollBy({ left: step, behavior: 'smooth' });
+        };
+      }
+    }
+
+    initIngredientsSlider('{{ section.id }}');
+
+    document.addEventListener('shopify:section:load', function(e) {
+      if (e.detail && e.detail.sectionId) {
+        initIngredientsSlider(e.detail.sectionId);
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Classic Ingredients",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout & Container Controls"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Enable Full Width",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Container Max Width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "label": "Slides Per View (Desktop)",
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "card_text_alignment",
+      "label": "Card Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Heading & Subheading Controls"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Classic Ingredients"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_desktop",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size (Desktop)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "min": 18,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size (Mobile)",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading (Right side)",
+      "default": "Clean, potent ingredients crafted for maximum skin nourishment and lasting radiance."
+    },
+    {
+      "type": "range",
+      "id": "subheading_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Subheading Font Size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subheading Color",
+      "default": "#555555"
+    },
+    {
+      "type": "header",
+      "content": "Image 2 Exact 3D Button Controls"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_color",
+      "label": "Button Background Color",
+      "default": "#c86e38"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_shadow_color",
+      "label": "Button Shadow / Border Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "btn_shadow_offset",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Button 3D Shadow Offset",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "btn_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Button Corner Radius",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "btn_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Font Size",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "btn_text_transform",
+      "label": "Button Text Case",
+      "options": [
+        { "value": "capitalize", "label": "Shop Now (Capitalize)" },
+        { "value": "uppercase", "label": "SHOP NOW (Uppercase)" },
+        { "value": "none", "label": "Normal" }
+      ],
+      "default": "capitalize"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg",
+      "label": "Button Hover Background",
+      "default": "#b05d2c"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_color",
+      "label": "Button Hover Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Dotted Dividers Controls"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_top_dotted_line",
+      "label": "Show Top Dotted Line",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vertical_dotted_lines",
+      "label": "Show Vertical Dotted Lines",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "dotted_color",
+      "label": "Dotted Line Color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "dotted_dash_pattern",
+      "label": "Dotted Dash Pattern",
+      "options": [
+        { "value": "1 4", "label": "Small Dots (1 4)" },
+        { "value": "2 4", "label": "Medium Dots (2 4)" },
+        { "value": "4 4", "label": "Dashed (4 4)" },
+        { "value": "0", "label": "Solid Line" }
+      ],
+      "default": "1 4"
+    },
+    {
+      "type": "range",
+      "id": "dotted_width",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "label": "Dotted Line Width",
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Single Card Controls & Styling"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card Background Color",
+      "default": "transparent"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Card Corner Radius",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Ingredient Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Ingredient Title Size",
+      "default": 22
+    },
+    {
+      "type": "color",
+      "id": "card_subtitle_color",
+      "label": "Ingredient Subtitle Color",
+      "default": "#e28743"
+    },
+    {
+      "type": "range",
+      "id": "card_subtitle_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Ingredient Subtitle Size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "card_desc_color",
+      "label": "Ingredient Description Color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "card_desc_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Ingredient Description Size",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "img_bg_color",
+      "label": "Image Background Color",
+      "default": "transparent"
+    },
+    {
+      "type": "range",
+      "id": "img_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Image Corner Radius",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Navigation Arrow Controls"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Arrow Button Background",
+      "default": "#ff4500"
+    },
+    {
+      "type": "color",
+      "id": "btn_color",
+      "label": "Arrow Icon Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg_nav",
+      "label": "Arrow Hover Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_color_nav",
+      "label": "Arrow Hover Icon Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Badge Settings (Hero Tag)"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg",
+      "label": "Badge Background",
+      "default": "#ff69b4"
+    },
+    {
+      "type": "color",
+      "id": "badge_color",
+      "label": "Badge Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Directions / Sub-note Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_directions",
+      "label": "Show Directions Banner",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "directions_text",
+      "label": "Directions Text",
+      "default": "Directions: Massage a small amount between your hands, then apply to slightly damp skin allowing it to melt in for a soft nourished finish."
+    },
+    {
+      "type": "color",
+      "id": "directions_bg",
+      "label": "Directions Background",
+      "default": "#FFFDF7"
+    },
+    {
+      "type": "color",
+      "id": "directions_border_color",
+      "label": "Directions Border Color",
+      "default": "#E8BA62"
+    },
+    {
+      "type": "color",
+      "id": "directions_text_color",
+      "label": "Directions Text Color",
+      "default": "#D97724"
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Ingredient Name",
+          "default": "Grass-Fed Tallow"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle / Botanical Name",
+          "default": "Rich in Vitamins A, D, E & K"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Ingredient Image"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge Text (e.g. Our Hero!)"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Deep nourishment rich in vitamins A, D, E & K that support soft, healthy skin."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Classic Ingredients",
+      "blocks": [
+        {
+          "type": "ingredient",
+          "settings": {
+            "title": "Grass-Fed Tallow",
+            "subtitle": "Rich in Vitamins A, D, E & K",
+            "badge_text": "Our Hero!",
+            "description": "Deep nourishment rich in vitamins A, D, E & K that support soft, healthy skin."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "title": "Marula Oil",
+            "subtitle": "(Sclerocarya Birrea Seed Oil)",
+            "description": "Lightweight hydration that smooths skin and enhances natural radiance."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "title": "Beeswax",
+            "subtitle": "(Cera Alba)",
+            "description": "Locks in moisture while forming a natural protective barrier."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "title": "Vitamin E",
+            "subtitle": "(Tocopherol)",
+            "description": "Antioxidant support that conditions and helps protect the skin."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "title": "Fragrance",
+            "subtitle": "(Custom Light Scent)",
+            "description": "Light custom scent that gently elevates the senses."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

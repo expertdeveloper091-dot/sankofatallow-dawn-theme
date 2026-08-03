@@ -1,0 +1,109 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "clay_product_main": {
+      "type": "clay-main-product",
+      "blocks": {
+        "review_and_sold_qMAYJE": {
+          "type": "review_and_sold",
+          "settings": {
+            "reviews_count": "4"
+          }
+        },
+        "product_title_AeWWWA": {
+          "type": "product_title",
+          "settings": {}
+        },
+        "live_view_yFWaFk": {
+          "type": "live_view",
+          "settings": {
+            "min_count": 16,
+            "suffix_text": "people looking right now"
+          }
+        },
+        "variant_picker_XTKT93": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "price_Dy68E6": {
+          "type": "price",
+          "settings": {}
+        },
+        "product_badges_8fVwyY": {
+          "type": "product_badges",
+          "settings": {}
+        },
+        "buy_buttons_BmEAxf": {
+          "type": "buy_buttons",
+          "settings": {
+            "atc_text": "ADD TO CART",
+            "sold_out_text": "SOLD OUT",
+            "show_buy_now": true,
+            "buy_now_text": "BUY IT NOW"
+          }
+        },
+        "collapsible_tab_desc": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Description",
+            "content_source": "description",
+            "content": "<p>Add custom text or details here.</p>"
+          }
+        },
+        "collapsible_tab_how_to": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "How to Use",
+            "content_source": "how_to_use",
+            "content": "<p>Add custom text or details here.</p>"
+          }
+        },
+        "collapsible_tab_shipping": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping & Returns",
+            "content_source": "custom",
+            "content": "<p>We offer 30-day hassle-free money-back returns. Shipping takes 3-5 business days across the country.</p>"
+          }
+        },
+        "trust_badge_cmctEY": {
+          "type": "trust_badge",
+          "settings": {
+            "badge_text": "Guarantee Safe Checkout"
+          }
+        }
+      },
+      "block_order": [
+        "review_and_sold_qMAYJE",
+        "product_title_AeWWWA",
+        "live_view_yFWaFk",
+        "variant_picker_XTKT93",
+        "price_Dy68E6",
+        "product_badges_8fVwyY",
+        "buy_buttons_BmEAxf",
+        "collapsible_tab_desc",
+        "collapsible_tab_how_to",
+        "collapsible_tab_shipping",
+        "trust_badge_cmctEY"
+      ],
+      "settings": {
+        "bg_color": "#fff9f2",
+        "border_top_color": "#000000",
+        "show_vendor": true,
+        "sold_count": 12,
+        "sold_text": "Sold in last 24 hours"
+      }
+    }
+  },
+  "order": [
+    "clay_product_main"
+  ]
+}

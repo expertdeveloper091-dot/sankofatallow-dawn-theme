@@ -1,0 +1,799 @@
+/* ============================================================
+   RB DESIGN SYSTEM — Clay Theme Exact Replication
+   Premium, Zero conflicts. Namespace: .rb-*
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+/* ---- RESET WITHIN NAMESPACE ---- */
+.rb-product-wrapper *, .rb-product-wrapper *::before, .rb-product-wrapper *::after {
+  box-sizing: border-box;
+}
+.rb-product-wrapper {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  color: #111827;
+  padding: 1.2rem 0 6rem;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ---- BREADCRUMB ---- */
+.rb-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+  margin-bottom: 1.6rem;
+  color: #6b7280;
+}
+.rb-breadcrumb a { color: #6b7280; text-decoration: none; }
+.rb-breadcrumb a:hover { color: #111827; }
+.rb-breadcrumb span { color: #111827; font-weight: 500; }
+
+/* ---- PRODUCT GRID ---- */
+.rb-product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5.6rem;
+  align-items: start;
+}
+
+/* ---- GALLERY ---- */
+.rb-product-gallery { position: sticky; top: 80px; }
+.rb-gallery-layout { display: flex; gap: 1.2rem; }
+
+.rb-thumbnail-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-height: 500px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.rb-thumbnail-strip::-webkit-scrollbar { display: none; }
+
+.rb-thumb {
+  width: 64px;
+  height: 64px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #f9fafb;
+  flex-shrink: 0;
+  transition: border-color 0.15s ease;
+}
+.rb-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rb-thumb.rb-active, .rb-thumb:hover { border-color: #111827; }
+
+.rb-main-image-wrap {
+  flex: 1;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f9fafb;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rb-main-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+.rb-main-image-wrap:hover img { transform: scale(1.04); }
+
+.rb-expand-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #6b7280;
+  z-index: 2;
+}
+.rb-expand-btn:hover { color: #111827; background: #fff; }
+
+.rb-grid-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid #e5e7eb;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+/* ---- PRODUCT INFO COLUMN ---- */
+.rb-product-info { }
+
+/* Sold counter row */
+.rb-sold-row {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #dc2626;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Variant section wrapper */
+.rb-variant-section { margin-bottom: 0.4rem; }
+
+/* Trust Badge Box */
+.rb-trust-box {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.2rem 1.4rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  background: #f9fafb;
+}
+.rb-trust-label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.8rem;
+}
+.rb-trust-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+.rb-trust-icons img { height: 24px; object-fit: contain; }
+
+
+
+/* Save Badge */
+.rb-save-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #2d2206;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 0.35rem 1rem;
+  border-radius: 20px;
+  margin-bottom: 1.2rem;
+}
+
+/* Vendor */
+.rb-vendor {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #6b7280;
+  margin-bottom: 0.4rem;
+}
+
+/* Rating row */
+.rb-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+.rb-stars {
+  color: #f59e0b;
+  font-size: 1.4rem;
+  letter-spacing: 0.05em;
+}
+.rb-review-count {
+  font-size: 1.2rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+.rb-meta-link {
+  color: #374151;
+  text-decoration: underline;
+}
+.rb-meta-link:hover { color: #111827; }
+
+/* Thumbnail video icon */
+.rb-thumb-video-icon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  font-size: 1.8rem;
+  color: #374151;
+}
+
+
+
+/* Title */
+.rb-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #111827;
+  line-height: 1.2;
+  margin: 0 0 1.4rem;
+  letter-spacing: -0.025em;
+}
+
+/* Price */
+.rb-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.rb-price-sale {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #dc2626;
+}
+.rb-price-original {
+  font-size: 1.5rem;
+  color: #9ca3af;
+  text-decoration: line-through;
+  font-weight: 400;
+}
+
+/* Delivery Box */
+.rb-delivery-box {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 1.8rem;
+  background: #ffffff;
+}
+.rb-delivery-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 1.2rem 1.4rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+.rb-delivery-row:last-child { border-bottom: none; }
+.rb-d-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #374151;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.rb-d-text {
+  font-size: 1.3rem;
+  color: #374151;
+  line-height: 1.6;
+}
+.rb-d-text strong { font-weight: 700; color: #111827; }
+
+/* Live View Pill */
+.rb-live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: #111827;
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 500;
+  padding: 0.55rem 1.2rem;
+  border-radius: 20px;
+  margin-bottom: 1.6rem;
+}
+.rb-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: rbPulse 1.5s ease-in-out infinite;
+}
+@keyframes rbPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+/* Variant Label Row */
+.rb-variant-label-row {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 1rem;
+}
+.rb-variant-label-row strong {
+  color: #111827;
+  font-weight: 700;
+}
+
+/* Variant Pills */
+.rb-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-bottom: 1.6rem;
+}
+.rb-pill {
+  padding: 0.7rem 1.6rem;
+  border: 1.5px solid #d1d5db;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #374151;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.rb-pill:hover {
+  border-color: #111827;
+}
+.rb-pill.rb-selected {
+  background: #111827;
+  border-color: #111827;
+  color: #ffffff;
+}
+
+/* Ask question link */
+.rb-ask-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #374151;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 1.6rem;
+  text-decoration: none;
+}
+.rb-ask-link:hover { color: #111827; }
+
+/* Stock Countdown */
+.rb-stock-row {
+  margin-bottom: 1.6rem;
+  padding-bottom: 1.6rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+.rb-stock-text {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.8rem;
+}
+.rb-stock-text span { color: #dc2626; font-weight: 800; }
+.rb-stock-bar {
+  width: 100%;
+  height: 3px;
+  background: #f3f4f6;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.rb-stock-fill {
+  height: 100%;
+  background: #dc2626;
+  border-radius: 10px;
+  width: 8%;
+  transition: width 0.3s ease;
+}
+
+/* ATC Row */
+.rb-atc-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+/* Qty Stepper */
+.rb-qty {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 6px;
+  height: 46px;
+  width: 100px;
+  background: #fff;
+  flex-shrink: 0;
+}
+.rb-qty-btn {
+  width: 36px;
+  height: 100%;
+  border: none;
+  background: none;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.rb-qty-btn:hover { color: #111827; }
+.rb-qty-input {
+  flex: 1;
+  border: none;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #111827;
+  background: none;
+  -moz-appearance: textfield;
+}
+.rb-qty-input::-webkit-outer-spin-button,
+.rb-qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* ATC Button */
+.rb-atc-btn {
+  flex: 1;
+  height: 46px;
+  background: #111827;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.rb-atc-btn:hover { background: #1f2937; }
+
+/* Icon Buttons */
+.rb-icon-action {
+  width: 46px;
+  height: 46px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 6px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #6b7280;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+.rb-icon-action:hover { border-color: #111827; color: #111827; }
+
+/* Buy Now */
+.rb-buy-btn {
+  display: block;
+  width: 100%;
+  height: 46px;
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  margin-bottom: 2.4rem;
+  transition: background 0.15s ease;
+}
+.rb-buy-btn:hover { background: #b91c1c; }
+
+/* Accordions */
+.rb-accordions {
+  border-top: 1px solid #e5e7eb;
+  margin-bottom: 2rem;
+}
+.rb-acc {
+  border-bottom: 1px solid #e5e7eb;
+}
+.rb-acc-summary {
+  padding: 1.5rem 0;
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: #111827;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.rb-acc-summary::-webkit-details-marker { display: none; }
+.rb-acc-icon {
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: #6b7280;
+  transition: transform 0.2s ease;
+  line-height: 1;
+}
+details[open] .rb-acc-icon { transform: rotate(45deg); }
+.rb-acc-body {
+  font-size: 1.3rem;
+  color: #6b7280;
+  line-height: 1.75;
+  padding-bottom: 1.5rem;
+}
+
+/* Product Meta */
+.rb-meta {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.3rem;
+  margin-top: 1.6rem;
+}
+.rb-meta-r {
+  display: table-row;
+}
+.rb-meta-key, .rb-meta-val {
+  display: table-cell;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+.rb-meta-key {
+  color: #6b7280;
+  font-weight: 500;
+  width: 100px;
+}
+.rb-meta-val { color: #111827; font-weight: 400; }
+.rb-meta-r:last-child .rb-meta-key,
+.rb-meta-r:last-child .rb-meta-val { border-bottom: none; }
+
+/* ==========================================
+   FAKE ORDER NOTIFICATION
+   ========================================== */
+.rb-order-toast {
+  position: fixed;
+  bottom: 28px;
+  left: 24px;
+  z-index: 99999;
+  width: 310px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.2rem 1.4rem;
+  border: 1px solid #f3f4f6;
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.rb-order-toast.rb-hidden {
+  transform: translateX(-120%);
+  opacity: 0;
+  pointer-events: none;
+}
+.rb-toast-img {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid #f3f4f6;
+}
+.rb-toast-body {
+  flex: 1;
+  min-width: 0;
+}
+.rb-toast-top {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rb-toast-buyer {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #6b7280;
+  margin-bottom: 0.2rem;
+}
+.rb-toast-product {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #111827;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rb-toast-time {
+  font-size: 1.1rem;
+  color: #9ca3af;
+  margin-top: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.rb-toast-verify {
+  color: #22c55e;
+  font-weight: 600;
+}
+.rb-toast-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  color: #9ca3af;
+  line-height: 1;
+  padding: 2px 4px;
+}
+.rb-toast-close:hover { color: #374151; }
+
+/* ==========================================
+   STICKY ATC BAR
+   ========================================== */
+.rb-sticky-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.09);
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.rb-sticky-bar.rb-visible {
+  transform: translateY(0);
+}
+.rb-sticky-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 2.4rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.rb-sticky-product {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-shrink: 0;
+}
+.rb-sticky-img {
+  width: 46px;
+  height: 46px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid #e5e7eb;
+}
+.rb-sticky-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #111827;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rb-sticky-variant-select,
+.rb-sticky-option-select {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #374151;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 0.7rem 1rem;
+  background: #fff;
+  cursor: pointer;
+  min-width: 120px;
+  max-width: 160px;
+  flex-shrink: 0;
+}
+
+.rb-sticky-price {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #dc2626;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.rb-sticky-qty {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 6px;
+  height: 40px;
+  background: #fff;
+  flex-shrink: 0;
+}
+.rb-sticky-qty-btn {
+  width: 32px;
+  height: 100%;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  color: #374151;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rb-sticky-qty-input {
+  width: 38px;
+  border: none;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #111827;
+  background: none;
+  -moz-appearance: textfield;
+}
+.rb-sticky-qty-input::-webkit-outer-spin-button,
+.rb-sticky-qty-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+.rb-sticky-atc {
+  background: #111827;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  height: 40px;
+  padding: 0 2.2rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: auto;
+  transition: background 0.15s ease;
+}
+.rb-sticky-atc:hover { background: #1f2937; }
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+@media screen and (max-width: 990px) {
+  .rb-product-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .rb-product-gallery { position: static; }
+  .rb-sticky-inner {
+    padding: 0.8rem 1.2rem;
+    gap: 0.8rem;
+  }
+  .rb-sticky-variant-select { min-width: 120px; }
+  .rb-sticky-title { max-width: 120px; }
+  .rb-order-toast { width: 280px; }
+}
+
+@media screen and (max-width: 640px) {
+  .rb-gallery-layout { flex-direction: column-reverse; }
+  .rb-thumbnail-strip { flex-direction: row; max-height: none; }
+  .rb-title { font-size: 1.9rem; }
+  .rb-sticky-product .rb-sticky-title { display: none; }
+  .rb-sticky-variant-select { min-width: 80px; font-size: 1.1rem; }
+}
