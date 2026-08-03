@@ -438,102 +438,120 @@
       }
     },
     "custom_compare_r3FjHq": {
-      "type": "custom-compare",
+      "type": "custom-compare-cards",
       "blocks": {
-        "row_RzdzFJ": {
-          "type": "row",
+        "point_1": {
+          "type": "comparison_point",
           "settings": {
-            "feature": "Only Simple Ingredients",
-            "brand_icon": "check",
-            "competitor_icon": "minus",
-            "other_val": "-"
+            "left_icon": "ri-close-line",
+            "left_title": "Water-Based Formula",
+            "left_text": "Water is the first ingredient, creating a diluted formula.",
+            "right_icon": "ri-check-line",
+            "right_title": "100% Concentrated",
+            "right_text": "0% water. Every ingredient serves a purpose to nourish your skin."
           }
         },
-        "row_T4UgbD": {
-          "type": "row",
+        "point_2": {
+          "type": "comparison_point",
           "settings": {
-            "feature": "Grass-Fed Tallow",
-            "brand_icon": "check",
-            "competitor_icon": "minus",
-            "other_val": "−"
+            "left_icon": "ri-close-line",
+            "left_title": "Long Ingredient Lists",
+            "left_text": "Typically 15–30+ ingredients including emulsifiers, stabilizers, thickeners and preservatives.",
+            "right_icon": "ri-check-line",
+            "right_title": "Only 5 Natural Ingredients",
+            "right_text": "Grass-fed tallow, organic marula oil, organic beeswax, vitamin E and fragrance."
           }
         },
-        "row_BA4niM": {
-          "type": "row",
+        "point_3": {
+          "type": "comparison_point",
           "settings": {
-            "feature": "Deep Moisturization",
-            "brand_icon": "check",
-            "competitor_icon": "minus",
-            "other_val": "−"
+            "left_icon": "ri-close-line",
+            "left_title": "Short-Term Moisture",
+            "left_text": "Lightweight hydration that requires frequent reapplication throughout the day.",
+            "right_icon": "ri-check-line",
+            "right_title": "Deep Hydration",
+            "right_text": "Rich, long-lasting moisture designed to support your skin barrier all day."
           }
         },
-        "row_FenYT9": {
-          "type": "row",
+        "point_4": {
+          "type": "comparison_point",
           "settings": {
-            "feature": "Free From Harsh Chemicals",
-            "brand_icon": "check",
-            "competitor_icon": "minus",
-            "other_val": "−"
+            "left_icon": "ri-close-line",
+            "left_title": "Extra Fillers",
+            "left_text": "May include silicones, colorants, texture enhancers and unnecessary additives.",
+            "right_icon": "ri-check-line",
+            "right_title": "Minimalist Formula",
+            "right_text": "No added colors, unnecessary fillers or harsh chemicals."
           }
         },
-        "row_td7Jri": {
-          "type": "row",
+        "point_5": {
+          "type": "comparison_point",
           "settings": {
-            "feature": "Family Safe Formula",
-            "brand_icon": "check",
-            "competitor_icon": "minus",
-            "other_val": "−"
-          }
-        },
-        "row_PVqXaR": {
-          "type": "row",
-          "settings": {
-            "feature": "Family-friendly skincare",
-            "brand_icon": "check",
-            "competitor_icon": "minus",
-            "other_val": "−"
-          }
-        },
-        "row_QawmQB": {
-          "type": "row",
-          "settings": {
-            "feature": "100% Natural Ingredients",
-            "brand_icon": "check",
-            "competitor_icon": "minus",
-            "other_val": "−"
+            "left_icon": "ri-close-line",
+            "left_title": "Artificial Fragrance",
+            "left_text": "May contain low-quality fragrances with hormone-disrupting toxins.",
+            "right_icon": "ri-check-line",
+            "right_title": "Skin-Safe Luxury",
+            "right_text": "Premium fragrance blends plus a fragrance-free option (Safi)."
           }
         }
       },
       "block_order": [
-        "row_RzdzFJ",
-        "row_T4UgbD",
-        "row_BA4niM",
-        "row_FenYT9",
-        "row_td7Jri",
-        "row_PVqXaR",
-        "row_QawmQB"
+        "point_1",
+        "point_2",
+        "point_3",
+        "point_4",
+        "point_5"
       ],
-      "name": "Brand Comparison Table",
+      "name": "Comparison Cards",
       "settings": {
+        "show_tag": true,
+        "tag_icon": "ri-award-line",
+        "tag_label": "Honest Comparison",
+        "heading": "Why Sankofa Tallow Body Butter is Different",
+        "heading_font_size": 48,
+        "subheading": "<p>Most lotions rely on water, fillers, and long ingredient lists that provide temporary hydration. Sankofa Tallow takes a different approach—every ingredient is carefully selected to deeply nourish, protect, and support healthy skin naturally.</p>",
+        "subheading_font_size": 17,
+        "left_title": "Conventional Lotions",
+        "left_icon": "ri-close-circle-fill",
+        "left_card_bg": "#ffffff",
+        "left_card_border": "#ececec",
+        "left_title_color": "#1f1f1f",
+        "left_header_icon_color": "#d9534f",
+        "left_item_icon_bg": "#fff1f0",
+        "left_item_icon_color": "#d9534f",
+        "left_item_title_color": "#222222",
+        "left_item_text_color": "#555555",
+        "right_title": "Sankofa Tallow Body Butter",
+        "right_icon": "ri-checkbox-circle-fill",
+        "show_right_badge": true,
+        "right_badge_text": "BEST CHOICE",
+        "right_badge_bg": "#c96e3d",
+        "right_badge_text_color": "#ffffff",
+        "right_card_bg_start": "#ffffff",
+        "right_card_bg_end": "#fff7f0",
+        "right_card_border": "#c96e3d",
+        "right_title_color": "#1f1f1f",
+        "right_header_icon_color": "#2fa86d",
+        "right_item_icon_bg": "#eaf9f1",
+        "right_item_icon_color": "#2fa86d",
+        "right_item_title_color": "#222222",
+        "right_item_text_color": "#555555",
         "bg_color": "#fff9f2",
-        "heading_color": "#2a231e",
-        "table_bg": "#ffffff",
-        "table_border": "#2a231e",
-        "feature_text_color": "#2a231e",
-        "brand_column_bg": "#c96e3d",
-        "brand_title_color": "#ffffff",
-        "brand_check_bg": "#2a231e",
-        "brand_check_color": "#c96e3d",
-        "competitor_circle_bg": "#2a231e",
-        "competitor_mark_color": "#2a231e",
-        "competitor_circle_border": "#c96e3d",
-        "heading": "WHY SANKOFA tallow STANDS APART",
-        "heading_font_size": 45,
-        "heading_margin_bottom": 20,
-        "brand_name": "SANKOFA TALLOW",
-        "others_name": "OTHERS",
-        "padding_top": 80,
-        "padding_bottom": 80
+        "heading_color": "#1f1f1f",
+        "subheading_color": "#666666",
+        "accent_color": "#c96e3d",
+        "tag_bg": "#ffffff",
+        "tag_border": "#ead9c8",
+        "tag_text": "#c96e3d",
+        "container_width": 1320,
+        "show_trust_bar": true,
+        "trust_1_text": "100% Water-Free Formula",
+        "trust_2_text": "Dermatologist Tested",
+        "trust_3_text": "Family & Child Safe",
+        "trust_4_text": "30-Day Money-Back Guarantee",
+        "padding_top": 100,
+        "padding_bottom": 100
       }
     },
     "custom_reviews_CVy7MQ": {
