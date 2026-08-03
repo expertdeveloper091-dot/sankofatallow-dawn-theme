@@ -155,96 +155,19 @@
     z-index: 2;
   }
 
-  /* Seal Stamp Badge (Image 2 style) */
-  .custom-compare-cards-{{ section.id }} .ccc-badge-seal {
+  /* Image 3 Vector Stamp Seal Badge */
+  .custom-compare-cards-{{ section.id }} .ccc-badge-seal-graphic {
     position: absolute;
-    top: -24px;
+    top: -28px;
     right: 20px;
     z-index: 10;
-  }
-
-  .custom-compare-cards-{{ section.id }} .ccc-seal-outer {
-    position: relative;
-    width: 90px;
-    height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.18));
-    transform: rotate(5deg);
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.16));
     transition: transform 0.3s ease;
+    transform: rotate(4deg);
   }
 
-  .custom-compare-cards-{{ section.id }} .ccc-card--new:hover .ccc-seal-outer {
-    transform: rotate(0deg) scale(1.08);
-  }
-
-  .custom-compare-cards-{{ section.id }} .ccc-seal-starburst {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .custom-compare-cards-{{ section.id }} .ccc-seal-inner {
-    position: relative;
-    z-index: 2;
-    width: 76px;
-    height: 76px;
-    border-radius: 50%;
-    background-color: var(--right-badge-bg, #C96E3D);
-    border: 2px dashed rgba(255, 255, 255, 0.7);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
-  }
-
-  .custom-compare-cards-{{ section.id }} .ccc-seal-top-text {
-    font-size: 7px;
-    font-weight: 900;
-    color: #FFFFFF;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-top: 1px;
-    line-height: 1;
-  }
-
-  .custom-compare-cards-{{ section.id }} .ccc-seal-ribbon {
-    background-color: #1F1F1F;
-    color: #FFFFFF;
-    padding: 3px 10px;
-    margin: 3px -14px;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-    border: 1px solid rgba(255,255,255,0.25);
-    z-index: 3;
-    white-space: nowrap;
-  }
-
-  .custom-compare-cards-{{ section.id }} .ccc-ribbon-text {
-    font-size: 9px;
-    font-weight: 900;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    line-height: 1;
-    color: #FFFFFF;
-  }
-
-  .custom-compare-cards-{{ section.id }} .ccc-seal-bottom-text {
-    font-size: 6.5px;
-    font-weight: 800;
-    color: rgba(255, 255, 255, 0.95);
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    margin-bottom: 1px;
-    line-height: 1;
+  .custom-compare-cards-{{ section.id }} .ccc-card--new:hover .ccc-badge-seal-graphic {
+    transform: rotate(0deg) scale(1.06);
   }
 
   /* Header style without icon */
@@ -284,9 +207,9 @@
   .custom-compare-cards-{{ section.id }} .ccc-item {
     display: flex;
     align-items: flex-start;
-    gap: 16px;
+    gap: 14px;
     font-size: 16px;
-    line-height: 1.7;
+    line-height: 1.65;
   }
 
   .custom-compare-cards-{{ section.id }} .ccc-card--old .ccc-item {
@@ -299,9 +222,9 @@
 
   /* List Item Icons (Solid Circle Checkmark / Cross) */
   .custom-compare-cards-{{ section.id }} .ccc-item-icon {
-    min-width: 28px;
-    width: 28px;
-    height: 28px;
+    min-width: 24px;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -311,8 +234,8 @@
 
   .custom-compare-cards-{{ section.id }} .ccc-item-icon svg {
     display: block;
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
   }
 
   .custom-compare-cards-{{ section.id }} .ccc-item-content {
@@ -432,9 +355,9 @@
               {%- if block.settings.left_title != blank or block.settings.left_text != blank -%}
                 <li class="ccc-item" {{ block.shopify_attributes }}>
                   <div class="ccc-item-icon ccc-item-icon--cross">
-                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="14" cy="14" r="14" fill="{{ section.settings.left_item_icon_bg | default: '#D9534F' }}"/>
-                      <path d="M9.5 9.5L18.5 18.5M18.5 9.5L9.5 18.5" stroke="{{ section.settings.left_item_icon_color | default: '#FFFFFF' }}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="12" fill="{{ section.settings.left_item_icon_bg | default: '#D9534F' }}"/>
+                      <path d="M8 8L16 16M16 8L8 16" stroke="{{ section.settings.left_item_icon_color | default: '#FFFFFF' }}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                   </div>
                   <div class="ccc-item-content">
@@ -456,19 +379,43 @@
       <div class="ccc-card ccc-card--new">
         {%- if section.settings.show_right_badge and section.settings.right_badge_text != blank -%}
           {%- if section.settings.badge_style == 'seal' -%}
-            <div class="ccc-badge-seal">
-              <div class="ccc-seal-outer">
-                <svg viewBox="0 0 100 100" class="ccc-seal-starburst">
-                  <path d="M50 0 L54 7 L62 2 L64 10 L73 8 L73 17 L82 17 L80 25 L88 28 L84 36 L92 41 L86 48 L93 55 L85 60 L90 68 L81 71 L84 80 L74 81 L74 90 L65 89 L62 97 L54 94 L50 100 L46 94 L38 97 L35 89 L26 90 L26 81 L16 80 L19 71 L10 68 L15 60 L7 55 L14 48 L8 41 L16 36 L12 28 L20 25 L18 17 L27 17 L27 8 L36 10 L38 2 L46 7 Z" fill="{{ section.settings.right_badge_bg | default: '#C96E3D' }}"/>
-                </svg>
-                <div class="ccc-seal-inner">
-                  <div class="ccc-seal-top-text">{{ section.settings.seal_top_text | default: 'TOP RATED' }}</div>
-                  <div class="ccc-seal-ribbon">
-                    <span class="ccc-ribbon-text">{{ section.settings.right_badge_text }}</span>
-                  </div>
-                  <div class="ccc-seal-bottom-text">{{ section.settings.seal_bottom_text | default: '★ PRODUCT ★' }}</div>
-                </div>
-              </div>
+            <div class="ccc-badge-seal-graphic">
+              <svg width="105" height="105" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Outer Scalloped Teeth Circle -->
+                <path d="M60 5 L64 12 L71 7 L73 15 L82 13 L82 21 L90 21 L88 29 L96 32 L92 40 L99 45 L93 52 L99 59 L91 64 L96 72 L87 75 L90 84 L80 85 L80 94 L71 93 L68 101 L60 98 L56 105 L49 98 L46 106 L39 99 L36 106 L28 100 L27 92 L18 92 L20 84 L11 81 L15 73 L7 70 L13 62 L6 56 L14 51 L8 43 L16 39 L12 31 L20 28 L18 20 L27 20 L27 11 L36 13 L38 5 L46 10 Z" fill="#222831"/>
+                
+                <!-- Inner Copper Circle -->
+                <circle cx="60" cy="60" r="44" fill="{{ section.settings.right_badge_bg | default: '#C96E3D' }}"/>
+                <circle cx="60" cy="60" r="41" stroke="white" stroke-width="1" stroke-dasharray="3 2" opacity="0.6"/>
+                <circle cx="60" cy="60" r="39" stroke="white" stroke-width="0.8" opacity="0.4"/>
+
+                <!-- Top Text Arc -->
+                <path id="topArcPath" d="M 26 60 A 34 34 0 0 1 94 60" fill="none"/>
+                <text font-family="Poppins, sans-serif" font-size="8.5" font-weight="900" fill="white" letter-spacing="1.5">
+                  <textPath href="#topArcPath" startOffset="50%" text-anchor="middle">{{ section.settings.seal_top_text | default: 'TOP-RATED' }}</textPath>
+                </text>
+                <polygon points="60,36 61.5,39 65,39 62,41.5 63,45 60,43 57,45 58,41.5 55,39 58.5,39" fill="white"/>
+
+                <!-- Bottom Text Arc -->
+                <path id="bottomArcPath" d="M 94 60 A 34 34 0 0 1 26 60" fill="none"/>
+                <text font-family="Poppins, sans-serif" font-size="7.5" font-weight="800" fill="white" letter-spacing="1.5">
+                  <textPath href="#bottomArcPath" startOffset="50%" text-anchor="middle">{{ section.settings.seal_bottom_text | default: '★ PRODUCT ★' }}</textPath>
+                </text>
+
+                <!-- Center Ribbon Banner -->
+                <polygon points="6,50 18,50 14,60 18,70 6,70 10,60" fill="#161B22"/>
+                <polygon points="114,50 102,50 106,60 102,70 114,70 110,60" fill="#161B22"/>
+                <rect x="12" y="49" width="96" height="22" rx="2" fill="#222831" stroke="white" stroke-width="1.2"/>
+                <rect x="14" y="51" width="92" height="18" rx="1" fill="none" stroke="white" stroke-width="0.6" opacity="0.6"/>
+
+                <text x="34" y="64" font-family="Poppins, sans-serif" font-size="10.5" font-weight="900" fill="white" letter-spacing="1" text-anchor="middle">BEST</text>
+                
+                <g transform="translate(54, 53) scale(0.65)">
+                  <path d="M7 19h-4v-10h4v10zm14-9c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06l-1.06-1.05-6.59 6.59c-.36.36-.58.86-.58 1.41v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2.03z" fill="white"/>
+                </g>
+                
+                <text x="86" y="64" font-family="Poppins, sans-serif" font-size="10.5" font-weight="900" fill="white" letter-spacing="1" text-anchor="middle">CHOICE</text>
+              </svg>
             </div>
           {%- else -%}
             <div class="ccc-badge">
@@ -487,9 +434,9 @@
               {%- if block.settings.right_title != blank or block.settings.right_text != blank -%}
                 <li class="ccc-item">
                   <div class="ccc-item-icon ccc-item-icon--check">
-                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="14" cy="14" r="14" fill="{{ section.settings.right_item_icon_bg | default: '#2FA86D' }}"/>
-                      <path d="M8.5 14L12 17.5L19.5 10" stroke="{{ section.settings.right_item_icon_color | default: '#FFFFFF' }}" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="12" fill="{{ section.settings.right_item_icon_bg | default: '#2FA86D' }}"/>
+                      <path d="M7 12L10.5 15.5L17 9" stroke="{{ section.settings.right_item_icon_color | default: '#FFFFFF' }}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                   </div>
                   <div class="ccc-item-content">
@@ -677,7 +624,7 @@
       "options": [
         {
           "value": "seal",
-          "label": "Top-Rated Stamp Seal Badge"
+          "label": "Top-Rated Stamp Seal Badge (Image 3 Graphic)"
         },
         {
           "value": "pill",
@@ -696,7 +643,7 @@
       "type": "text",
       "id": "seal_top_text",
       "label": "Seal top text",
-      "default": "TOP RATED"
+      "default": "TOP-RATED"
     },
     {
       "type": "text",
@@ -891,8 +838,8 @@
         {
           "type": "text",
           "id": "left_title",
-          "label": "Left item title (Optional)",
-          "default": ""
+          "label": "Left item title",
+          "default": "Water-Based Formula"
         },
         {
           "type": "textarea",
@@ -907,14 +854,14 @@
         {
           "type": "text",
           "id": "right_title",
-          "label": "Right item title (Optional)",
-          "default": ""
+          "label": "Right item title",
+          "default": "100% Concentrated"
         },
         {
           "type": "textarea",
           "id": "right_text",
           "label": "Right item text",
-          "default": "0% water. A concentrated formula where every ingredient serves a purpose."
+          "default": "0% water. Every ingredient serves a purpose to nourish your skin."
         }
       ]
     }
@@ -926,46 +873,46 @@
         {
           "type": "comparison_point",
           "settings": {
-            "left_title": "",
+            "left_title": "Water-Based Formula",
             "left_text": "Water is the first ingredient, creating a diluted formula.",
-            "right_title": "",
-            "right_text": "0% water. A concentrated formula where every ingredient serves a purpose."
+            "right_title": "100% Concentrated",
+            "right_text": "0% water. Every ingredient serves a purpose to nourish your skin."
           }
         },
         {
           "type": "comparison_point",
           "settings": {
-            "left_title": "",
-            "left_text": "Typically 15-30+ ingredients including emulsifiers, stabilizers, thickeners, and preservatives.",
-            "right_title": "",
-            "right_text": "Made with only 5 purposeful all natural ingredients: grass-fed tallow, organic marula oil, organic beeswax, vitamin E, and fragrance."
+            "left_title": "Long Ingredient Lists",
+            "left_text": "Typically 15–30+ ingredients including emulsifiers, stabilizers, thickeners and preservatives.",
+            "right_title": "Only 5 Natural Ingredients",
+            "right_text": "Made with only 5 purposeful all natural ingredients: grass-fed tallow, organic marula oil, organic beeswax, vitamin E and fragrance."
           }
         },
         {
           "type": "comparison_point",
           "settings": {
-            "left_title": "",
-            "left_text": "Lightweight hydration that requires frequent reapplication.",
-            "right_title": "",
-            "right_text": "Rich, long-lasting moisture designed to support the skin barrier."
+            "left_title": "Short-Term Moisture",
+            "left_text": "Lightweight hydration that requires frequent reapplication throughout the day.",
+            "right_title": "Deep Hydration",
+            "right_text": "Rich, long-lasting moisture designed to support your skin barrier all day."
           }
         },
         {
           "type": "comparison_point",
           "settings": {
-            "left_title": "",
-            "left_text": "May include unnecessary additives such as colorants, silicones, and texture enhancers.",
-            "right_title": "",
-            "right_text": "Minimalist formulation with no added colors or unnecessary fillers."
+            "left_title": "Extra Fillers",
+            "left_text": "May include silicones, colorants, texture enhancers and unnecessary additives.",
+            "right_title": "Minimalist Formula",
+            "right_text": "No added colors, unnecessary fillers or harsh chemicals."
           }
         },
         {
           "type": "comparison_point",
           "settings": {
-            "left_title": "",
-            "left_text": "May contain low quality fragrances with hormone disrupting toxins.",
-            "right_title": "",
-            "right_text": "Skin-safe luxury fragrance blends, plus a fragrance-free option (Safi)."
+            "left_title": "Artificial Fragrance",
+            "left_text": "May contain low-quality fragrances with hormone-disrupting toxins.",
+            "right_title": "Skin-Safe Luxury",
+            "right_text": "Premium fragrance blends plus a fragrance-free option (Safi)."
           }
         }
       ]
