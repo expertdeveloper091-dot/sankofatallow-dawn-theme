@@ -191,6 +191,7 @@
 
   .custom-compare-cards-{{ section.id }} .ccc-card--new .ccc-card-header h3 {
     color: var(--right-title-color);
+    padding-right: 65px; /* Reserves space so text never collides with top-right badge */
   }
 
   .custom-compare-cards-{{ section.id }} .ccc-list {
@@ -283,6 +284,7 @@
     color: var(--accent-color);
   }
 
+  /* Tablet Breakpoint (max-width: 991px) */
   @media screen and (max-width: 991px) {
     .custom-compare-cards-{{ section.id }} .ccc-title {
       font-size: 34px;
@@ -292,26 +294,106 @@
       gap: 30px;
     }
     .custom-compare-cards-{{ section.id }} .ccc-card {
-      padding: 30px 24px;
+      padding: 34px 24px;
     }
     .custom-compare-cards-{{ section.id }} .ccc-card-header h3 {
       font-size: 24px;
     }
   }
 
-  @media screen and (max-width: 576px) {
+  /* Dedicated Mobile Responsive Approach (max-width: 767px) */
+  @media screen and (max-width: 767px) {
     .custom-compare-cards-{{ section.id }} .ccc-title {
-      font-size: 26px;
+      font-size: 26px !important;
+      margin-bottom: 12px !important;
     }
+
     .custom-compare-cards-{{ section.id }} .ccc-subheading,
     .custom-compare-cards-{{ section.id }} .ccc-subheading p {
-      font-size: 15px;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
     }
+
+    .custom-compare-cards-{{ section.id }} .ccc-grid {
+      grid-template-columns: 1fr !important;
+      gap: 28px !important;
+    }
+
+    .custom-compare-cards-{{ section.id }} .ccc-card {
+      padding: 30px 18px 24px 18px !important;
+      border-radius: 20px !important;
+    }
+
+    .custom-compare-cards-{{ section.id }} .ccc-card-header {
+      margin-bottom: 20px !important;
+      padding-bottom: 14px !important;
+    }
+
+    .custom-compare-cards-{{ section.id }} .ccc-card-header h3 {
+      font-size: 20px !important;
+      line-height: 1.25 !important;
+    }
+
+    .custom-compare-cards-{{ section.id }} .ccc-card--new .ccc-card-header h3 {
+      padding-right: 65px !important; /* Prevents title text from overlapping badge on mobile */
+    }
+
+    .custom-compare-cards-{{ section.id }} .ccc-badge-seal-graphic {
+      top: -18px !important;
+      right: 10px !important;
+      transform: scale(0.76) !important;
+      transform-origin: top right !important;
+    }
+
+    .custom-compare-cards-{{ section.id }} .ccc-badge {
+      top: 14px !important;
+      right: 14px !important;
+      font-size: 10px !important;
+      padding: 5px 12px !important;
+    }
+
+    .custom-compare-cards-{{ section.id }} .ccc-list {
+      gap: 16px !important;
+    }
+
     .custom-compare-cards-{{ section.id }} .ccc-item {
-      font-size: 14.5px;
+      gap: 12px !important;
+      font-size: 13.5px !important;
+      line-height: 1.55 !important;
     }
+
+    .custom-compare-cards-{{ section.id }} .ccc-item-icon {
+      min-width: 22px !important;
+      width: 22px !important;
+      height: 22px !important;
+      margin-top: 2px !important;
+    }
+
+    .custom-compare-cards-{{ section.id }} .ccc-item-icon svg {
+      width: 22px !important;
+      height: 22px !important;
+    }
+
     .custom-compare-cards-{{ section.id }} .ccc-item-content strong {
-      font-size: 16px;
+      font-size: 15px !important;
+      margin-bottom: 2px !important;
+    }
+
+    .custom-compare-cards-{{ section.id }} .ccc-trust-bar {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 14px 10px !important;
+      margin-top: 30px !important;
+      padding-top: 20px !important;
+    }
+
+    .custom-compare-cards-{{ section.id }} .ccc-trust-item {
+      font-size: 12.5px !important;
+      gap: 6px !important;
+    }
+
+    .custom-compare-cards-{{ section.id }} .ccc-trust-item i {
+      font-size: 15px !important;
     }
   }
 {%- endstyle -%}
