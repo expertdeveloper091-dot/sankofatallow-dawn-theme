@@ -121,7 +121,7 @@
     box-shadow: 0 18px 45px rgba(0,0,0,0.06);
     position: relative;
     transition: transform 0.35s ease, box-shadow 0.35s ease;
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     flex-direction: column;
   }
@@ -140,6 +140,7 @@
     background: linear-gradient(180deg, var(--right-card-bg-start), var(--right-card-bg-end));
   }
 
+  /* Simple Pill Badge */
   .custom-compare-cards-{{ section.id }} .ccc-badge {
     position: absolute;
     top: 22px;
@@ -154,6 +155,98 @@
     text-transform: uppercase;
     box-shadow: 0 4px 10px rgba(201, 110, 61, 0.25);
     z-index: 2;
+  }
+
+  /* Seal Stamp Badge (Image 2 style) */
+  .custom-compare-cards-{{ section.id }} .ccc-badge-seal {
+    position: absolute;
+    top: -24px;
+    right: 20px;
+    z-index: 10;
+  }
+
+  .custom-compare-cards-{{ section.id }} .ccc-seal-outer {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.18));
+    transform: rotate(5deg);
+    transition: transform 0.3s ease;
+  }
+
+  .custom-compare-cards-{{ section.id }} .ccc-card--new:hover .ccc-seal-outer {
+    transform: rotate(0deg) scale(1.08);
+  }
+
+  .custom-compare-cards-{{ section.id }} .ccc-seal-starburst {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .custom-compare-cards-{{ section.id }} .ccc-seal-inner {
+    position: relative;
+    z-index: 2;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background-color: var(--right-badge-bg, #C96E3D);
+    border: 2px dashed rgba(255, 255, 255, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .custom-compare-cards-{{ section.id }} .ccc-seal-top-text {
+    font-size: 7px;
+    font-weight: 900;
+    color: #FFFFFF;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 1px;
+    line-height: 1;
+  }
+
+  .custom-compare-cards-{{ section.id }} .ccc-seal-ribbon {
+    background-color: #1F1F1F;
+    color: #FFFFFF;
+    padding: 3px 10px;
+    margin: 3px -14px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.25);
+    z-index: 3;
+    white-space: nowrap;
+  }
+
+  .custom-compare-cards-{{ section.id }} .ccc-ribbon-text {
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    line-height: 1;
+    color: #FFFFFF;
+  }
+
+  .custom-compare-cards-{{ section.id }} .ccc-seal-bottom-text {
+    font-size: 6.5px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 1px;
+    line-height: 1;
   }
 
   .custom-compare-cards-{{ section.id }} .ccc-card-header {
@@ -229,6 +322,7 @@
     border-radius: 50%;
     font-size: 20px;
     flex-shrink: 0;
+    margin-top: 2px;
   }
 
   .custom-compare-cards-{{ section.id }} .ccc-card--old .ccc-item-icon {
@@ -239,6 +333,10 @@
   .custom-compare-cards-{{ section.id }} .ccc-card--new .ccc-item-icon {
     background-color: var(--right-item-icon-bg);
     color: var(--right-item-icon-color);
+  }
+
+  .custom-compare-cards-{{ section.id }} .ccc-item-content {
+    flex: 1;
   }
 
   .custom-compare-cards-{{ section.id }} .ccc-item-content strong {
@@ -354,11 +452,9 @@
             {%- if block.type == 'comparison_point' -%}
               {%- if block.settings.left_title != blank or block.settings.left_text != blank -%}
                 <li class="ccc-item" {{ block.shopify_attributes }}>
-                  {%- if section.settings.show_item_icons -%}
-                    <div class="ccc-item-icon">
-                      <i class="{{ block.settings.left_icon | default: 'ri-close-line' }}"></i>
-                    </div>
-                  {%- endif -%}
+                  <div class="ccc-item-icon">
+                    <i class="{{ block.settings.left_icon | default: 'ri-close-line' }}"></i>
+                  </div>
                   <div class="ccc-item-content">
                     {%- if block.settings.left_title != blank -%}
                       <strong>{{ block.settings.left_title }}</strong>
@@ -377,9 +473,26 @@
       <!-- RIGHT CARD: Sankofa Tallow Body Butter -->
       <div class="ccc-card ccc-card--new">
         {%- if section.settings.show_right_badge and section.settings.right_badge_text != blank -%}
-          <div class="ccc-badge">
-            {{ section.settings.right_badge_text }}
-          </div>
+          {%- if section.settings.badge_style == 'seal' -%}
+            <div class="ccc-badge-seal">
+              <div class="ccc-seal-outer">
+                <svg viewBox="0 0 100 100" class="ccc-seal-starburst">
+                  <path d="M50 0 L54 7 L62 2 L64 10 L73 8 L73 17 L82 17 L80 25 L88 28 L84 36 L92 41 L86 48 L93 55 L85 60 L90 68 L81 71 L84 80 L74 81 L74 90 L65 89 L62 97 L54 94 L50 100 L46 94 L38 97 L35 89 L26 90 L26 81 L16 80 L19 71 L10 68 L15 60 L7 55 L14 48 L8 41 L16 36 L12 28 L20 25 L18 17 L27 17 L27 8 L36 10 L38 2 L46 7 Z" fill="{{ section.settings.right_badge_bg | default: '#C96E3D' }}"/>
+                </svg>
+                <div class="ccc-seal-inner">
+                  <div class="ccc-seal-top-text">{{ section.settings.seal_top_text | default: 'TOP RATED' }}</div>
+                  <div class="ccc-seal-ribbon">
+                    <span class="ccc-ribbon-text">{{ section.settings.right_badge_text }}</span>
+                  </div>
+                  <div class="ccc-seal-bottom-text">{{ section.settings.seal_bottom_text | default: '★ PRODUCT ★' }}</div>
+                </div>
+              </div>
+            </div>
+          {%- else -%}
+            <div class="ccc-badge">
+              {{ section.settings.right_badge_text }}
+            </div>
+          {%- endif -%}
         {%- endif -%}
 
         <div class="ccc-card-header">
@@ -392,11 +505,9 @@
             {%- if block.type == 'comparison_point' -%}
               {%- if block.settings.right_title != blank or block.settings.right_text != blank -%}
                 <li class="ccc-item">
-                  {%- if section.settings.show_item_icons -%}
-                    <div class="ccc-item-icon">
-                      <i class="{{ block.settings.right_icon | default: 'ri-check-line' }}"></i>
-                    </div>
-                  {%- endif -%}
+                  <div class="ccc-item-icon">
+                    <i class="{{ block.settings.right_icon | default: 'ri-check-line' }}"></i>
+                  </div>
                   <div class="ccc-item-content">
                     {%- if block.settings.right_title != blank -%}
                       <strong>{{ block.settings.right_title }}</strong>
@@ -508,12 +619,6 @@
       "default": 17
     },
     {
-      "type": "checkbox",
-      "id": "show_item_icons",
-      "label": "Show icons next to list items below",
-      "default": false
-    },
-    {
       "type": "header",
       "content": "Left Card (Conventional / Old)"
     },
@@ -600,10 +705,38 @@
       "default": true
     },
     {
+      "type": "select",
+      "id": "badge_style",
+      "label": "Badge style",
+      "options": [
+        {
+          "value": "seal",
+          "label": "Top-Rated Stamp Seal Badge"
+        },
+        {
+          "value": "pill",
+          "label": "Simple Pill Badge"
+        }
+      ],
+      "default": "seal"
+    },
+    {
       "type": "text",
       "id": "right_badge_text",
-      "label": "Right badge text",
+      "label": "Right badge main text",
       "default": "BEST CHOICE"
+    },
+    {
+      "type": "text",
+      "id": "seal_top_text",
+      "label": "Seal top text",
+      "default": "TOP RATED"
+    },
+    {
+      "type": "text",
+      "id": "seal_bottom_text",
+      "label": "Seal bottom text",
+      "default": "★ PRODUCT ★"
     },
     {
       "type": "color",
@@ -804,8 +937,8 @@
         {
           "type": "text",
           "id": "left_title",
-          "label": "Left item title",
-          "default": "Water-Based Formula"
+          "label": "Left item title (Optional)",
+          "default": ""
         },
         {
           "type": "textarea",
@@ -826,14 +959,14 @@
         {
           "type": "text",
           "id": "right_title",
-          "label": "Right item title",
-          "default": "100% Concentrated"
+          "label": "Right item title (Optional)",
+          "default": ""
         },
         {
           "type": "textarea",
           "id": "right_text",
           "label": "Right item text",
-          "default": "0% water. Every ingredient serves a purpose to nourish your skin."
+          "default": "0% water. A concentrated formula where every ingredient serves a purpose."
         }
       ]
     }
@@ -846,10 +979,10 @@
           "type": "comparison_point",
           "settings": {
             "left_icon": "ri-close-line",
-            "left_title": "Water-Based Formula",
+            "left_title": "",
             "left_text": "Water is the first ingredient, creating a diluted formula.",
             "right_icon": "ri-check-line",
-            "right_title": "0% Water & Concentrated",
+            "right_title": "",
             "right_text": "0% water. A concentrated formula where every ingredient serves a purpose."
           }
         },
@@ -857,10 +990,10 @@
           "type": "comparison_point",
           "settings": {
             "left_icon": "ri-close-line",
-            "left_title": "15-30+ Ingredients",
+            "left_title": "",
             "left_text": "Typically 15-30+ ingredients including emulsifiers, stabilizers, thickeners, and preservatives.",
             "right_icon": "ri-check-line",
-            "right_title": "Only 5 All-Natural Ingredients",
+            "right_title": "",
             "right_text": "Made with only 5 purposeful all natural ingredients: grass-fed tallow, organic marula oil, organic beeswax, vitamin E, and fragrance."
           }
         },
@@ -868,10 +1001,10 @@
           "type": "comparison_point",
           "settings": {
             "left_icon": "ri-close-line",
-            "left_title": "Lightweight Hydration",
+            "left_title": "",
             "left_text": "Lightweight hydration that requires frequent reapplication.",
             "right_icon": "ri-check-line",
-            "right_title": "Rich & Long-Lasting Moisture",
+            "right_title": "",
             "right_text": "Rich, long-lasting moisture designed to support the skin barrier."
           }
         },
@@ -879,10 +1012,10 @@
           "type": "comparison_point",
           "settings": {
             "left_icon": "ri-close-line",
-            "left_title": "Unnecessary Additives",
+            "left_title": "",
             "left_text": "May include unnecessary additives such as colorants, silicones, and texture enhancers.",
             "right_icon": "ri-check-line",
-            "right_title": "Minimalist Formulation",
+            "right_title": "",
             "right_text": "Minimalist formulation with no added colors or unnecessary fillers."
           }
         },
@@ -890,10 +1023,10 @@
           "type": "comparison_point",
           "settings": {
             "left_icon": "ri-close-line",
-            "left_title": "Artificial Fragrances",
+            "left_title": "",
             "left_text": "May contain low quality fragrances with hormone disrupting toxins.",
             "right_icon": "ri-check-line",
-            "right_title": "Skin-Safe Luxury Fragrance",
+            "right_title": "",
             "right_text": "Skin-safe luxury fragrance blends, plus a fragrance-free option (Safi)."
           }
         }
