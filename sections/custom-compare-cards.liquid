@@ -354,9 +354,11 @@
             {%- if block.type == 'comparison_point' -%}
               {%- if block.settings.left_title != blank or block.settings.left_text != blank -%}
                 <li class="ccc-item" {{ block.shopify_attributes }}>
-                  <div class="ccc-item-icon">
-                    <i class="{{ block.settings.left_icon | default: 'ri-close-line' }}"></i>
-                  </div>
+                  {%- if section.settings.show_item_icons -%}
+                    <div class="ccc-item-icon">
+                      <i class="{{ block.settings.left_icon | default: 'ri-close-line' }}"></i>
+                    </div>
+                  {%- endif -%}
                   <div class="ccc-item-content">
                     {%- if block.settings.left_title != blank -%}
                       <strong>{{ block.settings.left_title }}</strong>
@@ -390,9 +392,11 @@
             {%- if block.type == 'comparison_point' -%}
               {%- if block.settings.right_title != blank or block.settings.right_text != blank -%}
                 <li class="ccc-item">
-                  <div class="ccc-item-icon">
-                    <i class="{{ block.settings.right_icon | default: 'ri-check-line' }}"></i>
-                  </div>
+                  {%- if section.settings.show_item_icons -%}
+                    <div class="ccc-item-icon">
+                      <i class="{{ block.settings.right_icon | default: 'ri-check-line' }}"></i>
+                    </div>
+                  {%- endif -%}
                   <div class="ccc-item-content">
                     {%- if block.settings.right_title != blank -%}
                       <strong>{{ block.settings.right_title }}</strong>
@@ -502,6 +506,12 @@
       "unit": "px",
       "label": "Subheading font size",
       "default": 17
+    },
+    {
+      "type": "checkbox",
+      "id": "show_item_icons",
+      "label": "Show icons next to list items below",
+      "default": false
     },
     {
       "type": "header",
