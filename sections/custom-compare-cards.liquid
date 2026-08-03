@@ -29,9 +29,8 @@
     --left-card-bg: {{ section.settings.left_card_bg | default: '#FFFFFF' }};
     --left-card-border: {{ section.settings.left_card_border | default: '#ECECEC' }};
     --left-title-color: {{ section.settings.left_title_color | default: '#1F1F1F' }};
-    --left-header-icon-color: {{ section.settings.left_header_icon_color | default: '#D9534F' }};
-    --left-item-icon-bg: {{ section.settings.left_item_icon_bg | default: '#FFF1F0' }};
-    --left-item-icon-color: {{ section.settings.left_item_icon_color | default: '#D9534F' }};
+    --left-item-icon-bg: {{ section.settings.left_item_icon_bg | default: '#D9534F' }};
+    --left-item-icon-color: {{ section.settings.left_item_icon_color | default: '#FFFFFF' }};
     --left-item-title-color: {{ section.settings.left_item_title_color | default: '#222222' }};
     --left-item-text-color: {{ section.settings.left_item_text_color | default: '#555555' }};
 
@@ -40,11 +39,10 @@
     --right-card-bg-end: {{ section.settings.right_card_bg_end | default: '#FFF7F0' }};
     --right-card-border: {{ section.settings.right_card_border | default: '#C96E3D' }};
     --right-title-color: {{ section.settings.right_title_color | default: '#1F1F1F' }};
-    --right-header-icon-color: {{ section.settings.right_header_icon_color | default: '#2FA86D' }};
     --right-badge-bg: {{ section.settings.right_badge_bg | default: '#C96E3D' }};
     --right-badge-text: {{ section.settings.right_badge_text_color | default: '#FFFFFF' }};
-    --right-item-icon-bg: {{ section.settings.right_item_icon_bg | default: '#EAF9F1' }};
-    --right-item-icon-color: {{ section.settings.right_item_icon_color | default: '#2FA86D' }};
+    --right-item-icon-bg: {{ section.settings.right_item_icon_bg | default: '#2FA86D' }};
+    --right-item-icon-color: {{ section.settings.right_item_icon_color | default: '#FFFFFF' }};
     --right-item-title-color: {{ section.settings.right_item_title_color | default: '#222222' }};
     --right-item-text-color: {{ section.settings.right_item_text_color | default: '#555555' }};
 
@@ -249,26 +247,13 @@
     line-height: 1;
   }
 
+  /* Header style without icon */
   .custom-compare-cards-{{ section.id }} .ccc-card-header {
     display: flex;
     align-items: center;
-    gap: 16px;
     margin-bottom: 32px;
     padding-bottom: 20px;
     border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
-  }
-
-  .custom-compare-cards-{{ section.id }} .ccc-card-header i {
-    font-size: 38px;
-    line-height: 1;
-  }
-
-  .custom-compare-cards-{{ section.id }} .ccc-card--old .ccc-card-header i {
-    color: var(--left-header-icon-color);
-  }
-
-  .custom-compare-cards-{{ section.id }} .ccc-card--new .ccc-card-header i {
-    color: var(--right-header-icon-color);
   }
 
   .custom-compare-cards-{{ section.id }} .ccc-card-header h3 {
@@ -312,27 +297,22 @@
     color: var(--right-item-text-color);
   }
 
+  /* List Item Icons (Solid Circle Checkmark / Cross) */
   .custom-compare-cards-{{ section.id }} .ccc-item-icon {
-    min-width: 42px;
-    width: 42px;
-    height: 42px;
+    min-width: 28px;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    font-size: 20px;
     flex-shrink: 0;
-    margin-top: 2px;
+    margin-top: 3px;
   }
 
-  .custom-compare-cards-{{ section.id }} .ccc-card--old .ccc-item-icon {
-    background-color: var(--left-item-icon-bg);
-    color: var(--left-item-icon-color);
-  }
-
-  .custom-compare-cards-{{ section.id }} .ccc-card--new .ccc-item-icon {
-    background-color: var(--right-item-icon-bg);
-    color: var(--right-item-icon-color);
+  .custom-compare-cards-{{ section.id }} .ccc-item-icon svg {
+    display: block;
+    width: 28px;
+    height: 28px;
   }
 
   .custom-compare-cards-{{ section.id }} .ccc-item-content {
@@ -443,7 +423,6 @@
       <!-- LEFT CARD: Conventional Lotions -->
       <div class="ccc-card ccc-card--old">
         <div class="ccc-card-header">
-          <i class="{{ section.settings.left_icon | default: 'ri-close-circle-fill' }}"></i>
           <h3>{{ section.settings.left_title | default: 'Conventional Lotions' }}</h3>
         </div>
 
@@ -452,8 +431,11 @@
             {%- if block.type == 'comparison_point' -%}
               {%- if block.settings.left_title != blank or block.settings.left_text != blank -%}
                 <li class="ccc-item" {{ block.shopify_attributes }}>
-                  <div class="ccc-item-icon">
-                    <i class="{{ block.settings.left_icon | default: 'ri-close-line' }}"></i>
+                  <div class="ccc-item-icon ccc-item-icon--cross">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="14" cy="14" r="14" fill="{{ section.settings.left_item_icon_bg | default: '#D9534F' }}"/>
+                      <path d="M9.5 9.5L18.5 18.5M18.5 9.5L9.5 18.5" stroke="{{ section.settings.left_item_icon_color | default: '#FFFFFF' }}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                   </div>
                   <div class="ccc-item-content">
                     {%- if block.settings.left_title != blank -%}
@@ -496,7 +478,6 @@
         {%- endif -%}
 
         <div class="ccc-card-header">
-          <i class="{{ section.settings.right_icon | default: 'ri-checkbox-circle-fill' }}"></i>
           <h3>{{ section.settings.right_title | default: 'Sankofa Tallow Body Butter' }}</h3>
         </div>
 
@@ -505,8 +486,11 @@
             {%- if block.type == 'comparison_point' -%}
               {%- if block.settings.right_title != blank or block.settings.right_text != blank -%}
                 <li class="ccc-item">
-                  <div class="ccc-item-icon">
-                    <i class="{{ block.settings.right_icon | default: 'ri-check-line' }}"></i>
+                  <div class="ccc-item-icon ccc-item-icon--check">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="14" cy="14" r="14" fill="{{ section.settings.right_item_icon_bg | default: '#2FA86D' }}"/>
+                      <path d="M8.5 14L12 17.5L19.5 10" stroke="{{ section.settings.right_item_icon_color | default: '#FFFFFF' }}" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                   </div>
                   <div class="ccc-item-content">
                     {%- if block.settings.right_title != blank -%}
@@ -629,12 +613,6 @@
       "default": "Conventional Lotions"
     },
     {
-      "type": "text",
-      "id": "left_icon",
-      "label": "Left card header icon",
-      "default": "ri-close-circle-fill"
-    },
-    {
       "type": "color",
       "id": "left_card_bg",
       "label": "Left card background",
@@ -654,21 +632,15 @@
     },
     {
       "type": "color",
-      "id": "left_header_icon_color",
-      "label": "Left card header icon color",
-      "default": "#D9534F"
-    },
-    {
-      "type": "color",
       "id": "left_item_icon_bg",
-      "label": "Left item icon background",
-      "default": "#FFF1F0"
+      "label": "Left item icon circle background",
+      "default": "#D9534F"
     },
     {
       "type": "color",
       "id": "left_item_icon_color",
-      "label": "Left item icon color",
-      "default": "#D9534F"
+      "label": "Left item cross stroke color",
+      "default": "#FFFFFF"
     },
     {
       "type": "color",
@@ -691,12 +663,6 @@
       "id": "right_title",
       "label": "Right card title",
       "default": "Sankofa Tallow Body Butter"
-    },
-    {
-      "type": "text",
-      "id": "right_icon",
-      "label": "Right card header icon",
-      "default": "ri-checkbox-circle-fill"
     },
     {
       "type": "checkbox",
@@ -776,21 +742,15 @@
     },
     {
       "type": "color",
-      "id": "right_header_icon_color",
-      "label": "Right card header icon color",
-      "default": "#2FA86D"
-    },
-    {
-      "type": "color",
       "id": "right_item_icon_bg",
-      "label": "Right item icon background",
-      "default": "#EAF9F1"
+      "label": "Right item check circle background",
+      "default": "#2FA86D"
     },
     {
       "type": "color",
       "id": "right_item_icon_color",
-      "label": "Right item icon color",
-      "default": "#2FA86D"
+      "label": "Right item check stroke color",
+      "default": "#FFFFFF"
     },
     {
       "type": "color",
@@ -930,12 +890,6 @@
         },
         {
           "type": "text",
-          "id": "left_icon",
-          "label": "Left Icon class",
-          "default": "ri-close-line"
-        },
-        {
-          "type": "text",
           "id": "left_title",
           "label": "Left item title (Optional)",
           "default": ""
@@ -949,12 +903,6 @@
         {
           "type": "header",
           "content": "Right Card Item (Sankofa Tallow)"
-        },
-        {
-          "type": "text",
-          "id": "right_icon",
-          "label": "Right Icon class",
-          "default": "ri-check-line"
         },
         {
           "type": "text",
@@ -978,10 +926,8 @@
         {
           "type": "comparison_point",
           "settings": {
-            "left_icon": "ri-close-line",
             "left_title": "",
             "left_text": "Water is the first ingredient, creating a diluted formula.",
-            "right_icon": "ri-check-line",
             "right_title": "",
             "right_text": "0% water. A concentrated formula where every ingredient serves a purpose."
           }
@@ -989,10 +935,8 @@
         {
           "type": "comparison_point",
           "settings": {
-            "left_icon": "ri-close-line",
             "left_title": "",
             "left_text": "Typically 15-30+ ingredients including emulsifiers, stabilizers, thickeners, and preservatives.",
-            "right_icon": "ri-check-line",
             "right_title": "",
             "right_text": "Made with only 5 purposeful all natural ingredients: grass-fed tallow, organic marula oil, organic beeswax, vitamin E, and fragrance."
           }
@@ -1000,10 +944,8 @@
         {
           "type": "comparison_point",
           "settings": {
-            "left_icon": "ri-close-line",
             "left_title": "",
             "left_text": "Lightweight hydration that requires frequent reapplication.",
-            "right_icon": "ri-check-line",
             "right_title": "",
             "right_text": "Rich, long-lasting moisture designed to support the skin barrier."
           }
@@ -1011,10 +953,8 @@
         {
           "type": "comparison_point",
           "settings": {
-            "left_icon": "ri-close-line",
             "left_title": "",
             "left_text": "May include unnecessary additives such as colorants, silicones, and texture enhancers.",
-            "right_icon": "ri-check-line",
             "right_title": "",
             "right_text": "Minimalist formulation with no added colors or unnecessary fillers."
           }
@@ -1022,10 +962,8 @@
         {
           "type": "comparison_point",
           "settings": {
-            "left_icon": "ri-close-line",
             "left_title": "",
             "left_text": "May contain low quality fragrances with hormone disrupting toxins.",
-            "right_icon": "ri-check-line",
             "right_title": "",
             "right_text": "Skin-safe luxury fragrance blends, plus a fragrance-free option (Safi)."
           }
