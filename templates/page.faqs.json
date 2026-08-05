@@ -199,6 +199,13 @@
         "red_text": "GOT QUESTIONS? WE'VE GOT ANSWERS",
         "heading": "FREQUENTLY ASKED QUESTIONS",
         "description": "Everything you need to know about our natural products, straight from nature to your skin.",
+        "show_btn": true,
+        "btn_text": "CONTACT US",
+        "btn_link": "/pages/contact",
+        "btn_bg_color": "#C1663D",
+        "btn_text_color": "#ffffff",
+        "btn_hover_bg_color": "#a8532b",
+        "btn_hover_text_color": "#ffffff",
         "padding_top": 100,
         "padding_bottom": 100
       }

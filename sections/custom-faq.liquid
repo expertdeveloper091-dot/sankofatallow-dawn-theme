@@ -70,6 +70,45 @@
     margin: 0;
   }
 
+  /* 3D Neo-Brutalist Contact Us Button */
+  #maison-faq-{{ section.id }} .faq__btn-wrapper {
+    margin-top: 24px;
+  }
+
+  #maison-faq-{{ section.id }} .faq__contact-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body-family), 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 14px 32px;
+    border-radius: 14px;
+    background-color: {{ section.settings.btn_bg_color | default: '#C1663D' }};
+    color: {{ section.settings.btn_text_color | default: '#ffffff' }};
+    text-decoration: none;
+    border: 2px solid {{ section.settings.border_color | default: '#111111' }};
+    box-shadow: 4px 4px 0px 0px {{ section.settings.border_color | default: '#111111' }};
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    line-height: 1.2;
+    width: fit-content;
+  }
+
+  #maison-faq-{{ section.id }} .faq__contact-btn:hover {
+    background-color: {{ section.settings.btn_hover_bg_color | default: '#a8532b' }};
+    color: {{ section.settings.btn_hover_text_color | default: '#ffffff' }};
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px 0px {{ section.settings.border_color | default: '#111111' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__contact-btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px 0px {{ section.settings.border_color | default: '#111111' }};
+  }
+
   /* Right Column (Accordion List) */
   #maison-faq-{{ section.id }} .faq__right-col {
     display: flex;
@@ -204,7 +243,7 @@
   <div class="faq__container">
     <div class="faq__grid">
       
-      <!-- Left Column (Headers) -->
+      <!-- Left Column (Headers & Button) -->
       <div class="faq__left-col">
         {%- if section.settings.red_text != blank -%}
           <span class="faq__red-text">{{ section.settings.red_text }}</span>
@@ -216,6 +255,14 @@
         
         {%- if section.settings.description != blank -%}
           <p class="faq__description">{{ section.settings.description }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.show_btn and section.settings.btn_text != blank -%}
+          <div class="faq__btn-wrapper">
+            <a href="{{ section.settings.btn_link | default: '/pages/contact' }}" class="faq__contact-btn">
+              {{ section.settings.btn_text }}
+            </a>
+          </div>
         {%- endif -%}
       </div>
       
@@ -391,6 +438,51 @@
       "id": "description",
       "label": "Description Paragraph",
       "default": "Everything you need to know about our natural products, straight from nature to your skin."
+    },
+    {
+      "type": "header",
+      "content": "Button Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_btn",
+      "label": "Show Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text",
+      "default": "CONTACT US"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_color",
+      "label": "Button Background Color",
+      "default": "#C1663D"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg_color",
+      "label": "Button Hover Background Color",
+      "default": "#a8532b"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_text_color",
+      "label": "Button Hover Text Color",
+      "default": "#ffffff"
     },
     {
       "type": "header",
