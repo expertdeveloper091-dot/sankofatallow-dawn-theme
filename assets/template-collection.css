@@ -48,8 +48,16 @@
   }
 }
 
+.collection .loading-overlay {
+  display: none !important;
+}
+
+.collection.loading {
+  opacity: 1 !important;
+}
+
 .collection.loading .loading-overlay {
-  display: block;
+  display: none !important;
 }
 
 .collection--empty .title-wrapper {

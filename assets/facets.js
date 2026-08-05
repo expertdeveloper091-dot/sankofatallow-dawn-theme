@@ -136,6 +136,15 @@ class FacetFiltersForm extends HTMLElement {
     FacetFiltersForm.renderFilters(html, event);
     FacetFiltersForm.renderProductGridContainer(html);
     FacetFiltersForm.renderProductCount(html, updateEvent);
+
+    // Clear loading state from grid container and collection elements
+    const gridContainer = document.getElementById('ProductGridContainer');
+    if (gridContainer) {
+      gridContainer.classList.remove('loading');
+      const collections = gridContainer.querySelectorAll('.collection, .loading');
+      collections.forEach((el) => el.classList.remove('loading'));
+    }
+
     if (typeof initializeScrollAnimationTrigger === 'function') initializeScrollAnimationTrigger(html.innerHTML);
   }
 
