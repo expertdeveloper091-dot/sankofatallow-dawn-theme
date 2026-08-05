@@ -38,10 +38,10 @@
             "custom_icon_class": ""
           }
         },
-        "announcement_mQPRYW": {
+        "announcement_97GNaB": {
           "type": "announcement",
           "settings": {
-            "text": "Free + Fast Shipping within the US only",
+            "text": "Fast Shipping",
             "icon": "truck",
             "custom_icon_class": ""
           }
@@ -51,7 +51,7 @@
         "announcement_rgJFLY",
         "announcement_GjjMLw",
         "announcement_7EmFmN",
-        "announcement_mQPRYW"
+        "announcement_97GNaB"
       ],
       "name": "Announcement Bar",
       "settings": {
@@ -72,7 +72,7 @@
         "show_urgency_timer": true,
         "urgency_timer_text": "Hurry! Your cart expires in",
         "show_trust_bar": true,
-        "trust_text_1": "15-day money-back guarantee",
+        "trust_text_1": "30-day money-back guarantee",
         "trust_text_2": "100% Secure Checkout",
         "empty_cart_title": "YOUR CART IS EMPTY",
         "empty_cart_btn_text": "Continue shopping",
