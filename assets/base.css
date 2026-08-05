@@ -4501,4 +4501,126 @@ details-disclosure > details {
   box-shadow: 0px 0px 0px 0px #000000 !important;
 }
 
+/* ======================================================
+   SHOPIFY & CUSTOM POLICY PAGES STYLING (EXACT USER SPEC)
+   ====================================================== */
+.shopify-policy__container,
+.cp-container,
+.main-page-title + .rte,
+.policy-page-wrapper {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 80px 30px !important;
+  background-color: #FFF9F2 !important;
+  border-top: 1px solid #000000 !important;
+  border-bottom: 1px solid #000000 !important;
+  box-sizing: border-box !important;
+  font-family: var(--font-body-family), 'Poppins', sans-serif !important;
+  color: #2B1B12 !important;
+}
+
+.shopify-policy__title h1,
+.shopify-policy__container h1,
+.cp-title,
+.main-page-title {
+  font-size: 45px !important;
+  line-height: 1.2 !important;
+  font-weight: 800 !important;
+  text-align: center !important;
+  color: #2B1B12 !important;
+  margin-bottom: 30px !important;
+}
+
+.shopify-policy__body h2,
+.shopify-policy__container h2,
+.cp-block-heading,
+.cp-body-card h2,
+.rte h2 {
+  font-size: 32px !important;
+  line-height: 1.3 !important;
+  font-weight: 700 !important;
+  color: #2B1B12 !important;
+  margin-top: 36px !important;
+  margin-bottom: 16px !important;
+}
+
+.shopify-policy__body h3,
+.shopify-policy__container h3,
+.cp-highlight-title,
+.cp-body-card h3,
+.rte h3 {
+  font-size: 24px !important;
+  line-height: 1.3 !important;
+  font-weight: 700 !important;
+  color: #2B1B12 !important;
+  margin-top: 28px !important;
+  margin-bottom: 14px !important;
+}
+
+.shopify-policy__body p,
+.shopify-policy__container p,
+.shopify-policy__body li,
+.shopify-policy__container li,
+.cp-block-text,
+.cp-block-text p,
+.cp-block-text li,
+.cp-subtitle,
+.rte p,
+.rte li {
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  color: #2B1B12 !important;
+  margin-bottom: 16px !important;
+}
+
+@media screen and (max-width: 768px) {
+  .shopify-policy__container,
+  .cp-container,
+  .main-page-title + .rte,
+  .policy-page-wrapper {
+    padding: 50px 10px !important;
+  }
+
+  .shopify-policy__title h1,
+  .shopify-policy__container h1,
+  .cp-title,
+  .main-page-title {
+    font-size: 32px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .shopify-policy__body h2,
+  .shopify-policy__container h2,
+  .cp-block-heading,
+  .cp-body-card h2,
+  .rte h2 {
+    font-size: 24px !important;
+    margin-top: 24px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .shopify-policy__body h3,
+  .shopify-policy__container h3,
+  .cp-highlight-title,
+  .cp-body-card h3,
+  .rte h3 {
+    font-size: 20px !important;
+    margin-top: 20px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .shopify-policy__body p,
+  .shopify-policy__container p,
+  .shopify-policy__body li,
+  .shopify-policy__container li,
+  .cp-block-text,
+  .cp-block-text p,
+  .cp-block-text li,
+  .cp-subtitle,
+  .rte p,
+  .rte li {
+    font-size: 15px !important;
+  }
+}
+
 

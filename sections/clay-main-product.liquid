@@ -1869,13 +1869,23 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Live counter simulation
+  // Dynamic product page counters (Randomized in 12 to 50 range)
+  function getRandomCount(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  var soldEl = document.getElementById('ClaySoldCounter');
+  if (soldEl) {
+    soldEl.textContent = getRandomCount(12, 50);
+  }
+
   var liveEl = document.getElementById('ClayLiveCounter');
   if (liveEl) {
+    liveEl.textContent = getRandomCount(12, 50);
     setInterval(function() {
-      var curr = parseInt(liveEl.textContent, 10) || 16;
-      var diff = Math.floor(Math.random() * 3) - 1;
-      liveEl.textContent = Math.max(8, Math.min(35, curr + diff));
+      var curr = parseInt(liveEl.textContent, 10) || 24;
+      var diff = Math.floor(Math.random() * 5) - 2;
+      liveEl.textContent = Math.max(12, Math.min(50, curr + diff));
     }, 5000);
   }
 });
