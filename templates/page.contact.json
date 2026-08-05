@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
@@ -60,7 +51,7 @@
         "phone": "",
         "live_chat": "Available 9 AM - 5 PM (Mon - Fri)",
         "outro_text": "Feel free to reach out anytime. We look forward to assisting you! Let me know if you'd like to add more details or adjust this further.",
-        "btn_text": "Sumit",
+        "btn_text": "SUBMIT",
         "btn_bg": "#c1663d",
         "btn_text_color": "#ffffff",
         "padding_top": 100,

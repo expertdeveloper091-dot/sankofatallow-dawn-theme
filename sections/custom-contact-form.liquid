@@ -139,7 +139,7 @@
     width: 100%;
     background-color: #ffffff !important;
     border: 2px solid {{ section.settings.border_color | default: '#2B1B12' }} !important;
-    border-radius: 16px !important;
+    border-radius: 14px !important;
     padding: 18px 24px !important;
     font-size: 16px !important;
     font-weight: 500 !important;
@@ -173,36 +173,42 @@
     box-shadow: 0 0 0 3.5px rgba(193, 102, 61, 0.2) !important;
   }
 
-  /* Submit Button (Exact Hero Button Style) */
+  /* 3D Neo-Brutalist Submit Button (Exact Match to Ingredients Section Button) */
   #custom-contact-{{ section.id }} .contact-form__submit-btn {
-    background-color: {{ section.settings.btn_bg | default: '#C1663D' }} !important;
-    color: {{ section.settings.btn_text_color | default: '#ffffff' }} !important;
-    font-weight: 800 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-family: var(--font-body-family), 'Poppins', sans-serif !important;
     font-size: 16px !important;
-    padding: 18px 52px !important;
-    border-radius: 12px !important;
-    border: 2.5px solid #000000 !important;
-    box-shadow: 0px 4px 0px 0px #000000 !important;
-    text-decoration: none !important;
+    font-weight: 700 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.04em !important;
+    padding: 14px 38px !important;
+    border-radius: 14px !important;
+    background-color: {{ section.settings.btn_bg | default: '#C1663D' }} !important;
+    color: {{ section.settings.btn_text_color | default: '#ffffff' }} !important;
+    text-decoration: none !important;
+    border: 2px solid {{ section.settings.border_color | default: '#2B1B12' }} !important;
+    box-shadow: 4px 4px 0px 0px {{ section.settings.border_color | default: '#2B1B12' }} !important;
+    transition: all 0.2s ease-in-out !important;
     cursor: pointer !important;
-    transition: all 0.15s ease-in-out !important;
-    display: inline-block !important;
     width: auto !important;
     max-width: max-content !important;
     align-self: flex-start;
     margin-top: 14px !important;
+    line-height: 1.2 !important;
   }
 
   #custom-contact-{{ section.id }} .contact-form__submit-btn:hover {
-    transform: translateY(2px) !important;
-    box-shadow: 0px 2px 0px 0px #000000 !important;
+    background-color: {{ section.settings.btn_hover_bg | default: '#a8532b' }} !important;
+    color: {{ section.settings.btn_hover_text_color | default: '#ffffff' }} !important;
+    transform: translate(2px, 2px) !important;
+    box-shadow: 1px 1px 0px 0px {{ section.settings.border_color | default: '#2B1B12' }} !important;
   }
 
   #custom-contact-{{ section.id }} .contact-form__submit-btn:active {
-    transform: translateY(4px) !important;
-    box-shadow: 0px 0px 0px 0px #000000 !important;
+    transform: translate(4px, 4px) !important;
+    box-shadow: 0px 0px 0px 0px {{ section.settings.border_color | default: '#2B1B12' }} !important;
   }
 
   /* Status messages */
@@ -343,7 +349,7 @@
           </div>
 
           <button type="submit" class="contact-form__submit-btn">
-            {{ section.settings.btn_text | default: 'Send' }}
+            {{ section.settings.btn_text | default: 'SUBMIT' }}
           </button>
         {%- endform -%}
       </div>
@@ -462,7 +468,7 @@
       "type": "text",
       "id": "btn_text",
       "label": "Submit Button Label",
-      "default": "Send"
+      "default": "SUBMIT"
     },
     {
       "type": "color",
@@ -474,6 +480,18 @@
       "type": "color",
       "id": "btn_text_color",
       "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg",
+      "label": "Button Hover Background Color",
+      "default": "#a8532b"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_text_color",
+      "label": "Button Hover Text Color",
       "default": "#ffffff"
     },
     {
