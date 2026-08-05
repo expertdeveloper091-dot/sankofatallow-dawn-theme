@@ -4502,9 +4502,10 @@ details-disclosure > details {
 }
 
 /* ======================================================
-   SHOPIFY & CUSTOM POLICY PAGES STYLING (EXACT USER SPEC)
+   SHOPIFY STANDARD POLICY PAGES (.shopify-policy__container)
    ====================================================== */
 .shopify-policy__container,
+.shopify-policy__body,
 .cp-container,
 .main-page-title + .rte,
 .policy-page-wrapper {
@@ -4517,10 +4518,17 @@ details-disclosure > details {
   box-sizing: border-box !important;
   font-family: var(--font-body-family), 'Poppins', sans-serif !important;
   color: #2B1B12 !important;
+  width: 100% !important;
+}
+
+.shopify-policy__title {
+  text-align: center !important;
+  margin-bottom: 30px !important;
 }
 
 .shopify-policy__title h1,
 .shopify-policy__container h1,
+.shopify-policy__container .shopify-policy__title h1,
 .cp-title,
 .main-page-title {
   font-size: 45px !important;
@@ -4528,11 +4536,14 @@ details-disclosure > details {
   font-weight: 800 !important;
   text-align: center !important;
   color: #2B1B12 !important;
+  margin-top: 0 !important;
   margin-bottom: 30px !important;
 }
 
 .shopify-policy__body h2,
+.shopify-policy__body .rte h2,
 .shopify-policy__container h2,
+.shopify-policy__container .rte h2,
 .cp-block-heading,
 .cp-body-card h2,
 .rte h2 {
@@ -4545,7 +4556,9 @@ details-disclosure > details {
 }
 
 .shopify-policy__body h3,
+.shopify-policy__body .rte h3,
 .shopify-policy__container h3,
+.shopify-policy__container .rte h3,
 .cp-highlight-title,
 .cp-body-card h3,
 .rte h3 {
@@ -4558,9 +4571,13 @@ details-disclosure > details {
 }
 
 .shopify-policy__body p,
+.shopify-policy__body .rte p,
 .shopify-policy__container p,
+.shopify-policy__container .rte p,
 .shopify-policy__body li,
+.shopify-policy__body .rte li,
 .shopify-policy__container li,
+.shopify-policy__container .rte li,
 .cp-block-text,
 .cp-block-text p,
 .cp-block-text li,
@@ -4575,6 +4592,7 @@ details-disclosure > details {
 
 @media screen and (max-width: 768px) {
   .shopify-policy__container,
+  .shopify-policy__body,
   .cp-container,
   .main-page-title + .rte,
   .policy-page-wrapper {
@@ -4583,6 +4601,7 @@ details-disclosure > details {
 
   .shopify-policy__title h1,
   .shopify-policy__container h1,
+  .shopify-policy__container .shopify-policy__title h1,
   .cp-title,
   .main-page-title {
     font-size: 32px !important;
@@ -4590,7 +4609,9 @@ details-disclosure > details {
   }
 
   .shopify-policy__body h2,
+  .shopify-policy__body .rte h2,
   .shopify-policy__container h2,
+  .shopify-policy__container .rte h2,
   .cp-block-heading,
   .cp-body-card h2,
   .rte h2 {
@@ -4600,7 +4621,9 @@ details-disclosure > details {
   }
 
   .shopify-policy__body h3,
+  .shopify-policy__body .rte h3,
   .shopify-policy__container h3,
+  .shopify-policy__container .rte h3,
   .cp-highlight-title,
   .cp-body-card h3,
   .rte h3 {
@@ -4610,9 +4633,13 @@ details-disclosure > details {
   }
 
   .shopify-policy__body p,
+  .shopify-policy__body .rte p,
   .shopify-policy__container p,
+  .shopify-policy__container .rte p,
   .shopify-policy__body li,
+  .shopify-policy__body .rte li,
   .shopify-policy__container li,
+  .shopify-policy__container .rte li,
   .cp-block-text,
   .cp-block-text p,
   .cp-block-text li,
