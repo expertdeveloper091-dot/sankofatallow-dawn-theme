@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
@@ -46,198 +37,154 @@
     "custom_faq_QBirR9": {
       "type": "custom-faq",
       "blocks": {
-        "category_MqHCCj": {
-          "type": "category",
-          "settings": {
-            "category_id": "product-ingredients",
-            "title": "Product Ingredients",
-            "icon_svg": "",
-            "icon_class": "ri-leaf-line",
-            "open_first_faq": true
-          }
-        },
-        "category_MJTBFc": {
-          "type": "category",
-          "settings": {
-            "category_id": "product-usage",
-            "title": "Product Usage",
-            "icon_svg": "",
-            "icon_class": "ri-hand-heart-line",
-            "open_first_faq": true
-          }
-        },
-        "category_DiFggA": {
-          "type": "category",
-          "settings": {
-            "category_id": "shipping-delivery",
-            "title": "Shipping & Delivery",
-            "icon_svg": "",
-            "icon_class": "ri-truck-line",
-            "open_first_faq": true
-          }
-        },
-        "category_PEj3aP": {
-          "type": "category",
-          "settings": {
-            "category_id": "returns-guarantees",
-            "title": "Returns & Guarantees",
-            "icon_svg": "",
-            "icon_class": "ri-arrow-go-back-line",
-            "open_first_faq": true
-          }
-        },
-        "faq_item_mXAzmT": {
+        "faq_item_1": {
           "type": "faq_item",
           "settings": {
-            "category_id": "product-ingredients",
-            "question": "What ingredients are in your Tallow Balm?",
-            "answer": "<p>Our Tallow Balm is made with just five carefully selected, non-toxic ingredients that deeply nourish and protect your skin. Every ingredient is chosen for its purpose—nothing unnecessary, just clean and effective skincare.</p>"
+            "question": "What is tallow body butter?",
+            "answer": "<p>Tallow body butter is a rich moisturizer made from purified grass-fed beef tallow. Its skin-friendly fats closely resemble our skin's natural oils, making it deeply nourishing and highly absorbent.</p>"
           }
         },
-        "faq_item_hzh8jH": {
+        "faq_item_2": {
           "type": "faq_item",
           "settings": {
-            "category_id": "product-ingredients",
-            "question": "Is your tallow grass-fed and grass-finished?",
-            "answer": "<p>Yes. We source premium-quality grass-fed, grass-finished beef tallow from trusted farms to ensure maximum purity and skin-loving nutrients.</p>"
+            "question": "Why is tallow good for your skin?",
+            "answer": "<p>Tallow is naturally rich in vitamins A, D, E, and K, plus essential fatty acids that help moisturize, soften, and support a healthy skin barrier.</p>"
           }
         },
-        "faq_item_M8LgNx": {
+        "faq_item_3": {
           "type": "faq_item",
           "settings": {
-            "category_id": "product-ingredients",
-            "question": "Do your products contain parabens or sulfates?",
-            "answer": "<p>No. Our formulas are completely free from parabens, sulfates, mineral oils, and other harsh chemicals.</p>"
+            "question": "Will it clog my pores?",
+            "answer": "<p>Most people find that high-quality tallow absorbs well without clogging pores. However, everyone's skin is different, so we recommend patch testing first.</p>"
           }
         },
-        "faq_item_KGF4BR": {
+        "faq_item_4": {
           "type": "faq_item",
           "settings": {
-            "category_id": "product-ingredients",
-            "question": "Are artificial fragrances used?",
-            "answer": "<p>No. We avoid synthetic fragrances in our skincare formulas and focus on clean, skin-friendly ingredients.</p>"
+            "question": "Does tallow smell like beef?",
+            "answer": "<p>No. Properly rendered tallow has little to no natural odor. Our scented varieties are infused with premium fragrances, while our fragrance-free option has only a very mild natural scent.</p>"
           }
         },
-        "faq_item_AYrF9U": {
+        "faq_item_5": {
           "type": "faq_item",
           "settings": {
-            "category_id": "product-ingredients",
-            "question": "Are your ingredients ethically sourced?",
-            "answer": "<p>Absolutely. We carefully select suppliers who meet our standards for quality, sustainability, and responsible sourcing.</p>"
-          }
-        },
-        "faq_item_UWbcGh": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "product-usage",
-            "question": "How do I apply the Tallow Balm?",
-            "answer": "<p>Apply a small amount to clean, dry skin and gently massage until fully absorbed. Use daily for best results.</p>"
-          }
-        },
-        "faq_item_c6Bz3M": {
-          "type": "faq_item",
-          "settings": {
-            "category_id": "product-usage",
             "question": "Can I use it on my face?",
-            "answer": "<p>Yes. Our balm is gentle enough for facial use while also providing deep hydration for the body.</p>"
+            "answer": "<p>Yes. Many people use tallow on their face for deep hydration. Start with a small amount and patch test if you have sensitive or acne-prone skin.</p>"
           }
         },
-        "faq_item_MjCDVW": {
+        "faq_item_6": {
           "type": "faq_item",
           "settings": {
-            "category_id": "product-usage",
+            "question": "Is it safe for sensitive skin?",
+            "answer": "<p>Yes. Our fragrance-free formula is especially suitable for sensitive skin because it's made with a minimal ingredient list and no harsh additives.</p>"
+          }
+        },
+        "faq_item_7": {
+          "type": "faq_item",
+          "settings": {
             "question": "How often should I use it?",
-            "answer": "<p>For optimal results, apply once or twice daily depending on your skin's needs.</p>"
+            "answer": "<p>Most people apply it once or twice daily, especially after showering while skin is slightly damp.</p>"
           }
         },
-        "faq_item_FB3K7N": {
+        "faq_item_8": {
           "type": "faq_item",
           "settings": {
-            "category_id": "product-usage",
-            "question": "Does a little go a long way?",
-            "answer": "<p>Absolutely. Our rich formula is highly concentrated, so only a small amount is needed.</p>"
+            "question": "Is a little enough?",
+            "answer": "<p>Yes. A pea-sized amount goes a long way because tallow is highly concentrated.</p>"
           }
         },
-        "faq_item_Hn74cn": {
+        "faq_item_9": {
           "type": "faq_item",
           "settings": {
-            "category_id": "shipping-delivery",
-            "question": "How long does shipping take?",
-            "answer": "<p>Orders are processed within 1–2 business days and typically arrive within 3–7 business days.</p>"
+            "question": "Can it help dry skin?",
+            "answer": "<p>Yes. It provides long-lasting moisture and helps reduce dryness, rough patches, and flaky skin.</p>"
           }
         },
-        "faq_item_JbtMj6": {
+        "faq_item_10": {
           "type": "faq_item",
           "settings": {
-            "category_id": "shipping-delivery",
-            "question": "Do you provide tracking?",
-            "answer": "<p>Yes. A tracking email is sent as soon as your order ships.</p>"
+            "question": "Can I use it year-round?",
+            "answer": "<p>Absolutely. It protects skin during cold, dry months while providing lasting hydration in warmer weather.</p>"
           }
         },
-        "faq_item_dzaXdh": {
+        "faq_item_11": {
           "type": "faq_item",
           "settings": {
-            "category_id": "shipping-delivery",
-            "question": "Do you ship internationally?",
-            "answer": "<p>Currently, we primarily ship within the United States. International shipping options may expand in the future.</p>"
+            "question": "Why is your body butter firm?",
+            "answer": "<p>Our formula contains natural beeswax to improve stability and help prevent melting in warmer temperatures.</p>"
           }
         },
-        "faq_item_dqnDbD": {
+        "faq_item_12": {
           "type": "faq_item",
           "settings": {
-            "category_id": "shipping-delivery",
-            "question": "What if my package is delayed?",
-            "answer": "<p>If your order is delayed, please contact our support team and we'll gladly assist you.</p>"
+            "question": "Will it melt in hot weather?",
+            "answer": "<p>Like many natural body butters, it can soften or melt if exposed to high heat. Store it in a cool, dry place whenever possible.</p>"
           }
         },
-        "faq_item_6WGjLC": {
+        "faq_item_13": {
           "type": "faq_item",
           "settings": {
-            "category_id": "returns-guarantees",
-            "question": "Do you offer a money-back guarantee?",
-            "answer": "<p>Yes. We proudly offer a 15-Day Money-Back Guarantee on eligible purchases.<br/></p>"
+            "question": "Is your tallow grass-fed?",
+            "answer": "<p>Yes. We use premium grass-fed tallow selected for its quality and nutrient content.</p>"
           }
         },
-        "faq_item_E4pize": {
+        "faq_item_14": {
           "type": "faq_item",
           "settings": {
-            "category_id": "returns-guarantees",
-            "question": "Do you offer a money-back guarantee?",
-            "answer": "<p>Simply contact our customer support team with your order number to begin the return process.</p>"
+            "question": "Is your body butter all natural?",
+            "answer": "<p>Our formula is made with carefully selected natural ingredients and contains no water, parabens, silicones, or unnecessary fillers.</p>"
           }
         },
-        "faq_item_NYaXHn": {
+        "faq_item_15": {
           "type": "faq_item",
           "settings": {
-            "category_id": "returns-guarantees",
-            "question": "Do you offer a money-back guarantee?",
-            "answer": "<p>Please contact us within 48 hours of delivery with photos, and we'll resolve the issue promptly.</p>"
+            "question": "Why doesn't it contain water?",
+            "answer": "<p>Water-based lotions require preservatives. Our anhydrous (water-free) formula delivers concentrated moisture without needing water as the main ingredient.</p>"
+          }
+        },
+        "faq_item_16": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I use it on eczema-prone or very dry skin?",
+            "answer": "<p>Many customers with extremely dry skin enjoy using tallow body butter. If you have a medical skin condition, consult your healthcare provider before use.</p>"
+          }
+        },
+        "faq_item_17": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does one jar last?",
+            "answer": "<p>Because only a small amount is needed per application, one jar typically lasts several weeks to a few months, depending on frequency of use.</p>"
+          }
+        },
+        "faq_item_18": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Why choose tallow instead of regular lotion?",
+            "answer": "<p>Unlike many conventional lotions that are mostly water, tallow body butter offers concentrated nourishment with fewer ingredients and longer-lasting hydration.</p>"
           }
         }
       },
       "block_order": [
-        "category_MqHCCj",
-        "category_MJTBFc",
-        "category_DiFggA",
-        "category_PEj3aP",
-        "faq_item_mXAzmT",
-        "faq_item_hzh8jH",
-        "faq_item_M8LgNx",
-        "faq_item_KGF4BR",
-        "faq_item_AYrF9U",
-        "faq_item_UWbcGh",
-        "faq_item_c6Bz3M",
-        "faq_item_MjCDVW",
-        "faq_item_FB3K7N",
-        "faq_item_Hn74cn",
-        "faq_item_JbtMj6",
-        "faq_item_dzaXdh",
-        "faq_item_dqnDbD",
-        "faq_item_6WGjLC",
-        "faq_item_E4pize",
-        "faq_item_NYaXHn"
+        "faq_item_1",
+        "faq_item_2",
+        "faq_item_3",
+        "faq_item_4",
+        "faq_item_5",
+        "faq_item_6",
+        "faq_item_7",
+        "faq_item_8",
+        "faq_item_9",
+        "faq_item_10",
+        "faq_item_11",
+        "faq_item_12",
+        "faq_item_13",
+        "faq_item_14",
+        "faq_item_15",
+        "faq_item_16",
+        "faq_item_17",
+        "faq_item_18"
       ],
-      "name": "Custom FAQ with Tabs",
+      "name": "Custom FAQ Accordion",
       "settings": {
         "max_width": 1300,
         "bg_color": "#FFF9F2",
@@ -245,13 +192,10 @@
         "text_color": "#2A231E",
         "accent_color": "#c1663d",
         "border_color": "#2A231E",
-        "active_tab_bg": "#c1663d",
-        "closed_tab_bg": "#ffffff",
-        "tab_icon_color": "#2A231E",
-        "active_tab_icon_color": "#ffffff",
         "active_faq_bg": "#c1663d",
         "active_faq_text_color": "#ffffff",
         "closed_faq_bg": "#ffffff",
+        "open_first_faq": true,
         "red_text": "GOT QUESTIONS? WE'VE GOT ANSWERS",
         "heading": "FREQUENTLY ASKED QUESTIONS",
         "description": "Everything you need to know about our natural products, straight from nature to your skin.",
