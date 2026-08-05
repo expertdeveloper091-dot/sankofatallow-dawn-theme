@@ -39,7 +39,7 @@
             "min_count": 12,
             "max_count": 50,
             "enable_dynamic": true,
-            "interval_sec": 5,
+            "interval_sec": 2,
             "suffix_text": "people looking right now",
             "icon_bg": "#e63946",
             "count_color": "#e63946",
