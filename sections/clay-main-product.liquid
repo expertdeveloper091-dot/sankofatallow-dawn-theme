@@ -65,14 +65,21 @@
             <h1 class="clay-product-title" {{ block.shopify_attributes }}>{{ product.title }}</h1>
 
           {%- when 'review_and_sold' -%}
+            {% assign min_sold = block.settings.min_sold | default: 12 %}
+            {% assign max_sold = block.settings.max_sold | default: 50 %}
             <div class="clay-rating-sold-row" {{ block.shopify_attributes }}>
-              <div class="clay-stars-box">
-                <span class="clay-stars">★★★★★</span>
-                <span class="clay-rating-text">5.0 ({{ block.settings.reviews_count | default: 4 }} reviews)</span>
-              </div>
-              <div class="clay-sold-badge">
-                🔥 {{ section.settings.sold_count | default: 12 }} {{ section.settings.sold_text | default: 'Sold in last 24 hours' }}
-              </div>
+              {% if block.settings.show_reviews != false %}
+                <div class="clay-stars-box">
+                  <span class="clay-stars">{{ block.settings.stars | default: '★★★★★' }}</span>
+                  <span class="clay-rating-text">{{ block.settings.rating_score | default: '5.0' }} ({{ block.settings.reviews_count | default: '4' }} reviews)</span>
+                </div>
+              {% endif %}
+
+              {% if block.settings.show_sold != false %}
+                <div class="clay-sold-badge" style="background-color: {{ block.settings.sold_bg_color | default: '#fff5f5' }}; color: {{ block.settings.sold_text_color | default: '#c93b3b' }}; border: 1px solid {{ block.settings.sold_border_color | default: '#fcd6d6' }};">
+                  {{ block.settings.sold_icon | default: '🔥' }} <span class="clay-sold-counter-val" id="ClaySoldCounter" data-min="{{ min_sold }}" data-max="{{ max_sold }}">{{ min_sold }}</span> {{ block.settings.sold_text | default: 'Sold in last 24 hours' }}
+                </div>
+              {% endif %}
             </div>
 
           {%- when 'price' -%}
@@ -135,15 +142,18 @@
             </div>
 
           {%- when 'live_view' -%}
+            {% assign min_live = block.settings.min_count | default: 12 %}
+            {% assign max_live = block.settings.max_count | default: 50 %}
+            {% assign interval_sec = block.settings.interval_sec | default: 5 %}
             <div class="clay-live-visitors-bar" {{ block.shopify_attributes }} style="display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px;">
-              <div class="clay-live-visitors-icon-box" style="display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; background: #e63946; border-radius: 50%; color: #ffffff; flex-shrink: 0; box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.2);">
+              <div class="clay-live-visitors-icon-box" style="display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; background: {{ block.settings.icon_bg | default: '#e63946' }}; border-radius: 50%; color: #ffffff; flex-shrink: 0; box-shadow: 0 0 0 3px {{ block.settings.icon_bg | default: '#e63946' | color_modify: 'alpha', 0.2 }};">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                   <circle cx="12" cy="12" r="3"></circle>
                 </svg>
               </div>
-              <span class="clay-live-visitors-text" style="font-size: 13.5px; font-weight: 700; color: #111111; font-family: 'Poppins', sans-serif;">
-                <span id="ClayLiveCounter" style="color: #e63946; font-weight: 800;">{{ block.settings.min_count | default: 29 }}</span> {{ block.settings.suffix_text | default: 'people are viewing this right now' }}
+              <span class="clay-live-visitors-text" style="font-size: 13.5px; font-weight: 700; color: {{ block.settings.text_color | default: '#111111' }}; font-family: 'Poppins', sans-serif;">
+                <span class="clay-live-counter-val" id="ClayLiveCounter" data-min="{{ min_live }}" data-max="{{ max_live }}" data-interval="{{ interval_sec }}" data-dynamic="{{ block.settings.enable_dynamic }}" style="color: {{ block.settings.count_color | default: '#e63946' }}; font-weight: 800;">{{ min_live }}</span> {{ block.settings.suffix_text | default: 'people looking right now' }}
               </span>
             </div>
 
@@ -1947,10 +1957,84 @@ function closeClayAskModal() {
       "limit": 1,
       "settings": [
         {
+          "type": "header",
+          "content": "Reviews Settings"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_reviews",
+          "label": "Show Rating Stars & Reviews",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "rating_score",
+          "label": "Rating Score",
+          "default": "5.0"
+        },
+        {
+          "type": "text",
+          "id": "stars",
+          "label": "Star Symbols",
+          "default": "★★★★★"
+        },
+        {
           "type": "text",
           "id": "reviews_count",
           "label": "Reviews Count",
           "default": "4"
+        },
+        {
+          "type": "header",
+          "content": "Sold Badge Settings"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_sold",
+          "label": "Show Sold Badge",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "sold_icon",
+          "label": "Badge Icon / Emoji",
+          "default": "🔥"
+        },
+        {
+          "type": "number",
+          "id": "min_sold",
+          "label": "Minimum Sold Count",
+          "default": 12
+        },
+        {
+          "type": "number",
+          "id": "max_sold",
+          "label": "Maximum Sold Count",
+          "default": 50
+        },
+        {
+          "type": "text",
+          "id": "sold_text",
+          "label": "Sold Badge Suffix Text",
+          "default": "Sold in last 24 hours"
+        },
+        {
+          "type": "color",
+          "id": "sold_bg_color",
+          "label": "Badge Background Color",
+          "default": "#fff5f5"
+        },
+        {
+          "type": "color",
+          "id": "sold_border_color",
+          "label": "Badge Border Color",
+          "default": "#fcd6d6"
+        },
+        {
+          "type": "color",
+          "id": "sold_text_color",
+          "label": "Badge Text Color",
+          "default": "#c93b3b"
         }
       ]
     },
@@ -1995,16 +2079,64 @@ function closeClayAskModal() {
       "limit": 1,
       "settings": [
         {
+          "type": "header",
+          "content": "Visitor Counter Range & Animation"
+        },
+        {
           "type": "number",
           "id": "min_count",
-          "label": "Initial Count",
-          "default": 16
+          "label": "Minimum Visitor Count",
+          "default": 12
+        },
+        {
+          "type": "number",
+          "id": "max_count",
+          "label": "Maximum Visitor Count",
+          "default": 50
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_dynamic",
+          "label": "Enable Live Random Fluctuation",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "interval_sec",
+          "min": 2,
+          "max": 15,
+          "step": 1,
+          "unit": "s",
+          "label": "Fluctuation Speed (seconds)",
+          "default": 5
         },
         {
           "type": "text",
           "id": "suffix_text",
           "label": "Suffix Text",
           "default": "people looking right now"
+        },
+        {
+          "type": "header",
+          "content": "Style & Colors"
+        },
+        {
+          "type": "color",
+          "id": "icon_bg",
+          "label": "Eye Icon Background",
+          "default": "#e63946"
+        },
+        {
+          "type": "color",
+          "id": "count_color",
+          "label": "Number Count Color",
+          "default": "#e63946"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#111111"
         }
       ]
     },

@@ -15,7 +15,18 @@
         "review_and_sold_qMAYJE": {
           "type": "review_and_sold",
           "settings": {
-            "reviews_count": "4"
+            "show_reviews": true,
+            "rating_score": "5.0",
+            "stars": "★★★★★",
+            "reviews_count": "4",
+            "show_sold": true,
+            "sold_icon": "🔥",
+            "min_sold": 12,
+            "max_sold": 50,
+            "sold_text": "Sold in last 24 hours",
+            "sold_bg_color": "#fff5f5",
+            "sold_border_color": "#fcd6d6",
+            "sold_text_color": "#c93b3b"
           }
         },
         "product_title_AeWWWA": {
@@ -25,8 +36,14 @@
         "live_view_yFWaFk": {
           "type": "live_view",
           "settings": {
-            "min_count": 16,
-            "suffix_text": "people looking right now"
+            "min_count": 12,
+            "max_count": 50,
+            "enable_dynamic": true,
+            "interval_sec": 5,
+            "suffix_text": "people looking right now",
+            "icon_bg": "#e63946",
+            "count_color": "#e63946",
+            "text_color": "#111111"
           }
         },
         "variant_picker_XTKT93": {
