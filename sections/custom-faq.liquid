@@ -133,6 +133,7 @@
   }
 
   #maison-faq-{{ section.id }} .faq__item-card.active .faq__question-text,
+  #maison-faq-{{ section.id }} .faq__item-card.active .faq__num,
   #maison-faq-{{ section.id }} .faq__item-card.active .faq__answer-content,
   #maison-faq-{{ section.id }} .faq__item-card.active .faq__answer-content p {
     color: {{ section.settings.active_faq_text_color | default: '#ffffff' }} !important;
@@ -153,6 +154,12 @@
     font-weight: 700;
     line-height: 1.4;
     color: {{ section.settings.heading_color | default: '#2c2609' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__num {
+    font-weight: 800;
+    margin-right: 4px;
+    display: inline-block;
   }
 
   #maison-faq-{{ section.id }} .faq__toggle-btn {
@@ -272,7 +279,7 @@
           {%- for block in section.blocks -%}
             <div class="faq__item-card{% if forloop.first and section.settings.open_first_faq %} active{% endif %}" id="block-{{ block.id }}" {{ block.shopify_attributes }}>
               <div class="faq__question-bar">
-                <span class="faq__question-text">{{ block.settings.question }}</span>
+                <span class="faq__question-text"><span class="faq__num">{{ forloop.index }}.</span> {{ block.settings.question }}</span>
                 <button class="faq__toggle-btn" aria-label="Toggle Answer">
                   <svg class="plus-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
@@ -437,7 +444,7 @@
       "type": "textarea",
       "id": "description",
       "label": "Description Paragraph",
-      "default": "Everything you need to know about our natural products, straight from nature to your skin."
+      "default": "Everything you need to know about our natural products, straight from nature to your skin. If you have any specific questions or need help, our support team is always here to assist you—feel free to reach out to us anytime!"
     },
     {
       "type": "header",
