@@ -21,3 +21,25 @@
   width: 52.5rem;
   height: 52.5rem;
 }
+
+/* Page Card Layout Desktop Override */
+.page-width--narrow {
+  max-width: 1200px !important;
+  width: 100% !important;
+  margin: 60px auto !important;
+  padding: 80px 30px !important;
+  background: #ffffff !important;
+  border: 2px solid #bb623a !important;
+  border-radius: 24px !important;
+  box-sizing: border-box !important;
+}
+
+.main-page-title {
+  font-size: 42px !important;
+  line-height: 1.2 !important;
+  color: #2a231e !important;
+  font-weight: 800 !important;
+  text-align: center !important;
+  margin-top: 0 !important;
+  margin-bottom: 20px !important;
+}

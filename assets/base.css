@@ -4506,8 +4506,8 @@ details-disclosure > details {
    ====================================================== */
 main#MainContent,
 .shopify-policy__body,
-body.template-policy,
-body.template-page {
+main#MainContent[data-template="page"],
+main#MainContent[data-template="policy"] {
     background-color: #fff9f2 !important;
 }
 
@@ -4519,7 +4519,10 @@ main#MainContent .rte {
 
 .shopify-policy__container,
 main#MainContent .page-width--narrow,
-body.template-page main#MainContent .page-width {
+main#MainContent[data-template="page"] .page-width,
+main#MainContent[data-template="policy"] .page-width,
+.main-page-title + .rte,
+.page-width:has(.main-page-title) {
     max-width: 1200px !important;
     width: 100% !important;
     margin: 60px auto !important;
@@ -4549,6 +4552,9 @@ main#MainContent .rte h2 {
     font-size: 24px !important;
     line-height: 1.3 !important;
     color: #7a4a2c !important;
+    font-weight: 700 !important;
+    margin-top: 28px !important;
+    margin-bottom: 12px !important;
 }
 
 .shopify-policy__body p,
@@ -4560,12 +4566,15 @@ main#MainContent .rte li {
     font-size: 16px !important;
     line-height: 1.8 !important;
     color: #5e5247 !important;
+    margin-bottom: 16px !important;
 }
 
 @media (max-width: 990px) {
     .shopify-policy__container,
     main#MainContent .page-width--narrow,
-    body.template-page main#MainContent .page-width {
+    main#MainContent[data-template="page"] .page-width,
+    main#MainContent[data-template="policy"] .page-width,
+    .page-width:has(.main-page-title) {
         margin: 40px auto !important;
         padding: 50px 24px !important;
         border-radius: 18px !important;
@@ -4597,7 +4606,9 @@ main#MainContent .rte li {
 @media (max-width: 600px) {
     .shopify-policy__container,
     main#MainContent .page-width--narrow,
-    body.template-page main#MainContent .page-width {
+    main#MainContent[data-template="page"] .page-width,
+    main#MainContent[data-template="policy"] .page-width,
+    .page-width:has(.main-page-title) {
         margin: 24px auto !important;
         padding: 32px 18px !important;
         border-radius: 14px !important;
@@ -4635,7 +4646,9 @@ main#MainContent .rte li {
 @media (max-width: 380px) {
     .shopify-policy__container,
     main#MainContent .page-width--narrow,
-    body.template-page main#MainContent .page-width {
+    main#MainContent[data-template="page"] .page-width,
+    main#MainContent[data-template="policy"] .page-width,
+    .page-width:has(.main-page-title) {
         padding: 24px 14px !important;
     }
 
