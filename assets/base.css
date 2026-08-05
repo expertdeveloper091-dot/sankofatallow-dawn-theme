@@ -4436,6 +4436,69 @@ details-disclosure > details {
   .custom-card-title {
     font-size: 20px !important;
     line-height: 1.3 !important;
-  }
 }
+
+/* ======================================================
+   GLOBAL 3D NEO-BRUTALIST BUTTON SYSTEM (CONSISTENT SITE-WIDE)
+   ====================================================== */
+.button,
+.button--primary,
+.button--secondary,
+.btn,
+.btn-primary,
+.product-form__submit,
+.cart__checkout-button,
+.maison-cta_button,
+.story__button,
+.bread-hero__cta,
+.about-intro__cta,
+.faq__contact-btn,
+.contact-form__submit-btn,
+.ingredients-shop-btn {
+  font-family: var(--font-body-family), 'Poppins', sans-serif !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  border-radius: 14px !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 4px 4px 0px 0px #000000 !important;
+  transition: all 0.15s ease-in-out !important;
+}
+
+.button:hover,
+.button--primary:hover,
+.button--secondary:hover,
+.btn:hover,
+.btn-primary:hover,
+.product-form__submit:hover,
+.cart__checkout-button:hover,
+.maison-cta_button:hover,
+.story__button:hover,
+.bread-hero__cta:hover,
+.about-intro__cta:hover,
+.faq__contact-btn:hover,
+.contact-form__submit-btn:hover,
+.ingredients-shop-btn:hover {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 1px 1px 0px 0px #000000 !important;
+}
+
+.button:active,
+.button--primary:active,
+.button--secondary:active,
+.btn:active,
+.btn-primary:active,
+.product-form__submit:active,
+.cart__checkout-button:active,
+.maison-cta_button:active,
+.story__button:active,
+.bread-hero__cta:active,
+.about-intro__cta:active,
+.faq__contact-btn:active,
+.contact-form__submit-btn:active,
+.ingredients-shop-btn:active {
+  transform: translate(4px, 4px) !important;
+  box-shadow: 0px 0px 0px 0px #000000 !important;
+}
+
 

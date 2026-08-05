@@ -305,38 +305,41 @@
     margin: 0 auto;
   }
 
-  /* Button (Exact Hero Short Button Design as shown in image: dark chocolate background, white uppercase text, rounded corners, soft shadow) */
+  /* 3D Neo-Brutalist Button */
   .maison-cta_section-{{ section.id }} .maison-cta_button {
     background-color: {{ section.settings.button_bg | default: '#231712' }} !important;
     color: {{ section.settings.button_text_color | default: '#ffffff' }} !important;
     font-weight: 800 !important;
     font-size: {{ section.settings.button_font_size | default: 16 }}px !important;
-    padding: {{ section.settings.button_padding_v | default: 16 }}px {{ section.settings.button_padding_h | default: 36 }}px !important;
-    border-radius: {{ section.settings.button_border_radius | default: 16 }}px !important;
-    border: 2px solid {{ section.settings.button_border | default: '#231712' }} !important;
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.35) !important;
+    padding: {{ section.settings.button_padding_v | default: 14 }}px {{ section.settings.button_padding_h | default: 38 }}px !important;
+    border-radius: {{ section.settings.button_border_radius | default: 14 }}px !important;
+    border: 2px solid {{ section.settings.button_border | default: '#000000' }} !important;
+    box-shadow: 4px 4px 0px 0px {{ section.settings.button_shadow_color | default: '#000000' }} !important;
     text-decoration: none !important;
     text-align: center !important;
-    transition: all 0.2s ease-in-out !important;
+    transition: all 0.15s ease-in-out !important;
     cursor: pointer !important;
     letter-spacing: 0.04em !important;
-    display: inline-block !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     width: auto !important;
     max-width: max-content !important;
     margin: 12px auto !important;
     align-self: center !important;
     text-transform: uppercase !important;
+    line-height: 1.2 !important;
   }
   .maison-cta_section-{{ section.id }} .maison-cta_button:hover {
     background-color: {{ section.settings.button_hover_bg | default: '#3d281f' }} !important;
     color: {{ section.settings.button_hover_text_color | default: '#ffffff' }} !important;
-    border-color: {{ section.settings.button_hover_border | default: '#3d281f' }} !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0px 14px 30px rgba(0, 0, 0, 0.45) !important;
+    border-color: {{ section.settings.button_hover_border | default: '#000000' }} !important;
+    transform: translate(2px, 2px) !important;
+    box-shadow: 1px 1px 0px 0px {{ section.settings.button_shadow_color | default: '#000000' }} !important;
   }
   .maison-cta_section-{{ section.id }} .maison-cta_button:active {
-    transform: translateY(1px) !important;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3) !important;
+    transform: translate(4px, 4px) !important;
+    box-shadow: 0px 0px 0px 0px {{ section.settings.button_shadow_color | default: '#000000' }} !important;
   }
 
   /* Benefits Row */
