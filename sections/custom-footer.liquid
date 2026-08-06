@@ -63,11 +63,20 @@
   }
   .custom-footer-{{ section.id }} .disclaimer p {
     color: {{ section.settings.mission_text_color | default: '#111111' }};
-    max-width: 900px;
+    max-width: 980px;
     margin: 0 auto;
     font-size: 16px;
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
+  }
+  .custom-footer-{{ section.id }} .disclaimer .story-tagline {
+    color: {{ section.settings.mission_text_color | default: '#111111' }};
+    font-family: 'Poppins', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    font-style: italic;
+    letter-spacing: 0.02em;
+    margin: 4px 0 0;
   }
   .custom-footer-{{ section.id }} .custom-footer-story-btn {
     display: inline-flex;
@@ -369,6 +378,10 @@
 
           {%- if section.settings.disclaimer_text != blank -%}
             <p>{{ section.settings.disclaimer_text | escape | newline_to_br }}</p>
+          {%- endif -%}
+
+          {%- if section.settings.story_tagline != blank -%}
+            <p class="story-tagline"><strong>{{ section.settings.story_tagline | escape }}</strong></p>
           {%- endif -%}
 
           {%- assign button_text = section.settings.story_button_text | default: 'View Our Story' -%}
@@ -714,6 +727,12 @@
       "id": "disclaimer_text",
       "label": "Story Text",
       "default": "At Sankofa Tallow, we believe skincare should be simple, safe, and nourishing. Inspired by African traditions and created from a mother's search for healthier skincare, our handcrafted body butter is made with only five carefully selected ingredients to help protect, hydrate, and care for your family's skin—naturally"
+    },
+    {
+      "type": "text",
+      "id": "story_tagline",
+      "label": "Story Tagline (Bold)",
+      "default": "Ancient wisdom for modern skin."
     },
     {
       "type": "text",
