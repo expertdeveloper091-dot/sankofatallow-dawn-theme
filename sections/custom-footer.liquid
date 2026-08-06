@@ -99,8 +99,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 72px;
-    background: linear-gradient(to bottom, {{ section.settings.mission_bg | default: '#c96e3d' }}00, {{ section.settings.mission_bg | default: '#c96e3d' }});
+    height: 80px;
+    background: none;
     pointer-events: none;
     transition: opacity 0.35s ease;
   }
@@ -440,15 +440,31 @@
           {%- endif -%}
           <script>
             (function() {
+              function initStoryOverlay() {
+                var overlay  = document.getElementById('story-read-overlay-{{ section.id }}');
+                var disclaimerEl = overlay && overlay.closest('.disclaimer');
+                if (overlay && disclaimerEl) {
+                  // Read the actual computed background color — always correct
+                  var bgRgb = getComputedStyle(disclaimerEl).backgroundColor; // e.g. "rgb(201, 110, 61)"
+                  var rgbaZero = bgRgb.replace('rgb(', 'rgba(').replace(')', ', 0)');
+                  overlay.style.background = 'linear-gradient(to bottom, ' + rgbaZero + ', ' + bgRgb + ')';
+                }
+              }
               function toggle() {
-                var inner = document.getElementById('story-read-inner-{{ section.id }}');
-                var btn   = document.getElementById('story-read-btn-{{ section.id }}');
+                var inner   = document.getElementById('story-read-inner-{{ section.id }}');
+                var btn     = document.getElementById('story-read-btn-{{ section.id }}');
                 var overlay = document.getElementById('story-read-overlay-{{ section.id }}');
                 var expanded = inner.classList.toggle('expanded');
                 btn.textContent = expanded ? 'Read Less' : 'Read More';
                 overlay.style.opacity = expanded ? '0' : '1';
               }
               window['storyToggle{{ section.id | replace: '-', '_' }}'] = toggle;
+              // Run after DOM + styles are ready
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initStoryOverlay);
+              } else {
+                initStoryOverlay();
+              }
             })();
           </script>
 
