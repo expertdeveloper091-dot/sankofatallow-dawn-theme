@@ -368,7 +368,7 @@
           {%- endif -%}
 
           {%- if section.settings.disclaimer_text != blank -%}
-            <p>{{ section.settings.disclaimer_text | escape }}</p>
+            <p>{{ section.settings.disclaimer_text | escape | newline_to_br }}</p>
           {%- endif -%}
 
           {%- assign button_text = section.settings.story_button_text | default: 'View Our Story' -%}
