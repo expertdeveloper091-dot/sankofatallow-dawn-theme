@@ -78,6 +78,54 @@
     letter-spacing: 0.02em;
     margin: 4px 0 0;
   }
+  /* Read More / Read Less */
+  .custom-footer-{{ section.id }} .story-read-wrapper {
+    position: relative;
+    max-width: 980px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .custom-footer-{{ section.id }} .story-read-inner {
+    max-height: 88px;
+    overflow: hidden;
+    transition: max-height 0.45s ease;
+    position: relative;
+  }
+  .custom-footer-{{ section.id }} .story-read-inner.expanded {
+    max-height: 600px;
+  }
+  .custom-footer-{{ section.id }} .story-read-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background: linear-gradient(to bottom, transparent, {{ section.settings.mission_bg | default: '#c96e3d' }});
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+  .custom-footer-{{ section.id }} .story-read-inner.expanded + .story-read-overlay {
+    opacity: 0;
+  }
+  .custom-footer-{{ section.id }} .story-read-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: {{ section.settings.mission_text_color | default: '#111111' }};
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    margin-top: 10px;
+    display: inline-block;
+    letter-spacing: 0.03em;
+    transition: opacity 0.2s ease;
+  }
+  .custom-footer-{{ section.id }} .story-read-btn:hover {
+    opacity: 0.7;
+  }
   .custom-footer-{{ section.id }} .custom-footer-story-btn {
     display: inline-flex;
     align-items: center;
@@ -376,13 +424,33 @@
             <h4>{{ section.settings.disclaimer_heading | escape }}</h4>
           {%- endif -%}
 
-          {%- if section.settings.disclaimer_text != blank -%}
-            <p>{{ section.settings.disclaimer_text | escape | newline_to_br }}</p>
+          {%- if section.settings.disclaimer_text != blank or section.settings.story_tagline != blank -%}
+            <div class="story-read-wrapper">
+              <div class="story-read-inner" id="story-read-inner-{{ section.id }}">
+                {%- if section.settings.disclaimer_text != blank -%}
+                  <p>{{ section.settings.disclaimer_text | escape | newline_to_br }}</p>
+                {%- endif -%}
+                {%- if section.settings.story_tagline != blank -%}
+                  <p class="story-tagline"><strong>{{ section.settings.story_tagline | escape }}</strong></p>
+                {%- endif -%}
+              </div>
+              <div class="story-read-overlay" id="story-read-overlay-{{ section.id }}"></div>
+              <button class="story-read-btn" id="story-read-btn-{{ section.id }}" onclick="storyToggle{{ section.id | replace: '-', '_' }}()">Read More</button>
+            </div>
           {%- endif -%}
-
-          {%- if section.settings.story_tagline != blank -%}
-            <p class="story-tagline"><strong>{{ section.settings.story_tagline | escape }}</strong></p>
-          {%- endif -%}
+          <script>
+            (function() {
+              function toggle() {
+                var inner = document.getElementById('story-read-inner-{{ section.id }}');
+                var btn   = document.getElementById('story-read-btn-{{ section.id }}');
+                var overlay = document.getElementById('story-read-overlay-{{ section.id }}');
+                var expanded = inner.classList.toggle('expanded');
+                btn.textContent = expanded ? 'Read Less' : 'Read More';
+                overlay.style.opacity = expanded ? '0' : '1';
+              }
+              window['storyToggle{{ section.id | replace: '-', '_' }}'] = toggle;
+            })();
+          </script>
 
           {%- assign button_text = section.settings.story_button_text | default: 'View Our Story' -%}
           {%- if button_text != blank -%}
