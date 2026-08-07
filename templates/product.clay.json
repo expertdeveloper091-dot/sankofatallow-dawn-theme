@@ -118,9 +118,30 @@
         "sold_count": 12,
         "sold_text": "Sold in last 24 hours"
       }
+    },
+    "178613538673179b4e": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_PngGdq": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "hide_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_PngGdq"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
-    "clay_product_main"
+    "clay_product_main",
+    "178613538673179b4e"
   ]
 }
