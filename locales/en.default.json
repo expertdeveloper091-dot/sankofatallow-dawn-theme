@@ -40,7 +40,8 @@
       "result": "You've viewed {{ amount }} of {{ count }} result"
     },
     "search": {
-      "search": "Search",
+      "placeholder": "Search products...",
+      "search": "Search products...",
       "reset": "Clear search term",
       "more_results": "View all Results",
       "quick_search": "Trending Search",
