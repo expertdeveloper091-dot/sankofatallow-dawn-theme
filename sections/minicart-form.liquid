@@ -15,6 +15,9 @@
   assign recommendations_heading = theme_st.product_recommendations_heading
   assign product_recommendations_type = theme_st.product_recommendations_type
   assign select_product_recommendations = theme_st.select_product_recommendations
+  if select_product_recommendations == blank
+    assign select_product_recommendations = theme_st.cart_drawer_collection.products
+  endif
   assign hidden_price = theme_st.hidden_price
 -%}
 {% liquid
