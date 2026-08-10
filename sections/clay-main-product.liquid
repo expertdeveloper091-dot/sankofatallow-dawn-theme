@@ -252,7 +252,7 @@
 
                 {% if block.settings.show_buy_now %}
                   <div class="clay-buy-now-wrap" style="margin-top: 10px; width: 100%;">
-                    <button type="submit" name="checkout" class="clay-buy-now-btn" style="width: 100%; height: 50px; border-radius: 9999px; background: #111111; color: #ffffff; border: 2px solid #111111; font-weight: 800; font-size: 14px; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <button type="submit" name="checkout" class="clay-buy-now-btn" style="width: 100%; height: 50px; border-radius: 8px; background: #111111; color: #ffffff; border: 2px solid #111111; font-weight: 800; font-size: 14px; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 0 #111111;">
                       {{ block.settings.buy_now_text | default: 'BUY IT NOW' }}
                     </button>
                   </div>
@@ -1023,7 +1023,7 @@
 .clay-pill-btn {
   height: 44px;
   padding: 0 20px;
-  border-radius: 30px;
+  border-radius: 8px !important;
   border: 1.5px solid #111111;
   background: #ffffff;
   font-size: 13px;
@@ -1046,6 +1046,7 @@
   color: #ffffff;
   font-weight: 900;
   box-shadow: 0 3px 0 0 #111111;
+  border-radius: 8px !important;
 }
 
 /* Quantity & ATC Row - Image 2 Match */
@@ -1062,7 +1063,7 @@
   justify-content: space-between;
   background: #ffffff;
   border: 1.5px solid #111111;
-  border-radius: 9999px;
+  border-radius: 8px !important;
   height: 52px;
   width: 115px;
   padding: 0 6px;
@@ -1082,7 +1083,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: 4px;
   transition: background 0.15s ease;
 }
 
@@ -1105,7 +1106,7 @@
   flex: 1;
   width: 100%;
   height: 54px;
-  border-radius: 9999px;
+  border-radius: 8px !important;
   background: #C1663D;
   color: #ffffff;
   border: 2px solid #111111;
@@ -1120,13 +1121,12 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
+  font-family: 'Poppins', sans-serif !important;
 }
 
 .clay-atc-btn:hover {
   background: #A8542F;
   transform: translateY(-2px);
-  box-shadow: 0 6px 0 #111111;
-}
   box-shadow: 0 6px 0 #111111;
 }
 
@@ -1138,6 +1138,14 @@
 .clay-atc-btn:disabled {
   background: #222222;
   opacity: 0.9;
+}
+
+.clay-buy-now-btn {
+  border-radius: 8px !important;
+  box-shadow: 0 4px 0 #111111 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
 }
 
 /* Sub-CTA Trust Pills (Matching Reference Image) */

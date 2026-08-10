@@ -13,6 +13,10 @@
   .custom-footer-{{ section.id }} .custom-footer-contact-list .contact-item {
     color: {{ section.settings.footer_text_color | default: '#111111' }};
   }
+  .custom-footer-column a:hover,
+  .custom-footer-{{ section.id }} a:hover {
+    color: #c96e3d !important;
+  }
   .custom-footer-{{ section.id }} .custom-footer-column h3,
   .custom-footer-{{ section.id }} .disclaimer h4,
   .custom-footer-{{ section.id }} .custom-footer-logo-fallback {
