@@ -1271,6 +1271,9 @@
 
     <!-- Cross-sell -->
     {%- assign cross_coll = collections[section.settings.cross_sell_collection] -%}
+    {%- if cross_coll == blank or cross_coll.products_count == 0 -%}
+      {%- assign cross_coll = collections[section.settings.cross_sell_product] -%}
+    {%- endif -%}
     {%- assign cross_product = all_products[section.settings.cross_sell_product] -%}
     <div class="cart-cross-sell" id="cart-cross-sell"
       {% if cart.item_count == 0 or (cross_coll == blank and cross_product == blank) %}style="display:none"{% endif %}>
@@ -1804,15 +1807,10 @@
       "info": "Select a collection to display upsell products under '73% of people also got...'"
     },
     {
-      "type": "product_list",
-      "id": "cross_sell_product_list",
-      "label": "Cart Drawer - Cross-Sell Products List",
-      "info": "Select multiple products to display upsell items"
-    },
-    {
-      "type": "product",
+      "type": "collection",
       "id": "cross_sell_product",
-      "label": "Cart Drawer - Single Product (Fallback)"
+      "label": "Cart Drawer - Cross-Sell Collection",
+      "info": "Select a collection to display upsell products under '73% of people also got...'"
     },
     {
       "type": "text",
