@@ -1,0 +1,36 @@
+{% comment %}
+  rb-stock-countdown.liquid — Dynamic Stock Countdown Snippet
+{% endcomment %}
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign inv_qty = current_variant.inventory_quantity
+-%}
+
+{%- if block.settings.use_real_inventory -%}
+  {%- if current_variant.inventory_management == 'shopify' and inv_qty > 0 and inv_qty <= block.settings.low_stock_threshold -%}
+    {%- assign bar_pct = inv_qty | times: 100 | divided_by: block.settings.low_stock_threshold -%}
+    <div class="rb-stock-row" id="RBStockRow" {{ block.shopify_attributes }}>
+      <div class="rb-stock-text">
+        {{ block.settings.prefix_text | default: 'Hurry up! Only' }}
+        <span id="RBStockQty">{{ inv_qty }}</span>
+        {{ block.settings.suffix_text | default: 'items left in stock' }}
+      </div>
+      <div class="rb-stock-bar"><div class="rb-stock-fill" id="RBStockFill" style="width:{{ bar_pct }}%;"></div></div>
+    </div>
+  {%- elsif not current_variant.available -%}
+    <div class="rb-stock-row rb-sold-out" id="RBStockRow" {{ block.shopify_attributes }}>
+      <div class="rb-stock-text" style="color:#dc2626;">{{ block.settings.sold_out_text | default: 'This product is currently sold out' }}</div>
+    </div>
+  {%- endif -%}
+{%- else -%}
+  <div class="rb-stock-row" id="RBStockRow" {{ block.shopify_attributes }}>
+    <div class="rb-stock-text">
+      {{ block.settings.prefix_text | default: 'Hurry up! Only' }}
+      <span id="RBStockQty">{{ block.settings.display_qty | default: 1 }}</span>
+      {{ block.settings.suffix_text | default: 'items left in stock' }}
+    </div>
+    <div class="rb-stock-bar">
+      <div class="rb-stock-fill" id="RBStockFill" style="width:{{ block.settings.bar_percent | default: 8 }}%;"></div>
+    </div>
+  </div>
+{%- endif -%}

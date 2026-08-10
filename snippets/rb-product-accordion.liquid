@@ -1,0 +1,46 @@
+{% comment %}
+  rb-product-accordion.liquid
+  Clay Theme Design — 3 collapsible detail sections
+{% endcomment %}
+
+<div class="rb-product-accordions">
+
+  <details class="rb-accordion-item">
+    <summary class="rb-accordion-summary">
+      How to Use &amp; Care
+      <span class="rb-accordion-icon">+</span>
+    </summary>
+    <div class="rb-accordion-content">
+      {% if product.metafields.custom.how_to_use != blank %}
+        {{ product.metafields.custom.how_to_use }}
+      {% else %}
+        <p>Use a small amount of this product daily. Gently massage into the skin using circular motions. Keep away from eyes. Store in a cool, dry place.</p>
+      {% endif %}
+    </div>
+  </details>
+
+  <details class="rb-accordion-item">
+    <summary class="rb-accordion-summary">
+      Description
+      <span class="rb-accordion-icon">+</span>
+    </summary>
+    <div class="rb-accordion-content">
+      {% if product.description != blank %}
+        {{ product.description }}
+      {% else %}
+        <p>{{ product.title }} — crafted with the finest natural ingredients to nourish and restore your skin's natural radiance.</p>
+      {% endif %}
+    </div>
+  </details>
+
+  <details class="rb-accordion-item">
+    <summary class="rb-accordion-summary">
+      Shipping and Returns
+      <span class="rb-accordion-icon">+</span>
+    </summary>
+    <div class="rb-accordion-content">
+      <p>Orders are dispatched within 1–2 business days. Delivery within 3–7 working days across Pakistan. Free shipping on orders above Rs.10,000. For returns or exchanges, contact us within 7 days of delivery.</p>
+    </div>
+  </details>
+
+</div>

@@ -1,0 +1,228 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "custom_bread_hero_LeECMB": {
+      "type": "custom-bread-hero",
+      "name": "Custom Breadcrumbs Hero",
+      "settings": {
+        "bg_image": "shopify://shop_images/869a684c4c1d4d1ff360d7d40650739f.png",
+        "overlay_color": "#000000",
+        "overlay_opacity": 80,
+        "max_width": 1300,
+        "min_height": 250,
+        "show_breadcrumbs": true,
+        "breadcrumbs_color": "#c96e3d",
+        "breadcrumbs_active_color": "#ffffff",
+        "title": "FREQUENTLY ASKED QUESTIONS",
+        "title_color": "#ffffff",
+        "description": "",
+        "description_color": "#ffffff",
+        "button_text": "",
+        "button_link": "/",
+        "button_bg_color": "#000000",
+        "button_text_color": "#ffffff",
+        "button_border_color": "#ffffff",
+        "button_shadow_color": "#2c2609",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "custom_faq_QBirR9": {
+      "type": "custom-faq",
+      "blocks": {
+        "faq_item_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is tallow body butter?",
+            "answer": "<p>Tallow body butter is a rich moisturizer made from purified grass-fed beef tallow. Its skin-friendly fats closely resemble our skin's natural oils, making it deeply nourishing and highly absorbent.</p>"
+          }
+        },
+        "faq_item_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Why is tallow good for your skin?",
+            "answer": "<p>Tallow is naturally rich in vitamins A, D, E, and K, plus essential fatty acids that help moisturize, soften, and support a healthy skin barrier.</p>"
+          }
+        },
+        "faq_item_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Will it clog my pores?",
+            "answer": "<p>Most people find that high-quality tallow absorbs well without clogging pores. However, everyone's skin is different, so we recommend patch testing first.</p>"
+          }
+        },
+        "faq_item_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Does tallow smell like beef?",
+            "answer": "<p>No. Properly rendered tallow has little to no natural odor. Our scented varieties are infused with premium fragrances, while our fragrance-free option has only a very mild natural scent.</p>"
+          }
+        },
+        "faq_item_5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I use it on my face?",
+            "answer": "<p>Yes. Many people use tallow on their face for deep hydration. Start with a small amount and patch test if you have sensitive or acne-prone skin.</p>"
+          }
+        },
+        "faq_item_6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is it safe for sensitive skin?",
+            "answer": "<p>Yes. Our fragrance-free formula is especially suitable for sensitive skin because it's made with a minimal ingredient list and no harsh additives.</p>"
+          }
+        },
+        "faq_item_7": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How often should I use it?",
+            "answer": "<p>Most people apply it once or twice daily, especially after showering while skin is slightly damp.</p>"
+          }
+        },
+        "faq_item_8": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is a little enough?",
+            "answer": "<p>Yes. A pea-sized amount goes a long way because tallow is highly concentrated.</p>"
+          }
+        },
+        "faq_item_9": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can it help dry skin?",
+            "answer": "<p>Yes. It provides long-lasting moisture and helps reduce dryness, rough patches, and flaky skin.</p>"
+          }
+        },
+        "faq_item_10": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I use it year-round?",
+            "answer": "<p>Absolutely. It protects skin during cold, dry months while providing lasting hydration in warmer weather.</p>"
+          }
+        },
+        "faq_item_11": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Why is your body butter firm?",
+            "answer": "<p>Our formula contains natural beeswax to improve stability and help prevent melting in warmer temperatures.</p>"
+          }
+        },
+        "faq_item_12": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Will it melt in hot weather?",
+            "answer": "<p>Like many natural body butters, it can soften or melt if exposed to high heat. Store it in a cool, dry place whenever possible.</p>"
+          }
+        },
+        "faq_item_13": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is your tallow grass-fed?",
+            "answer": "<p>Yes. We use premium grass-fed tallow selected for its quality and nutrient content.</p>"
+          }
+        },
+        "faq_item_14": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is your body butter all natural?",
+            "answer": "<p>Our formula is made with carefully selected natural ingredients and contains no water, parabens, silicones, or unnecessary fillers.</p>"
+          }
+        },
+        "faq_item_15": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Why doesn't it contain water?",
+            "answer": "<p>Water-based lotions require preservatives. Our anhydrous (water-free) formula delivers concentrated moisture without needing water as the main ingredient.</p>"
+          }
+        },
+        "faq_item_16": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I use it on eczema-prone or very dry skin?",
+            "answer": "<p>Many customers with extremely dry skin enjoy using tallow body butter. If you have a medical skin condition, consult your healthcare provider before use.</p>"
+          }
+        },
+        "faq_item_17": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does one jar last?",
+            "answer": "<p>Because only a small amount is needed per application, one jar typically lasts several weeks to a few months, depending on frequency of use.</p>"
+          }
+        },
+        "faq_item_18": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Why choose tallow instead of regular lotion?",
+            "answer": "<p>Unlike many conventional lotions that are mostly water, tallow body butter offers concentrated nourishment with fewer ingredients and longer-lasting hydration.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_1",
+        "faq_item_2",
+        "faq_item_3",
+        "faq_item_4",
+        "faq_item_5",
+        "faq_item_6",
+        "faq_item_7",
+        "faq_item_8",
+        "faq_item_9",
+        "faq_item_10",
+        "faq_item_11",
+        "faq_item_12",
+        "faq_item_13",
+        "faq_item_14",
+        "faq_item_15",
+        "faq_item_16",
+        "faq_item_17",
+        "faq_item_18"
+      ],
+      "name": "Custom FAQ Accordion",
+      "settings": {
+        "max_width": 1300,
+        "bg_color": "#FFF9F2",
+        "heading_color": "#2A231E",
+        "text_color": "#2A231E",
+        "accent_color": "#c1663d",
+        "border_color": "#2A231E",
+        "active_faq_bg": "#c1663d",
+        "active_faq_text_color": "#ffffff",
+        "closed_faq_bg": "#ffffff",
+        "open_first_faq": true,
+        "red_text": "GOT QUESTIONS? WE'VE GOT ANSWERS",
+        "heading": "FREQUENTLY ASKED QUESTIONS",
+        "description": "Everything you need to know about our natural products, straight from nature to your skin. If you have any specific questions or need help, our support team is always here to assist you—feel free to reach out to us anytime!",
+        "show_btn": true,
+        "btn_text": "CONTACT US",
+        "btn_link": "/pages/contact",
+        "btn_bg_color": "#C1663D",
+        "btn_text_color": "#ffffff",
+        "btn_hover_bg_color": "#a8532b",
+        "btn_hover_text_color": "#ffffff",
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_bread_hero_LeECMB",
+    "custom_faq_QBirR9"
+  ]
+}

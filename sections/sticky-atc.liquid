@@ -1,0 +1,573 @@
+{% if section.settings.enable_section and request.page_type == 'product' and product.available %}
+    {% liquid 
+        assign current_variant = product.selected_or_first_available_variant
+        assign product_form_id = 'product-form-' | append: section.id
+        assign image = current_variant.image | default: product.featured_image 
+        assign img_size = section.settings.img_width | append: 'x' | append: section.settings.img_height
+    %}
+
+    <style>
+        #md-sticky-atc {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            padding-top: {{ section.settings.pt }}rem;
+            padding-bottom: {{ section.settings.pb }}rem;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(100%);
+            transition: all .25s cubic-bezier(0.16, 1, 0.3, 1);
+            border-top: 2px solid #111111;
+            background-color: #ffffff;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+            font-family: 'Poppins', sans-serif;
+        }
+        #md-sticky-atc.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #md-sticky-atc .page-width-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        #md-sticky-atc .product-content {
+            display: flex;
+            align-items: center;
+        }
+        @media (min-width: 990px) {
+            #md-sticky-atc .product-content {
+                padding-right: 2rem;
+            }
+        }
+        #md-sticky-atc .product-content .product__title {
+            margin: 0 0 .2rem;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #111111;
+            line-height: 1.2;
+        }
+        #md-sticky-atc .product-content .price {
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        #md-sticky-atc .product-content img {
+            margin-right: .75rem;
+            border-radius: 10px;
+            border: 1px solid #111111;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        #md-sticky-atc .product-form {
+            flex-shrink: 0;
+        }
+        #md-sticky-atc .product-form .select {
+            flex-shrink: 0;
+            width: auto;
+            margin-right: .75rem;
+            position: relative;
+        }
+        #md-sticky-atc .product-form .select__select {
+            appearance: none;
+            -webkit-appearance: none;
+            background: #ffffff;
+            border: 1.5px solid #111111;
+            border-radius: 9999px;
+            padding: 8px 32px 8px 16px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #111111;
+            cursor: pointer;
+            line-height: 1.4;
+            outline: none;
+        }
+        #md-sticky-atc .product-form .quantity-input-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        #md-sticky-atc .product-form .quantity {
+            flex-shrink: 0;
+            margin-right: .75rem;
+            display: flex;
+            align-items: center;
+            border: 1.5px solid #111111;
+            border-radius: 9999px;
+            overflow: hidden;
+            background: #ffffff;
+            height: 42px;
+        }
+        #md-sticky-atc .product-form .quantity__button {
+            width: 32px;
+            height: 100%;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #111111;
+            transition: background 0.15s ease;
+        }
+        #md-sticky-atc .product-form .quantity__button:hover {
+            background: #f4f4f4;
+        }
+        #md-sticky-atc .product-form .quantity__input {
+            width: 36px;
+            height: 100%;
+            border: none;
+            text-align: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: #111111;
+            background: transparent;
+            appearance: textfield;
+            -moz-appearance: textfield;
+        }
+        #md-sticky-atc .product-form .quantity__input::-webkit-outer-spin-button,
+        #md-sticky-atc .product-form .quantity__input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        #md-sticky-atc .product-form button[name="add"] {
+            flex-shrink: 0;
+            margin: 0;
+            height: 42px;
+            border-radius: 9999px;
+            font-weight: 800;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 24px;
+            border: 2px solid #111111;
+            background: #ffdb58;
+            color: #111111;
+            box-shadow: 0 2px 0 0 #111111;
+            transition: all 0.15s ease;
+        }
+        #md-sticky-atc .product-form button[name="add"]:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 0 0 #111111;
+        }
+        #md-sticky-atc .product-form button[name="add"].button--secondary {
+            background: #111111;
+            color: #ffffff;
+        }
+        #md-sticky-atc .icon.icon-caret {
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            vertical-align: middle;
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            #md-sticky-atc .page-width-inner {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
+                padding: 0 10px;
+            }
+            #md-sticky-atc .product-content {
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                padding-bottom: 0;
+            }
+            #md-sticky-atc .product-content .product__title {
+                font-size: 0.9rem;
+            }
+            #md-sticky-atc .product-form {
+                width: 100%;
+            }
+            #md-sticky-atc .product-form .quantity-input-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                gap: 6px;
+            }
+            #md-sticky-atc .product-form .select {
+                flex-grow: 1;
+                max-width: 45%;
+                margin-right: 0;
+            }
+            #md-sticky-atc .product-form .quantity {
+                margin-right: 0;
+            }
+            #md-sticky-atc .product-form button[name="add"] {
+                flex-grow: 1;
+                padding: 0 12px;
+                font-size: 13px !important;
+                min-width: unset !important;
+            }
+        }
+    </style>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const stickyATC = document.querySelector('#md-sticky-atc');
+            if (!stickyATC) return;
+
+            const img = stickyATC.querySelector('.product-content img');
+            const form = stickyATC.querySelector('form');
+            const selectField = stickyATC.querySelector('select[name="id"]');
+            const qtyInput = stickyATC.querySelector('input[name="quantity"]');
+            const minusBtn = stickyATC.querySelector('button[name="minus"]');
+            const plusBtn = stickyATC.querySelector('button[name="plus"]');
+
+            const getScrollThreshold = () => {
+                const mainBtn = document.querySelector('.clay-atc-btn') || 
+                                document.querySelector('button[name="add"]:not(#md-sticky-atc button)') ||
+                                document.querySelector('form[action*="/cart/add"] button[name="add"]');
+                if (mainBtn) {
+                    const rect = mainBtn.getBoundingClientRect();
+                    return rect.bottom + window.scrollY + Number(stickyATC.dataset.offset || 0);
+                }
+                return 300;
+            };
+
+            let threshold = getScrollThreshold();
+
+            window.addEventListener('resize', () => {
+                threshold = getScrollThreshold();
+            });
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > threshold) {
+                    stickyATC.classList.add('show');
+                    document.documentElement.style.paddingBottom = `${stickyATC.clientHeight}px`;
+                } else {
+                    stickyATC.classList.remove('show');
+                    document.documentElement.style.paddingBottom = '0';
+                }
+            });
+
+            if (selectField) {
+                selectField.addEventListener('change', () => {
+                    const selectedOpt = selectField.options[selectField.selectedIndex];
+                    if (img && selectedOpt && selectedOpt.dataset.img) {
+                        img.setAttribute('src', selectedOpt.dataset.img);
+                    }
+                    const mainVarInput = document.getElementById('ClayVariantIdInput') || document.querySelector('.product-form [name="id"]');
+                    if (mainVarInput && mainVarInput.value !== selectField.value) {
+                        mainVarInput.value = selectField.value;
+                        mainVarInput.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                });
+            }
+
+            const syncVariantToSticky = (val) => {
+                if (selectField && val) {
+                    selectField.value = val;
+                    const selectedOpt = selectField.options[selectField.selectedIndex];
+                    if (img && selectedOpt && selectedOpt.dataset.img) {
+                        img.setAttribute('src', selectedOpt.dataset.img);
+                    }
+                }
+            };
+
+            document.querySelectorAll('form [name="id"], input[name="id"]#ClayVariantIdInput').forEach((input) => {
+                if (input !== selectField) {
+                    input.addEventListener('change', (e) => {
+                        syncVariantToSticky(e.target.value);
+                    });
+                }
+            });
+
+            if (minusBtn && qtyInput) {
+                minusBtn.addEventListener('click', () => {
+                    let val = parseInt(qtyInput.value) || 1;
+                    if (val > 1) qtyInput.value = val - 1;
+                });
+            }
+            if (plusBtn && qtyInput) {
+                plusBtn.addEventListener('click', () => {
+                    let val = parseInt(qtyInput.value) || 1;
+                    qtyInput.value = val + 1;
+                });
+            }
+
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const btn = form.querySelector('button[name="add"]');
+                    const btnSpan = btn ? btn.querySelector('span') : null;
+                    const spinner = btn ? btn.querySelector('.loading__spinner') : null;
+
+                    if (btnSpan) {
+                        btnSpan.dataset.origText = btnSpan.textContent;
+                        btnSpan.textContent = 'ADDING...';
+                    }
+                    if (spinner) spinner.classList.remove('hidden');
+                    if (btn) btn.disabled = true;
+
+                    const formData = new FormData(form);
+                    fetch('/cart/add.js', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(res => {
+                        if (!res.ok) throw new Error('Network error');
+                        return res.json();
+                    })
+                    .then(data => {
+                        if (btnSpan) btnSpan.textContent = 'ADDED!';
+                        setTimeout(() => {
+                            if (btnSpan) btnSpan.textContent = btnSpan.dataset.origText || 'ADD TO CART';
+                            if (btn) btn.disabled = false;
+                            if (spinner) spinner.classList.add('hidden');
+                        }, 1800);
+
+                        fetch('/cart.js').then(r => r.json()).then(cart => {
+                            document.querySelectorAll('.cart-count-bubble span, .cart-count-bubble, [data-cart-count]').forEach(el => {
+                                el.textContent = cart.item_count;
+                            });
+                        });
+
+                        if (typeof window.openCustomCartDrawer === 'function') {
+                            window.openCustomCartDrawer();
+                        } else {
+                            const drawer = document.getElementById('cart-drawer');
+                            if (drawer) {
+                                drawer.classList.add('active');
+                                drawer.setAttribute('aria-hidden', 'false');
+                                const overlay = document.getElementById('hdr-overlay');
+                                if (overlay) overlay.classList.add('active');
+                                document.body.style.overflow = 'hidden';
+                                document.documentElement.classList.add('drawer-open');
+                            }
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Sticky ATC form error:', err);
+                        if (btnSpan) btnSpan.textContent = btnSpan.dataset.origText || 'ADD TO CART';
+                        if (btn) btn.disabled = false;
+                        if (spinner) spinner.classList.add('hidden');
+                    });
+                });
+            }
+        });
+    </script>
+
+    <div id="md-sticky-atc" class="color-{{ section.settings.color_scheme }}" aria-hidden="true" data-offset="{{ section.settings.offset }}">
+        <div class="page-width">
+            <div class="page-width-inner">
+                <div class="product-content">
+                    {% if section.settings.show_img %}
+                        <img
+                            src="{{ image | img_url: img_size, crop: 'center' }}"
+                            class=""
+                            width="{{ section.settings.img_width }}"
+                            height="{{ section.settings.img_height }}"
+                            loading="lazy">
+                    {% endif %}
+                    <div class="">
+                        <h3 class="product__title {{ section.settings.title_size }}">
+                            {{ product.title }}
+                        </h3>
+                        <div class="no-js-hidden" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+                            {%- render 'price', product: product, use_variant: true, show_badges: true, price_class: '' -%}
+                        </div>
+                    </div>
+                </div>
+                <product-form class="product-form">
+                    <div class="product-form__error-message-wrapper" role="alert" hidden>
+                        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-error" viewBox="0 0 13 13">
+                            <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
+                            <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"/>
+                            <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"/>
+                            <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
+                        </svg>
+                        <span class="product-form__error-message"></span>
+                    </div>
+                    {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate' -%}
+                        <div class="quantity-input-wrapper">
+                            <div class="select" style="{% if product.has_only_default_variant %}display: none;{% endif %}">
+                                <select class="select__select" name="id" aria-label="Select variant">
+                                    {% for variant in product.variants %}
+                                        {% assign variant_image = variant.image | default: product.featured_image %}
+                                        <option 
+                                            value="{{ variant.id }}"
+                                            data-img="{{ variant_image | img_url: img_size }}"
+                                            {% if current_variant.id == variant.id %}selected{% endif %}>
+                                            {{ variant.title }} - {{ variant.price | money }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                                <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret" viewBox="0 0 10 6">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path>
+                                </svg>
+                            </div>
+                            {% if section.settings.show_quantity_input %}
+                                <quantity-input class="quantity">
+                                    <button class="quantity__button no-js-hidden" name="minus" type="button">
+                                        <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
+                                        <span class="svg-wrapper">
+                                            <svg width="10" height="2" viewBox="0 0 10 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M0 1H10" stroke="currentColor" stroke-width="1.5"/>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                    <input class="quantity__input" type="number" name="quantity" id="Quantity-{{ section.id }}" min="1" value="1" form="{{ product_form_id }}">
+                                    <button class="quantity__button no-js-hidden" name="plus" type="button">
+                                        <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: product.title | escape }}</span>
+                                        <span class="svg-wrapper">
+                                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5 0V10M0 5H10" stroke="currentColor" stroke-width="1.5"/>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </quantity-input>
+                            {% endif %}
+                            <button type="submit" name="add" class="product-form__submit button button--{{ section.settings.btn_style }}" {% unless current_variant.available %}disabled{% endunless %}>
+                                <span>
+                                    {%- if current_variant.available -%}
+                                        {{ 'products.product.add_to_cart' | t }}
+                                    {%- else -%}
+                                        {{ 'products.product.sold_out' | t }}
+                                    {%- endif -%}
+                                </span>
+                                <div class="loading__spinner hidden">
+                                    <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                                        <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30" style="stroke: currentColor;"></circle>
+                                    </svg>
+                                </div>
+                            </button>
+                        </div>
+                    {% endform %}
+                </product-form>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% schema %}
+{
+    "name": "Sticky ATC",
+    "settings": [
+        {
+            "type": "header",
+            "content": "General"
+        },
+        {
+            "type": "checkbox",
+            "id": "enable_section",
+            "label": "Enable \"Sticky ATC\"",
+            "info": "Quickly enable or disable this feature",
+            "default": true
+        },
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "t:sections.all.colors.label",
+          "default": "scheme-1"
+        },
+        {
+            "type": "select",
+            "id": "title_size",
+            "label": "Title Size",
+            "default": "h4",
+            "options": [
+                {  "value": "h1", "label": "H1" },
+                {  "value": "h2", "label": "H2" },
+                {  "value": "h3", "label": "H3" },
+                {  "value": "h4", "label": "H4" },
+                {  "value": "h5", "label": "H5" },
+                {  "value": "h6", "label": "H6" }
+            ]
+        },
+        {
+            "type": "checkbox",
+            "id": "show_img",
+            "default": true,
+            "label": "Show image"
+        },
+        {
+            "type": "text",
+            "id": "img_width",
+            "default": "80",
+            "label": "Image width (px)"
+        },
+        {
+            "type": "text",
+            "id": "img_height",
+            "default": "80",
+            "label": "Image height (px)"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_quantity_input",
+            "default": true,
+            "label": "Show quantity field"
+        },
+        {
+            "type": "select",
+            "id": "btn_style",
+            "options": [
+                { "value": "primary", "label": "Primary" },
+                { "value": "secondary", "label": "Secondary" }
+            ],
+            "default": "primary",
+            "label": "'Add to cart' button style"
+        },
+        {
+            "type": "header",
+            "content": "Advanced"
+        },
+        {
+            "type": "range",
+            "id": "offset",
+            "label": "Offset",
+            "min": 0,
+            "max": 500,
+            "step": 10,
+            "default": 0,
+            "info": "Adjust the offset value when showing the Sticky ATC section related to the main product form."
+        },
+        {
+            "type": "header",
+            "content": "Spacing",
+            "info": "Based on 'rem' values [Learn more](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units)"
+        },
+        {
+            "type": "range",
+            "id": "pt",
+            "label": "Padding top",
+            "min": 0,
+            "max": 5,
+            "step": 0.5,
+            "default": 0.5
+        },
+        {
+            "type": "range",
+            "id": "pb",
+            "label": "Padding bottom",
+            "min": 0,
+            "max": 5,
+            "step": 0.5,
+            "default": 0.5
+        }
+    ],
+    "presets": [
+        {
+            "name": "Sticky ATC"
+        }
+    ]
+}
+{% endschema %}

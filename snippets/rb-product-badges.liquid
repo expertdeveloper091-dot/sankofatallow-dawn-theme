@@ -1,0 +1,23 @@
+{% comment %}
+  rb-product-badges.liquid — Dynamic Product Badges Snippet
+{% endcomment %}
+{%- liquid
+  assign target = variant | default: product.selected_or_first_available_variant
+  assign compare_at_price = target.compare_at_price
+  assign price = target.price
+-%}
+
+<div class="rb-badges-container" id="RBBadges-{{ section.id }}">
+  {%- if compare_at_price > price -%}
+    {%- assign save_pct = compare_at_price | minus: price | times: 100 | divided_by: compare_at_price -%}
+    <span class="rb-save-badge" id="RBSaveBadge">-<span id="RBSavePct">{{ save_pct }}</span>%</span>
+  {%- endif -%}
+
+  {%- if product.tags contains 'bestseller' or product.tags contains 'Bestseller' -%}
+    <span class="rb-tag-badge rb-badge-bestseller">Bestseller</span>
+  {%- endif -%}
+
+  {%- if product.tags contains 'new' or product.tags contains 'New' -%}
+    <span class="rb-tag-badge rb-badge-new">New</span>
+  {%- endif -%}
+</div>

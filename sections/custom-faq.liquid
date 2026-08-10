@@ -1,0 +1,673 @@
+{%- style -%}
+  #maison-faq-{{ section.id }} {
+    background-color: {{ section.settings.bg_color | default: '#FFF9F2' }};
+    padding-top: {{ section.settings.padding_top | default: 60 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 60 }}px;
+    font-family: var(--font-body-family), "Poppins", sans-serif;
+    color: {{ section.settings.text_color | default: '#111111' }};
+  }
+  
+  #maison-faq-{{ section.id }} .faq__container {
+    max-width: {{ section.settings.max_width | default: 1200 }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  #maison-faq-{{ section.id }} .faq__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 36px;
+    align-items: start;
+  }
+
+  @media screen and (min-width: 992px) {
+    #maison-faq-{{ section.id }} .faq__grid {
+      grid-template-columns: 0.4fr 0.6fr;
+      gap: 60px;
+    }
+  }
+
+  #maison-faq-{{ section.id }} .faq__left-col {
+    display: flex;
+    flex-direction: column;
+    position: static;
+    margin-bottom: 10px;
+  }
+
+  @media screen and (min-width: 992px) {
+    #maison-faq-{{ section.id }} .faq__left-col {
+      position: sticky;
+      top: 40px;
+      margin-bottom: 0;
+    }
+  }
+
+  #maison-faq-{{ section.id }} .faq__red-text {
+    color: {{ section.settings.accent_color | default: '#c1663d' }};
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+    display: inline-block;
+  }
+
+  #maison-faq-{{ section.id }} .faq__heading {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 900;
+    line-height: 1.1;
+    color: {{ section.settings.heading_color | default: '#111111' }};
+    margin: 0 0 16px 0;
+    text-transform: uppercase;
+    font-family: var(--font-heading-family), inherit;
+  }
+
+  #maison-faq-{{ section.id }} .faq__description {
+    font-size: 15px;
+    line-height: 1.6;
+    color: {{ section.settings.text_color | default: '#555555' }};
+    margin: 0;
+  }
+
+  /* 3D Neo-Brutalist Contact Us Button */
+  #maison-faq-{{ section.id }} .faq__btn-wrapper {
+    margin-top: 24px;
+  }
+
+  #maison-faq-{{ section.id }} .faq__contact-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body-family), 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 14px 32px;
+    border-radius: 14px;
+    background-color: {{ section.settings.btn_bg_color | default: '#C1663D' }};
+    color: {{ section.settings.btn_text_color | default: '#ffffff' }};
+    text-decoration: none;
+    border: 2px solid {{ section.settings.border_color | default: '#111111' }};
+    box-shadow: 4px 4px 0px 0px {{ section.settings.border_color | default: '#111111' }};
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    line-height: 1.2;
+    width: fit-content;
+  }
+
+  #maison-faq-{{ section.id }} .faq__contact-btn:hover {
+    background-color: {{ section.settings.btn_hover_bg_color | default: '#a8532b' }};
+    color: {{ section.settings.btn_hover_text_color | default: '#ffffff' }};
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px 0px {{ section.settings.border_color | default: '#111111' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__contact-btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px 0px {{ section.settings.border_color | default: '#111111' }};
+  }
+
+  /* Right Column (Accordion List) */
+  #maison-faq-{{ section.id }} .faq__right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #maison-faq-{{ section.id }} .faq__item-card {
+    border: 2px solid {{ section.settings.border_color | default: '#111111' }};
+    border-radius: 14px;
+    background-color: {{ section.settings.closed_faq_bg | default: '#ffffff' }};
+    overflow: hidden;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0px 4px 0px 0px {{ section.settings.border_color | default: '#111111' }};
+    position: relative;
+    top: 0;
+  }
+
+  #maison-faq-{{ section.id }} .faq__item-card.active {
+    background-color: {{ section.settings.active_faq_bg | default: '#C1663D' }};
+    box-shadow: 0px 4px 0px 0px {{ section.settings.border_color | default: '#111111' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__item-card.active .faq__question-text,
+  #maison-faq-{{ section.id }} .faq__item-card.active .faq__num,
+  #maison-faq-{{ section.id }} .faq__item-card.active .faq__answer-content,
+  #maison-faq-{{ section.id }} .faq__item-card.active .faq__answer-content p {
+    color: {{ section.settings.active_faq_text_color | default: '#ffffff' }} !important;
+  }
+
+  #maison-faq-{{ section.id }} .faq__question-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    cursor: pointer;
+    gap: 20px;
+    user-select: none;
+  }
+
+  #maison-faq-{{ section.id }} .faq__question-text {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: {{ section.settings.heading_color | default: '#2c2609' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__num {
+    font-weight: 800;
+    margin-right: 4px;
+    display: inline-block;
+  }
+
+  #maison-faq-{{ section.id }} .faq__toggle-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid {{ section.settings.border_color | default: '#2C2609' }};
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    color: {{ section.settings.border_color | default: '#2C2609' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__toggle-btn svg {
+    width: 14px;
+    height: 14px;
+    display: block;
+  }
+
+  #maison-faq-{{ section.id }} .faq__toggle-btn svg path {
+    stroke: {{ section.settings.border_color | default: '#2C2609' }};
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Active Accordion Card Toggle Icon MUST be white */
+  #maison-faq-{{ section.id }} .faq__item-card.active .faq__toggle-btn {
+    background-color: transparent !important;
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+  }
+
+  #maison-faq-{{ section.id }} .faq__item-card.active .faq__toggle-btn svg,
+  #maison-faq-{{ section.id }} .faq__item-card.active .faq__toggle-btn svg *,
+  #maison-faq-{{ section.id }} .faq__item-card.active .faq__toggle-btn svg path {
+    stroke: #ffffff !important;
+    fill: #ffffff !important;
+    color: #ffffff !important;
+  }
+
+  #maison-faq-{{ section.id }} .faq__toggle-btn .minus-icon {
+    display: none;
+  }
+
+  #maison-faq-{{ section.id }} .faq__toggle-btn .plus-icon {
+    display: block;
+  }
+
+  #maison-faq-{{ section.id }} .faq__item-card.active .faq__toggle-btn .plus-icon {
+    display: none;
+  }
+
+  #maison-faq-{{ section.id }} .faq__item-card.active .faq__toggle-btn .minus-icon {
+    display: block;
+  }
+
+  #maison-faq-{{ section.id }} .faq__answer-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+  }
+
+  #maison-faq-{{ section.id }} .faq__item-card.active .faq__answer-panel {
+    max-height: 1000px;
+    transition: max-height 0.5s cubic-bezier(1, 0, 1, 0);
+  }
+
+  #maison-faq-{{ section.id }} .faq__answer-content {
+    padding: 0 24px 20px 24px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: {{ section.settings.text_color | default: '#555555' }};
+  }
+
+  #maison-faq-{{ section.id }} .faq__answer-content p {
+    margin: 0 0 1em 0;
+  }
+  #maison-faq-{{ section.id }} .faq__answer-content p:last-child {
+    margin: 0;
+  }
+{%- endstyle -%}
+
+<div id="maison-faq-{{ section.id }}" class="faq-section">
+  <div class="faq__container">
+    <div class="faq__grid">
+      
+      <!-- Left Column (Headers & Button) -->
+      <div class="faq__left-col">
+        {%- if section.settings.red_text != blank -%}
+          <span class="faq__red-text">{{ section.settings.red_text }}</span>
+        {%- endif -%}
+        
+        {%- if section.settings.heading != blank -%}
+          <h2 class="faq__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        
+        {%- if section.settings.description != blank -%}
+          <p class="faq__description">{{ section.settings.description }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.show_btn and section.settings.btn_text != blank -%}
+          <div class="faq__btn-wrapper">
+            <a href="{{ section.settings.btn_link | default: '/pages/contact' }}" class="faq__contact-btn">
+              {{ section.settings.btn_text }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+      
+      <!-- Right Column (Accordion List) -->
+      <div class="faq__right-col">
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            <div class="faq__item-card{% if forloop.first and section.settings.open_first_faq %} active{% endif %}" id="block-{{ block.id }}" {{ block.shopify_attributes }}>
+              <div class="faq__question-bar">
+                <span class="faq__question-text"><span class="faq__num">{{ forloop.index }}.</span> {{ block.settings.question }}</span>
+                <button class="faq__toggle-btn" aria-label="Toggle Answer">
+                  <svg class="plus-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                  </svg>
+                  <svg class="minus-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </button>
+              </div>
+              <div class="faq__answer-panel">
+                <div class="faq__answer-content">
+                  {{ block.settings.answer }}
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          <p style="text-align: center; color: #777; padding: 20px;">Please add FAQ items in the Theme Customizer.</p>
+        {%- endif -%}
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const section = document.querySelector('#maison-faq-{{ section.id }}');
+    if (!section) return;
+
+    const faqCards = section.querySelectorAll('.faq__item-card');
+
+    faqCards.forEach(card => {
+      const questionBar = card.querySelector('.faq__question-bar');
+      questionBar.addEventListener('click', function() {
+        const isActive = card.classList.contains('active');
+        
+        // Collapse other cards
+        faqCards.forEach(sibling => {
+          if (sibling !== card) {
+            sibling.classList.remove('active');
+          }
+        });
+
+        // Toggle current clicked card
+        if (!isActive) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      });
+    });
+
+    // Live Shopify Customizer interactive event listener
+    document.addEventListener('shopify:block:select', function(event) {
+      const blockId = event.detail.blockId;
+      const blockElement = section.querySelector('#block-' + blockId);
+      
+      if (blockElement && blockElement.classList.contains('faq__item-card')) {
+        faqCards.forEach(c => {
+          if (c !== blockElement) {
+            c.classList.remove('active');
+          }
+        });
+        blockElement.classList.add('active');
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Custom FAQ Accordion",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 800,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "label": "Max Container Width",
+      "default": 1200
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background",
+      "default": "#FFF9F2"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Text Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body Text Color",
+      "default": "#555555"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Sub-label Text Color",
+      "default": "#c1663d"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border & Shadow Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "active_faq_bg",
+      "label": "Active FAQ Card Background Color",
+      "default": "#C1663D"
+    },
+    {
+      "type": "color",
+      "id": "active_faq_text_color",
+      "label": "Active FAQ Card Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "closed_faq_bg",
+      "label": "Closed FAQ Card Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first_faq",
+      "label": "Open first FAQ by default",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Headers Content"
+    },
+    {
+      "type": "text",
+      "id": "red_text",
+      "label": "Accent Sub-label Text",
+      "default": "GOT QUESTIONS? WE'VE GOT ANSWERS"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main Heading Text",
+      "default": "FREQUENTLY ASKED QUESTIONS"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description Paragraph",
+      "default": "Everything you need to know about our natural products, straight from nature to your skin. If you have any specific questions or need help, our support team is always here to assist you—feel free to reach out to us anytime!"
+    },
+    {
+      "type": "header",
+      "content": "Button Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_btn",
+      "label": "Show Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text",
+      "default": "CONTACT US"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_color",
+      "label": "Button Background Color",
+      "default": "#C1663D"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg_color",
+      "label": "Button Hover Background Color",
+      "default": "#a8532b"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_text_color",
+      "label": "Button Hover Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Accordion Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question Text",
+          "default": "What is tallow body butter?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer Text",
+          "default": "<p>Tallow body butter is a rich moisturizer made from purified grass-fed beef tallow.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom FAQ Accordion",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is tallow body butter?",
+            "answer": "<p>Tallow body butter is a rich moisturizer made from purified grass-fed beef tallow. Its skin-friendly fats closely resemble our skin's natural oils, making it deeply nourishing and highly absorbent.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Why is tallow good for your skin?",
+            "answer": "<p>Tallow is naturally rich in vitamins A, D, E, and K, plus essential fatty acids that help moisturize, soften, and support a healthy skin barrier.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Will it clog my pores?",
+            "answer": "<p>Most people find that high-quality tallow absorbs well without clogging pores. However, everyone's skin is different, so we recommend patch testing first.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Does tallow smell like beef?",
+            "answer": "<p>No. Properly rendered tallow has little to no natural odor. Our scented varieties are infused with premium fragrances, while our fragrance-free option has only a very mild natural scent.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I use it on my face?",
+            "answer": "<p>Yes. Many people use tallow on their face for deep hydration. Start with a small amount and patch test if you have sensitive or acne-prone skin.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is it safe for sensitive skin?",
+            "answer": "<p>Yes. Our fragrance-free formula is especially suitable for sensitive skin because it's made with a minimal ingredient list and no harsh additives.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How often should I use it?",
+            "answer": "<p>Most people apply it once or twice daily, especially after showering while skin is slightly damp.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is a little enough?",
+            "answer": "<p>Yes. A pea-sized amount goes a long way because tallow is highly concentrated.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can it help dry skin?",
+            "answer": "<p>Yes. It provides long-lasting moisture and helps reduce dryness, rough patches, and flaky skin.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I use it year-round?",
+            "answer": "<p>Absolutely. It protects skin during cold, dry months while providing lasting hydration in warmer weather.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Why is your body butter firm?",
+            "answer": "<p>Our formula contains natural beeswax to improve stability and help prevent melting in warmer temperatures.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Will it melt in hot weather?",
+            "answer": "<p>Like many natural body butters, it can soften or melt if exposed to high heat. Store it in a cool, dry place whenever possible.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is your tallow grass-fed?",
+            "answer": "<p>Yes. We use premium grass-fed tallow selected for its quality and nutrient content.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is your body butter all natural?",
+            "answer": "<p>Our formula is made with carefully selected natural ingredients and contains no water, parabens, silicones, or unnecessary fillers.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Why doesn't it contain water?",
+            "answer": "<p>Water-based lotions require preservatives. Our anhydrous (water-free) formula delivers concentrated moisture without needing water as the main ingredient.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I use it on eczema-prone or very dry skin?",
+            "answer": "<p>Many customers with extremely dry skin enjoy using tallow body butter. If you have a medical skin condition, consult your healthcare provider before use.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does one jar last?",
+            "answer": "<p>Because only a small amount is needed per application, one jar typically lasts several weeks to a few months, depending on frequency of use.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Why choose tallow instead of regular lotion?",
+            "answer": "<p>Unlike many conventional lotions that are mostly water, tallow body butter offers concentrated nourishment with fewer ingredients and longer-lasting hydration.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

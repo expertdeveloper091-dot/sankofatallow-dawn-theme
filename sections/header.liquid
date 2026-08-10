@@ -1,0 +1,1992 @@
+<!--
+  Custom Premium Pill Header for Shopify Dawn Theme
+  Fully dynamic: capsule layout, predictive search (products only), rich cart drawer
+  with urgency timer, free-shipping milestones, buyer protection add-on, cross-sell,
+  View Cart + Checkout buttons, payment trust badges.
+-->
+
+<link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-cart-notification.css' | asset_url }}" media="print" onload="this.media='all'">
+
+{%- if settings.predictive_search_enabled -%}
+  <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endif -%}
+
+{%- if section.settings.menu_type_desktop == 'mega' -%}
+  <link rel="stylesheet" href="{{ 'component-mega-menu.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endif -%}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+
+<style>
+  /* ============================================================
+     ROOT VARIABLES
+     ============================================================ */
+  :root {
+    --color-primary: {{ section.settings.primary_color | default: '#FE9D01' }};
+    --color-primary-hover: {{ section.settings.primary_hover_color | default: '#E08B00' }};
+    --font-primary: 'Poppins', sans-serif;
+    --shadow-drawer: -10px 0 40px rgba(0,0,0,0.10);
+    --header-desktop-height: {{ section.settings.header_height | default: 80 }}px;
+    --header-mobile-height: {{ section.settings.header_height_mobile | default: 70 }}px;
+    --radius-pill: {{ section.settings.border_radius | default: 100 }}px;
+  }
+
+  /* ============================================================
+     DAWN OVERRIDES – make the wrapper invisible so our capsule shows
+     ============================================================ */
+  sticky-header,
+  .header-wrapper,
+  .section-header,
+  .shopify-section-group-header-group {
+    border: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+  .section-header { position: relative; z-index: 1000; }
+  .drawer-open .section-header { z-index: 2001 !important; }
+
+  /* ============================================================
+     HEADER OUTER CONTAINER
+     ============================================================ */
+  .header-outer-container {
+    width: 100%;
+    padding: {{ section.settings.padding_top | default: 18 }}px 2rem {{ section.settings.padding_bottom | default: 18 }}px;
+    box-sizing: border-box;
+    background: {{ section.settings.outer_bg_color | default: '#FFF8ED' }} !important;
+    transition: padding 0.3s ease, transform 0.3s ease;
+  }
+
+  /* ============================================================
+     HEADER INNER CAPSULE
+     ============================================================ */
+  .header-inner {
+    background: {{ section.settings.capsule_bg_color | default: '#ffffff' }};
+    border-radius: var(--radius-pill);
+    border: 1px solid #000000;
+    height: var(--header-desktop-height);
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    box-sizing: border-box;
+    transition: height 0.3s ease, border-color 0.3s ease;
+  }
+
+  /* ============================================================
+     CENTERED LOGO
+     ============================================================ */
+  .logo-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+  }
+  .logo-container img {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+    transition: height 0.3s ease;
+    display: block;
+  }
+  .logo-container .logo-text {
+    font-family: var(--font-primary);
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--color-primary);
+    white-space: nowrap;
+  }
+
+  /* ============================================================
+     DESKTOP NAVIGATION  (left)
+     ============================================================ */
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    height: 100%;
+  }
+  .nav-link {
+    font-family: var(--font-primary);
+    font-size: {{ section.settings.nav_font_size | default: 14 }}px;
+    font-weight: 600;
+    color: {{ section.settings.text_color | default: '#111111' }};
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    padding: 3px 0;
+    position: relative;
+    transition: color 0.2s;
+  }
+  .nav-link:hover { color: var(--color-primary); }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: var(--color-primary);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+  .nav-link:hover::after,
+  .nav-link.active::after { transform: scaleX(1); transform-origin: left; }
+
+  /* ============================================================
+     DESKTOP ACTION ICONS  (right)
+     ============================================================ */
+  .desktop-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .action-btn {
+    font-size: 18px;
+    color: {{ section.settings.icon_color | default: '#111111' }};
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s, transform 0.2s;
+    text-decoration: none;
+  }
+  .action-btn:hover { color: var(--color-primary); transform: translateY(-1px); }
+
+  /* Cart badge */
+  .cart-badge {
+    position: absolute;
+    top: -8px; right: -8px;
+    background: var(--color-primary);
+    color: #fff;
+    font-family: var(--font-primary);
+    font-size: 10px;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+    border: 2px solid #fff;
+    line-height: 1;
+    box-sizing: border-box;
+  }
+
+  /* ============================================================
+     MOBILE CONTROLS
+     ============================================================ */
+  .mobile-header-left,
+  .mobile-header-right { display: none; }
+
+  .mobile-hamburger {
+    width: 42px; height: 42px;
+    background: var(--color-primary);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .mobile-hamburger:hover { background: var(--color-primary-hover); }
+  .mobile-hamburger span {
+    display: block;
+    width: 20px; height: 2px;
+    background: #fff;
+    border-radius: 2px;
+  }
+  .mobile-cart-btn {
+    font-size: 22px;
+    color: #111;
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  /* ============================================================
+     STICKY MODIFIER
+     ============================================================ */
+  .header-outer-container.is-sticky {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 10px 2rem;
+    z-index: 1000;
+    background: transparent !important;
+    transform: translateY(0);
+    transition: transform 0.3s ease, padding 0.3s ease;
+  }
+  .header-outer-container.is-sticky.header-hidden {
+    transform: translateY(-100%);
+  }
+  .header-outer-container.is-sticky .header-inner {
+    height: 66px;
+    border-color: rgba(0,0,0,0.15);
+  }
+  .header-outer-container.is-sticky .logo-container img { height: 30px; }
+
+  /* ============================================================
+     OVERLAY
+     ============================================================ */
+  .hdr-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(3px);
+    z-index: 1999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .hdr-overlay.active { opacity: 1; pointer-events: auto; }
+
+  /* ============================================================
+     SHARED CLOSE BUTTON
+     ============================================================ */
+  .drawer-close {
+    font-size: 20px;
+    color: #333;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s, transform 0.2s;
+    line-height: 1;
+  }
+  .drawer-close:hover { color: var(--color-primary); transform: rotate(90deg); }
+
+  /* ============================================================
+     MOBILE SIDEBAR
+     ============================================================ */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 310px;
+    height: 100vh;
+    background: #fff;
+    z-index: 2000;
+    transform: translate3d(-100%, 0, 0);
+    box-shadow: 8px 0 30px rgba(0,0,0,0.06);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar.active { transform: translate3d(0, 0, 0); }
+
+  .sidebar-header {
+    padding: 22px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+  }
+  .sidebar-logo img { height: 28px; width: auto; }
+  .sidebar-logo .logo-text { font-family: var(--font-primary); font-weight: 800; font-size: 18px; color: var(--color-primary); }
+
+  .sidebar-content { flex: 1; overflow-y: auto; padding: 24px 20px; }
+  .sidebar-nav { display: flex; flex-direction: column; gap: 4px; }
+  .sidebar-link {
+    font-family: var(--font-primary);
+    font-size: 15px;
+    font-weight: 600;
+    color: #111;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .sidebar-link:hover,
+  .sidebar-link.active { background: #fff4f0; color: var(--color-primary); }
+  .sidebar-link i { font-size: 12px; opacity: 0.4; }
+  .sidebar-link:hover i,
+  .sidebar-link.active i { opacity: 1; }
+
+  .sidebar-account { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
+  .sidebar-footer {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    background: #fafafa;
+  }
+  .sidebar-socials { display: flex; gap: 16px; justify-content: center; }
+  .social-icon {
+    font-size: 17px;
+    color: #555;
+    text-decoration: none;
+    transition: color 0.2s, transform 0.2s;
+  }
+  .social-icon:hover { color: var(--color-primary); transform: translateY(-2px); }
+
+  /* ============================================================
+     SEARCH DRAWER  (full-width dropdown from top)
+     ============================================================ */
+  .search-drawer {
+    position: fixed;
+    top: 48px; left: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 1020;
+    transform: translateY(-110%);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+    transition: transform 0.32s cubic-bezier(0.4,0,0.2,1), top 0.3s ease;
+    padding: 28px 0 24px;
+  }
+  .search-drawer.active {
+    transform: translateY(0);
+  }
+  .header-outer-container.is-sticky ~ .search-drawer {
+    top: 0;
+  }
+
+  .search-container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+  .search-input-wrapper {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #111;
+    padding-bottom: 10px;
+    gap: 12px;
+  }
+  .search-input-wrapper .search-icon { font-size: 20px; color: #aaa; flex-shrink: 0; }
+  .search-input {
+    flex: 1;
+    border: none;
+    font-family: var(--font-primary);
+    font-size: 20px;
+    font-weight: 500;
+    outline: none;
+    color: #111;
+    background: transparent;
+  }
+  .search-input::placeholder { color: #bbb; }
+  .search-close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 22px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s, transform 0.2s;
+  }
+  .search-close-btn:hover { color: var(--color-primary); transform: scale(1.1); }
+
+  /* Live results */
+  .live-search-results {
+    margin-top: 20px;
+    display: none;
+    max-height: 380px;
+    overflow-y: auto;
+  }
+  .live-search-results.active { display: block; }
+  .results-label {
+    font-family: var(--font-primary);
+    font-size: 11px;
+    font-weight: 700;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-bottom: 14px;
+  }
+  .search-product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 12px;
+  }
+  .search-product-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #f7f7f7;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .search-product-card:hover { background: #ededed; transform: translateY(-2px); }
+  .search-prod-img {
+    width: 48px; height: 48px;
+    border-radius: 8px;
+    background: #fff;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .search-prod-img img { width: 100%; height: 100%; object-fit: cover; }
+  .search-prod-title {
+    font-family: var(--font-primary);
+    font-size: 13px;
+    font-weight: 600;
+    color: #111;
+    display: block;
+    line-height: 1.3;
+    margin-bottom: 2px;
+  }
+  .search-prod-price {
+    font-family: var(--font-primary);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-primary);
+    display: block;
+  }
+  .search-no-results {
+    padding: 20px 0;
+    text-align: center;
+    font-family: var(--font-primary);
+    font-size: 14px;
+    color: #999;
+  }
+
+  /* ============================================================
+     CART DRAWER  (rich, EA-style)
+     ============================================================ */
+  .cart-drawer {
+    position: fixed;
+    top: 0; right: 0;
+    width: 440px;
+    max-width: 100vw;
+    height: 100vh;
+    background: #fff;
+    z-index: 2000;
+    transform: translateX(100%);
+    box-shadow: var(--shadow-drawer);
+    transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-primary);
+    border-left: 2px solid #2C2609 !important;
+  }
+  .cart-drawer.active { transform: translateX(0); }
+
+  /* --- Cart header --- */
+  .cart-header {
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1.5px solid #2C2609 !important;
+    background-color: #ffffff;
+    flex-shrink: 0;
+  }
+  .cart-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #2c2609;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .cart-badge-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid #2C2609;
+    border-radius: 4px;
+    background-color: #C1663D !important;
+    color: #ffffff !important;
+    font-size: 11px;
+    font-weight: 800;
+    margin-left: 6px;
+    vertical-align: middle;
+    box-shadow: 1px 1px 0px 0px #2C2609;
+  }
+  .drawer-close {
+    background: none;
+    border: 1.5px solid #2C2609;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #2c2609;
+    transition: background 0.15s;
+  }
+  .drawer-close:hover {
+    background-color: #fafafa;
+  }
+
+  /* --- Trust banner (3 icons) --- */
+  .cart-trust-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    background: #f7f7f7;
+    border-bottom: 1.5px solid #2C2609 !important;
+    font-size: 11px;
+    font-weight: 700;
+    color: #2c2609;
+    flex-shrink: 0;
+  }
+  .cart-trust-bar span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+  }
+  .cart-trust-bar i { color: #C1663D; font-size: 13px; }
+
+  @media (max-width: 480px) {
+    .cart-trust-bar {
+      padding: 8px 8px !important;
+      font-size: 10px !important;
+    }
+    .cart-trust-bar span {
+      font-size: 9.5px !important;
+      white-space: nowrap !important;
+      gap: 3px !important;
+    }
+    .cart-trust-bar i {
+      font-size: 11px !important;
+    }
+  }
+
+  /* --- Urgency timer --- */
+  .cart-urgency {
+    background: #ff4d4d;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    flex-shrink: 0;
+    border-bottom: 1.5px solid #2C2609 !important;
+    animation: urgPulse 2s ease-in-out infinite;
+  }
+  @keyframes urgPulse {
+    0%,100% { background: #ff4d4d; }
+    50%      { background: #d63030; }
+  }
+  #cart-timer-countdown { font-variant-numeric: tabular-nums; }
+
+  /* --- Shipping progress (commented/hidden) --- */
+  .cart-progress-wrap {
+    display: none;
+  }
+
+  /* --- Scrollable drawer body --- */
+  .cart-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0; /* padding added to inner elements for spacing */
+  }
+
+  /* Empty state */
+  .cart-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+    gap: 14px;
+    padding: 40px 0;
+  }
+  .cart-empty i { font-size: 60px; color: #ddd; }
+  .cart-empty p { font-size: 15px; font-weight: 500; color: #444; margin: 0; }
+
+  /* Item list */
+  .cart-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px 22px;
+  }
+
+  .cart-item {
+    display: flex !important;
+    gap: 12px !important;
+    padding: 14px !important;
+    border: 1px solid #2C2609 !important;
+    border-radius: 16px !important;
+    background-color: #ffffff !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+  }
+  .cart-item:last-child { margin-bottom: 0; }
+
+  .cart-item-img {
+    width: 76px !important;
+    height: 76px !important;
+    border-radius: 12px !important;
+    background: #f9fafb !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 1px solid #e5e7eb !important;
+  }
+  .cart-item-img img { width: 100% !important; height: 100% !important; object-fit: cover !important; }
+  .cart-item-img i { font-size: 28px; color: var(--color-primary); }
+
+  .cart-item-details {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    min-width: 0 !important;
+    gap: 8px !important;
+  }
+  .cart-item-info {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+  }
+  .cart-item-name {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #1d211e !important;
+    line-height: 1.3 !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+  }
+  .cart-item-variant {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 12px !important;
+    color: #667085 !important;
+    margin-top: 3px !important;
+    margin-bottom: 8px !important;
+    font-weight: 500 !important;
+  }
+  .cart-item-right-col {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    justify-content: space-between !important;
+    height: 100% !important;
+    min-height: 72px !important;
+    flex-shrink: 0 !important;
+  }
+  .cart-item-price {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: #1d211e !important;
+    margin-top: auto !important;
+    white-space: nowrap !important;
+  }
+
+  .cart-qty-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0px !important;
+    margin-top: 4px !important;
+    border: 1px solid #d0d5dd !important;
+    border-radius: 20px !important;
+    background-color: #ffffff !important;
+    width: fit-content !important;
+    overflow: hidden !important;
+    height: 28px !important;
+    box-sizing: border-box !important;
+  }
+  .qty-btn {
+    width: 26px; height: 100%;
+    border: none !important;
+    border-radius: 0 !important;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #2C2609;
+    transition: background 0.15s;
+    flex-shrink: 0;
+  }
+  .qty-btn:hover { background-color: #fafafa; }
+  .qty-val {
+    font-size: 12px;
+    font-weight: 700;
+    color: #2c2609;
+    min-width: 22px;
+    text-align: center;
+    border-left: 1px solid #d0d5dd;
+    border-right: 1px solid #d0d5dd;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Remove link */
+  .cart-item-remove {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer;
+    font-size: 0 !important;
+    color: #ff4d4d !important;
+    transition: color 0.15s;
+    padding: 0 !important;
+    width: 20px !important;
+    height: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .cart-item-remove:hover { color: #d63030 !important; }
+
+  /* Hide elements as requested */
+  .maison__cart-benefit-text {
+    display: none !important;
+  }
+
+  .maison__cart-shipping-text {
+    display: none !important;
+  }
+
+  /* --- Cross-sell --- */
+  .cart-cross-sell {
+    margin-top: 18px;
+    padding: 20px 22px;
+    border-top: 1.5px solid #2C2609;
+    background-color: #fafafa;
+  }
+  .cross-sell-label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #2c2609;
+    margin-bottom: 12px;
+    background-color: #e2e2e2;
+    padding: 4px 8px;
+    display: inline-block;
+    border-radius: 4px;
+  }
+  .cross-sell-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1.5px solid #2C2609 !important;
+    border-radius: 12px !important;
+    background-color: #fffdeb !important;
+    box-shadow: 0px 4px 0px 0px #2C2609 !important;
+    box-sizing: border-box;
+  }
+  .cross-sell-img {
+    width: 56px; height: 56px;
+    border-radius: 8px;
+    background: #f5f5f5;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #2C2609;
+  }
+  .cross-sell-img img { width: 100%; height: 100%; object-fit: contain; }
+  .cross-sell-info { flex: 1; }
+  .cross-sell-name { font-size: 12px; font-weight: 800; color: #2c2609; }
+  .cross-sell-price { font-size: 12px; font-weight: 700; color: #666666; margin-top: 2px; }
+  .btn-cross-add {
+    padding: 8px 16px;
+    background: #C1663D !important;
+    color: #ffffff !important;
+    border: 1px solid #111111 !important;
+    border-radius: 7px !important;
+    font-size: 11px;
+    font-weight: 800;
+    font-family: inherit;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+    position: relative;
+    top: 0;
+  }
+  .btn-cross-add:hover { background: #A8542F !important; }
+  .btn-cross-add:active {
+    top: 2px;
+    box-shadow: none;
+  }
+  .btn-cross-add.loading { opacity: 0.6; pointer-events: none; }
+
+  /* --- Cart footer --- */
+  .cart-footer {
+    padding: 18px 22px;
+    border-top: 1.5px solid #2C2609 !important;
+    background: #ffffff;
+    flex-shrink: 0;
+    display: none;
+  }
+  .cart-subtotal-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    font-family: inherit;
+  }
+  .cart-subtotal-row .subtotal-label {
+    font-size: 13px;
+    font-weight: 800;
+    color: #2c2609;
+    text-transform: uppercase;
+  }
+  .cart-subtotal-row .subtotal-value {
+    font-size: 16px;
+    font-weight: 800;
+    color: #2c2609;
+  }
+
+  .maison__cart-price-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .totals__total-value-compare {
+    text-decoration: line-through;
+    color: #98a2b3;
+    font-size: 13px;
+  }
+
+  /* View Cart + Checkout buttons */
+  .cart-cta-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .btn-checkout-wrap { flex: 1; }
+  .btn-checkout-wrap form { margin: 0; }
+  .btn-checkout {
+    width: 100% !important;
+    height: 52px !important;
+    padding: 0 24px !important;
+    border-radius: 14px !important;
+    color: #ffffff !important;
+    background: #C1663D !important;
+    border: 2px solid #111111 !important;
+    box-shadow: 0 4px 0 0 #111111 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 900 !important;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px;
+    letter-spacing: 0.2px;
+    position: relative;
+    top: 0;
+  }
+  .btn-checkout:hover {
+    background-color: #A8542F !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 0 #111111 !important;
+  }
+  .btn-checkout:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 0 #111111 !important;
+  }
+  .cart-btn-price-lock {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+    font-weight: 800;
+  }
+  @media (max-width: 480px) {
+    .btn-checkout {
+      padding: 14px 12px !important;
+      font-size: 12px !important;
+      border-radius: 12px !important;
+    }
+    .cart-btn-price-lock {
+      font-size: 13px !important;
+    }
+  }
+
+  .cart-payment-icons {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex-wrap: wrap !important;
+    margin-top: 15px !important;
+    border-top: 1px dashed #e5e7eb !important;
+    padding-top: 12px !important;
+  }
+  .btn-checkout:active {
+    top: 4px;
+    box-shadow: none !important;
+  }
+
+  /* Payment icons */
+  .cart-payment-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+  }
+
+  /* Continue shopping link (empty state) */
+  .btn-continue-shop {
+    padding: 12px 28px;
+    border-radius: 50px;
+    background: var(--color-primary);
+    color: #fff;
+    border: none;
+    font-family: var(--font-primary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-continue-shop:hover { background: var(--color-primary-hover); }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 1100px) {
+    .header-outer-container { padding: 16px 24px; }
+    .header-inner { padding: 0 28px; }
+    .desktop-nav { gap: 18px; }
+    .desktop-actions { gap: 16px; }
+  }
+
+  @media (max-width: 990px) {
+    .header-outer-container { padding: 12px 1.5rem; }
+    .header-outer-container.is-sticky { padding: 10px 1.5rem; }
+    .header-inner { height: var(--header-mobile-height); border-radius: 50px; padding: 0 16px; }
+    .desktop-nav, .desktop-actions { display: none; }
+    .mobile-header-left, .mobile-header-right { display: flex; align-items: center; }
+    .mobile-header-right { gap: 14px; }
+    #search-btn-mobile { display: none !important; }
+    .logo-container { max-width: 45%; }
+    .logo-container img { height: 28px !important; max-height: 28px; max-width: 100%; }
+  }
+
+  @media (max-width: 480px) {
+    .cart-drawer { width: 100vw; }
+  }
+</style>
+
+{%- style -%}
+  .section-header {
+    margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-header {
+      margin-bottom: {{ section.settings.margin_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<!-- ============================================================
+     HEADER CAPSULE
+     ============================================================ -->
+<div class="header-outer-container" id="main-header">
+  <div class="header-inner">
+
+    <!-- Desktop Nav (Left) -->
+    <nav class="desktop-nav" aria-label="Main navigation">
+      {%- for link in section.settings.menu.links -%}
+        <a href="{{ link.url }}" class="nav-link{% if link.active %} active{% endif %}">{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+
+    <!-- Mobile Hamburger (Left) -->
+    <div class="mobile-header-left">
+      <button class="mobile-hamburger" id="sidebar-open-btn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Centered Logo -->
+    <div class="logo-container">
+      <a href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+        {%- if settings.logo != blank -%}
+          {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
+          {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
+          {{ settings.logo | image_url: width: 500 | image_tag:
+            style: 'height: 38px; width: auto;',
+            class: 'header__heading-logo',
+            widths: '50, 100, 150, 200, 250, 300, 400, 500',
+            height: logo_height,
+            width: settings.logo_width,
+            alt: logo_alt
+          }}
+        {%- else -%}
+          <span class="logo-text">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+
+    <!-- Desktop Actions (Right) — icon-only, no English labels -->
+    <div class="desktop-actions">
+      <button class="action-btn" id="search-btn-desktop" aria-label="Search">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      </button>
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+           class="action-btn" aria-label="{{ 'customer.account.title' | t }}">
+          {%- if section.settings.enable_customer_avatar and customer -%}
+            <i class="fa-solid fa-circle-user" aria-hidden="true"></i>
+          {%- else -%}
+            <i class="fa-regular fa-circle-user" aria-hidden="true"></i>
+          {%- endif -%}
+        </a>
+      {%- endif -%}
+      <button class="action-btn" id="cart-btn-desktop" aria-label="Cart">
+        <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+        <span class="cart-badge" id="cart-badge-desktop">{{ cart.item_count }}</span>
+      </button>
+    </div>
+
+    <!-- Mobile Actions (Right) -->
+    <div class="mobile-header-right">
+      <button class="mobile-cart-btn" id="search-btn-mobile" aria-label="Search" style="font-size:19px;">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <button class="mobile-cart-btn" id="cart-btn-mobile" aria-label="Cart">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span class="cart-badge" id="cart-badge-mobile">{{ cart.item_count }}</span>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Global Overlay -->
+<div class="hdr-overlay" id="hdr-overlay"></div>
+
+<!-- ============================================================
+     MOBILE SIDEBAR
+     ============================================================ -->
+<aside class="sidebar" id="mobile-sidebar" aria-label="Navigation drawer" aria-hidden="true">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      {%- if settings.logo != blank -%}
+        <img src="{{ settings.logo | image_url: width: 260 }}" alt="{{ shop.name }}" style="height:28px;width:auto;">
+      {%- else -%}
+        <span class="logo-text">{{ shop.name }}</span>
+      {%- endif -%}
+    </div>
+    <button class="drawer-close" id="sidebar-close-btn" aria-label="Close menu">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <div class="sidebar-content">
+    <nav class="sidebar-nav" aria-label="Mobile navigation">
+      {%- for link in section.settings.menu.links -%}
+        <a href="{{ link.url }}" class="sidebar-link{% if link.active %} active{% endif %}">
+          {{ link.title }}
+          <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+        </a>
+      {%- endfor -%}
+    </nav>
+    {%- if shop.customer_accounts_enabled -%}
+      <div class="sidebar-account">
+        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="sidebar-link">
+          <span><i class="fa-regular fa-circle-user" style="margin-right:8px;" aria-hidden="true"></i>{{ 'customer.account.title' | t }}</span>
+          <i class="fa-solid fa-chevron-right" style="opacity:1;" aria-hidden="true"></i>
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-socials">
+      {%- if settings.social_facebook_link != blank -%}
+        <a href="{{ settings.social_facebook_link }}" class="social-icon" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      {%- endif -%}
+      {%- if settings.social_instagram_link != blank -%}
+        <a href="{{ settings.social_instagram_link }}" class="social-icon" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      {%- endif -%}
+      {%- if settings.social_twitter_link != blank -%}
+        <a href="{{ settings.social_twitter_link }}" class="social-icon" target="_blank" rel="noopener" aria-label="Twitter / X"><i class="fa-brands fa-x-twitter"></i></a>
+      {%- endif -%}
+      {%- if settings.social_tiktok_link != blank -%}
+        <a href="{{ settings.social_tiktok_link }}" class="social-icon" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+      {%- endif -%}
+      {%- if settings.social_pinterest_link != blank -%}
+        <a href="{{ settings.social_pinterest_link }}" class="social-icon" target="_blank" rel="noopener" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+      {%- endif -%}
+    </div>
+  </div>
+</aside>
+
+<!-- ============================================================
+     SEARCH DRAWER
+     ============================================================ -->
+<div class="search-drawer" id="search-drawer" aria-label="Search">
+  <div class="search-container">
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-input-wrapper">
+      <input type="hidden" name="type" value="product">
+      <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+      <input
+        type="text"
+        name="q"
+        id="search-input"
+        class="search-input"
+        placeholder="{{ 'general.search.placeholder' | t | default: 'Search products…' }}"
+        autocomplete="off"
+        aria-label="Search products"
+      >
+      <button type="button" class="search-close-btn" id="search-close-btn" aria-label="Close search">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </form>
+
+    <div class="live-search-results" id="live-search-results" aria-live="polite">
+      <div class="results-label">Suggestions</div>
+      <div class="search-product-grid" id="search-results-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     CART DRAWER  (EA Sticky Add to Cart style)
+     ============================================================ -->
+<aside class="cart-drawer" id="cart-drawer" aria-label="Shopping cart" aria-hidden="true">
+
+  <!-- Header -->
+  <div class="cart-header">
+    <span class="cart-title">MY CART <span class="cart-badge-box" id="cart-badge-desktop">{{ cart.item_count }}</span></span>
+    <button class="drawer-close" id="cart-close-btn" aria-label="Close cart">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <!-- Trust bar -->
+  {%- if section.settings.show_trust_bar != false -%}
+    <div class="cart-trust-bar">
+      <span><i class="fa-solid fa-award"></i> {{ section.settings.trust_text_1 | default: "15-day money-back guarantee" }}</span>
+      <span><i class="fa-solid fa-shield-halved"></i> {{ section.settings.trust_text_2 | default: "100% Secure Checkout" }}</span>
+    </div>
+  {%- endif -%}
+
+  <!-- Urgency timer (Red Banner) -->
+  {%- if section.settings.show_urgency_timer != false -%}
+    <div class="cart-urgency">
+      <i class="fa-solid fa-clock"></i>
+      <span class="urgency-timer-text">{{ section.settings.urgency_timer_text | default: "Hurry! Your cart expires in" }}</span>
+      <strong id="cart-timer-countdown">04:26</strong>
+    </div>
+  {%- endif -%}
+
+  <!-- Scrollable body -->
+  <div class="cart-body" id="cart-body">
+
+    <!-- Empty state (Matching Image 1) -->
+    <div class="cart-empty" id="cart-empty" {% if cart.item_count > 0 %}style="display:none"{% endif %}>
+      <h2 class="cart-empty-title">{{ section.settings.empty_cart_title | default: "YOUR CART IS EMPTY" }}</h2>
+      <button class="btn-continue-shop" id="btn-continue-shop">{{ section.settings.empty_cart_btn_text | default: "Continue shopping" }}</button>
+      {%- if section.settings.show_login_link != false -%}
+        <div class="cart-empty-login">
+          <strong>HAVE AN ACCOUNT?</strong><br>
+          <a href="{{ routes.account_login_url }}" class="cart-login-link">Log in</a> to check out faster.
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Items (SSR bootstrap – JS will re-render on open) -->
+    <div class="cart-items-list" id="cart-items-list" {% if cart.item_count == 0 %}style="display:none"{% endif %}>
+      {%- for item in cart.items -%}
+        <div class="cart-item" data-key="{{ item.key }}">
+          <div class="cart-item-img">
+            {%- if item.image != blank -%}
+              <img src="{{ item.image | image_url: width: 140 }}" alt="{{ item.title | escape }}" loading="lazy">
+            {%- else -%}
+              <i class="fa-solid fa-shirt"></i>
+            {%- endif -%}
+          </div>
+          <div class="cart-item-details">
+            <div class="cart-item-info">
+              <div class="cart-item-name">{{ item.product.title }}</div>
+              {%- unless item.product.has_only_default_variant -%}
+                <div class="cart-item-variant">Scent: {{ item.variant.title }}</div>
+              {%- endunless -%}
+              <div class="cart-qty-row">
+                <button class="qty-btn" data-action="decrease" data-key="{{ item.key }}" data-qty="{{ item.quantity }}" aria-label="Decrease quantity">
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M12 5V7H0L1.19209e-07 5L12 5Z" fill="currentColor"/></svg>
+                </button>
+                <span class="qty-val">{{ item.quantity }}</span>
+                <button class="qty-btn" data-action="increase" data-key="{{ item.key }}" data-qty="{{ item.quantity }}" aria-label="Increase quantity">
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M5 0H7V12H5V0Z" fill="currentColor"/><path d="M12 5V7H0L1.19209e-07 5L12 5Z" fill="currentColor"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="cart-item-right-col">
+              <button class="cart-item-remove" data-key="{{ item.key }}" data-qty="0" aria-label="Remove item">
+                <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M14 3h-3.53a3.07 3.07 0 00-.6-1.65C9.44.82 8.8.5 8 .5s-1.44.32-1.87.85A3.06 3.06 0 005.53 3H2a.5.5 0 000 1h1.25v10c0 .28.22.5.5.5h8.5a.5.5 0 00.5-.5V4H14a.5.5 0 000-1zM6.91 1.98c.23-.29.58-.48 1.09-.48s.85.19 1.09.48c.2.24.3.6.36 1.02h-2.9c.05-.42.17-.78.36-1.02zm4.84 11.52h-7.5V4h7.5v9.5z" fill="#ff4d4d"/><path d="M6.55 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5zM9.45 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5z" fill="#ff4d4d"/></svg>
+              </button>
+              <div class="cart-item-price">{{ item.final_line_price | money }}</div>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <!-- Cross-sell -->
+    {%- assign cross_product = all_products[section.settings.cross_sell_product] -%}
+    <div class="cart-cross-sell" id="cart-cross-sell"
+      {% if cart.item_count == 0 or cross_product == blank %}style="display:none"{% endif %}>
+      <div class="cross-sell-label">{{ section.settings.cross_sell_heading | default: "73% of people also got..." }}</div>
+      {%- if cross_product != blank -%}
+        {%- assign cs_variant = cross_product.first_available_variant -%}
+        <div class="cross-sell-card">
+          <div class="cross-sell-img">
+            {%- if cross_product.featured_image != blank -%}
+              <img src="{{ cross_product.featured_image | image_url: width: 110 }}" alt="{{ cross_product.title }}" loading="lazy">
+            {%- else -%}
+              <i class="fa-solid fa-shirt"></i>
+            {%- endif -%}
+          </div>
+          <div class="cross-sell-info">
+            <div class="cross-sell-name">{{ cross_product.title }}</div>
+            <div class="cross-sell-price">{{ cross_product.price | money }}</div>
+          </div>
+          <button class="btn-cross-add" id="btn-cross-add" data-variant="{{ cs_variant.id }}">
+            + Add
+          </button>
+        </div>
+      {%- endif -%}
+    </div>
+
+  </div><!-- /.cart-body -->
+
+  <!-- Footer -->
+  <div class="cart-footer" id="cart-footer" {% if cart.item_count > 0 %}style="display:block"{% endif %}>
+    <div class="maison__cart-shipping-text">
+      <span class="bold">Shipping to <span id="locationinfop" class="bold">PK 🇵🇰</span></span>
+      <span style="color: #12b76a; font-weight: 600;">FREE</span>
+    </div>
+
+    <div class="cart-subtotal-row">
+      <span class="subtotal-label">Estimated total</span>
+      <div class="maison__cart-price-wrapper">
+        {%- if cart.original_total_price > cart.total_price -%}
+          <span class="totals__total-value-compare">{{ cart.original_total_price | money }} EUR</span>
+        {%- endif -%}
+        <span class="subtotal-value bold" id="cart-subtotal">{{ cart.total_price | money }} EUR</span>
+      </div>
+    </div>
+
+    <div class="cart-cta-row">
+      <div class="btn-checkout-wrap" style="width: 100%;">
+        <form action="{{ routes.cart_url }}" method="post">
+          <button type="submit" id="CartDrawer-Checkout" name="checkout" class="btn-checkout">
+            <span>{{ section.settings.checkout_btn_text | default: "Continue to Secure Checkout" }} •</span>
+            <span class="cart-btn-price-lock">
+              <span class="cart-btn-subtotal">{{ cart.total_price | money }}</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="maison__cart-benefit-text">
+      <div class="maison__cart-benefit-text-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgb(231 159 41)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span style="color: #383633; font-size: 12px;">30-day money-back guarantee</span>
+      </div>
+      
+      <div class="maison__cart-benefit-text-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgb(231 159 41)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span style="color: #383633; font-size: 12px;">Secure Checkout</span>
+      </div>
+    </div>
+
+    <div class="cart-payment-icons">
+      <ul class="list list-payment-drawer" role="list" style="display: flex; gap: 6px; justify-content: center; padding: 0; margin-top: 12px; list-style: none;">
+        <li class="list-payment__item"><svg class="icon-svg" width="38" height="24" viewBox="0 0 165.521 105.965"><path fill="#000" d="M150.698 0H14.823c-.566 0-1.133 0-1.698.003-.477.004-.953.009-1.43.022-1.039.028-2.087.09-3.113.274a10.51 10.51 0 0 0-2.958.975 9.932 9.932 0 0 0-4.35 4.35 10.463 10.463 0 0 0-.975 2.96C.113 9.611.052 10.658.024 11.696a70.22 70.22 0 0 0-.022 1.43C0 13.69 0 14.256 0 14.823v76.318c0 .567 0 1.132.002 1.699.003.476.009.953.022 1.43.028 1.036.09 2.084.275 3.11a10.46 10.46 0 0 0 .974 2.96 9.897 9.897 0 0 0 1.83 2.52 9.874 9.874 0 0 0 2.52 1.83c.947.483 1.917.79 2.96.977 1.025.183 2.073.245 3.112.273.477.011.953.017 1.43.02.565.004 1.132.004 1.698.004h135.875c.565 0 1.132 0 1.697-.004.476-.002.952-.009 1.431-.02 1.037-.028 2.085-.09 3.113-.273a10.478 10.478 0 0 0 2.958-.977 9.955 9.955 0 0 0 4.35-4.35c.483-.947.789-1.917.974-2.96.186-1.026.246-2.074.274-3.11.013-.477.02-.954.022-1.43.004-.567.004-1.132.004-1.699V14.824c0-.567 0-1.133-.004-1.699a63.067 63.067 0 0 0-.022-1.429c-.028-1.038-.088-2.085-.274-3.112a10.4 10.4 0 0 0-.974-2.96 9.94 9.94 0 0 0-4.35-4.35A10.52 10.52 0 0 0 156.939.3c-1.028-.185-2.076-.246-3.113-.274a71.417 71.417 0 0 0-1.431-.022C151.83 0 151.263 0 150.698 0z"/><path fill="#FFF" d="M150.698 3.532l1.672.003c.452.003.905.008 1.36.02.793.022 1.719.065 2.583.22.75.135 1.38.34 1.984.648a6.392 6.392 0 0 1 2.804 2.807c.306.6.51 1.226.645 1.983.154.854.197 1.783.218 2.58.013.45.019.9.02 1.36.005.557.005 1.113.005 1.671v76.318c0 .558 0 1.114-.004 1.682-.002.45-.008.9-.02 1.35-.022.796-.065 1.725-.221 2.589a6.855 6.855 0 0 1-.645 1.975 6.397 6.397 0 0 1-2.808 2.807c-.6.306-1.228.511-1.971.645-.881.157-1.847.2-2.574.22-.457.01-.912.017-1.379.019-.555.004-1.113.004-1.669.004H14.801c-.55 0-1.1 0-1.66-.004a74.993 74.993 0 0 1-1.35-.018c-.744-.02-1.71-.064-2.584-.22a6.938 6.938 0 0 1-1.986-.65 6.337 6.337 0 0 1-1.622-1.18 6.355 6.355 0 0 1-1.178-1.623 6.935 6.935 0 0 1-.646-1.985c-.156-.863-.2-1.788-.22-2.578a66.088 66.088 0 0 1-.02-1.355l-.003-1.327V14.474l.002-1.325a66.7 66.7 0 0 1 .02-1.357c.022-.792.065-1.717.222-2.587a6.924 6.924 0 0 1 .646-1.981c.304-.598.7-1.144 1.18-1.623a6.386 6.386 0 0 1 1.624-1.18 6.96 6.96 0 0 1 1.98-.646c.865-.155 1.792-.198 2.586-.22.452-.012.905-.017 1.354-.02l1.677-.003h135.875"/><path fill="#000" d="M43.508 35.77c1.404-1.755 2.356-4.112 2.105-6.52-2.054.102-4.56 1.355-6.012 3.112-1.303 1.504-2.456 3.959-2.156 6.266 2.306.2 4.61-1.152 6.063-2.858M45.587 39.079c-3.35-.2-6.196 1.9-7.795 1.9-1.6 0-4.049-1.8-6.698-1.751-3.447.05-6.645 2-8.395 5.1-3.598 6.2-.95 15.4 2.55 20.45 1.699 2.5 3.747 5.25 6.445 5.151 2.55-.1 3.549-1.65 6.647-1.65 3.097 0 3.997 1.65 6.696 1.6 2.798-.05 4.548-2.5 6.247-5 1.95-2.85 2.747-5.6 2.797-5.75-.05-.05-5.396-2.101-5.446-8.251-.05-5.15 4.198-7.6 4.398-7.751-2.399-3.548-6.147-3.948-7.447-4.048"/><path fill="#000" d="M78.973 32.11c7.278 0 12.347 5.017 12.347 12.321 0 7.33-5.173 12.373-12.529 12.373h-8.058V69.62h-5.822V32.11h14.062zm-8.24 19.807h6.68c5.07 0 7.954-2.729 7.954-7.46 0-4.73-2.885-7.434-7.928-7.434h-6.706v14.894zM92.764 61.847c0-4.809 3.665-7.564 10.423-7.98l7.252-.442v-2.08c0-3.04-2.001-4.704-5.562-4.704-2.938 0-5.07 1.507-5.51 3.82h-5.252c.157-4.86 4.731-8.395 10.918-8.395 6.654 0 10.995 3.483 10.995 8.89v18.663h-5.38v-4.497h-.13c-1.534 2.937-4.914 4.782-8.579 4.782-5.406 0-9.175-3.222-9.175-8.057zm17.675-2.417v-2.106l-6.472.416c-3.64.234-5.536 1.585-5.536 3.95 0 2.288 1.975 3.77 5.068 3.77 3.95 0 6.94-2.522 6.94-6.03zM120.975 79.652v-4.496c.364.051 1.247.103 1.715.103 2.573 0 4.029-1.09 4.913-3.899l.52-1.663-9.852-27.293h6.082l6.863 22.146h.13l6.862-22.146h5.927l-10.216 28.67c-2.34 6.577-5.017 8.735-10.683 8.735-.442 0-1.872-.052-2.261-.157z"/></svg></li>
+        <li class="list-payment__item"><svg class="icon-svg" viewBox="0 0 38 24" width="38" height="24"><path d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z" fill="#000" opacity=".07"/><path d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32" fill="#FFF"/><path d="M18.093 11.976v3.2h-1.018v-7.9h2.691a2.447 2.447 0 0 1 1.747.692 2.28 2.28 0 0 1 .11 3.224l-.11.116c-.47.447-1.098.69-1.747.674l-1.673-.006zm0-3.732v2.788h1.698c.377.012.741-.135 1.005-.404a1.391 1.391 0 0 0-1.005-2.354l-1.698-.03zm6.484 1.348c.65-.03 1.286.188 1.778.613.445.43.682 1.03.65 1.649v3.334h-.969v-.766h-.049a1.93 1.93 0 0 1-1.673.931 2.17 2.17 0 0 1-1.496-.533 1.667 1.667 0 0 1-.613-1.324 1.606 1.606 0 0 1 .613-1.336 2.746 2.746 0 0 1 1.698-.515c.517-.02 1.03.093 1.49.331v-.208a1.134 1.134 0 0 0-.417-.901 1.416 1.416 0 0 0-.98-.368 1.545 1.545 0 0 0-1.319.717l-.895-.564a2.488 2.488 0 0 1 2.182-1.06zM23.29 13.52a.79.79 0 0 0 .337.662c.223.176.5.269.785.263.429-.001.84-.17 1.146-.472.305-.286.478-.685.478-1.103a2.047 2.047 0 0 0-1.324-.374 1.716 1.716 0 0 0-1.03.294.883.883 0 0 0-.392.73zm9.286-3.75l-3.39 7.79h-1.048l1.281-2.728-2.224-5.062h1.103l1.612 3.885 1.569-3.885h1.097z" fill="#5F6368"/><path d="M13.986 11.284c0-.308-.024-.616-.073-.92h-4.29v1.747h2.451a2.096 2.096 0 0 1-.9 1.373v1.134h1.464a4.433 4.433 0 0 0 1.348-3.334z" fill="#4285F4"/><path d="M9.629 15.721a4.352 4.352 0 0 0 3.01-1.097l-1.466-1.14a2.752 2.752 0 0 1-4.094-1.44H5.577v1.17a4.53 4.53 0 0 0 4.052 2.507z" fill="#34A853"/><path d="M7.079 12.05a2.709 2.709 0 0 1 0-1.735v-1.17H5.577a4.505 4.505 0 0 0 0 4.075l1.502-1.17z" fill="#FBBC04"/><path d="M9.629 8.44a2.452 2.452 0 0 1 1.74.68l1.3-1.293a4.37 4.37 0 0 0-3.065-1.183 4.53 4.53 0 0 0-4.027 2.5l1.502 1.171a2.715 2.715 0 0 1 2.55-1.875z" fill="#EA4335"/></svg></li>
+        <li class="list-payment__item"><svg class="icon-svg" viewBox="0 0 38 24" width="38" height="24"><path d="M35 0H3C1.3 0 0 1.3 0 3V21C0 22.7 1.4 24 3 24H35C36.7 24 38 22.7 38 21V3C38 1.3 36.6 0 35 0Z" fill="#142FBD"/><path d="M35 1C36.1 1 37 1.9 37 3V21C37 22.1 36.1 23 35 23H3C1.9 23 1 22.1 1 21V3C1 1.9 1.9 1 3 1H35Z" fill="#1532CB"/><path d="M29.5944 10.2167H29.2778C28.8556 11.2722 28.5389 11.8 28.2222 13.3833H30.2278C29.9111 11.8 29.9111 11.0611 29.5944 10.2167V10.2167ZM32.6556 16.4444H30.8611C30.7556 16.4444 30.7556 16.4444 30.65 16.3389L30.4389 15.3889L30.3333 15.1778H27.8C27.6944 15.1778 27.5889 15.1778 27.5889 15.3889L27.2722 16.3389C27.2722 16.4444 27.1667 16.4444 27.1667 16.4444H24.95L25.1611 15.9167L28.2222 8.73889C28.2222 8.21111 28.5389 8 29.0667 8H30.65C30.7556 8 30.8611 8 30.8611 8.21111L32.3389 15.0722C32.4444 15.4944 32.55 15.8111 32.55 16.2333C32.6556 16.3389 32.6556 16.3389 32.6556 16.4444V16.4444ZM18.5111 16.1278L18.9333 14.2278C19.0389 14.2278 19.1444 14.3333 19.1444 14.3333C19.8833 14.65 20.6222 14.8611 21.3611 14.7556C21.5722 14.7556 21.8889 14.65 22.1 14.5444C22.6278 14.3333 22.6278 13.8056 22.2056 13.3833C21.9944 13.1722 21.6778 13.0667 21.3611 12.8556C20.9389 12.6444 20.5167 12.4333 20.2 12.1167C18.9333 11.0611 19.3556 9.58333 20.0944 8.84444C20.7278 8.42222 21.0444 8 21.8889 8C23.1556 8 24.5278 8 25.1611 8.21111H25.2667C25.1611 8.84444 25.0556 9.37222 24.8444 10.0056C24.3167 9.79444 23.7889 9.58333 23.2611 9.58333C22.9444 9.58333 22.6278 9.58333 22.3111 9.68889C22.1 9.68889 21.9944 9.79444 21.8889 9.9C21.6778 10.1111 21.6778 10.4278 21.8889 10.6389L22.4167 11.0611C22.8389 11.2722 23.2611 11.4833 23.5778 11.6944C24.1056 12.0111 24.6333 12.5389 24.7389 13.1722C24.95 14.1222 24.6333 14.9667 23.7889 15.6C23.2611 16.0222 23.05 16.2333 22.3111 16.2333C20.8333 16.2333 19.6722 16.3389 18.7222 16.0222C18.6167 16.2333 18.6167 16.2333 18.5111 16.1278V16.1278ZM14.8167 16.4444C14.9222 15.7056 14.9222 15.7056 15.0278 15.3889C15.5556 13.0667 16.0833 10.6389 16.5056 8.31667C16.6111 8.10556 16.6111 8 16.8222 8H18.7222C18.5111 9.26667 18.3 10.2167 17.9833 11.3778C17.6667 12.9611 17.35 14.5444 16.9278 16.1278C16.9278 16.3389 16.8222 16.3389 16.6111 16.3389L14.8167 16.4444ZM5 8.21111C5 8.10556 5.21111 8 5.31667 8H8.90556C9.43333 8 9.85556 8.31667 9.96111 8.84444L10.9111 13.4889C10.9111 13.5944 10.9111 13.5944 11.0167 13.7C11.0167 13.5944 11.1222 13.5944 11.1222 13.5944L13.3389 8.21111C13.2333 8.10556 13.3389 8 13.4444 8H15.6611C15.6611 8.10556 15.6611 8.10556 15.5556 8.21111L12.2833 15.9167C12.1778 16.1278 12.1778 16.2333 12.0722 16.3389C11.9667 16.4444 11.7556 16.3389 11.5444 16.3389H9.96111C9.85556 16.3389 9.75 16.3389 9.75 16.1278L8.06111 9.58333C7.85 9.37222 7.53333 9.05556 7.11111 8.95C6.47778 8.63333 5.31667 8.42222 5.10556 8.42222L5 8.21111Z" fill="white"/></svg></li>
+        <li class="list-payment__item"><svg class="icon-svg" viewBox="0 0 38 24" width="38" height="24"><rect x=".5" y=".5" width="37" height="23" rx="2.5" stroke="#000" stroke-opacity=".07" fill="none"/><path d="M35 0H3C1.3 0 0 1.3 0 3V21C0 22.7 1.4 24 3 24H35C36.7 24 38 22.7 38 21V3C38 1.3 36.6 0 35 0Z" fill="#1C1C1C"/><path d="M35 1C36.1 1 37 1.9 37 3V21C37 22.1 36.1 23 35 23H3C1.9 23 1 22.1 1 21V3C1 1.9 1.9 1 3 1H35Z" fill="#232323"/><path d="M14.6364 19.2727C18.8538 19.2727 22.2727 15.8538 22.2727 11.6364C22.2727 7.41892 18.8538 4 14.6364 4C10.4189 4 7 7.41892 7 11.6364C7 15.8538 10.4189 19.2727 14.6364 19.2727Z" fill="#EB001B"/><path d="M23.3637 19.2727C27.5811 19.2727 31 15.8538 31 11.6364C31 7.41892 27.5811 4 23.3637 4C19.1462 4 15.7273 7.41892 15.7273 11.6364C15.7273 15.8538 19.1462 19.2727 23.3637 19.2727Z" fill="#F79E1B"/><path d="M22.2727 11.6362C22.2727 9.01797 20.9637 6.72706 19 5.41797C17.0364 6.83615 15.7273 9.12706 15.7273 11.6362C15.7273 14.1452 17.0364 16.5452 19 17.8543C20.9637 16.5452 22.2727 14.2543 22.2727 11.6362Z" fill="#FF5F00"/></svg></li>
+        <li class="list-payment__item"><svg class="icon-svg" viewBox="0 0 38 24" width="38" height="24"><path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"/><path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"/><path fill="#003087" d="M23.9 8.3c.2-1 0-1.7-.6-2.3-.6-.7-1.7-1-3.1-1h-4.1c-.3 0-.5.2-.6.5L14 15.6c0 .2.1.4.3.4H17l.4-3.4 1.8-2.2 4.7-2.1z"/><path fill="#3086C8" d="M23.9 8.3l-.2.2c-.5 2.8-2.2 3.8-4.6 3.8H18c-.3 0-.5.2-.6.5l-.6 3.9-.2 1c0 .2.1.4.3.4H19c.3 0 .5-.2.5-.4v-.1l.4-2.4v-.1c0-.2.3-.4.5-.4h.3c2.1 0 3.7-.8 4.1-3.2.2-1 .1-1.8-.4-2.4-.1-.5-.3-.7-.5-.8z"/><path fill="#012169" d="M23.3 8.1c-.1-.1-.2-.1-.3-.1-.1 0-.2 0-.3-.1-.3-.1-.7-.1-1.1-.1h-3c-.1 0-.2 0-.2.1-.2.1-.3.2-.3.4l-.7 4.4v.1c0-.3.3-.5.6-.5h1.3c2.5 0 4.1-1 4.6-3.8v-.2c-.1-.1-.3-.2-.5-.2h-.1z"/></svg></li>
+        <li class="list-payment__item"><svg class="icon-svg" viewBox="0 0 38 24" width="38" height="24"><rect width="38" height="24" rx="2" fill="#FFA8CD"/><path d="M30.62 14.755c-.662 0-1.179-.554-1.179-1.226 0-.673.517-1.226 1.18-1.226.663 0 1.18.553 1.18 1.226 0 .672-.517 1.226-1.18 1.226zm-.33 1.295c.565 0 1.286-.217 1.686-1.068l.04.02c-.176.465-.176.742-.176.81v.11h1.423v-4.786H31.84v.109c0 .069 0 .346.175.81l-.039.02c-.4-.85-1.121-1.068-1.687-1.068-1.355 0-2.31 1.088-2.31 2.522 0 1.433.955 2.521 2.31 2.521zm-4.788-5.043c-.643 0-1.15.228-1.56 1.068l-.039-.02c.175-.464.175-.741.175-.81v-.11h-1.423v4.787h1.462V13.4c0-.662.38-1.078.995-1.078.614 0 .917.356.917 1.068v2.532h1.462v-3.046c0-1.088-.838-1.869-1.989-1.869zm-4.963 1.068l-.039-.02c.176-.464.176-.741.176-.81v-.11h-1.424v4.787h1.463l.01-2.304c0-.673.35-1.078.926-1.078.156 0 .282.02.429.06v-1.464c-.644-.139-1.22.109-1.54.94zm-4.65 2.68c-.664 0-1.18-.554-1.18-1.226 0-.673.516-1.226 1.18-1.226.662 0 1.179.553 1.179 1.226 0 .672-.517 1.226-1.18 1.226zm-.332 1.295c.565 0 1.287-.217 1.687-1.068l.038.02c-.175.465-.175.742-.175.81v.11h1.424v-4.786h-1.424v.109c0 .069 0 .346.175.81l-.038.02c-.4-.85-1.122-1.068-1.687-1.068-1.356 0-2.311 1.088-2.311 2.522 0 1.433.955 2.521 2.31 2.521zm-4.349-.128h1.463V9h-1.463v6.922zM10.136 9H8.644c0 1.236-.751 2.343-1.892 3.134l-.448.317V9h-1.55v6.922h1.55V12.49l2.564 3.43h1.892L8.293 12.64c1.121-.82 1.852-2.096 1.843-3.639z" fill="#0B051D"/></svg></li>
+        <li class="list-payment__item"><svg class="icon-svg" width="38" height="24" viewBox="0 0 38 24"><path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z" fill="#000"/><path d="M35.889 0C37.05 0 38 .982 38 2.182v19.636c0 1.2-.95 2.182-2.111 2.182H2.11C.95 24 0 23.018 0 21.818V2.182C0 .982.95 0 2.111 0H35.89z" fill="#5A31F4"/><path d="M9.35 11.368c-1.017-.223-1.47-.31-1.47-.705 0-.372.306-.558.92-.558.54 0 .934.238 1.225.704a.079.079 0 00.104.03l1.146-.584a.082.082 0 00.032-.114c-.475-.831-1.353-1.286-2.51-1.286-1.52 0-2.464.755-2.464 1.956 0 1.275 1.15 1.597 2.17 1.82 1.02.222 1.474.31 1.474.705 0 .396-.332.582-.993.582-.612 0-1.065-.282-1.34-.83a.08.08 0 00-.107-.035l-1.143.57a.083.083 0 00-.036.111c.454.92 1.384 1.437 2.627 1.437 1.583 0 2.539-.742 2.539-1.98s-1.155-1.598-2.173-1.82v-.003zM15.49 8.855c-.65 0-1.224.232-1.636.646a.04.04 0 01-.069-.03v-2.64a.08.08 0 00-.08-.081H12.27a.08.08 0 00-.08.082v8.194a.08.08 0 00.08.082h1.433a.08.08 0 00.081-.082v-3.594c0-.695.528-1.227 1.239-1.227.71 0 1.226.521 1.226 1.227v3.594a.08.08 0 00.081.082h1.433a.08.08 0 00.081-.082v-3.594c0-1.51-.981-2.577-2.355-2.577zM20.753 8.62c-.778 0-1.507.24-2.03.588a.082.082 0 00-.027.109l.632 1.088a.08.08 0 00.11.03 2.5 2.5 0 011.318-.366c1.25 0 2.17.891 2.17 2.068 0 1.003-.736 1.745-1.669 1.745-.76 0-1.288-.446-1.288-1.077 0-.361.152-.657.548-.866a.08.08 0 00.032-.113l-.596-1.018a.08.08 0 00-.098-.035c-.799.299-1.359 1.018-1.359 1.984 0 1.46 1.152 2.55 2.76 2.55 1.877 0 3.227-1.313 3.227-3.195 0-2.018-1.57-3.492-3.73-3.492zM28.675 8.843c-.724 0-1.373.27-1.845.746-.026.027-.069.007-.069-.029v-.572a.08.08 0 00-.08-.082h-1.397a.08.08 0 00-.08.082v8.182a.08.08 0 00.08.081h1.433a.08.08 0 00.081-.081v-2.683c0-.036.043-.054.069-.03a2.6 2.6 0 001.808.7c1.682 0 2.993-1.373 2.993-3.157s-1.313-3.157-2.993-3.157zm-.271 4.929c-.956 0-1.681-.768-1.681-1.783s.723-1.783 1.681-1.783c.958 0 1.68.755 1.68 1.783 0 1.027-.713 1.783-1.681 1.783h.001z" fill="#fff"/></svg></li>
+      </ul>
+    </div>
+  </div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Money formatter (no Shopify.formatMoney dependency) ── */
+  function formatMoney(cents) {
+    if (typeof cents === 'string') cents = cents.replace('.', '');
+    cents = parseInt(cents, 10) || 0;
+    const val = (cents / 100).toFixed(2);
+    return '$' + val.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  /* ── DOM refs ── */
+  const overlay        = document.getElementById('hdr-overlay');
+  const mainHeader     = document.getElementById('main-header');
+
+  const sidebar        = document.getElementById('mobile-sidebar');
+  const sidebarOpenBtn = document.getElementById('sidebar-open-btn');
+  const sidebarCloseBtn= document.getElementById('sidebar-close-btn');
+
+  const searchDrawer   = document.getElementById('search-drawer');
+  const searchBtnD     = document.getElementById('search-btn-desktop');
+  const searchBtnM     = document.getElementById('search-btn-mobile');
+  const searchCloseBtn = document.getElementById('search-close-btn');
+  const searchInput    = document.getElementById('search-input');
+  const liveResults    = document.getElementById('live-search-results');
+  const resultsGrid    = document.getElementById('search-results-grid');
+
+  const cartDrawer     = document.getElementById('cart-drawer');
+  const cartBtnD       = document.getElementById('cart-btn-desktop');
+  const cartBtnM       = document.getElementById('cart-btn-mobile');
+  const cartCloseBtn   = document.getElementById('cart-close-btn');
+  const cartEmpty      = document.getElementById('cart-empty');
+  const cartItemsList  = document.getElementById('cart-items-list');
+  const cartFooter     = document.getElementById('cart-footer');
+  const cartProtection = document.getElementById('cart-protection');
+  const cartCrossSell  = document.getElementById('cart-cross-sell');
+  const cartSubtotal   = document.getElementById('cart-subtotal');
+  const badgeDesktop   = document.getElementById('cart-badge-desktop');
+  const badgeMobile    = document.getElementById('cart-badge-mobile');
+  const btnContinue    = document.getElementById('btn-continue-shop');
+  const btnCrossAdd    = document.getElementById('btn-cross-add');
+  const timerEl        = document.getElementById('cart-timer-countdown');
+  const progressFill   = document.getElementById('cart-progress-fill');
+  const progressText   = document.getElementById('cart-progress-text');
+  const msGift         = document.getElementById('ms-gift');
+  const msDiscount     = document.getElementById('ms-discount');
+  const msShipping     = document.getElementById('ms-shipping');
+
+  /* ── Drawer helpers ── */
+  function openDrawer(el) {
+    el.classList.add('active');
+    el.setAttribute('aria-hidden', 'false');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    document.documentElement.classList.add('drawer-open');
+  }
+  function closeAll() {
+    [sidebar, searchDrawer, cartDrawer].forEach(function(d) {
+      d.classList.remove('active');
+      d.setAttribute('aria-hidden', 'true');
+    });
+    if (sidebarOpenBtn) sidebarOpenBtn.setAttribute('aria-expanded', 'false');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    document.documentElement.classList.remove('drawer-open');
+  }
+
+  overlay.addEventListener('click', closeAll);
+
+  /* ── Sidebar ── */
+  if (sidebarOpenBtn) sidebarOpenBtn.addEventListener('click', function() {
+    openDrawer(sidebar);
+    sidebarOpenBtn.setAttribute('aria-expanded', 'true');
+  });
+  if (sidebarCloseBtn) sidebarCloseBtn.addEventListener('click', closeAll);
+
+  /* ── Sticky scroll ── */
+  /* sticky header — setting injected by Liquid output tag (safe inside <script>) */
+  var STICKY_TYPE = '{{ section.settings.sticky_header_type }}';
+  if (STICKY_TYPE !== 'none') {
+    var lastScrollY = window.scrollY;
+    window.addEventListener('scroll', function() {
+      var currentScrollY = window.scrollY;
+      
+      if (currentScrollY > 80) {
+        mainHeader.classList.add('is-sticky');
+        
+        if (currentScrollY > lastScrollY && currentScrollY > 150) {
+          // Scrolling down - hide header
+          mainHeader.classList.add('header-hidden');
+        } else {
+          // Scrolling up - show header
+          mainHeader.classList.remove('header-hidden');
+        }
+      } else {
+        mainHeader.classList.remove('is-sticky');
+        mainHeader.classList.remove('header-hidden');
+      }
+      
+      lastScrollY = currentScrollY;
+    }, { passive: true });
+  }
+
+  /* ── Search ── */
+  function openSearch() { openDrawer(searchDrawer); searchInput.focus(); }
+  if (searchBtnD)    searchBtnD.addEventListener('click', openSearch);
+  if (searchBtnM)    searchBtnM.addEventListener('click', openSearch);
+  if (searchCloseBtn) searchCloseBtn.addEventListener('click', closeAll);
+
+  var searchTimer;
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      clearTimeout(searchTimer);
+      var q = searchInput.value.trim();
+      if (q.length < 2) { liveResults.classList.remove('active'); return; }
+      searchTimer = setTimeout(function() {
+        fetch('/search/suggest.json?q=' + encodeURIComponent(q) + '&resources[type]=product&resources[limit]=6')
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            var products = (data.resources && data.resources.results && data.resources.results.products) || [];
+            renderSearchProducts(products);
+          })
+          .catch(function() {});
+      }, 280);
+    });
+  }
+
+  function renderSearchProducts(products) {
+    resultsGrid.innerHTML = '';
+    if (!products.length) {
+      resultsGrid.innerHTML = '<div class="search-no-results">No products found</div>';
+      liveResults.classList.add('active');
+      return;
+    }
+    products.forEach(function(p) {
+      var card = document.createElement('a');
+      card.href = p.url;
+      card.className = 'search-product-card';
+      /* Price from predictive search comes as a formatted string in p.price */
+      var priceStr = p.price ? p.price : '';
+      card.innerHTML =
+        '<div class="search-prod-img">' +
+          (p.image ? '<img src="' + p.image + '" alt="' + p.title + '" loading="lazy">' : '<i class="fa-solid fa-shirt"></i>') +
+        '</div>' +
+        '<div>' +
+          '<span class="search-prod-title">' + p.title + '</span>' +
+          (priceStr ? '<span class="search-prod-price">' + priceStr + '</span>' : '') +
+        '</div>';
+      resultsGrid.appendChild(card);
+    });
+    liveResults.classList.add('active');
+  }
+
+  /* ── Cart open/close ── */
+  window.openCustomCartDrawer = function() {
+    if (cartDrawer) {
+      openDrawer(cartDrawer);
+      fetchCart();
+    }
+  };
+  window.fetchCustomCart = fetchCart;
+  if (cartBtnD) cartBtnD.addEventListener('click', function() { openCustomCartDrawer(); });
+  if (cartBtnM) cartBtnM.addEventListener('click', function() { openCustomCartDrawer(); });
+  if (cartCloseBtn) cartCloseBtn.addEventListener('click', closeAll);
+  if (btnContinue)  btnContinue.addEventListener('click', closeAll);
+
+  /* ── Cross-sell add to cart ── */
+  if (btnCrossAdd) {
+    btnCrossAdd.addEventListener('click', function() {
+      var vid = btnCrossAdd.getAttribute('data-variant');
+      if (!vid) return;
+      btnCrossAdd.classList.add('loading');
+      btnCrossAdd.textContent = '…';
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ id: parseInt(vid, 10), quantity: 1 })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function() {
+        btnCrossAdd.classList.remove('loading');
+        btnCrossAdd.textContent = 'Added ✓';
+        fetchCart();
+        setTimeout(function() { btnCrossAdd.textContent = 'Add To Cart'; }, 2000);
+      })
+      .catch(function() {
+        btnCrossAdd.classList.remove('loading');
+        btnCrossAdd.textContent = 'Add To Cart';
+      });
+    });
+  }
+
+  /* ── Quantity buttons (delegated) ── */
+  if (cartItemsList) {
+    cartItemsList.addEventListener('click', function(e) {
+      var btn = e.target.closest('.qty-btn, .cart-item-remove');
+      if (!btn) return;
+      var key = btn.getAttribute('data-key');
+      var action = btn.getAttribute('data-action');
+      var curQty = parseInt(btn.getAttribute('data-qty'), 10) || 0;
+      var nextQty;
+      if (btn.classList.contains('cart-item-remove')) {
+        nextQty = 0;
+      } else {
+        nextQty = action === 'increase' ? curQty + 1 : Math.max(0, curQty - 1);
+      }
+      changeCartItem(key, nextQty);
+    });
+  }
+
+  function changeCartItem(key, qty) {
+    fetch('/cart/change.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ id: key, quantity: qty })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function() { fetchCart(); })
+    .catch(function() {});
+  }
+
+  /* ── Fetch & render cart ── */
+  function fetchCart() {
+    fetch('/cart.js')
+      .then(function(r) { return r.json(); })
+      .then(function(data) { renderCart(data); })
+      .catch(function() {});
+  }
+
+  function renderCart(data) {
+    var count = data.item_count || 0;
+    var totalCents = data.total_price || 0;
+
+    /* Update badges */
+    if (badgeDesktop) badgeDesktop.textContent = count;
+    if (badgeMobile)  badgeMobile.textContent  = count;
+
+    if (count === 0) {
+      cartEmpty.style.display = 'flex';
+      cartItemsList.style.display = 'none';
+      cartFooter.style.display = 'none';
+      if (cartProtection) cartProtection.style.display = 'none';
+      if (cartCrossSell)  cartCrossSell.style.display  = 'none';
+    } else {
+      cartEmpty.style.display = 'none';
+      cartItemsList.style.display = 'flex';
+      cartFooter.style.display = 'block';
+      if (cartProtection) cartProtection.style.display = 'block';
+      if (cartCrossSell)  cartCrossSell.style.display  = 'block';
+
+      /* Subtotal */
+      if (cartSubtotal) cartSubtotal.textContent = formatMoney(totalCents);
+      var cartBtnSubtotal = document.querySelector('.cart-btn-subtotal');
+      if (cartBtnSubtotal) cartBtnSubtotal.textContent = formatMoney(totalCents);
+
+      /* Milestones */
+      updateMilestones(totalCents);
+
+      /* Render items */
+      renderItems(data.items || []);
+    }
+  }
+
+  function renderItems(items) {
+    cartItemsList.innerHTML = '';
+    items.forEach(function(item) {
+      var div = document.createElement('div');
+      div.className = 'cart-item';
+      div.setAttribute('data-key', item.key);
+      var imgHtml = item.image
+        ? '<img src="' + item.image + '" alt="' + item.product_title + '" loading="lazy">'
+        : '<i class="fa-solid fa-shirt"></i>';
+      var variantHtml = (item.variant_title && item.variant_title !== 'Default Title')
+        ? '<div class="cart-item-variant">Scent: ' + item.variant_title + '</div>'
+        : '';
+      div.innerHTML =
+        '<div class="cart-item-img">' + imgHtml + '</div>' +
+        '<div class="cart-item-details">' +
+          '<div class="cart-item-info">' +
+            '<div class="cart-item-name">' + item.product_title + '</div>' +
+            variantHtml +
+            '<div class="cart-qty-row">' +
+              '<button class="qty-btn" data-action="decrease" data-key="' + item.key + '" data-qty="' + item.quantity + '" aria-label="Decrease">' +
+                '<svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M12 5V7H0L1.19209e-07 5L12 5Z" fill="currentColor"/></svg>' +
+              '</button>' +
+              '<span class="qty-val">' + item.quantity + '</span>' +
+              '<button class="qty-btn" data-action="increase" data-key="' + item.key + '" data-qty="' + item.quantity + '" aria-label="Increase">' +
+                '<svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M5 0H7V12H5V0Z" fill="currentColor"/><path d="M12 5V7H0L1.19209e-07 5L12 5Z" fill="currentColor"/></svg>' +
+              '</button>' +
+            '</div>' +
+          '</div>' +
+          '<div class="cart-item-right-col">' +
+            '<button class="cart-item-remove" data-key="' + item.key + '" data-qty="0" aria-label="Remove item">' +
+              '<svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M14 3h-3.53a3.07 3.07 0 00-.6-1.65C9.44.82 8.8.5 8 .5s-1.44.32-1.87.85A3.06 3.06 0 005.53 3H2a.5.5 0 000 1h1.25v10c0 .28.22.5.5.5h8.5a.5.5 0 00.5-.5V4H14a.5.5 0 000-1zM6.91 1.98c.23-.29.58-.48 1.09-.48s.85.19 1.09.48c.2.24.3.6.36 1.02h-2.9c.05-.42.17-.78.36-1.02zm4.84 11.52h-7.5V4h7.5v9.5z" fill="#ff4d4d"/><path d="M6.55 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5zM9.45 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5z" fill="#ff4d4d"/></svg>' +
+            '</button>' +
+            '<div class="cart-item-price">' + formatMoney(item.final_line_price) + '</div>' +
+          '</div>' +
+        '</div>';
+      cartItemsList.appendChild(div);
+    });
+  }
+
+  /* ── Milestones & progress bar ── */
+  var FREE_SHIP_CENTS = 10000; /* $100.00 */
+  var DISCOUNT_CENTS  = 7500;  /* $75.00  */
+  var GIFT_CENTS      = 5000;  /* $50.00  */
+
+  function updateMilestones(cents) {
+    var pct = Math.min(100, Math.round((cents / FREE_SHIP_CENTS) * 100));
+    if (progressFill) progressFill.style.width = pct + '%';
+
+    if (progressText) {
+      if (cents >= FREE_SHIP_CENTS) {
+        progressText.innerHTML = '🎉 You unlocked <strong>Free Shipping</strong>!';
+      } else {
+        var left = formatMoney(FREE_SHIP_CENTS - cents);
+        progressText.innerHTML = 'Add <strong>' + left + '</strong> more for Free Shipping';
+      }
+    }
+
+    if (msGift)     msGift.classList.toggle('reached',     cents >= GIFT_CENTS);
+    if (msDiscount) msDiscount.classList.toggle('reached', cents >= DISCOUNT_CENTS);
+    if (msShipping) msShipping.classList.toggle('reached', cents >= FREE_SHIP_CENTS);
+  }
+
+  /* ── Urgency countdown (05:00) ── */
+  var totalSecs = 300;
+  (function tick() {
+    if (!timerEl) return;
+    if (totalSecs <= 0) { timerEl.textContent = 'EXPIRED'; return; }
+    var m = Math.floor(totalSecs / 60);
+    var s = totalSecs % 60;
+    timerEl.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    totalSecs--;
+    setTimeout(tick, 1000);
+  })();
+
+  /* ── Dispatch custom event so other scripts can hook ── */
+  document.addEventListener('cart:updated', function() { fetchCart(); });
+
+  /* ── Initial cart load (so badge is live on page load) ── */
+  fetchCart();
+
+}());
+</script>
+
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "class": "section-header",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Cart Drawer Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_urgency_timer",
+      "label": "Show Red Urgency Banner",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "urgency_timer_text",
+      "label": "Urgency Banner Text",
+      "default": "Hurry! Your cart expires in"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_bar",
+      "label": "Show Trust Bar under Header",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_text_1",
+      "label": "Trust Item 1",
+      "default": "15-day money-back guarantee"
+    },
+    {
+      "type": "text",
+      "id": "trust_text_2",
+      "label": "Trust Item 2",
+      "default": "100% Secure Checkout"
+    },
+    {
+      "type": "text",
+      "id": "empty_cart_title",
+      "label": "Empty Cart Title",
+      "default": "YOUR CART IS EMPTY"
+    },
+    {
+      "type": "text",
+      "id": "empty_cart_btn_text",
+      "label": "Empty Cart Button Text",
+      "default": "Continue shopping"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_login_link",
+      "label": "Show Account Login Prompt on Empty Cart",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cross_sell_heading",
+      "label": "Cross-Sell Heading",
+      "default": "73% of people also got..."
+    },
+    {
+      "type": "product",
+      "id": "cross_sell_product",
+      "label": "Cart Drawer - Cross-Sell Product"
+    },
+    {
+      "type": "text",
+      "id": "checkout_btn_text",
+      "label": "Checkout Button Text",
+      "default": "Continue to Secure Checkout"
+    },
+    {
+      "type": "header",
+      "content": "Custom Header Colors & Style"
+    },
+    {
+      "type": "color",
+      "id": "outer_bg_color",
+      "label": "Outer Container Background Color",
+      "default": "#FFF8ED"
+    },
+    {
+      "type": "color",
+      "id": "capsule_bg_color",
+      "label": "Inner Capsule Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Navigation Text Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icons Color (Search, Cart, Account)",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Capsule Border Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Accent Color",
+      "default": "#FE9D01"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Capsule Border Radius",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "header_height",
+      "min": 50,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Desktop Header Height",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "nav_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Navigation Font Size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "logo_position",
+      "options": [
+        { "value": "top-left",     "label": "t:sections.header.settings.logo_position.options__2.label" },
+        { "value": "top-center",   "label": "t:sections.header.settings.logo_position.options__3.label" },
+        { "value": "middle-left",  "label": "t:sections.header.settings.logo_position.options__1.label" },
+        { "value": "middle-center","label": "t:sections.header.settings.logo_position.options__4.label" }
+      ],
+      "default": "middle-left",
+      "label": "t:sections.header.settings.logo_position.label",
+      "info": "t:sections.header.settings.logo_help.content"
+    },
+    {
+      "type": "select",
+      "id": "mobile_logo_position",
+      "options": [
+        { "value": "center", "label": "t:sections.header.settings.mobile_logo_position.options__1.label" },
+        { "value": "left",   "label": "t:sections.header.settings.mobile_logo_position.options__2.label" }
+      ],
+      "default": "center",
+      "label": "t:sections.header.settings.mobile_logo_position.label"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.menu.label"
+    },
+    {
+      "type": "select",
+      "id": "menu_type_desktop",
+      "options": [
+        { "value": "dropdown", "label": "t:sections.header.settings.menu_type_desktop.options__1.label" },
+        { "value": "mega",     "label": "t:sections.header.settings.menu_type_desktop.options__2.label" },
+        { "value": "drawer",   "label": "t:sections.header.settings.menu_type_desktop.options__3.label" }
+      ],
+      "default": "dropdown",
+      "label": "t:sections.header.settings.menu_type_desktop.label"
+    },
+    {
+      "type": "select",
+      "id": "sticky_header_type",
+      "options": [
+        { "value": "none",            "label": "t:sections.header.settings.sticky_header_type.options__1.label" },
+        { "value": "on-scroll-up",    "label": "t:sections.header.settings.sticky_header_type.options__2.label" },
+        { "value": "always",          "label": "t:sections.header.settings.sticky_header_type.options__3.label" },
+        { "value": "reduce-logo-size","label": "t:sections.header.settings.sticky_header_type.options__4.label" }
+      ],
+      "default": "on-scroll-up",
+      "label": "t:sections.header.settings.sticky_header_type.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_line_separator",
+      "default": true,
+      "label": "t:sections.header.settings.show_line_separator.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.header__1.content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "menu_color_scheme",
+      "label": "t:sections.header.settings.menu_color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.header__utilities.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_country_selector",
+      "default": true,
+      "label": "t:sections.header.settings.enable_country_selector.label",
+      "info": "t:sections.header.settings.enable_country_selector.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_language_selector",
+      "default": true,
+      "label": "t:sections.header.settings.enable_language_selector.label",
+      "info": "t:sections.header.settings.enable_language_selector.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_customer_avatar",
+      "default": true,
+      "label": "t:sections.header.settings.enable_customer_avatar.label",
+      "info": "t:sections.header.settings.enable_customer_avatar.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.header.settings.margin_bottom.label",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 36,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 36,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    { "type": "@app" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,290 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "custom_bread_hero_rp4Kkb": {
+      "type": "custom-bread-hero",
+      "name": "Custom Breadcrumbs Hero",
+      "settings": {
+        "bg_image": "shopify://shop_images/869a684c4c1d4d1ff360d7d40650739f.png",
+        "overlay_color": "#000000",
+        "overlay_opacity": 80,
+        "max_width": 1300,
+        "min_height": 250,
+        "show_breadcrumbs": true,
+        "breadcrumbs_color": "#c96e3d",
+        "breadcrumbs_active_color": "#ffffff",
+        "title": "{{ page.title }}",
+        "title_color": "#ffffff",
+        "description": "",
+        "description_color": "#ffffff",
+        "button_text": "",
+        "button_link": "/",
+        "button_bg_color": "#000000",
+        "button_text_color": "#ffffff",
+        "button_border_color": "#ffffff",
+        "button_shadow_color": "#2c2609",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "custom_our_story_3Kjcj4": {
+      "type": "custom-our-story",
+      "blocks": {
+        "heading_7RNqFy": {
+          "type": "heading",
+          "settings": {
+            "text": "Our Story",
+            "color": "#2a231e"
+          }
+        },
+        "text_63YQV6": {
+          "type": "text",
+          "settings": {
+            "text": "<p>As a mother of four, I struggled to find a skincare product that was both safe and effective for my family. Frustrated by long ingredient lists and harsh chemicals, I turned to my African roots for inspiration and discovered the power of simple, natural skincare.<br/><br/>Sankofa Tallow was born from that journey. Made with just five non-toxic ingredients, our body butter is crafted to nourish and protect skin naturally. We believe families shouldn't have to choose between quality, health, and care, so we created a product that delivers all three.</p>",
+            "color": "#121212"
+          }
+        },
+        "button_MBiHL8": {
+          "type": "button",
+          "settings": {
+            "button_text": "Shop Now",
+            "button_link": "shopify://collections/all",
+            "button_bg_color": "#c96e3d",
+            "button_text_color": "#ffffff",
+            "button_border_color": "#c96e3d",
+            "button_shadow_color": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "heading_7RNqFy",
+        "text_63YQV6",
+        "button_MBiHL8"
+      ],
+      "name": "Custom Our Story",
+      "settings": {
+        "layout_desktop": "image_left",
+        "max_width": 1300,
+        "bg_color": "#fff9f2",
+        "show_border_bottom": false,
+        "border_bottom_color": "#2c2609",
+        "image": "shopify://shop_images/Product_placement_in_skincare.jpg",
+        "image_aspect_ratio": "auto",
+        "image_border_radius": 8,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "custom_our_story_gTwTwh": {
+      "type": "custom-our-story",
+      "blocks": {
+        "heading_hPTzCj": {
+          "type": "heading",
+          "settings": {
+            "text": "WHY CHOOSE SANKOFA TALLOW?",
+            "color": "#2a231e"
+          }
+        },
+        "text_hz4abV": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Experience skincare inspired by generations of African wisdom and thoughtfully crafted for modern lifestyles. Our grass-fed tallow body butter is made with nutrient-rich, skin-loving ingredients that closely resemble your skin's natural oils, allowing them to absorb deeply and nourish from within. Every jar is handcrafted in small batches to deliver exceptional quality, purity, and performance.</p><p>Unlike traditional lotions that rely on water and synthetic fillers, Sankofa Tallow provides long-lasting hydration while helping restore your skin's natural moisture barrier. Free from parabens, sulfates, petroleum, and unnecessary chemicals, our simple yet effective formula leaves skin feeling softer, healthier, and beautifully nourished—making it a trusted choice for the entire family.</p>",
+            "color": "#2a231e"
+          }
+        }
+      },
+      "block_order": [
+        "heading_hPTzCj",
+        "text_hz4abV"
+      ],
+      "name": "Custom Our Story",
+      "settings": {
+        "layout_desktop": "image_right",
+        "max_width": 1300,
+        "bg_color": "#ffffff",
+        "show_border_bottom": false,
+        "border_bottom_color": "#2c2609",
+        "image": "shopify://shop_images/04.jpg",
+        "image_aspect_ratio": "auto",
+        "image_border_radius": 8,
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "custom_brand_values_Abybr8": {
+      "type": "custom-brand-values",
+      "blocks": {
+        "value_card_tPNrah": {
+          "type": "value_card",
+          "settings": {
+            "icon_class": "ri-leaf-line",
+            "icon_svg": "",
+            "title": "Clean, Nutrient-Rich Ingredients",
+            "description": "Made with grass-fed tallow and carefully selected natural ingredients—never diluted with unnecessary fillers or harsh chemicals."
+          }
+        },
+        "value_card_Efd4LJ": {
+          "type": "value_card",
+          "settings": {
+            "icon_class": "ri-award-line",
+            "icon_svg": "",
+            "title": "Handcrafted In Small Batches",
+            "description": "Every batch is produced in limited quantities to ensure freshness, consistency, and exceptional quality from start to finish."
+          }
+        },
+        "value_card_YzKQAt": {
+          "type": "value_card",
+          "settings": {
+            "icon_class": "ri-shield-check-line",
+            "icon_svg": "",
+            "title": "Skin Barrier Support",
+            "description": "Rich in vitamins A, D, E & K to help strengthen your skin's natural barrier while delivering lasting hydration."
+          }
+        },
+        "value_card_gwc6Hy": {
+          "type": "value_card",
+          "settings": {
+            "icon_class": "ri-heart-3-line",
+            "icon_svg": "",
+            "title": "Safe For The Whole Family",
+            "description": "Gentle enough for everyday use on all skin types, giving your family skincare you can truly trust."
+          }
+        }
+      },
+      "block_order": [
+        "value_card_tPNrah",
+        "value_card_Efd4LJ",
+        "value_card_YzKQAt",
+        "value_card_gwc6Hy"
+      ],
+      "name": "Custom Brand Values",
+      "settings": {
+        "max_width": 1300,
+        "bg_color": "#fff9f2",
+        "show_border_bottom": false,
+        "border_bottom_color": "#2c2609",
+        "tag_text": "WHY WE'RE DIFFERENT",
+        "tag_color": "#c96e3d",
+        "heading_text": "WHAT MAKES SANKOFA TALLOW DIFFERENT?",
+        "heading_color": "#2a231e",
+        "paragraph_text": "Not all skincare is created equal. While many products rely on water, fillers, and synthetic ingredients, Sankofa Tallow is handcrafted with nutrient-rich ingredients chosen to deeply nourish your skin. Every jar reflects our commitment to quality, simplicity, and results you can feel.",
+        "paragraph_color": "#2a231e",
+        "center_image": "shopify://shop_images/02.jpg",
+        "image_border_color": "#ffffff",
+        "card_title_color": "#2a231e",
+        "card_desc_color": "#2a231e",
+        "icon_bg_color": "#c96e3d",
+        "icon_text_color": "#ffffff",
+        "icon_border_color": "#2a231e",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "custom_reviews_kNjaUT": {
+      "type": "custom-reviews",
+      "blocks": {
+        "review_LN9hzb": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/01_4dacfe39-5bbd-4172-80f4-4ae10d05acbf.webp",
+            "show_tags": true,
+            "problem": "PROBLEM: Dry Hands & Rough Skin",
+            "review_text": "My hands were constantly dry and rough from daily washing. After using Sankofa Tallow every day, the dryness disappeared and my skin feels soft, nourished, and healthy. My hands finally look moisturized without feeling greasy.",
+            "name": "Jade",
+            "country_code": "us",
+            "country_flag": "🇺🇸",
+            "verified_text": "Verified Buyer"
+          }
+        },
+        "review_9Vj9ip": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/02_5b54dfa4-f7e9-42c0-8fff-8dda6957056e.webp",
+            "show_tags": true,
+            "problem": "PROBLEM: Dry Elbows",
+            "review_text": "My elbows always looked dry and darker than the rest of my skin. After using Sankofa Tallow consistently, they're noticeably softer, smoother, and much more even in tone.",
+            "name": "Olivia",
+            "country_code": "us",
+            "country_flag": "🇺🇸",
+            "verified_text": "Verified Buyer"
+          }
+        },
+        "review_Hwn6wB": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/04.webp",
+            "show_tags": true,
+            "problem": "PROBLEM: Dry Legs",
+            "review_text": "My legs used to feel dry after every shower. Sankofa Tallow keeps them moisturized all day, leaving my skin silky smooth, comfortable, and naturally radiant.",
+            "name": "Jessica T.",
+            "country_code": "us",
+            "country_flag": "🇺🇸",
+            "verified_text": "Verified Buyer"
+          }
+        }
+      },
+      "block_order": [
+        "review_LN9hzb",
+        "review_9Vj9ip",
+        "review_Hwn6wB"
+      ],
+      "name": "Customer Reviews Slider",
+      "settings": {
+        "bg_color": "#ffffff",
+        "text_color": "#000000",
+        "accent_color": "#c96e3d",
+        "card_bg": "#ffffff",
+        "card_border": "#2c2609",
+        "footer_bg": "#c96e3d",
+        "footer_text_color": "#FFFFFF",
+        "tag_bg": "#c96e3d",
+        "tag_text_color": "#ffffff",
+        "card_media_height": 300,
+        "problem_badge_bg": "#171717",
+        "problem_badge_text": "#ffffff",
+        "trust_badge_bg": "#ffffff",
+        "trust_badge_text_color": "#171717",
+        "trust_badge_border_color": "#171717",
+        "arrow_bg": "#ffffff",
+        "arrow_color": "#171717",
+        "arrow_hover_bg": "#c96e3d",
+        "arrow_hover_color": "#ffffff",
+        "trust_badge_image_1": "shopify://shop_images/03.webp",
+        "trust_badge_image_2": "shopify://shop_images/Sankofa_Tallow.webp",
+        "trust_badge_image_3": "shopify://shop_images/About_Sonkofa_Tallow_Batter.webp",
+        "trust_badge_count": "",
+        "trust_badge_text": "Trusted by Families",
+        "container_width": 1240,
+        "heading": "Made With Purpose • Not Mass Produced",
+        "heading_font_size": 45,
+        "heading_margin_bottom": 35,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_bread_hero_rp4Kkb",
+    "custom_our_story_3Kjcj4",
+    "custom_our_story_gTwTwh",
+    "custom_brand_values_Abybr8",
+    "custom_reviews_kNjaUT"
+  ]
+}
