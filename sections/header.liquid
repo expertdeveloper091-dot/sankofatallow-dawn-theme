@@ -1245,7 +1245,7 @@
             <div class="cart-item-info">
               <div class="cart-item-name">{{ item.product.title }}</div>
               {%- unless item.product.has_only_default_variant -%}
-                <div class="cart-item-variant">Scent: {{ item.variant.title }}</div>
+                <div class="cart-item-variant">Size: {{ item.variant.title }}</div>
               {%- endunless -%}
               <div class="cart-qty-row">
                 <button class="qty-btn" data-action="decrease" data-key="{{ item.key }}" data-qty="{{ item.quantity }}" aria-label="Decrease quantity">
@@ -1269,11 +1269,34 @@
     </div>
 
     <!-- Cross-sell -->
+    {%- assign cross_coll = collections[section.settings.cross_sell_collection] -%}
     {%- assign cross_product = all_products[section.settings.cross_sell_product] -%}
     <div class="cart-cross-sell" id="cart-cross-sell"
-      {% if cart.item_count == 0 or cross_product == blank %}style="display:none"{% endif %}>
+      {% if cart.item_count == 0 or (cross_coll == blank and cross_product == blank) %}style="display:none"{% endif %}>
       <div class="cross-sell-label">{{ section.settings.cross_sell_heading | default: "73% of people also got..." }}</div>
-      {%- if cross_product != blank -%}
+      {%- if cross_coll != blank and cross_coll.products_count > 0 -%}
+        <div class="cross-sell-list" style="display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px;">
+          {%- for p in cross_coll.products limit: 6 -%}
+            {%- assign p_variant = p.first_available_variant -%}
+            <div class="cross-sell-card" style="flex: 0 0 240px; min-width: 240px; background: #ffffff; border: 1.5px solid #111111; border-radius: 12px; padding: 10px; box-shadow: 0 3px 0 0 #111111; display: flex; align-items: center; gap: 10px;">
+              <div class="cross-sell-img" style="width: 50px; height: 50px; border-radius: 8px; overflow: hidden; flex-shrink: 0; border: 1px solid #111111;">
+                {%- if p.featured_image != blank -%}
+                  <img src="{{ p.featured_image | image_url: width: 100 }}" alt="{{ p.title | escape }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+                {%- else -%}
+                  <i class="fa-solid fa-shirt"></i>
+                {%- endif -%}
+              </div>
+              <div class="cross-sell-info" style="flex: 1; min-width: 0;">
+                <div class="cross-sell-name" style="font-weight: 800; font-size: 12px; color: #111111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ p.title }}</div>
+                <div class="cross-sell-price" style="font-weight: 700; font-size: 12px; color: #C1663D;">{{ p.price | money }}</div>
+              </div>
+              <button class="btn-cross-add" data-variant="{{ p_variant.id }}" style="height: 34px; padding: 0 12px; border-radius: 6px; background: #C1663D; color: #fff; border: 1.5px solid #111111; font-weight: 800; font-size: 11px; text-transform: uppercase; cursor: pointer; flex-shrink: 0; box-shadow: 0 2px 0 #111111;">
+                + Add
+              </button>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- elsif cross_product != blank -%}
         {%- assign cs_variant = cross_product.first_available_variant -%}
         <div class="cross-sell-card">
           <div class="cross-sell-img">
@@ -1292,7 +1315,7 @@
           </button>
         </div>
       {%- endif -%}
-    </div>
+    </div>  </div>
 
   </div><!-- /.cart-body -->
 
@@ -1410,6 +1433,7 @@
     el.setAttribute('aria-hidden', 'false');
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
     document.documentElement.classList.add('drawer-open');
   }
   function closeAll() {
@@ -1420,10 +1444,16 @@
     if (sidebarOpenBtn) sidebarOpenBtn.setAttribute('aria-expanded', 'false');
     overlay.classList.remove('active');
     document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
     document.documentElement.classList.remove('drawer-open');
   }
 
   overlay.addEventListener('click', closeAll);
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeAll();
+    }
+  });
 
   /* ── Sidebar ── */
   if (sidebarOpenBtn) sidebarOpenBtn.addEventListener('click', function() {
@@ -1629,7 +1659,7 @@
         ? '<img src="' + item.image + '" alt="' + item.product_title + '" loading="lazy">'
         : '<i class="fa-solid fa-shirt"></i>';
       var variantHtml = (item.variant_title && item.variant_title !== 'Default Title')
-        ? '<div class="cart-item-variant">Scent: ' + item.variant_title + '</div>'
+        ? '<div class="cart-item-variant">Size: ' + item.variant_title + '</div>'
         : '';
       div.innerHTML =
         '<div class="cart-item-img">' + imgHtml + '</div>' +
@@ -1767,9 +1797,15 @@
       "default": "73% of people also got..."
     },
     {
+      "type": "collection",
+      "id": "cross_sell_collection",
+      "label": "Cart Drawer - Cross-Sell Collection",
+      "info": "Select a collection to display upsell products under '73% of people also got...'"
+    },
+    {
       "type": "product",
       "id": "cross_sell_product",
-      "label": "Cart Drawer - Cross-Sell Product"
+      "label": "Cart Drawer - Cross-Sell Product (Fallback)"
     },
     {
       "type": "text",
