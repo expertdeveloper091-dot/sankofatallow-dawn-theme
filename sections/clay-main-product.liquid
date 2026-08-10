@@ -28,24 +28,16 @@
           </button>
         </div>
 
-        <!-- Horizontal Thumbnails Strip below Main Image (Matching Image) -->
+        <!-- Horizontal Thumbnails Strip below Main Image -->
         {% if product.images.size > 1 %}
-          <div class="clay-horizontal-thumbnails" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-            <button type="button" class="clay-thumb-scroll-btn" onclick="prevClayImage()" aria-label="Previous thumbnail" style="width:32px;height:32px;border-radius:50%;border:1.5px solid #111111;background:#ffffff;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 0 0 #111111;">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </button>
-
-            <div class="clay-thumbnails-strip-h" style="display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none;">
+          <div class="clay-horizontal-thumbnails" style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;">
+            <div class="clay-thumbnails-strip-h" style="display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; max-width: 100%; padding: 4px 0;">
               {% for image in product.images %}
-                <div class="clay-thumb-item {% if forloop.first %}active{% endif %}" onclick="changeClayMainImage(this, '{{ image | image_url: width: 1000 }}', {{ forloop.index }})" style="width:64px;height:64px;border-radius:10px;border:1.5px solid #111111;overflow:hidden;cursor:pointer;flex-shrink:0;box-shadow:0 2px 0 0 #111111;">
-                  <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}" loading="lazy" width="64" height="64" style="width:100%;height:100%;object-fit:cover;">
+                <div class="clay-thumb-item {% if forloop.first %}active{% endif %}" onclick="changeClayMainImage(this, '{{ image | image_url: width: 1000 }}', {{ forloop.index }})">
+                  <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}" loading="lazy" width="64" height="64">
                 </div>
               {% endfor %}
             </div>
-
-            <button type="button" class="clay-thumb-scroll-btn" onclick="nextClayImage()" aria-label="Next thumbnail" style="width:32px;height:32px;border-radius:50%;border:1.5px solid #111111;background:#ffffff;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 0 0 #111111;">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
           </div>
         {% endif %}
 
@@ -564,20 +556,21 @@
 }
 
 .clay-thumb-item {
-  width: 68px;
-  height: 68px;
-  border-radius: 12px;
-  border: 1.5px solid transparent;
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  border: 1.5px solid #e5e5e5;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.2s ease;
   flex-shrink: 0;
-  background: #f5f5f7;
+  transition: all 0.2s ease;
+  background: #ffffff;
 }
 
-.clay-thumb-item.active {
-  border-color: #111111;
-  background: #ffffff;
+.clay-thumb-item.active,
+.clay-thumb-item:hover {
+  border: 2px solid #111111;
+  box-shadow: 0 2px 0 0 #111111;
 }
 
 .clay-thumb-item img {
@@ -586,30 +579,11 @@
   object-fit: cover;
 }
 
-.clay-thumb-indicators {
-  display: flex;
-  gap: 12px;
-  margin-top: 4px;
-}
-
-.clay-thumb-indicators button {
-  background: none;
-  border: none;
-  font-size: 11px;
-  color: #666666;
-  cursor: pointer;
-  padding: 0 4px;
-}
-
-.clay-thumb-indicators button:hover {
-  color: #111111;
-}
-
 .clay-main-image-box {
   flex: 1;
-  border-radius: 16px;
-  border: 2px solid #111111;
-  box-shadow: 0 4px 0 0 #111111;
+  border-radius: 12px;
+  border: none !important;
+  box-shadow: none !important;
   overflow: hidden;
   background: #ffffff;
   position: relative;
