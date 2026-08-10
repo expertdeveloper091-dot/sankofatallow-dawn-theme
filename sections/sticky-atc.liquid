@@ -46,7 +46,7 @@
         #md-sticky-atc .product-content img {
             width: 52px;
             height: 52px;
-            border-radius: 12px;
+            border-radius: 8px !important;
             border: 2px solid #111111;
             box-shadow: 0 2px 0 #111111;
             object-fit: cover;
@@ -54,8 +54,7 @@
         }
         #md-sticky-atc .product-info-text {
             display: flex;
-            flex-direction: column;
-            gap: 2px;
+            align-items: center;
         }
         #md-sticky-atc .product__title {
             margin: 0;
@@ -65,18 +64,13 @@
             font-family: 'Poppins', sans-serif;
             line-height: 1.2;
         }
-        #md-sticky-atc .product-price-box {
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: #C1663D;
-        }
         #md-sticky-atc .product-form-wrapper {
             flex-shrink: 0;
         }
         #md-sticky-atc .form-controls-wrapper {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
         #md-sticky-atc .select-variant-wrapper {
             position: relative;
@@ -87,7 +81,7 @@
             -webkit-appearance: none;
             background: #ffffff;
             border: 2px solid #111111;
-            border-radius: 9999px;
+            border-radius: 8px !important;
             box-shadow: 0 3px 0 #111111;
             padding: 0 36px 0 16px;
             height: 48px;
@@ -109,35 +103,11 @@
             height: 6px;
             color: #111111;
         }
-        #md-sticky-atc .simple-quantity-wrapper {
-            flex-shrink: 0;
-        }
-        #md-sticky-atc .quantity__input_simple {
-            width: 52px;
-            height: 48px;
-            border: 2px solid #111111;
-            border-radius: 9999px;
-            box-shadow: 0 3px 0 #111111;
-            background: #ffffff;
-            text-align: center;
-            font-weight: 800;
-            font-size: 14px;
-            color: #111111;
-            outline: none;
-            font-family: 'Poppins', sans-serif;
-            appearance: textfield;
-            -moz-appearance: textfield;
-        }
-        #md-sticky-atc .quantity__input_simple::-webkit-outer-spin-button,
-        #md-sticky-atc .quantity__input_simple::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
 
-        /* CLAY ATC BUTTON EXACT MATCH */
+        /* CLAY ATC BUTTON EXACT MATCH WITH 8PX RADIUS */
         #md-sticky-atc .clay-sticky-atc-btn {
             height: 48px;
-            border-radius: 9999px;
+            border-radius: 8px !important;
             background: #C1663D !important;
             color: #ffffff !important;
             border: 2px solid #111111 !important;
@@ -191,7 +161,7 @@
             }
             #md-sticky-atc .form-controls-wrapper {
                 width: 100%;
-                gap: 6px;
+                gap: 8px;
             }
             #md-sticky-atc .select-variant-wrapper {
                 flex: 1;
@@ -202,10 +172,7 @@
                 font-size: 12.5px;
                 padding: 0 28px 0 12px;
                 line-height: 40px;
-            }
-            #md-sticky-atc .quantity__input_simple {
-                height: 44px;
-                width: 44px;
+                border-radius: 8px !important;
             }
             #md-sticky-atc .clay-sticky-atc-btn {
                 height: 44px;
@@ -213,6 +180,7 @@
                 padding: 0 16px;
                 min-width: unset;
                 flex: 1.2;
+                border-radius: 8px !important;
             }
         }
     </style>
@@ -363,9 +331,6 @@
                         <h3 class="product__title {{ section.settings.title_size }}">
                             {{ product.title }}
                         </h3>
-                        <div class="product-price-box" id="price-{{ section.id }}" role="status">
-                            {%- render 'price', product: product, use_variant: true, show_badges: false, price_class: '' -%}
-                        </div>
                     </div>
                 </div>
 
@@ -392,12 +357,6 @@
                             {% else %}
                                 <input type="hidden" name="id" value="{{ current_variant.id }}">
                             {% endunless %}
-
-                            {% if section.settings.show_quantity_input %}
-                                <div class="simple-quantity-wrapper">
-                                    <input class="quantity__input_simple" type="number" name="quantity" id="Quantity-{{ section.id }}" min="1" value="1" aria-label="Quantity">
-                                </div>
-                            {% endif %}
 
                             <button type="submit" name="add" class="clay-sticky-atc-btn" {% unless current_variant.available %}disabled{% endunless %}>
                                 <span>
@@ -473,12 +432,6 @@
             "id": "img_height",
             "default": "80",
             "label": "Image height (px)"
-        },
-        {
-            "type": "checkbox",
-            "id": "show_quantity_input",
-            "default": true,
-            "label": "Show quantity field"
         },
         {
             "type": "select",
