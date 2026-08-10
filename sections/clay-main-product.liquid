@@ -11,6 +11,16 @@
         <div class="clay-main-image-box">
           {% assign featured_img = product.featured_image | default: product.images.first %}
           <img id="ClayMainFeaturedImage" src="{{ featured_img | image_url: width: 1000 }}" alt="{{ featured_img.alt | escape }}" width="600" height="600">
+          
+          <!-- Prev / Next Slider Arrows (Only show if product has more than 1 image) -->
+          {% if product.images.size > 1 %}
+            <button type="button" class="clay-gallery-nav-btn prev" onclick="prevClayImage()" aria-label="Previous image">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button type="button" class="clay-gallery-nav-btn next" onclick="nextClayImage()" aria-label="Next image">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          {% endif %}
 
           <!-- Zoom / Fullscreen Button -->
           <button type="button" class="clay-zoom-btn" onclick="openClayImageModal()" aria-label="Zoom image">
@@ -20,14 +30,22 @@
 
         <!-- Horizontal Thumbnails Strip below Main Image -->
         {% if product.images.size > 1 %}
-          <div class="clay-horizontal-thumbnails" style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;">
-            <div class="clay-thumbnails-strip-h" style="display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; max-width: 100%; padding: 4px 0;">
+          <div class="clay-horizontal-thumbnails" style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px;">
+            <button type="button" class="clay-thumb-scroll-btn prev" onclick="scrollClayThumbnailsH(-1)" aria-label="Previous thumbnail">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+
+            <div class="clay-thumbnails-strip-h" id="ClayThumbnailsStripH">
               {% for image in product.images %}
                 <div class="clay-thumb-item {% if forloop.first %}active{% endif %}" onclick="changeClayMainImage(this, '{{ image | image_url: width: 1000 }}', {{ forloop.index }})">
                   <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}" loading="lazy" width="64" height="64">
                 </div>
               {% endfor %}
             </div>
+
+            <button type="button" class="clay-thumb-scroll-btn next" onclick="scrollClayThumbnailsH(1)" aria-label="Next thumbnail">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
           </div>
         {% endif %}
 
@@ -545,11 +563,53 @@
   display: none;
 }
 
+.clay-thumb-scroll-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid #111111;
+  background: #ffffff;
+  color: #111111;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 0 0 #111111;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.clay-thumb-scroll-btn:hover {
+  background: #f4f4f4;
+  transform: scale(1.05);
+}
+
+.clay-thumbnails-strip-h {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  max-width: 100%;
+  padding: 4px 0;
+  scroll-behavior: smooth;
+}
+
+.clay-thumbnails-strip-h::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .clay-thumbnails-strip-h {
+    max-width: calc(3 * 64px + 2 * 10px) !important;
+  }
+}
+
 .clay-thumb-item {
   width: 64px;
   height: 64px;
   border-radius: 8px;
-  border: 1.5px solid #e0e0e0;
+  border: 1.5px solid #e5e5e5;
   overflow: hidden;
   cursor: pointer;
   flex-shrink: 0;
@@ -560,7 +620,7 @@
 .clay-thumb-item.active,
 .clay-thumb-item:hover {
   border: 2px solid #111111;
-  box-shadow: none !important;
+  box-shadow: 0 2px 0 0 #111111;
 }
 
 .clay-thumb-item img {
@@ -569,16 +629,13 @@
   object-fit: cover;
 }
 
-.clay-gallery-wrapper,
-.clay-gallery-container,
 .clay-main-image-box {
   flex: 1;
   border-radius: 12px;
   border: none !important;
-  outline: none !important;
   box-shadow: none !important;
   overflow: hidden;
-  background: #ffffff;
+  background: transparent !important;
   position: relative;
   aspect-ratio: 1 / 1 !important;
   width: 100% !important;
@@ -591,9 +648,6 @@
 }
 
 #ClayMainFeaturedImage {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -1649,6 +1703,14 @@ function scrollClayThumbnails(direction) {
   if (strip) {
     var scrollAmt = direction === 'up' ? -90 : 90;
     strip.scrollBy({ top: scrollAmt, behavior: 'smooth' });
+  }
+}
+
+function scrollClayThumbnailsH(direction) {
+  var strip = document.getElementById('ClayThumbnailsStripH');
+  if (strip) {
+    var scrollAmt = direction * 160;
+    strip.scrollBy({ left: scrollAmt, behavior: 'smooth' });
   }
 }
 
