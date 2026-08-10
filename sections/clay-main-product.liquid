@@ -11,16 +11,6 @@
         <div class="clay-main-image-box">
           {% assign featured_img = product.featured_image | default: product.images.first %}
           <img id="ClayMainFeaturedImage" src="{{ featured_img | image_url: width: 1000 }}" alt="{{ featured_img.alt | escape }}" width="600" height="600">
-          
-          <!-- Prev / Next Slider Arrows (Only show if product has more than 1 image) -->
-          {% if product.images.size > 1 %}
-            <button type="button" class="clay-gallery-nav-btn prev" onclick="prevClayImage()" aria-label="Previous image">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </button>
-            <button type="button" class="clay-gallery-nav-btn next" onclick="nextClayImage()" aria-label="Next image">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
-          {% endif %}
 
           <!-- Zoom / Fullscreen Button -->
           <button type="button" class="clay-zoom-btn" onclick="openClayImageModal()" aria-label="Zoom image">
@@ -559,7 +549,7 @@
   width: 64px;
   height: 64px;
   border-radius: 8px;
-  border: 1.5px solid #e5e5e5;
+  border: 1.5px solid #e0e0e0;
   overflow: hidden;
   cursor: pointer;
   flex-shrink: 0;
@@ -570,7 +560,7 @@
 .clay-thumb-item.active,
 .clay-thumb-item:hover {
   border: 2px solid #111111;
-  box-shadow: 0 2px 0 0 #111111;
+  box-shadow: none !important;
 }
 
 .clay-thumb-item img {
@@ -579,10 +569,13 @@
   object-fit: cover;
 }
 
+.clay-gallery-wrapper,
+.clay-gallery-container,
 .clay-main-image-box {
   flex: 1;
   border-radius: 12px;
   border: none !important;
+  outline: none !important;
   box-shadow: none !important;
   overflow: hidden;
   background: #ffffff;
@@ -598,6 +591,9 @@
 }
 
 #ClayMainFeaturedImage {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
   width: 100%;
   height: 100%;
   object-fit: contain;
