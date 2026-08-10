@@ -78,6 +78,7 @@
         "empty_cart_btn_text": "Continue shopping",
         "show_login_link": true,
         "cross_sell_heading": "73% of people also got...",
+        "cross_sell_collection": "",
         "cross_sell_product": "ancient-wisdom-for-modern-skin",
         "checkout_btn_text": "Continue to Secure Checkout",
         "outer_bg_color": "#fff9f2",

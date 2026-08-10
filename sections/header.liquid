@@ -1245,7 +1245,8 @@
             <div class="cart-item-info">
               <div class="cart-item-name">{{ item.product.title }}</div>
               {%- unless item.product.has_only_default_variant -%}
-                <div class="cart-item-variant">Size: {{ item.variant.title }}</div>
+                {%- assign cleaned_title = item.variant.title | replace_first: 'Scent:', '' | replace_first: 'scent:', '' | strip -%}
+                <div class="cart-item-variant">Size: {{ cleaned_title }}</div>
               {%- endunless -%}
               <div class="cart-qty-row">
                 <button class="qty-btn" data-action="decrease" data-key="{{ item.key }}" data-qty="{{ item.quantity }}" aria-label="Decrease quantity">
