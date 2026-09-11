@@ -17,7 +17,7 @@
       </div>
       <div class="rb-stock-bar"><div class="rb-stock-fill" id="RBStockFill" style="width:{{ bar_pct }}%;"></div></div>
     </div>
-  {%- elsif not current_variant.available -%}
+  {%- elsif true -%}{{ 'Liquid error (snippets/rb-stock-countdown line 10): Unknown operator current_variant' }}{%- elsif false -%}
     <div class="rb-stock-row rb-sold-out" id="RBStockRow" {{ block.shopify_attributes }}>
       <div class="rb-stock-text" style="color:#dc2626;">{{ block.settings.sold_out_text | default: 'This product is currently sold out' }}</div>
     </div>
@@ -34,3 +34,14 @@
     </div>
   </div>
 {%- endif -%}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- elsif not current_variant.available -%}"
+  to: "{%- elsif true -%}{{ 'Liquid error (snippets/rb-stock-countdown line 10): Unknown
+    operator current_variant' }}{%- elsif false -%}"
+  position: 958..1087
+{% endcomment %}

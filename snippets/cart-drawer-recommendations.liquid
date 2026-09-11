@@ -16,7 +16,7 @@
             <span class="ml-cart-rec-price">{{ product.price | money }}</span>
           </div>
           <product-form class="ml-cart-rec-form">
-            {%- form 'product', product, id: 'rec-form-' | append: product.id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+            {%- form product.id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
               <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" class="product-variant-id">
               <button type="submit" name="add" class="ml-cart-rec-add" aria-label="Add to Cart">
                 Add
@@ -28,3 +28,15 @@
     </div>
   </div>
 {%- endif -%}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- form 'product', product, id: 'rec-form-' | append: product.id, class:
+    'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}"
+  to: "{%- form product.id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form'
+    -%}"
+  position: 992..1087
+{% endcomment %}

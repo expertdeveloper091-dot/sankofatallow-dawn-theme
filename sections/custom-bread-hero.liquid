@@ -171,7 +171,7 @@
                 {%- endif -%}
                 <span class="breadcrumbs__separator" aria-hidden="true">/</span>
                 <span>{{ product.title }}</span>
-              {%- when 'collection' and collection.handle -%}
+              {%- when 'collection' -%}
                 <span class="breadcrumbs__separator" aria-hidden="true">/</span>
                 {%- if current_tags -%}
                   {%- capture url -%}/collections/{{ collection.handle }}{%- endcapture -%}
@@ -399,3 +399,13 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- when 'collection' and collection.handle -%}"
+  to: "{%- when 'collection' -%}"
+  position: 6248..6273
+{% endcomment %}
